@@ -27,14 +27,13 @@ public class Test {
 		logger.setLevel(Level.FINEST);
 		try {
 
-			Logger rootLogger = Logger.getLogger("com.ansys");
-			rootLogger.setLevel(Level.FINEST);
-			rootLogger.setUseParentHandlers(false);
 
-			Logger rootRussLogger = Logger.getLogger("com.russ");
-			rootRussLogger.setLevel(Level.FINEST);
-			rootRussLogger.setUseParentHandlers(false);
 
+			
+			
+			
+			
+			
 
 			System.out.println(TimeUtil.getLocalDateTime("05/26/2019"));
 			
