@@ -1,0 +1,30 @@
+
+Host
+State 				Description
+arch 				The architecture string (usually contains the OS and optionally the ISA).
+num_proc 			The number of detected processing units.
+mem_total 			The total amount of installed memory.
+swap_total 			The total amount of installed swap space.
+virtual_total 		Total amount of virtual memory (memory + swap space).
+load_avg 			Same as load_medium.
+load_short 			Average load value in the last minute (time interval may differ on OS; source on Linux is /proc/loadavg).
+load_medium 		Average load value in the last 5 minutes (time interval may differ on OS; source on Linux is /proc/loadavg).
+load_long 			Average load value in the last 15 minutes (time interval may differ on OS; source on Linux is /proc/loadavg).
+mem_free 			The amount of unused memory.
+swap_free 			The amount of unused swap space.
+virtual_free 		The amount of unused virtual memory.
+mem_used 			The amount of occupied memory.
+swap_used 			The amount of occupied swap space.
+virtual_used 		The amount of occupied virtual memory.
+cpu 				Current amount of CPU usage.
+m_topology 			Execution host topology information (S means socket, C core, and T hardware supported thread).
+m_topology_inuse 	Execution host topology like above. Additionally occupied (via core binding) cores are displayed in lower case letters.
+m_socket 			The number of CPU sockets.
+m_core 				The total number of CPU cores.
+m_thread 			The total number of hardware supported threads.
+np_load_avg 		Medium average divided by number of processors (num_proc).
+np_load_short 		Short load average divided by the number of processors (num_proc).
+np_load_medium 		Medium load average divided by the number of processors (num_proc).
+np_load_long 		Long load average divided by the number of processors (num_proc).
+display_win_gui 	On Windows (win-x86) only, this value denotes if the execution host is able to display the GUI of a job on the currently visible desktop.
+
