@@ -36,10 +36,6 @@ public class SSH_Execute {
 
 	}
 	
-	public SSH_Execute() {
-		
-	}
-	
 	public void closeSession() {
 		
 		session.disconnect();
