@@ -16,4 +16,13 @@ public class TestNetwork {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+	public static void main(String[] args) {
+		
+		
+		Connector connector = new Connector();
+		
+		
+	}
+	
 }
