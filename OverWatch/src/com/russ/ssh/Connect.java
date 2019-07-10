@@ -12,7 +12,6 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.UserInfo;
-import com.russ.sge.gui.MyUserInfo;
 
 
 
@@ -50,8 +49,8 @@ public class Connect {
 
 		Session session = jsch.getSession(user, this.host, 22);
 		
-		ui = new MyUserInfo();
-		session.setUserInfo(ui);
+		//ui = new MyUserInfo();
+		//session.setUserInfo(ui);
 		
 		logger.finer("Creating initial connection to " + this.host);
 		session.connect();		

@@ -59,8 +59,7 @@ public class Main {
 
 		String token = "\\.";
 
-		// propsFilePath =
-		// "C:\\Users\\rmartine\\git\\localMonitor\\monitor\\res\\etc\\settings.properties";
+		propsFilePath ="res/etc/settings.properties";
 
 		try {
 			logger.info("****Started****");

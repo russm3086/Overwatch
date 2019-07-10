@@ -9,10 +9,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,6 +48,54 @@ public class Connector {
 	}
 
 
+		
+	public Payload executeCmd(String command, String contentType)
+			throws IOException, InterruptedException, JDOMException {
+			
+			String[] arrCommand = command.split(" ");
+			return createPayload(executeCmd(arrCommand), contentType);
+		}
+	
+	public String executeCmd(String... command) throws IOException, InterruptedException {
+		logger.fine("Executing: " + command);
+
+		ProcessBuilder builder = new ProcessBuilder();
+		builder.redirectErrorStream(true);
+		builder.command(command);
+		builder.directory(new File(System.getProperty("user.home")));
+
+		Process process = builder.start();
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+		StringBuilder sb = new StringBuilder();
+
+		Iterator<String> it = reader.lines().iterator();
+
+		while (it.hasNext()) {
+			
+			sb.append(it.next());
+		}
+		
+		process.waitFor();
+		
+		if(process.exitValue()!=0) {
+			
+			StringBuilder sbCmd = new StringBuilder();
+			
+			for (String cmd : command) {
+				
+				sbCmd.append(cmd + " ");
+				
+			}
+			
+			throw new IOException("Error executing " + sbCmd +  sb);
+		}
+		
+		return sb.toString();
+	}
+
+	
 	public Payload getFile(String filePath) throws IOException, URISyntaxException, JDOMException {
 		logger.entering(sourceClass, "getFile", filePath);
 		
