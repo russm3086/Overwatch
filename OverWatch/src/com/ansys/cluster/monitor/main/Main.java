@@ -55,7 +55,7 @@ public class Main {
 
 		propComments = SGE_DataConst.app_name + " v. " + SGE_DataConst.app_version;
 
-		propsFilePath = SystemSettings.getUserHome() + "/" + ClusterMonitorConst.DefaultPropertiesPath;
+		//propsFilePath = SystemSettings.getUserHome() + "/" + ClusterMonitorConst.DefaultPropertiesPath;
 
 		String token = "\\.";
 
