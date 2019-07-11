@@ -255,7 +255,7 @@ public class Connector {
 
 			if (logger.isLoggable(Level.FINER)) {
 				String strFile = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".xml";
-				Exporter.writeToFile(strFile, (org.w3c.dom.Document) doc);
+				Exporter.writeToFile(strFile,doc);
 			}
 			payload = new Payload(doc);
 			break;

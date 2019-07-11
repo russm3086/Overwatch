@@ -52,7 +52,7 @@ public class ClusterTreeListener implements TreeModelListener {
 
 		alertMonitor.scanMyJobs(tree);
 
-		alertMonitor.saveAlerts();
+		//alertMonitor.saveAlerts();
 
 	}
 

@@ -190,6 +190,8 @@ public class XMLParser extends ParserAbstract {
 
 		logger.finer("Create detailed Job Properties Object");
 		HashMap<Integer, NodeProp> hashMapProp = createDetailedJobsProp(djobInfoElm, mainProp);
+		
+		logger.info("Parsed " + hashMapProp.size() + " detailed jobs");
 
 		logger.finer("Retrieving " + SGE_DataConst.msg);
 		Element messageElm = root.getChild(SGE_DataConst.msg);

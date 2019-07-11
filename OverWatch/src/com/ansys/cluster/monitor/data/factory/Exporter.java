@@ -4,6 +4,7 @@
 package com.ansys.cluster.monitor.data.factory;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
@@ -13,20 +14,15 @@ import java.util.SortedMap;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import org.jdom2.JDOMException;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 import org.json.JSONException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.jdom2.Document;
+import org.jdom2.Element;
 
 import com.ansys.cluster.monitor.data.AnsQueue;
 import com.ansys.cluster.monitor.data.Cluster;
@@ -92,59 +88,58 @@ public class Exporter {
 
 	public Document createCLusterXML(Cluster cluster) throws ParserConfigurationException {
 
-		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-		Document doc = docBuilder.newDocument();
+		Document doc = new Document();
 
 		// root element
-		Element rootElement = doc.createElement("Clusters");
-		doc.appendChild(rootElement);
+		doc.setRootElement(new Element("Clusters"));
+
+		Element rootElement = doc.getRootElement();
 
 		// Time Stamp Element
-		rootElement.appendChild(timeStamp(doc));
+		rootElement.addContent(timeStamp());
 
 		// Queues Element
-		rootElement.appendChild(createQueuesElm(doc, cluster));
+		rootElement.addContent(createQueuesElm(cluster));
 
 		return doc;
 	}
 
-	public Element timeStamp(Document doc) {
+	public Element timeStamp() {
 
 		LocalDateTime currentDateTime = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 		String formattedDateTime = currentDateTime.format(formatter);
 
-		Element dateStampElement = doc.createElement("TimeStamp");
-		dateStampElement.setTextContent(formattedDateTime);
+		Element dateStampElement = new Element("TimeStamp");
+		dateStampElement.addContent(formattedDateTime);
 
 		return dateStampElement;
 	}
 
-	public Element createQueuesElm(Document doc, Cluster cluster) {
+	public Element createQueuesElm(Cluster cluster) {
 
 		AnsQueue masterQueue = cluster.getMasterQueue().get(SGE_DataConst.mqEntryQueues);
 
-		Element queuesElem = doc.createElement("Queues");
+		Element queuesElem = new Element("Queues");
 
 		SortedMap<String, ClusterNodeAbstract> queues = masterQueue.getNodes();
 
 		for (Entry<String, ClusterNodeAbstract> queue : queues.entrySet()) {
 			logger.finer("Creating Queue branch " + queue.getValue());
 
-			Element queueElem = doc.createElement("Queue");
+			Element queueElem = new Element("Queue");
 			queueElem.setAttribute("name", queue.getKey());
 			AnsQueue subQueue = (AnsQueue) queue.getValue();
 
-			// Element hostsElem = doc.createElement("Hosts");
+			// Element hostsElem = new Element("Hosts");
 
 			SortedMap<String, ClusterNodeAbstract> hosts = subQueue.getHosts();
 
-			Element hostsElem = createHostsElem(doc, hosts);
+			Element hostsElem = createHostsElem(hosts);
 
-			queueElem.appendChild(hostsElem);
+			queueElem.addContent(hostsElem);
 
-			queuesElem.appendChild(queueElem);
+			queuesElem.addContent(queueElem);
 
 		}
 
@@ -152,142 +147,136 @@ public class Exporter {
 
 	}
 
-	public Element createQueueElm(Document doc, AnsQueue queue) {
+	public Element createQueueElm(AnsQueue queue) {
 
 		logger.finer("Creating Queue branch " + queue.getName());
 
-		Element queueElem = doc.createElement("Queue");
+		Element queueElem = new Element("Queue");
 		queueElem.setAttribute("name", queue.getName());
 
 		SortedMap<String, ClusterNodeAbstract> hosts = queue.getHosts();
 
-		queueElem.appendChild(createHostsElem(doc, hosts));
+		queueElem.addContent(createHostsElem(hosts));
 
 		return queueElem;
 	}
 
-	public Element createHostsElem(Document doc, SortedMap<String, ClusterNodeAbstract> hosts) {
+	public Element createHostsElem(SortedMap<String, ClusterNodeAbstract> hosts) {
 
-		Element hostsElem = doc.createElement("Hosts");
+		Element hostsElem = new Element("Hosts");
 		for (Entry<String, ClusterNodeAbstract> hostEntry : hosts.entrySet()) {
 
 			Host host = (Host) hostEntry.getValue();
-			Element hostElem = createHostElem(doc, host);
-			hostsElem.appendChild(hostElem);
+			Element hostElem = createHostElem(host);
+			hostsElem.addContent(hostElem);
 
 		}
 
 		return hostsElem;
 	}
 
-	public Element createHostElem(Document doc, Host host) {
-		Element hostElem = doc.createElement("Host");
+	public Element createHostElem(Host host) {
+		Element hostElem = new Element("Host");
 		hostElem.setAttribute("name", host.getName());
 
-		Element hostExclusiveElem = doc.createElement("Exclusive");
-		hostExclusiveElem.setTextContent(String.valueOf(host.isExclusive()));
-		hostElem.appendChild(hostExclusiveElem);
+		Element hostExclusiveElem = new Element("Exclusive");
+		hostExclusiveElem.setText(String.valueOf(host.isExclusive()));
+		hostElem.addContent(hostExclusiveElem);
 
-		Element hostStateCodeElem = doc.createElement("State");
-		hostStateCodeElem.setTextContent(host.getStateCode());
-		hostElem.appendChild(hostStateCodeElem);
+		Element hostStateCodeElem = new Element("State");
+		hostStateCodeElem.setText(host.getStateCode());
+		hostElem.addContent(hostStateCodeElem);
 
-		Element slotsElm = doc.createElement("Slots");
-		Element resElem = doc.createElement("Reserved");
-		resElem.setTextContent(String.valueOf(host.getSlotReserved()));
-		slotsElm.appendChild(resElem);
+		Element slotsElm = new Element("Slots");
+		Element resElem = new Element("Reserved");
+		resElem.setText(String.valueOf(host.getSlotReserved()));
+		slotsElm.addContent(resElem);
 
-		Element usedElem = doc.createElement("Used");
-		usedElem.setTextContent(String.valueOf(host.getSlotUsed()));
-		slotsElm.appendChild(usedElem);
+		Element usedElem = new Element("Used");
+		usedElem.setText(String.valueOf(host.getSlotUsed()));
+		slotsElm.addContent(usedElem);
 
-		Element totalElem = doc.createElement("Total");
-		totalElem.setTextContent(String.valueOf(host.getSlotTotal()));
-		slotsElm.appendChild(totalElem);
+		Element totalElem = new Element("Total");
+		totalElem.setText(String.valueOf(host.getSlotTotal()));
+		slotsElm.addContent(totalElem);
 
-		hostElem.appendChild(slotsElm);
+		hostElem.addContent(slotsElm);
 
-		Element memoryElem = doc.createElement("Memory");
-		Element memTotalElem = doc.createElement("Total");
-		memTotalElem.setTextContent(String.valueOf(host.getMemTotal()));
-		memoryElem.appendChild(memTotalElem);
+		Element memoryElem = new Element("Memory");
+		Element memTotalElem = new Element("Total");
+		memTotalElem.setText(String.valueOf(host.getMemTotal()));
+		memoryElem.addContent(memTotalElem);
 
-		Element memUsedElem = doc.createElement("Used");
-		memUsedElem.setTextContent(String.valueOf(host.getMemUsedNum()));
-		memoryElem.appendChild(memUsedElem);
+		Element memUsedElem = new Element("Used");
+		memUsedElem.setText(String.valueOf(host.getMemUsedNum()));
+		memoryElem.addContent(memUsedElem);
 
-		hostElem.appendChild(memoryElem);
+		hostElem.addContent(memoryElem);
 
-		hostElem.appendChild(createJobsElement(doc, host));
+		hostElem.addContent(createJobsElement(host));
 
 		return hostElem;
 
 	}
 
-	public Element createJobsElement(Document doc, Host host) {
+	public Element createJobsElement(Host host) {
 
 		ArrayList<Job> lstJobs = host.getListJob();
 
-		Element jobsElem = doc.createElement("Jobs");
+		Element jobsElem = new Element("Jobs");
 
 		for (Job job : lstJobs) {
 
-			jobsElem.appendChild(createJobElement(doc, job));
+			jobsElem.addContent(createJobElement(job));
 
 		}
 
 		return jobsElem;
 	}
 
-	public Element createJobElement(Document doc, Job job) {
+	public Element createJobElement(Job job) {
 
-		Element jobElem = doc.createElement("Job");
+		Element jobElem = new Element("Job");
 		jobElem.setAttribute("job_id", job.getIdentifier());
 
-		Element jobNameElem = doc.createElement("Name");
-		jobNameElem.setTextContent(job.getName());
+		Element jobNameElem = new Element("Name");
+		jobNameElem.setText(job.getName());
 
-		Element jobOwnerElem = doc.createElement("owner");
-		jobOwnerElem.setTextContent(job.getOwner());
-		jobElem.appendChild(jobOwnerElem);
+		Element jobOwnerElem = new Element("owner");
+		jobOwnerElem.setText(job.getOwner());
+		jobElem.addContent(jobOwnerElem);
 
-		Element jobSlotsElem = doc.createElement("slots");
-		jobSlotsElem.setTextContent(String.valueOf(job.getSlots()));
-		jobElem.appendChild(jobSlotsElem);
+		Element jobSlotsElem = new Element("slots");
+		jobSlotsElem.setText(String.valueOf(job.getSlots()));
+		jobElem.addContent(jobSlotsElem);
 
-		Element jobStateElem = doc.createElement("state");
-		jobStateElem.setTextContent(job.getJobState());
-		jobElem.appendChild(jobStateElem);
+		Element jobStateElem = new Element("state");
+		jobStateElem.setText(job.getJobState());
+		jobElem.addContent(jobStateElem);
 
-		Element jobExclusiveElem = doc.createElement("Exclusive");
-		jobExclusiveElem.setTextContent(String.valueOf(job.isExclusive()));
-		jobElem.appendChild(jobExclusiveElem);
+		Element jobExclusiveElem = new Element("Exclusive");
+		jobExclusiveElem.setText(String.valueOf(job.isExclusive()));
+		jobElem.addContent(jobExclusiveElem);
 
-		Element jobTargetQueueElem = doc.createElement("Target_Queue");
-		jobTargetQueueElem.setTextContent(job.getTargetQueue());
-		jobElem.appendChild(jobTargetQueueElem);
+		Element jobTargetQueueElem = new Element("Target_Queue");
+		jobTargetQueueElem.setText(job.getTargetQueue());
+		jobElem.addContent(jobTargetQueueElem);
 
 		return jobElem;
 
 	}
 
-	public static void writeToFile(String strFile, Document doc) throws TransformerException {
+	public static void writeToFile(String strFile, Document doc) throws  IOException {
 
 		writeToFile(new File(strFile), doc);
 	}
 
-	public static void writeToFile(File file, Document doc) throws TransformerException {
+	public static void writeToFile(File file, Document doc) throws IOException {
 
-		DOMSource source = new DOMSource(doc);
-		StreamResult result = new StreamResult(file);
+		XMLOutputter xmlOutput = new XMLOutputter();
 
-		TransformerFactory transformerFactory = TransformerFactory.newInstance();
-		Transformer transformer = transformerFactory.newTransformer();
-
-		// Beautify the format of the resulted XML
-		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-		transformer.transform(source, result);
+		xmlOutput.setFormat(Format.getPrettyFormat());
+		xmlOutput.output(doc, new FileWriter(file));
 
 	}
 
