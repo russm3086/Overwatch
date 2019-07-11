@@ -70,7 +70,7 @@ public class ClusterMonitorThread {
 			// TODO Display to GUI
 			try {
 
-				Connector conn = new Connector();
+				Connector conn = new Connector(mainProps);
 				DataCollector dc = new DataCollector(mainProps, conn);
 				logger.info("Connecting to cluster " + mainProps.getClusterName(index));
 				Console.setStatusLabel("Connecting to cluster " + mainProps.getClusterName(index));

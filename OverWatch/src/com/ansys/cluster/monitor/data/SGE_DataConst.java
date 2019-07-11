@@ -234,5 +234,11 @@ public final class SGE_DataConst {
 	public final static String clusterTypeQueue = "QUEUE";
 	public final static String clusterTypeHost = "HOST";
 	public final static String clusterTypeJob = "JOB";
+	
+	public final static String connTypeHttp = "HTTP";
+	public final static String connTypeFile = "FILE";
+	public final static String connTypeCMD = "CMD";
+	
+	
 
 }

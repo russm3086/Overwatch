@@ -43,7 +43,7 @@ public class SGE_MonitorProp extends AbstractProp {
 		setLogFileHandlerFormatter("java.util.logging.SimpleFormatter");
 		setLogFileHandlerAppend(true);
 		setLogFileHandlerLevel("FINEST");
-		
+
 		setLogConsoleHandlerLevel("FINEST");
 
 		setLogAnsysLevel("INFO");
@@ -154,21 +154,21 @@ public class SGE_MonitorProp extends AbstractProp {
 
 	public String getClusterConnectionDetailedJobsUrl(int item) {
 		return getLogProperty(
-				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionDetailedJobsURLSuffix);
+				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionDetailedJobsUrlSuffix);
 	}
 
 	public void setClusterConnectionDetailedJobsUrl(int item, String detailedJobsUrl) {
-		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionDetailedJobsURLSuffix,
+		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionDetailedJobsUrlSuffix,
 				detailedJobsUrl);
 	}
 
 	public String getClusterConnectionSummaryJobsUrl(int item) {
 		return getLogProperty(
-				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionSummaryJobsURLSuffix);
+				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionSummaryJobsUrlSuffix);
 	}
 
 	public void setClusterConnectionSummaryJobsUrl(int item, String sumJobsUrl) {
-		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionSummaryJobsURLSuffix,
+		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionSummaryJobsUrlSuffix,
 				sumJobsUrl);
 	}
 
@@ -179,6 +179,35 @@ public class SGE_MonitorProp extends AbstractProp {
 	public void setClusterConnectionHostUrl(int item, String hostUrl) {
 		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionHostUrlSuffix,
 				hostUrl);
+	}
+
+	public String getClusterConnectionHostCmd(int item) {
+		return getLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionHostCmdSuffix);
+	}
+
+	public void setClusterConnectionHostCmd(int item, String hostCmd) {
+		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionHostCmdSuffix,
+				hostCmd);
+	}
+
+	public String getClusterConnectionSummaryJobsCmd(int item) {
+		return getLogProperty(
+				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionSummaryJobsCmdSuffix);
+	}
+
+	public void setClusterConnectionSummaryJobsCmd(int item, String sumJobsCmd) {
+		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionSummaryJobsCmdSuffix,
+				sumJobsCmd);
+	}
+
+	public String getClusterConnectionDetailedJobsCmd(int item) {
+		return getLogProperty(
+				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionDetailedJobsCmdSuffix);
+	}
+
+	public void setClusterConnectionDetailedJobsCmd(int item, String detailedJobsCmd) {
+		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionDetailedJobsCmdSuffix,
+				detailedJobsCmd);
 	}
 
 	public String getClusterType(int item) {

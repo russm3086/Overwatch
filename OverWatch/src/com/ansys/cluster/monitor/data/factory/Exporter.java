@@ -48,6 +48,7 @@ public class Exporter {
 	private static Logger logger = Logger.getLogger(sourceClass);
 	private SGE_MonitorProp mainProps;
 	private String strFile;
+
 	/**
 	 * @return the strFile
 	 */
@@ -71,15 +72,16 @@ public class Exporter {
 		this.strFile = strFile;
 	}
 
-	public void Export() throws JSONException, IOException, URISyntaxException,
-			JDOMException, ParserConfigurationException, TransformerException {
-		Connector conn = new Connector();
+	public void Export() throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException,
+			TransformerException, ParserConfigurationException {
+
+		Connector conn = new Connector(mainProps);
 		DataCollector dc = new DataCollector(mainProps, conn);
 		int index = mainProps.getClusterIndex();
 
 		logger.info("Creating cluster object");
 		Cluster cluster = ClusterFactory.createCluster(dc, mainProps.getClusterName(index), index, mainProps);
-		
+
 		logger.info("Creating XML");
 		Document clusterDoc = createCLusterXML(cluster);
 
@@ -101,7 +103,7 @@ public class Exporter {
 		// Time Stamp Element
 		rootElement.appendChild(timeStamp(doc));
 
-		//Queues Element
+		// Queues Element
 		rootElement.appendChild(createQueuesElm(doc, cluster));
 
 		return doc;
@@ -126,7 +128,7 @@ public class Exporter {
 		Element queuesElem = doc.createElement("Queues");
 
 		SortedMap<String, ClusterNodeAbstract> queues = masterQueue.getNodes();
-		
+
 		for (Entry<String, ClusterNodeAbstract> queue : queues.entrySet()) {
 			logger.finer("Creating Queue branch " + queue.getValue());
 
@@ -134,12 +136,12 @@ public class Exporter {
 			queueElem.setAttribute("name", queue.getKey());
 			AnsQueue subQueue = (AnsQueue) queue.getValue();
 
-			//Element hostsElem = doc.createElement("Hosts");
+			// Element hostsElem = doc.createElement("Hosts");
 
 			SortedMap<String, ClusterNodeAbstract> hosts = subQueue.getHosts();
-			
-			Element hostsElem = createHostsElem(doc,  hosts);
-			
+
+			Element hostsElem = createHostsElem(doc, hosts);
+
 			queueElem.appendChild(hostsElem);
 
 			queuesElem.appendChild(queueElem);
@@ -202,10 +204,9 @@ public class Exporter {
 		Element totalElem = doc.createElement("Total");
 		totalElem.setTextContent(String.valueOf(host.getSlotTotal()));
 		slotsElm.appendChild(totalElem);
-		
+
 		hostElem.appendChild(slotsElm);
 
-		
 		Element memoryElem = doc.createElement("Memory");
 		Element memTotalElem = doc.createElement("Total");
 		memTotalElem.setTextContent(String.valueOf(host.getMemTotal()));
@@ -214,10 +215,9 @@ public class Exporter {
 		Element memUsedElem = doc.createElement("Used");
 		memUsedElem.setTextContent(String.valueOf(host.getMemUsedNum()));
 		memoryElem.appendChild(memUsedElem);
-		
+
 		hostElem.appendChild(memoryElem);
 
-		
 		hostElem.appendChild(createJobsElement(doc, host));
 
 		return hostElem;

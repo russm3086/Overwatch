@@ -96,9 +96,15 @@ public final class SGE_MonitorPropConst {
 
 	public static final String connectionHostUrlSuffix = ".connection.hosts.URL";
 
-	public static final String connectionSummaryJobsURLSuffix = ".connection.summaryJobs.URL";
+	public static final String connectionSummaryJobsUrlSuffix = ".connection.summaryJobs.URL";
 
-	public static final String connectionDetailedJobsURLSuffix = ".connection.detailedJobs.URL";
+	public static final String connectionDetailedJobsUrlSuffix = ".connection.detailedJobs.URL";
+
+	public static final String connectionHostCmdSuffix = ".connection.hosts.CMD";
+
+	public static final String connectionSummaryJobsCmdSuffix = ".connection.summaryJobs.CMD";
+
+	public static final String connectionDetailedJobsCmdSuffix = ".connection.detailedJobs.CMD";
 
 	public static final String jobIdleThreshold = "com.ansys.monitor.job.idle.threshold";
 

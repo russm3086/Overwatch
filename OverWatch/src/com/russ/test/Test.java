@@ -63,9 +63,11 @@ public class Test {
 		
 		Execute execute = new Execute();
 		
-		String output = execute.execute(ugeJobsDetailCommand);
+		String command = "qstat -j '*' -xml";
+		String output = execute.execute(command);
 		Document doc = convertStringToXML(output);
 		
+		System.out.println("Command: " + command);
 		System.out.println(doc);
 		
 		
@@ -83,7 +85,7 @@ public class Test {
 		
 		Document doc = builder.build(bais);
 
-		logger.finest("Objects " + doc.getContentSize());
+		logger.info("Objects " + doc.getContentSize());
 		
 		logger.exiting(xmlString, "convertStringToXML");
 		

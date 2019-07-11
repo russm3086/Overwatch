@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
@@ -30,17 +31,21 @@ public class Execute {
 	}
 	
 	public String execute(String command) throws IOException, InterruptedException {
+		ArrayList<String> list = new ArrayList<String>();
 		
-		String[] arrCommand = command.split(" ");
-		return execute(arrCommand);
+		list.add("/bin/sh");
+		list.add("-c");
+		list.add(command);
+		
+		return execute(list.toArray(new String[0]));
 		
 	}
 
-	public String execute(String... command) throws IOException, InterruptedException {
-		logger.fine("Executing: " + command);
+	public String execute(String[] command) throws IOException, InterruptedException {
 
 		ProcessBuilder builder = new ProcessBuilder();
 		builder.redirectErrorStream(true);
+		
 		builder.command(command);
 		builder.directory(new File(System.getProperty("user.home")));
 
@@ -69,7 +74,7 @@ public class Execute {
 				
 			}
 			
-			throw new IOException("Error executing " + sbCmd +  sb);
+			throw new IOException("Error executing " + sbCmd + " details: "+ sb);
 		}
 		
 		return sb.toString();

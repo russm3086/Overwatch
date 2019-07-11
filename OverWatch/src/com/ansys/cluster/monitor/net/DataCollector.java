@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import org.jdom2.JDOMException;
 import org.json.JSONException;
 
+import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 
 /**
@@ -49,40 +50,38 @@ public class DataCollector {
 		this.connector = connector;
 	}
 
-	private Payload connectors(String strUrl) throws JSONException, IOException, URISyntaxException, JDOMException {
+	private Payload connectors(String strUrl)
+			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException {
 		logger.finer("Connecting to " + strUrl);
-		if ((strUrl.startsWith("http://")) || (strUrl.startsWith("https://"))) {
-			return connector.connect(strUrl, mainProps);
-
-		} else {
-
-			return connector.getFile(strUrl);
-		}
+		return connector.getPayload(strUrl);
 	}
 
-	public Payload getHostsData(int item) throws JSONException, IOException, URISyntaxException, JDOMException {
+	public Payload getHostsData(int item)
+			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException {
+
+		if (mainProps.getClusterConnectionRequestMethod().equalsIgnoreCase(SGE_DataConst.connTypeCMD)) {
+
+			return connectors(mainProps.getClusterConnectionHostCmd(item));
+		}
 		return connectors(mainProps.getClusterConnectionHostUrl(item));
 	}
 
-	public Payload getJobsData(int item) throws JSONException, IOException, URISyntaxException, JDOMException {
+	public Payload getJobsData(int item)
+			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException {
+		if (mainProps.getClusterConnectionRequestMethod().equalsIgnoreCase(SGE_DataConst.connTypeCMD)) {
 
+			return connectors(mainProps.getClusterConnectionSummaryJobsCmd(item));
+		}
 		return connectors(mainProps.getClusterConnectionSummaryJobsUrl(item));
 	}
 
-	public Payload getDetailedJobsData(int item) throws JSONException, IOException, URISyntaxException, JDOMException {
+	public Payload getDetailedJobsData(int item)
+			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException {
+		if (mainProps.getClusterConnectionRequestMethod().equalsIgnoreCase(SGE_DataConst.connTypeCMD)) {
 
+			return connectors(mainProps.getClusterConnectionDetailedJobsCmd(item));
+		}
 		return connectors(mainProps.getClusterConnectionDetailedJobsUrl(item));
-	}
-
-	public Payload getJobsData(String jobNumber) throws JSONException, IOException, URISyntaxException, JDOMException {
-
-		return connectors(SGE_ConnectConst.jobs + "/" + jobNumber);
-	}
-
-	public Payload getQueuesData(String queueName)
-			throws JSONException, IOException, URISyntaxException, JDOMException {
-
-		return connectors(SGE_ConnectConst.queues + "/" + queueName);
 	}
 
 	public SGE_MonitorProp getMainProps() {

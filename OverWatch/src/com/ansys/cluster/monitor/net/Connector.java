@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.net.http.HttpConnection;
 import com.ansys.cluster.monitor.net.http.HttpResponse;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
@@ -39,28 +40,59 @@ import org.jdom2.input.SAXBuilder;
 public class Connector {
 	private String sourceClass = this.getClass().getName();
 	private Logger logger = Logger.getLogger(sourceClass);
+	private SGE_MonitorProp mainProps;
 
 	/**
 	 * 
 	 */
-	public Connector() {
+	public Connector(SGE_MonitorProp mainProps) {
 		// TODO Auto-generated constructor stub
+
+		this.mainProps = mainProps;
+
 	}
 
+	public Payload getPayload(String strUrl)
+			throws IOException, URISyntaxException, JDOMException, InterruptedException {
+		String strConnMethod = mainProps.getClusterConnectionRequestMethod().toUpperCase();
+		Payload payLoad = null;
 
-		
+		switch (strConnMethod) {
+
+		case SGE_DataConst.connTypeHttp:
+			payLoad = connect(strUrl);
+			break;
+
+		case SGE_DataConst.connTypeFile:
+			payLoad = getFile(strUrl);
+			break;
+
+		case SGE_DataConst.connTypeCMD:
+			payLoad = executeCmd(strUrl, "xml");
+			break;
+
+		default:
+			throw new URISyntaxException("Undefined data retrieval method ", strConnMethod);
+
+		}
+
+		return payLoad;
+	}
+
 	public Payload executeCmd(String command, String contentType)
 			throws IOException, InterruptedException, JDOMException {
-			
-			String[] arrCommand = command.split(" ");
-			return createPayload(executeCmd(arrCommand), contentType);
-		}
-	
-	public String executeCmd(String... command) throws IOException, InterruptedException {
+		logger.entering(contentType, "executeCmd");
+		
 		logger.fine("Executing: " + command);
+		String[] arrCommand = command.split(" ");
+		return createPayload(executeCmd(arrCommand), contentType);
+	}
+
+	public String executeCmd(String... command) throws IOException, InterruptedException {
+		logger.entering(sourceClass, "executeCmd");
 
 		ProcessBuilder builder = new ProcessBuilder();
-		builder.redirectErrorStream(true);
+		//builder.redirectErrorStream(true);
 		builder.command(command);
 		builder.directory(new File(System.getProperty("user.home")));
 
@@ -73,58 +105,69 @@ public class Connector {
 		Iterator<String> it = reader.lines().iterator();
 
 		while (it.hasNext()) {
-			
-			sb.append(it.next());
-		}
-		
-		process.waitFor();
-		
-		if(process.exitValue()!=0) {
-			
-			StringBuilder sbCmd = new StringBuilder();
-			
-			for (String cmd : command) {
+
+			String line = it.next();
+			if(logger.isLoggable(Level.FINEST)) {
 				
-				sbCmd.append(cmd + " ");
-				
+				logger.finest("Line: " + line);
 			}
 			
-			throw new IOException("Error executing " + sbCmd +  sb);
+			sb.append(line);
 		}
-		
+
+		process.waitFor();
+
+		if (process.exitValue() != 0) {
+
+			StringBuilder sbCmd = new StringBuilder();
+
+			for (String cmd : command) {
+
+				sbCmd.append(cmd + " ");
+
+			}
+
+			throw new IOException("Error executing " + sbCmd + sb);
+		}
+
+		if(logger.isLoggable(Level.FINEST)) {
+			
+			logger.finest("Output:\n" + sb.toString());
+		}
+				
+		logger.exiting(sourceClass, "executeCmd");
 		return sb.toString();
 	}
 
-	
 	public Payload getFile(String filePath) throws IOException, URISyntaxException, JDOMException {
 		logger.entering(sourceClass, "getFile", filePath);
-		
+
 		Path path = Paths.get(filePath);
 
 		Payload payload = getFile(path);
 		logger.exiting(sourceClass, "getFile");
-		
+
 		return payload;
 	}
-	
+
 	public Payload getFile(Path filePath) throws IOException, URISyntaxException, JDOMException {
 		logger.entering(sourceClass, "getFile", filePath);
 		boolean contentDetected = false;
-		
+
 		logger.finer("Opening file: " + filePath);
 		File file = ResourceLoader.readFile(filePath);
 		String contentType = new String();
 		logger.finer("Reading file " + filePath);
-		
+
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line = reader.readLine();
 		StringBuilder content = new StringBuilder();
-		
+
 		while (line != null) {
 			logger.finest("Line read: " + line);
-			if(!contentDetected) {
+			if (!contentDetected) {
 				contentType = contentType(line);
-				if(contentType !=SGE_ConnectConst.unknownType) {
+				if (contentType != SGE_ConnectConst.unknownType) {
 					contentDetected = true;
 				}
 			}
@@ -192,8 +235,8 @@ public class Connector {
 		logger.entering(sourceClass, "createPayload");
 		Payload payload = null;
 		logger.finest("Source:\n" + source);
-		
-		switch (contentType) {
+
+		switch (contentType.toUpperCase()) {
 
 		case SGE_ConnectConst.xmlType:
 
@@ -218,7 +261,7 @@ public class Connector {
 		return createPayload(response.getOutput(), contentType);
 	}
 
-	public Payload connect(String url, SGE_MonitorProp mainProps) throws IOException, JDOMException {
+	public Payload connect(String url) throws IOException, JDOMException {
 		Payload payload = null;
 		int retries = mainProps.getClusterConnectionRetries();
 		for (int i = 1; i < retries + 1; i++) {

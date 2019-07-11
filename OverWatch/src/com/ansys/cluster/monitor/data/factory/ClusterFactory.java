@@ -45,7 +45,7 @@ public class ClusterFactory {
 	}
 
 	public static Cluster createCluster(DataCollector dc, String clusterName, int index, SGE_MonitorProp mainProps)
-			throws JSONException, IOException, URISyntaxException, JDOMException {
+			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException {
 		logger.entering(sourceClass, "createCluster");
 		logger.info("Getting host data");
 		Console.setStatusLabel("Getting host data from " + mainProps.getClusterConnectionHostUrl(index));
