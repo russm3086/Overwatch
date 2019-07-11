@@ -271,12 +271,12 @@ public class Exporter {
 
 	}
 
-	public void writeToFile(String strFile, Document doc) throws TransformerException {
+	public static void writeToFile(String strFile, Document doc) throws TransformerException {
 
 		writeToFile(new File(strFile), doc);
 	}
 
-	public void writeToFile(File file, Document doc) throws TransformerException {
+	public static void writeToFile(File file, Document doc) throws TransformerException {
 
 		DOMSource source = new DOMSource(doc);
 		StreamResult result = new StreamResult(file);

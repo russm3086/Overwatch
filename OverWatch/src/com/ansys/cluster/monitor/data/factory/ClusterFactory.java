@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
+import javax.xml.transform.TransformerException;
+
 import org.jdom2.JDOMException;
 import org.json.JSONException;
 
@@ -45,7 +47,7 @@ public class ClusterFactory {
 	}
 
 	public static Cluster createCluster(DataCollector dc, String clusterName, int index, SGE_MonitorProp mainProps)
-			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException {
+			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException, TransformerException {
 		logger.entering(sourceClass, "createCluster");
 		logger.info("Getting host data");
 		Console.setStatusLabel("Getting host data from " + mainProps.getClusterConnectionHostUrl(index));

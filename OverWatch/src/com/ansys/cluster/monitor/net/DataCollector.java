@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.logging.Logger;
 
+import javax.xml.transform.TransformerException;
+
 import org.jdom2.JDOMException;
 import org.json.JSONException;
 
@@ -51,13 +53,13 @@ public class DataCollector {
 	}
 
 	private Payload connectors(String strUrl)
-			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException {
+			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException, TransformerException {
 		logger.finer("Connecting to " + strUrl);
 		return connector.getPayload(strUrl);
 	}
 
 	public Payload getHostsData(int item)
-			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException {
+			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException, TransformerException {
 
 		if (mainProps.getClusterConnectionRequestMethod().equalsIgnoreCase(SGE_DataConst.connTypeCMD)) {
 
@@ -67,7 +69,7 @@ public class DataCollector {
 	}
 
 	public Payload getJobsData(int item)
-			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException {
+			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException, TransformerException {
 		if (mainProps.getClusterConnectionRequestMethod().equalsIgnoreCase(SGE_DataConst.connTypeCMD)) {
 
 			return connectors(mainProps.getClusterConnectionSummaryJobsCmd(item));
@@ -76,7 +78,7 @@ public class DataCollector {
 	}
 
 	public Payload getDetailedJobsData(int item)
-			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException {
+			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException, TransformerException {
 		if (mainProps.getClusterConnectionRequestMethod().equalsIgnoreCase(SGE_DataConst.connTypeCMD)) {
 
 			return connectors(mainProps.getClusterConnectionDetailedJobsCmd(item));

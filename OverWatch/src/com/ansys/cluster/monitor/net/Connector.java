@@ -14,16 +14,21 @@ import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.xml.transform.TransformerException;
+
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import com.ansys.cluster.monitor.data.SGE_DataConst;
+import com.ansys.cluster.monitor.data.factory.Exporter;
 import com.ansys.cluster.monitor.net.http.HttpConnection;
 import com.ansys.cluster.monitor.net.http.HttpResponse;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
@@ -54,7 +59,7 @@ public class Connector {
 	}
 
 	public Payload getPayload(String strUrl)
-			throws IOException, URISyntaxException, JDOMException, InterruptedException {
+			throws IOException, URISyntaxException, JDOMException, InterruptedException, TransformerException {
 		String strConnMethod = mainProps.getClusterConnectionRequestMethod().toUpperCase();
 		Payload payLoad = null;
 
@@ -81,16 +86,16 @@ public class Connector {
 	}
 
 	public Payload executeCmd(String command, String contentType)
-			throws IOException, InterruptedException, JDOMException {
+			throws IOException, InterruptedException, JDOMException, TransformerException {
 		logger.entering(contentType, "executeCmd");
-		
+
 		ArrayList<String> list = new ArrayList<String>();
-		
+
 		checkShellDetail(mainProps.getClusterConnectionShellCmd(mainProps.getClusterIndex()), list);
 		checkShellDetail(mainProps.getClusterConnectionShellArgCmd(mainProps.getClusterIndex()), list);
 
 		list.add(command);
-		
+
 		StringBuilder sbCmd = new StringBuilder();
 
 		for (String cmd : list) {
@@ -141,16 +146,11 @@ public class Connector {
 			throw new IOException("Error executing " + command + " Error: " + sb);
 		}
 
-		if (logger.isLoggable(Level.FINER)) {
-
-			logger.finest("Output:\n" + sb.toString());
-		}
-
 		logger.exiting(sourceClass, "executeCmd");
 		return sb.toString();
 	}
 
-	public Payload getFile(String filePath) throws IOException, URISyntaxException, JDOMException {
+	public Payload getFile(String filePath) throws IOException, URISyntaxException, JDOMException, TransformerException {
 		logger.entering(sourceClass, "getFile", filePath);
 
 		Path path = Paths.get(filePath);
@@ -161,7 +161,7 @@ public class Connector {
 		return payload;
 	}
 
-	public Payload getFile(Path filePath) throws IOException, URISyntaxException, JDOMException {
+	public Payload getFile(Path filePath) throws IOException, URISyntaxException, JDOMException, TransformerException {
 		logger.entering(sourceClass, "getFile", filePath);
 		boolean contentDetected = false;
 
@@ -242,7 +242,7 @@ public class Connector {
 		return output;
 	}
 
-	private Payload createPayload(String source, String contentType) throws IOException, JDOMException {
+	private Payload createPayload(String source, String contentType) throws IOException, JDOMException, TransformerException {
 		logger.entering(sourceClass, "createPayload");
 		Payload payload = null;
 		logger.finest("Source:\n" + source);
@@ -252,6 +252,11 @@ public class Connector {
 		case SGE_ConnectConst.xmlType:
 
 			Document doc = getXmlDocument(source);
+
+			if (logger.isLoggable(Level.FINER)) {
+				String strFile = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".xml";
+				Exporter.writeToFile(strFile, (org.w3c.dom.Document) doc);
+			}
 			payload = new Payload(doc);
 			break;
 
@@ -264,7 +269,7 @@ public class Connector {
 		return payload;
 	}
 
-	private Payload createPayload(HttpResponse response) throws IOException, JDOMException {
+	private Payload createPayload(HttpResponse response) throws IOException, JDOMException, TransformerException {
 		logger.entering(sourceClass, "createPayload");
 		String contentType = contentType(response.getContentType());
 
@@ -272,7 +277,7 @@ public class Connector {
 		return createPayload(response.getOutput(), contentType);
 	}
 
-	public Payload connect(String url) throws IOException, JDOMException {
+	public Payload connect(String url) throws IOException, JDOMException, TransformerException {
 		Payload payload = null;
 		int retries = mainProps.getClusterConnectionRetries();
 		for (int i = 1; i < retries + 1; i++) {
