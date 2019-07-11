@@ -14,6 +14,7 @@ import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -83,58 +84,68 @@ public class Connector {
 			throws IOException, InterruptedException, JDOMException {
 		logger.entering(contentType, "executeCmd");
 		
-		logger.fine("Executing: " + command);
-		String[] arrCommand = command.split(" ");
-		return createPayload(executeCmd(arrCommand), contentType);
+		ArrayList<String> list = new ArrayList<String>();
+		
+		checkShellDetail(mainProps.getClusterConnectionShellCmd(mainProps.getClusterIndex()), list);
+		checkShellDetail(mainProps.getClusterConnectionShellArgCmd(mainProps.getClusterIndex()), list);
+
+		list.add(command);
+		
+		StringBuilder sbCmd = new StringBuilder();
+
+		for (String cmd : list) {
+
+			sbCmd.append(cmd + " ");
+
+		}
+
+		logger.fine("Executing: " + sbCmd.toString());
+
+		return createPayload(executeCmd(list, sbCmd.toString()), contentType);
 	}
 
-	public String executeCmd(String... command) throws IOException, InterruptedException {
+	private void checkShellDetail(String command, ArrayList<String> list) {
+
+		if (command != null || command != "") {
+			list.add(command);
+		}
+	}
+
+	public String executeCmd(ArrayList<String> list, String command) throws IOException, InterruptedException {
 		logger.entering(sourceClass, "executeCmd");
 
 		ProcessBuilder builder = new ProcessBuilder();
-		//builder.redirectErrorStream(true);
-		builder.command(command);
+		builder.redirectErrorStream(true);
+		builder.command(list);
 		builder.directory(new File(System.getProperty("user.home")));
-
 		Process process = builder.start();
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		Iterator<String> it = reader.lines().iterator();
 
 		StringBuilder sb = new StringBuilder();
-
-		Iterator<String> it = reader.lines().iterator();
 
 		while (it.hasNext()) {
 
 			String line = it.next();
-			if(logger.isLoggable(Level.FINEST)) {
-				
+			if (logger.isLoggable(Level.FINEST)) {
 				logger.finest("Line: " + line);
 			}
-			
+
 			sb.append(line);
 		}
 
 		process.waitFor();
 
 		if (process.exitValue() != 0) {
-
-			StringBuilder sbCmd = new StringBuilder();
-
-			for (String cmd : command) {
-
-				sbCmd.append(cmd + " ");
-
-			}
-
-			throw new IOException("Error executing " + sbCmd + sb);
+			throw new IOException("Error executing " + command + " Error: " + sb);
 		}
 
-		if(logger.isLoggable(Level.FINEST)) {
-			
+		if (logger.isLoggable(Level.FINER)) {
+
 			logger.finest("Output:\n" + sb.toString());
 		}
-				
+
 		logger.exiting(sourceClass, "executeCmd");
 		return sb.toString();
 	}
