@@ -181,6 +181,26 @@ public class SGE_MonitorProp extends AbstractProp {
 				hostUrl);
 	}
 
+	public String getClusterConnectionShellCmd(int item) {
+		return getLogProperty(
+				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellCmdSuffix);
+	}
+
+	public void setClusterConnectionShellCmd(int item, String shellCmd) {
+		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellCmdSuffix,
+				shellCmd);
+	}
+
+	public String getClusterConnectionShellArgCmd(int item) {
+		return getLogProperty(
+				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellArgsCmdSuffix);
+	}
+
+	public void setClusterConnectionShellArgsCmd(int item, String shellArgs) {
+		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellArgsCmdSuffix,
+				shellArgs);
+	}
+
 	public String getClusterConnectionHostCmd(int item) {
 		return getLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionHostCmdSuffix);
 	}

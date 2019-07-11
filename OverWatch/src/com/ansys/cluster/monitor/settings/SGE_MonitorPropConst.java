@@ -100,6 +100,10 @@ public final class SGE_MonitorPropConst {
 
 	public static final String connectionDetailedJobsUrlSuffix = ".connection.detailedJobs.URL";
 
+	public static final String connectionShellCmdSuffix = ".connection.shell.CMD";
+
+	public static final String connectionShellArgsCmdSuffix = ".connection.shell.args.CMD";
+
 	public static final String connectionHostCmdSuffix = ".connection.hosts.CMD";
 
 	public static final String connectionSummaryJobsCmdSuffix = ".connection.summaryJobs.CMD";
@@ -109,11 +113,10 @@ public final class SGE_MonitorPropConst {
 	public static final String jobIdleThreshold = "com.ansys.monitor.job.idle.threshold";
 
 	public static final String args_prop_key_xml_file_path = "xmlpath";
-	
+
 	/**
 	 * The arguments properties help key
 	 */
 	public static String args_prop_key_help = "help";
 
-	
 }
