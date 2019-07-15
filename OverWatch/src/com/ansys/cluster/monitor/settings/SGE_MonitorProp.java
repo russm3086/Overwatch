@@ -93,6 +93,13 @@ public class SGE_MonitorProp extends AbstractProp {
 		setClusterConnectionHostUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/details/xml");
 
 		setClusterConnectionRequestMethod("HTTP");
+		
+		setClusterConnectionShellCmd(0,"/bin/sh");
+		setClusterConnectionShellArgsCmd(0, "-c");
+		setClusterConnectionHostCmd(0, "qhost -q -xml");
+		setClusterConnectionSummaryJobsCmd(0, "qstat -u '*' -xml");
+		setClusterConnectionDetailedJobsCmd(0, "qstat -j '*' -xml");
+		
 
 		// Job
 		setJobIdleThreshold(.1);
