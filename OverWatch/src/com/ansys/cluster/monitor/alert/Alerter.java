@@ -4,6 +4,7 @@
 package com.ansys.cluster.monitor.alert;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -17,7 +18,11 @@ import com.russ.util.nio.ResourceLoader;
  * @author rmartine
  *
  */
-public class Alerter {
+public class Alerter implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6950751372932269835L;
 	private AlertMap alertMap = new AlertMap();
 	private ConcurrentHashMap<String, Map<String, Alert>> mapResult = new ConcurrentHashMap<String, Map<String, Alert>>();
 	/**

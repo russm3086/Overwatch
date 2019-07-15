@@ -122,11 +122,9 @@ public class TreeBuilder {
 
 			createNode(model, nodeBranch, (AnsQueue) node.getValue());
 			model.insertNodeInto(nodeBranch, nodeQueue, nodeQueue.getChildCount());
-
 		}
 
 		logger.exiting(sourceClass, "createNodes");
-
 	}
 
 	private void createNode(DefaultTreeModel model, DefaultMutableTreeNode nodeBranch, AnsQueue queue) {
@@ -136,11 +134,9 @@ public class TreeBuilder {
 		SortedMap<String, ClusterNodeAbstract> nodes = queue.getNodes();
 		for (Entry<String, ClusterNodeAbstract> node : nodes.entrySet()) {
 
-			logger.finer("Creating leaf " + node);
+			logger.finer("Creating leaf " + node.getKey());
 			nodeChild = new DefaultMutableTreeNode(node.getValue());
-
 			model.insertNodeInto(nodeChild, nodeBranch, nodeBranch.getChildCount());
-
 		}
 
 		logger.exiting(sourceClass, "createNode");

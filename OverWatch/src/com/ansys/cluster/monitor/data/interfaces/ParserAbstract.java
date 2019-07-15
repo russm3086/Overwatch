@@ -23,8 +23,11 @@ import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
  *
  */
 public abstract class ParserAbstract {
+	/**
+	 * 
+	 */
 	private String sourceClass = this.getClass().getName();
-	private Logger logger = Logger.getLogger(sourceClass);
+	private transient Logger logger = Logger.getLogger(sourceClass);
 	protected Payload payloadHosts;
 	protected SGE_MonitorProp mainProps;
 	protected Payload payloadJobs;
@@ -147,6 +150,5 @@ public abstract class ParserAbstract {
 
 		logger.exiting(sourceClass, "addJobMsgsToJobs");
 	}
-
 
 }

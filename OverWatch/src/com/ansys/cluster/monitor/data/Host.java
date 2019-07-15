@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.ansys.cluster.monitor.data.interfaces.ClusterNodeInterface;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.HostState;
@@ -21,10 +20,10 @@ import com.ansys.cluster.monitor.data.state.HostState;
  * @author rmartine
  * @since
  */
-public class Host extends ClusterNodeAbstract implements ClusterNodeInterface {
+public class Host extends ClusterNodeAbstract {
 	private static final long serialVersionUID = -737300777228526524L;
 	private final String sourceClass = this.getClass().getName();
-	private final Logger logger = Logger.getLogger(sourceClass);
+	private final transient Logger logger = Logger.getLogger(sourceClass);
 	private ArrayList<Job> listJob = new ArrayList<Job>();
 
 	/**

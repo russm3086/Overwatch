@@ -92,6 +92,8 @@ public class SGE_MonitorProp extends AbstractProp {
 		setClusterConnectionSummaryJobsUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/xml");
 		setClusterConnectionHostUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/details/xml");
 
+		setClusterConnectionRequestMethod("HTTP");
+
 		// Job
 		setJobIdleThreshold(.1);
 	}
@@ -150,6 +152,16 @@ public class SGE_MonitorProp extends AbstractProp {
 
 	public void setClusterConnectionRequestContentType(String contentType) {
 		setLogProperty(SGE_MonitorPropConst.connectionContentType, contentType);
+	}
+
+	public String getClusterConnectionClusterUrl(int item) {
+		return getLogProperty(
+				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionClusterUrlSuffix);
+	}
+
+	public void setClusterConnectionClusterUrl(int item, String clusterUrl) {
+		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionClusterUrlSuffix,
+				clusterUrl);
 	}
 
 	public String getClusterConnectionDetailedJobsUrl(int item) {

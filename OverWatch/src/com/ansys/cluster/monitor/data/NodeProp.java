@@ -18,7 +18,7 @@ import com.russ.util.AbstractProp;
  */
 public class NodeProp extends AbstractProp implements JobPropInterface, HostPropInterface {
 	private final String sourceClass = this.getClass().getName();
-	private final Logger logger = Logger.getLogger(sourceClass);
+	private final transient Logger logger = Logger.getLogger(sourceClass);
 
 	/**
 	 * 

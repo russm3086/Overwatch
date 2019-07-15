@@ -20,7 +20,7 @@ public abstract class StateAbstract implements StateInterface, Serializable {
 	 */
 	private static final long serialVersionUID = -2531425786952109794L;
 	private static final String sourceClass = StateAbstract.class.getName();
-	private static final Logger logger = Logger.getLogger(sourceClass);
+	private static final transient Logger logger = Logger.getLogger(sourceClass);
 	protected int value;
 	protected String name;
 	protected String description;

@@ -12,6 +12,10 @@ import com.ansys.cluster.monitor.data.interfaces.JobMessageInterface;
  *
  */
 public class JobMessage implements JobMessageInterface {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -522097227511249732L;
 	private NodeProp prop = new NodeProp();
 
 	public JobMessage(NodeProp prop) {

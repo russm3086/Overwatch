@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class provides a skeletal foundation of the {@code Arguments}
@@ -102,13 +105,37 @@ public abstract class AbstractArguments {
 		logger.entering(sourceClass, "exist", key);
 		boolean result = false;
 
-		if (getParams().get(key) != null) {
+		if (getParams().get(key.toLowerCase()) != null) {
 			result = true;
 		}
 
 		logger.exiting(sourceClass, "exist", result);
 		return result;
 
+	}
+
+	public boolean regex(String regex, int caseSensitive) {
+		boolean result = false;
+		for (Entry<String, List<String>> entry : params.entrySet()) {
+
+			Pattern mypattern = Pattern.compile(regex, caseSensitive);
+			Matcher mymatcher = mypattern.matcher(entry.getKey());
+			result = mymatcher.find();
+
+			if (result)
+				break;
+		}
+		return result;
+	}
+
+	/**
+	 * 
+	 * @param key
+	 * @return
+	 */
+	protected List<String> getValue(String key) {
+
+		return getParams().get(key.toLowerCase());
 	}
 
 	/**

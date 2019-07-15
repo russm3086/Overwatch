@@ -4,8 +4,10 @@
 package com.ansys.cluster.monitor.data.factory;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -68,8 +70,14 @@ public class Exporter {
 		this.strFile = strFile;
 	}
 
-	public void Export() throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException,
-			TransformerException, ParserConfigurationException {
+	public Exporter(SGE_MonitorProp mainProps) {
+		// TODO Auto-generated constructor stub
+		this.mainProps = mainProps;
+	}
+
+	public Cluster getCluster() throws JSONException, IOException, URISyntaxException, JDOMException,
+			InterruptedException, TransformerException, ClassNotFoundException {
+		logger.entering(sourceClass, "getCluster");
 
 		Connector conn = new Connector(mainProps);
 		DataCollector dc = new DataCollector(mainProps, conn);
@@ -78,15 +86,72 @@ public class Exporter {
 		logger.info("Creating cluster object");
 		Cluster cluster = ClusterFactory.createCluster(dc, mainProps.getClusterName(index), index, mainProps);
 
-		logger.info("Creating XML");
-		Document clusterDoc = createCLusterXML(cluster);
+		logger.exiting(sourceClass, "getCluster", cluster);
+		return cluster;
+	}
+
+	public void exportSerialFile() throws JSONException, IOException, URISyntaxException, JDOMException,
+			InterruptedException, TransformerException, ClassNotFoundException {
+		logger.entering(sourceClass, "exportSerial");
+
+		Cluster cluster = getCluster();
+		FileOutputStream fos = new FileOutputStream(strFile);
+		ObjectOutputStream out = new ObjectOutputStream(fos);
+		out.writeObject(cluster);
+		out.close();
+		fos.close();
+
+		logger.exiting(sourceClass, "exportSerial");
+	}
+
+	public void exportSerialOut() throws JSONException, ClassNotFoundException, IOException, URISyntaxException,
+			JDOMException, InterruptedException, TransformerException {
+		Cluster cluster = getCluster();
+
+		ObjectOutputStream out = new ObjectOutputStream(System.out);
+		out.writeObject(cluster);
+		out.close();
+
+	}
+
+	public void exportXMLFile() throws JSONException, IOException, URISyntaxException, JDOMException,
+			InterruptedException, TransformerException, ParserConfigurationException, ClassNotFoundException {
+		logger.entering(sourceClass, "exportXMLFile");
+
+		logger.info("Get XML");
+		Document clusterDoc = getClusterXml();
 
 		logger.info("Exporting to " + getStrFile());
 		writeToFile(getStrFile(), clusterDoc);
 
+		logger.exiting(sourceClass, "exportXMLFile");
 	}
 
-	public Document createCLusterXML(Cluster cluster) throws ParserConfigurationException {
+	public void exportXmlOut() throws JSONException, ClassNotFoundException, ParserConfigurationException, IOException,
+			URISyntaxException, JDOMException, InterruptedException, TransformerException {
+
+		logger.info("Get XML");
+		Document clusterDoc = getClusterXml();
+
+		writeToStdOut(clusterDoc);
+
+	}
+
+	public Document getClusterXml() throws ParserConfigurationException, JSONException, ClassNotFoundException,
+			IOException, URISyntaxException, JDOMException, InterruptedException, TransformerException {
+		logger.entering(sourceClass, "exportXML");
+
+		Cluster cluster = getCluster();
+
+		logger.info("Creating XML");
+		Document clusterDoc = createClusterXML(cluster);
+
+		logger.exiting(sourceClass, "getCluster", "exportXML");
+
+		return clusterDoc;
+	}
+
+	public Document createClusterXML(Cluster cluster) throws ParserConfigurationException {
 
 		Document doc = new Document();
 
@@ -266,12 +331,21 @@ public class Exporter {
 
 	}
 
-	public static void writeToFile(String strFile, Document doc) throws  IOException {
+	public void writeToStdOut(Document doc) throws IOException {
+
+		XMLOutputter xmlOutput = new XMLOutputter();
+
+		xmlOutput.setFormat(Format.getPrettyFormat());
+		xmlOutput.output(doc, System.out);
+
+	}
+
+	public void writeToFile(String strFile, Document doc) throws IOException {
 
 		writeToFile(new File(strFile), doc);
 	}
 
-	public static void writeToFile(File file, Document doc) throws IOException {
+	public void writeToFile(File file, Document doc) throws IOException {
 
 		XMLOutputter xmlOutput = new XMLOutputter();
 

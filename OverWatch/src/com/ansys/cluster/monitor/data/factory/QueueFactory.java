@@ -129,9 +129,6 @@ public class QueueFactory {
 		String queueName = node.getNodeProp().getQueueName();
 
 		if (!queueName.equalsIgnoreCase(SGE_DataConst.noNameHostQueue)) {
-			if (myJobs(node)) {
-				queueName = SGE_DataConst.myJob;
-			}
 
 			if (masterQueue.containsKey(queueName)) {
 
@@ -141,13 +138,7 @@ public class QueueFactory {
 
 			} else {
 
-				AnsQueue queue;
-
-				if (node.getNodeProp().isMyJob()) {
-					queue = new AnsQueue(node, SGE_DataConst.myJob);
-				} else {
-					queue = new AnsQueue(node);
-				}
+				AnsQueue queue = new AnsQueue(node);
 
 				logger.finer("Created queue " + queue + " added node " + node);
 				masterQueue.addNode(queue);

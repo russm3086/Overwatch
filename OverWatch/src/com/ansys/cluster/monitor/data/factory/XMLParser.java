@@ -117,7 +117,6 @@ public class XMLParser extends ParserAbstract {
 		logger.entering(sourceClass, "createSummaryJobs", document);
 		HashMap<Integer, Job> map = new HashMap<Integer, Job>();
 		Element jobInfoRoot = document.getRootElement();
-		// Element jobInfoElm = root.getChild("job_info");
 		List<Element> listElm = jobInfoRoot.getChildren();
 		for (Element elem : listElm) {
 

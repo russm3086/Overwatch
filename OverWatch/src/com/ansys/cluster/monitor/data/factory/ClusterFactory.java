@@ -27,6 +27,7 @@ import com.ansys.cluster.monitor.gui.Console;
 import com.ansys.cluster.monitor.data.AnsQueue;
 import com.ansys.cluster.monitor.net.DataCollector;
 import com.ansys.cluster.monitor.net.Payload;
+import com.ansys.cluster.monitor.net.SGE_ConnectConst;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 
 /**
@@ -47,18 +48,36 @@ public class ClusterFactory {
 	}
 
 	public static Cluster createCluster(DataCollector dc, String clusterName, int index, SGE_MonitorProp mainProps)
-			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException, TransformerException {
+			throws ClassNotFoundException, IOException, JSONException, URISyntaxException, JDOMException,
+			InterruptedException, TransformerException {
+
+		// TODO props setting of serialized object
+		Cluster cluster = null;
+		if (mainProps.getClusterConnectionRequestContentType().equalsIgnoreCase(SGE_ConnectConst.clusterType)) {
+
+			Payload payload = dc.getCluster(index);
+			cluster = payload.getClusterObject();
+		} else {
+
+			cluster = createStringCluster(dc, clusterName, index, mainProps);
+		}
+		return cluster;
+	}
+
+	public static Cluster createStringCluster(DataCollector dc, String clusterName, int index,
+			SGE_MonitorProp mainProps) throws JSONException, IOException, URISyntaxException, JDOMException,
+			InterruptedException, TransformerException, ClassNotFoundException {
 		logger.entering(sourceClass, "createCluster");
 		logger.info("Getting host data");
-		Console.setStatusLabel("Getting host data from " + mainProps.getClusterConnectionHostUrl(index));
+		Console.setStatusLabel("Getting host data");
 		Payload payLoadHost = dc.getHostsData(index);
 
 		logger.info("Getting job data");
-		Console.setStatusLabel("Getting job data from " + mainProps.getClusterConnectionSummaryJobsUrl(index));
+		Console.setStatusLabel("Getting job data");
 		Payload payLoadJob = dc.getJobsData(index);
 
 		logger.info("Getting detailed job data");
-		Console.setStatusLabel("Getting detailed job data from " + mainProps.getClusterConnectionDetailedJobsUrl(index));
+		Console.setStatusLabel("Getting detailed job data");
 		Payload payLoadoDetailedJob = dc.getDetailedJobsData(index);
 
 		logger.info("Creating host objects");
@@ -68,22 +87,22 @@ public class ClusterFactory {
 		Console.setStatusLabel("Creating job objects");
 		HashMap<Integer, Job> DetailedJobsmap = JobFactory.createJobsMap(payLoadJob, payLoadoDetailedJob, mainProps);
 
-		logger.info("Setting user for MyJobs queue (" + System.getProperty("user.name") + ")");
-		QueueFactory.userName = System.getProperty("user.name");
+		//logger.info("Setting user for MyJobs queue (" + System.getProperty("user.name") + ")");
+		//QueueFactory.userName = System.getProperty("user.name");
 
 		logger.info("Job and Host cross reference");
 		Console.setStatusLabel("Job and Host cross referencing");
 		JobHostCrossReference(DetailedJobsmap, hostMap);
 
-		logger.info("Creating Host Queues");
-		Console.setStatusLabel("Creating Host Queues");
-		AnsQueue hostsQueue = QueueFactory.createMasterQueue(SGE_DataConst.mqEntryQueues,
-				SGE_DataConst.clusterTypeQueue, hostMap);
-
 		logger.info("Creating Job Queues");
 		Console.setStatusLabel("Creating Job Queues");
 		AnsQueue jobsQueue = QueueFactory.createMasterQueue(SGE_DataConst.mqEntryJobs, SGE_DataConst.clusterTypeQueue,
 				DetailedJobsmap);
+
+		logger.info("Creating Host Queues");
+		Console.setStatusLabel("Creating Host Queues");
+		AnsQueue hostsQueue = QueueFactory.createMasterQueue(SGE_DataConst.mqEntryQueues,
+				SGE_DataConst.clusterTypeQueue, hostMap);
 
 		logger.info("Assigning jobs to target queues");
 		JobQueueTargetQueue(jobsQueue, hostsQueue);

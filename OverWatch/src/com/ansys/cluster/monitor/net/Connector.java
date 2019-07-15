@@ -7,16 +7,16 @@ package com.ansys.cluster.monitor.net;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -27,8 +27,8 @@ import javax.xml.transform.TransformerException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import com.ansys.cluster.monitor.data.Cluster;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
-import com.ansys.cluster.monitor.data.factory.Exporter;
 import com.ansys.cluster.monitor.net.http.HttpConnection;
 import com.ansys.cluster.monitor.net.http.HttpResponse;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
@@ -58,10 +58,13 @@ public class Connector {
 
 	}
 
-	public Payload getPayload(String strUrl)
-			throws IOException, URISyntaxException, JDOMException, InterruptedException, TransformerException {
+	public Payload getPayload(String strUrl) throws IOException, URISyntaxException, JDOMException,
+			InterruptedException, TransformerException, ClassNotFoundException {
+		logger.entering(sourceClass, "getPayload", strUrl);
 		String strConnMethod = mainProps.getClusterConnectionRequestMethod().toUpperCase();
 		Payload payLoad = null;
+
+		logger.fine("Getting data from " + strUrl);
 
 		switch (strConnMethod) {
 
@@ -79,9 +82,9 @@ public class Connector {
 
 		default:
 			throw new URISyntaxException("Undefined data retrieval method ", strConnMethod);
-
 		}
 
+		logger.exiting(sourceClass, "getPayload");
 		return payLoad;
 	}
 
@@ -150,7 +153,8 @@ public class Connector {
 		return sb.toString();
 	}
 
-	public Payload getFile(String filePath) throws IOException, URISyntaxException, JDOMException, TransformerException {
+	public Payload getFile(String filePath)
+			throws IOException, URISyntaxException, JDOMException, TransformerException, ClassNotFoundException {
 		logger.entering(sourceClass, "getFile", filePath);
 
 		Path path = Paths.get(filePath);
@@ -161,7 +165,8 @@ public class Connector {
 		return payload;
 	}
 
-	public Payload getFile(Path filePath) throws IOException, URISyntaxException, JDOMException, TransformerException {
+	public Payload getFile(Path filePath)
+			throws IOException, URISyntaxException, JDOMException, TransformerException, ClassNotFoundException {
 		logger.entering(sourceClass, "getFile", filePath);
 		boolean contentDetected = false;
 
@@ -169,27 +174,51 @@ public class Connector {
 		File file = ResourceLoader.readFile(filePath);
 		String contentType = new String();
 		logger.finer("Reading file " + filePath);
+		Payload payload = null;
 
-		BufferedReader reader = new BufferedReader(new FileReader(file));
-		String line = reader.readLine();
-		StringBuilder content = new StringBuilder();
+		if (mainProps.getClusterConnectionRequestContentType().equalsIgnoreCase(SGE_ConnectConst.clusterType)) {
 
-		while (line != null) {
-			logger.finest("Line read: " + line);
-			if (!contentDetected) {
-				contentType = contentType(line);
-				if (contentType != SGE_ConnectConst.unknownType) {
-					contentDetected = true;
+			payload = readObjectFile(file, SGE_ConnectConst.clusterType);
+
+		} else {
+
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			String line = reader.readLine();
+			StringBuilder content = new StringBuilder();
+
+			while (line != null) {
+				logger.finest("Line read: " + line);
+				if (!contentDetected) {
+					contentType = contentType(line);
+					if (contentType != SGE_ConnectConst.unknownType) {
+						contentDetected = true;
+					}
 				}
+				content.append(line);
+				line = reader.readLine();
 			}
-			content.append(line);
-			line = reader.readLine();
+			reader.close();
+
+			logger.finer("Read file: " + filePath + "\t size: " + content.length());
+			payload = createPayload(content.toString(), contentType);
 		}
-		reader.close();
 
-		logger.finer("Read file: " + filePath + "\t size: " + content.length());
-		return createPayload(content.toString(), contentType);
+		return payload;
+	}
 
+	private Payload readObjectFile(File file, String contentType)
+			throws IOException, ClassNotFoundException, JDOMException, TransformerException {
+
+		FileInputStream dis = new FileInputStream(file);
+		ObjectInputStream in = new ObjectInputStream(dis);
+		return readObjectStream(in, contentType);
+	}
+
+	private Payload readObjectStream(ObjectInputStream in, String contentType)
+			throws ClassNotFoundException, IOException, JDOMException, TransformerException {
+
+		Object object = in.readObject();
+		return createPayload(object, contentType);
 	}
 
 	public HttpResponse connectHttp(String url, SGE_MonitorProp mainProps) throws IOException {
@@ -242,7 +271,8 @@ public class Connector {
 		return output;
 	}
 
-	private Payload createPayload(String source, String contentType) throws IOException, JDOMException, TransformerException {
+	private Payload createPayload(Object source, String contentType)
+			throws IOException, JDOMException, TransformerException {
 		logger.entering(sourceClass, "createPayload");
 		Payload payload = null;
 		logger.finest("Source:\n" + source);
@@ -251,19 +281,19 @@ public class Connector {
 
 		case SGE_ConnectConst.xmlType:
 
-			Document doc = getXmlDocument(source);
-
-			if (logger.isLoggable(Level.FINER)) {
-				String strFile = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".xml";
-				Exporter.writeToFile(strFile,doc);
-			}
+			Document doc = getXmlDocument((String) source);
 			payload = new Payload(doc);
 			break;
 
 		case SGE_ConnectConst.jsonType:
-			JSONObject jsObject = getJSON(source);
+			JSONObject jsObject = getJSON((String) source);
 			payload = new Payload(jsObject);
 			break;
+
+		case SGE_ConnectConst.clusterType:
+			payload = new Payload((Cluster) source);
+			break;
+
 		}
 		logger.exiting(sourceClass, "createPayload");
 		return payload;

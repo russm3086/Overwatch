@@ -1,6 +1,8 @@
 package com.ansys.cluster.monitor.data.interfaces;
 
-public interface HostPropInterface {
+import java.io.Serializable;
+
+public interface HostPropInterface extends Serializable{
 
 	/**
 	 * @return the np_load_avg

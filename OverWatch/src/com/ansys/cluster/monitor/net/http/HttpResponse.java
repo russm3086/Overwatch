@@ -90,7 +90,7 @@ public class HttpResponse {
 		
 		try {
 			while ((read = stream.read(buffer)) != -1) {
-				logger.info("Buffer read " + read + " bytes");
+				logger.finer("Buffer read " + read + " bytes");
 
 				if (read >= bufferLength * .85) {
 					logger.info("Reaching or reached buffer limited of " + bufferLength + " bytes" + "\n\tBytes read: "

@@ -22,7 +22,6 @@ import com.ansys.cluster.monitor.gui.tree.ClusterTreeCellRenderer;
 import com.ansys.cluster.monitor.gui.tree.ClusterTreeListener;
 import com.ansys.cluster.monitor.gui.tree.TreeBuilderMonitorThread;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
-import com.russ.util.gui.tree.TreeUtil;
 import com.russ.util.nio.ResourceLoader;
 
 import java.awt.*;

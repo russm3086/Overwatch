@@ -1,9 +1,10 @@
 package com.ansys.cluster.monitor.data.interfaces;
 
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 
 
-public interface JobMessageInterface {
+public interface JobMessageInterface extends Serializable{
 
 	LinkedHashSet<?> getJobList();
 

@@ -14,6 +14,11 @@ public class JobStateParser implements StateParserInterface {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 5009245317587990022L;
+
+	/**
+	 * 
+	 */
 	public JobStateParser() {
 		// TODO Auto-generated constructor stub
 	}

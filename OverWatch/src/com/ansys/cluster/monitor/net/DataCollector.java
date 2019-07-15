@@ -52,14 +52,14 @@ public class DataCollector {
 		this.connector = connector;
 	}
 
-	private Payload connectors(String strUrl)
-			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException, TransformerException {
+	private Payload connectors(String strUrl) throws JSONException, IOException, URISyntaxException, JDOMException,
+			InterruptedException, TransformerException, ClassNotFoundException {
 		logger.finer("Connecting to " + strUrl);
 		return connector.getPayload(strUrl);
 	}
 
-	public Payload getHostsData(int item)
-			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException, TransformerException {
+	public Payload getHostsData(int item) throws JSONException, IOException, URISyntaxException, JDOMException,
+			InterruptedException, TransformerException, ClassNotFoundException {
 
 		if (mainProps.getClusterConnectionRequestMethod().equalsIgnoreCase(SGE_DataConst.connTypeCMD)) {
 
@@ -68,8 +68,8 @@ public class DataCollector {
 		return connectors(mainProps.getClusterConnectionHostUrl(item));
 	}
 
-	public Payload getJobsData(int item)
-			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException, TransformerException {
+	public Payload getJobsData(int item) throws JSONException, IOException, URISyntaxException, JDOMException,
+			InterruptedException, TransformerException, ClassNotFoundException {
 		if (mainProps.getClusterConnectionRequestMethod().equalsIgnoreCase(SGE_DataConst.connTypeCMD)) {
 
 			return connectors(mainProps.getClusterConnectionSummaryJobsCmd(item));
@@ -77,13 +77,18 @@ public class DataCollector {
 		return connectors(mainProps.getClusterConnectionSummaryJobsUrl(item));
 	}
 
-	public Payload getDetailedJobsData(int item)
-			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException, TransformerException {
+	public Payload getDetailedJobsData(int item) throws JSONException, IOException, URISyntaxException, JDOMException,
+			InterruptedException, TransformerException, ClassNotFoundException {
 		if (mainProps.getClusterConnectionRequestMethod().equalsIgnoreCase(SGE_DataConst.connTypeCMD)) {
 
 			return connectors(mainProps.getClusterConnectionDetailedJobsCmd(item));
 		}
 		return connectors(mainProps.getClusterConnectionDetailedJobsUrl(item));
+	}
+
+	public Payload getCluster(int item) throws JSONException, ClassNotFoundException, IOException, URISyntaxException,
+			JDOMException, InterruptedException, TransformerException {
+		return connectors(mainProps.getClusterConnectionClusterUrl(item));
 	}
 
 	public SGE_MonitorProp getMainProps() {

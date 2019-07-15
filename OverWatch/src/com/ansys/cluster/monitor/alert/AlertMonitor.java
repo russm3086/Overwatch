@@ -4,6 +4,7 @@
 package com.ansys.cluster.monitor.alert;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,12 @@ import com.russ.util.gui.tree.TreeUtilSearchItem;
  * @author rmartine
  *
  */
-public class AlertMonitor {
+public class AlertMonitor implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8601362247233963339L;
+
 	/**
 	 * The name of current class. To be used with the logging subsystem.
 	 */

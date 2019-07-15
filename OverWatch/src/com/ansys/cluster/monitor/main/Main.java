@@ -55,16 +55,19 @@ public class Main {
 
 		propComments = SGE_DataConst.app_name + " v. " + SGE_DataConst.app_version;
 
-		//propsFilePath = SystemSettings.getUserHome() + "/" + ClusterMonitorConst.DefaultPropertiesPath;
+		// propsFilePath = SystemSettings.getUserHome() + "/" +
+		// ClusterMonitorConst.DefaultPropertiesPath;
 
 		String token = "\\.";
 
-		propsFilePath ="res/etc/settings.properties";
+		propsFilePath = "res/etc/settings.properties";
 
 		try {
 			logger.info("****Started****");
 
 			MonitorArgsSettings argsSetting = new MonitorArgsSettings(args);
+
+			mainProps = getSystemSettings(mainProps, token);
 
 			if (!argsSetting.skipMainProgram()) {
 
@@ -80,8 +83,6 @@ public class Main {
 				fileStruc.FileStructureCheck();
 
 				logger.info("**Loading log and program settings**");
-
-				mainProps = getSystemSettings(mainProps, token);
 
 				if (mainProps.getOS_LookAndFeel()) {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -99,10 +100,31 @@ public class Main {
 
 				if (!argsSetting.hasHelp()) {
 
+					if (argsSetting.hasDataRequestMethod())
+						mainProps.setClusterConnectionRequestMethod(argsSetting.getDataRequestMethod());
+
 					if (argsSetting.hasXMLFilePath()) {
 
 						Exporter exporter = new Exporter(mainProps, argsSetting.getXMLFilePath());
-						exporter.Export();
+						exporter.exportXMLFile();
+					}
+
+					if (argsSetting.hasSerialPath()) {
+
+						Exporter exporter = new Exporter(mainProps, argsSetting.getSerialPath());
+						exporter.exportSerialFile();
+					}
+
+					if ((argsSetting.hasXMLOutput())) {
+
+						Exporter exporter = new Exporter(mainProps);
+						exporter.exportXmlOut();
+					}
+
+					if ((argsSetting.hasSerialOutput())) {
+
+						Exporter exporter = new Exporter(mainProps);
+						exporter.exportSerialOut();
 					}
 
 				} else {
@@ -131,14 +153,14 @@ public class Main {
 			logger.info("**Loading log manager**");
 
 			systemSettings.loadManager(propsFilePath);
-			
+
 		} catch (IOException e) {
 
 			logger.log(Level.INFO, "Could not load properties file " + propsFilePath, e);
 
 		}
 
-		return mainProps;		
+		return mainProps;
 	}
 
 	public static SGE_MonitorProp loadDefaultProps(String propsFilePath, String minimalVersion, String propComments,

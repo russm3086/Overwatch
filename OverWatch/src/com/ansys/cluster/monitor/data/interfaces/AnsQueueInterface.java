@@ -3,15 +3,13 @@
  */
 package com.ansys.cluster.monitor.data.interfaces;
 
-import java.io.Serializable;
-
 import com.ansys.cluster.monitor.data.AnsQueue;
 
 /**
  * @author rmartine
  *
  */
-public interface AnsQueueInterface extends Serializable {
+public interface AnsQueueInterface {
 
 	public String getMembersType();
 

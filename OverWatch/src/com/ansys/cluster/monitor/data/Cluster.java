@@ -23,7 +23,7 @@ import com.ansys.cluster.monitor.data.state.ClusterState;
  */
 public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface {
 	private final String sourceClass = this.getClass().getName();
-	private final Logger logger = Logger.getLogger(sourceClass);
+	private final transient Logger logger = Logger.getLogger(sourceClass);
 	private static final long serialVersionUID = -3265482837785245141L;
 	private int totalNumberNodes = 0;
 	private int totalFreeNodes = 0;

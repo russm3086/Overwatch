@@ -21,7 +21,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	 */
 	private static final long serialVersionUID = -9178140942708008301L;
 	private String sourceClass = this.getClass().getName();
-	private Logger logger = Logger.getLogger(sourceClass);
+	private transient Logger logger = Logger.getLogger(sourceClass);
 	protected TreeMap<Integer, StateAbstract> store = new TreeMap<Integer, StateAbstract>((Collections.reverseOrder()));
 	protected boolean boExclusive = false;
 	protected String name;

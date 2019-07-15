@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import com.ansys.cluster.monitor.data.interfaces.ClusterNodeInterface;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.JobState;
@@ -21,13 +20,14 @@ import com.ansys.cluster.monitor.data.state.JobState;
  * @author rmartine
  * @since
  */
-public class Job extends ClusterNodeAbstract implements ClusterNodeInterface {
+public class Job extends ClusterNodeAbstract {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8481881370292117535L;
+	private static final long serialVersionUID = 3221740341615040025L;
 	private final String sourceClass = this.getClass().getName();
-	private final Logger logger = Logger.getLogger(sourceClass);
+	private final transient Logger logger = Logger.getLogger(sourceClass);
 	private ArrayList<Host> hostList = new ArrayList<Host>();
 
 	/**
@@ -177,7 +177,10 @@ public class Job extends ClusterNodeAbstract implements ClusterNodeInterface {
 	}
 
 	public String toString() {
-		StringBuffer sb = new StringBuffer(nodeProp.getJobName() + "    " + nodeProp.getJobNumber());
+		StringBuffer sb = new StringBuffer();
+		 sb.append(nodeProp.getJobName());
+		 sb.append("    ");
+		 sb.append(nodeProp.getJobNumber());
 		return sb.toString();
 	}
 
@@ -287,7 +290,7 @@ public class Job extends ClusterNodeAbstract implements ClusterNodeInterface {
 
 	public String getJobState() {
 		return nodeProp.getJobState();
-		
+
 	}
-	
+
 }

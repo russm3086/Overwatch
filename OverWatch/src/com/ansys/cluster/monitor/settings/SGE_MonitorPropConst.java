@@ -92,6 +92,8 @@ public final class SGE_MonitorPropConst {
 
 	public static final String nameSuffix = ".name";
 
+	public static final String connectionClusterUrlSuffix = ".connection.cluster.URL";
+	
 	public static final String connectionTypeSuffix = ".connection.type";
 
 	public static final String connectionHostUrlSuffix = ".connection.hosts.URL";
@@ -112,7 +114,15 @@ public final class SGE_MonitorPropConst {
 
 	public static final String jobIdleThreshold = "com.ansys.monitor.job.idle.threshold";
 
-	public static final String args_prop_key_xml_file_path = "xmlpath";
+	public static final String args_prop_key_export_cluster_sum_xml_file_path = "exportClusterSummaryXmlPath";
+
+	public static final String args_prop_key_export_cluster_sum_xml_out = "exportClusterSummaryXmlOut";
+
+	public static final String args_prop_key_data_request_method = "requestmethod";
+
+	public static final String args_prop_key_export_serial_file_path = "exportSerialObjectPath";
+
+	public static final String args_prop_key_export_serial_out = "exportSerialObjectOut";
 
 	/**
 	 * The arguments properties help key

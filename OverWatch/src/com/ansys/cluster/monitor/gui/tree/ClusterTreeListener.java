@@ -7,9 +7,6 @@ import javax.swing.JTree;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 
-import com.ansys.cluster.monitor.alert.AlertMonitor;
-import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
-
 /**
  * @author rmartine
  *
@@ -47,10 +44,10 @@ public class ClusterTreeListener implements TreeModelListener {
 	public void treeStructureChanged(TreeModelEvent e) {
 		// TODO Auto-generated method stub
 
-		SGE_MonitorProp mainProp = new SGE_MonitorProp();
-		AlertMonitor alertMonitor = new AlertMonitor(mainProp);
+		//SGE_MonitorProp mainProp = new SGE_MonitorProp();
+		//AlertMonitor alertMonitor = new AlertMonitor(mainProp);
 
-		alertMonitor.scanMyJobs(tree);
+		//alertMonitor.scanMyJobs(tree);
 
 		//alertMonitor.saveAlerts();
 

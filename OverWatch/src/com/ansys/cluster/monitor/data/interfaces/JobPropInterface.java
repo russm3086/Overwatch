@@ -1,11 +1,12 @@
 package com.ansys.cluster.monitor.data.interfaces;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.ansys.cluster.monitor.data.JobMessage;
 
-public interface JobPropInterface {
+public interface JobPropInterface extends Serializable{
 
 	String getJobStateTranslated();
 

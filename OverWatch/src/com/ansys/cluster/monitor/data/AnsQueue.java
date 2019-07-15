@@ -30,15 +30,8 @@ public class AnsQueue extends ClusterNodeAbstract implements AnsQueueInterface {
 	 */
 	private static final long serialVersionUID = -364220974815470506L;
 
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	private final String sourceClass = this.getClass().getName();
-	private final Logger logger = Logger.getLogger(sourceClass);
+	private final transient Logger logger = Logger.getLogger(sourceClass);
 	private double total_np_load = 0;
 	private double np_load = 0;
 	private int nodesAvailable = 0;
@@ -77,29 +70,31 @@ public class AnsQueue extends ClusterNodeAbstract implements AnsQueueInterface {
 		setFreeMem(getFreeMem() + freeMem);
 	}
 
-	private void addHost(Host node) {
+	private void addHost(ClusterNodeAbstract node) {
 		logger.entering(sourceClass, "addHost", node);
 
-		logger.finest("Adding " + node + " to queue " + this);
+		Host host = (Host) node;
 
-		nodes.put(node.getName(), node);
+		logger.finest("Adding " + host + " to queue " + getQueueName());
+
+		nodes.put(host.getName(), host);
 
 		if (!node.getNodeProp().getQueueName().equalsIgnoreCase(SGE_DataConst.noNameHostQueue)) {
 
-			logger.finer("Adding slots for " + node.getName());
-			addSlots(node);
+			logger.finer("Adding slots for " + host.getName());
+			addSlots(host);
 
-			logger.finer("Processng load for " + node.getName());
-			addNP_Load(node);
+			logger.finer("Processng load for " + host.getName());
+			addNP_Load(host);
 
-			logger.finer("Processng free memory for " + node.getName());
-			addMemory(node);
+			logger.finer("Processng free memory for " + host.getName());
+			addMemory(host);
 
-			logger.finer("Processing for disabled host: " + node.getName());
-			addDisabledHost(node);
-			
-			logger.finer("Processing for job list on host: " + node.getName());
-			addActiveJobs(node.getListJob());
+			logger.finer("Processing for disabled host: " + host.getName());
+			addDisabledHost(host);
+
+			logger.finer("Processing for job list on host: " + host.getName());
+			addActiveJobs(host.getListJob());
 		}
 
 		logger.exiting(sourceClass, "addHost");
@@ -107,12 +102,12 @@ public class AnsQueue extends ClusterNodeAbstract implements AnsQueueInterface {
 
 	private void addActiveJobs(ArrayList<Job> listJobs) {
 		logger.entering(sourceClass, "addActiveJobs", listJobs);
-		for(Job job : listJobs) {
+		for (Job job : listJobs) {
 			addActiveJobs(job);
 		}
 		logger.exiting(sourceClass, "addActiveJobs", listJobs);
 	}
-	
+
 	private void addDisabledHost(Host host) {
 		logger.entering(sourceClass, "addDisabledHost", host);
 		StateAbstract nodeState = host.getState();
@@ -126,11 +121,13 @@ public class AnsQueue extends ClusterNodeAbstract implements AnsQueueInterface {
 	private void addJob(ClusterNodeAbstract node) {
 		logger.entering(sourceClass, "addJob", node);
 
-		addSlotTotal(node.getNodeProp().getSlots());
+		Job job = (Job) node;
 
-		logger.finest("Adding " + node + " to queue " + this);
-		nodes.put(String.valueOf(node.getNodeProp().getJobNumber()), node);
+		nodes.put(String.valueOf(job.getJobNumber()), job);
 
+		addSlotTotal(job.getNodeProp().getSlots());
+
+		logger.finest("Adding " + job + " to queue " + getQueueName());
 	}
 
 	public void addMemory(ClusterNodeAbstract node) {
@@ -159,7 +156,7 @@ public class AnsQueue extends ClusterNodeAbstract implements AnsQueueInterface {
 
 		case SGE_DataConst.clusterTypeHost:
 			setMembersType(SGE_DataConst.clusterTypeHost);
-			addHost((Host)node);
+			addHost((Host) node);
 			break;
 
 		case SGE_DataConst.clusterTypeQueue:
@@ -377,10 +374,10 @@ public class AnsQueue extends ClusterNodeAbstract implements AnsQueueInterface {
 				summary.append("\n Pending Job(s):\n" + displayPendingJobs());
 			}
 
-			if(activeJobs.size() >0) {
+			if (activeJobs.size() > 0) {
 				summary.append("\n Active Job(s):\n" + displayActiveJobs());
 			}
-			
+
 			if (disabledNodes.size() > 0) {
 				summary.append("\n Disabled Nodes: \n" + displayDisabledHosts());
 			}
@@ -532,7 +529,7 @@ public class AnsQueue extends ClusterNodeAbstract implements AnsQueueInterface {
 		}
 		return sb.toString();
 	}
-	
+
 	public SortedMap<Integer, Job> getPendingJobs() {
 		return pendingJobs;
 	}

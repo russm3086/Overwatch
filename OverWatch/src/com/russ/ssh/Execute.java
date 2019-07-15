@@ -47,6 +47,7 @@ public class Execute {
 		builder.redirectErrorStream(true);
 		
 		builder.command(command);
+		logger.fine("Setting execute directory " + System.getProperty("user.home"));
 		builder.directory(new File(System.getProperty("user.home")));
 
 		Process process = builder.start();

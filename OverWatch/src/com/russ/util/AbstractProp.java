@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public abstract class AbstractProp extends Properties {
 	private final String sourceClass = this.getClass().getName();
-	private final Logger logger = Logger.getLogger(sourceClass);
+	private final transient Logger logger = Logger.getLogger(sourceClass);
 
 	/**
 	 * 

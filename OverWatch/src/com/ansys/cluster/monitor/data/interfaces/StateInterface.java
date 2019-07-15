@@ -1,6 +1,8 @@
 package com.ansys.cluster.monitor.data.interfaces;
 
-public interface StateInterface {
+import java.io.Serializable;
+
+public interface StateInterface extends Serializable{
 
 	public static StateAbstract parseCode(String code) {
 		return null;

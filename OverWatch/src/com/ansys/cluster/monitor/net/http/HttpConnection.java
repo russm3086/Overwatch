@@ -42,7 +42,7 @@ public class HttpConnection {
 
 		URL url = new URL(strUrl);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod(requestMethod);
+		//con.setRequestMethod(requestMethod);
 		con.setConnectTimeout(connectionTimeOut);
 		con.setReadTimeout(readTimeOut);
 

@@ -15,6 +15,11 @@ public class HostStateParser implements StateParserInterface {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 4594048946078927529L;
+
+	/**
+	 * 
+	 */
 	public HostStateParser() {
 		// TODO Auto-generated constructor stub
 	}
