@@ -99,7 +99,7 @@ public class Main {
 			} else {
 
 				if (!argsSetting.hasHelp()) {
-
+										
 					if (argsSetting.hasDataRequestMethod())
 						mainProps.setClusterConnectionRequestMethod(argsSetting.getDataRequestMethod());
 

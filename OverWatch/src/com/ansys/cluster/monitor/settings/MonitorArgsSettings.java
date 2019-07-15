@@ -37,6 +37,14 @@ public class MonitorArgsSettings extends ArgsSettings {
 		return result;
 	}
 
+	public boolean hasMode() {
+		return exist(SGE_MonitorPropConst.args_prop_key_mode);
+	}
+
+	public String getMode() {
+		return getValue(SGE_MonitorPropConst.args_prop_key_mode).get(0);
+	}
+
 	public boolean hasXMLFilePath() {
 		return exist(SGE_MonitorPropConst.args_prop_key_export_cluster_sum_xml_file_path);
 	}

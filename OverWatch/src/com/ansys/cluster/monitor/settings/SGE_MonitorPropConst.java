@@ -124,6 +124,8 @@ public final class SGE_MonitorPropConst {
 
 	public static final String args_prop_key_export_serial_out = "exportSerialObjectOut";
 
+	public static final String args_prop_key_mode = "mode";
+
 	/**
 	 * The arguments properties help key
 	 */
