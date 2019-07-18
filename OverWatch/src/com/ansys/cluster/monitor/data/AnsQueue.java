@@ -112,20 +112,19 @@ public class AnsQueue extends ClusterNodeAbstract implements AnsQueueInterface {
 		logger.entering(sourceClass, "addDisabledHost", host);
 		StateAbstract nodeState = host.getState();
 
-		if (nodeState.between(HostState.Unknown, HostState.Error)) {
+		if ((nodeState.between(HostState.Unknown, HostState.Error))
+				|| (nodeState.between(HostState.Suspended, HostState.DisabledManually))) {
 			disabledNodes.put(host.getName(), host);
 		}
 		logger.exiting(sourceClass, "addDisabledHost");
 	}
 
-	private void addJob(ClusterNodeAbstract node) {
-		logger.entering(sourceClass, "addJob", node);
-
-		Job job = (Job) node;
+	private void addJob(Job job) {
+		logger.entering(sourceClass, "addJob", job);
 
 		nodes.put(String.valueOf(job.getJobNumber()), job);
 
-		addSlotTotal(job.getNodeProp().getSlots());
+		addSlotTotal(job.getSlots());
 
 		logger.finest("Adding " + job + " to queue " + getQueueName());
 	}
@@ -151,7 +150,7 @@ public class AnsQueue extends ClusterNodeAbstract implements AnsQueueInterface {
 
 		case SGE_DataConst.clusterTypeJob:
 			setMembersType(SGE_DataConst.clusterTypeJob);
-			addJob(node);
+			addJob((Job) node);
 			break;
 
 		case SGE_DataConst.clusterTypeHost:

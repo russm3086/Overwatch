@@ -38,6 +38,7 @@ import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 public class ClusterFactory {
 	private static final String sourceClass = QueueFactory.class.getName();
 	private static final Logger logger = Logger.getLogger(sourceClass);
+	private static boolean consoleMode = false;
 
 	/**
 	 * 
@@ -47,9 +48,14 @@ public class ClusterFactory {
 
 	}
 
-	public static Cluster createCluster(DataCollector dc, String clusterName, int index, SGE_MonitorProp mainProps)
-			throws ClassNotFoundException, IOException, JSONException, URISyntaxException, JDOMException,
-			InterruptedException, TransformerException {
+	public static void setStatusLabel(String msg) {
+		if (consoleMode == true)
+			Console.setStatusLabel(msg);
+	}
+
+	public static Cluster createCluster(DataCollector dc, String clusterName, int index, SGE_MonitorProp mainProps,
+			boolean consoleMode) throws ClassNotFoundException, IOException, JSONException, URISyntaxException,
+			JDOMException, InterruptedException, TransformerException {
 
 		// TODO props setting of serialized object
 		Cluster cluster = null;
@@ -59,48 +65,47 @@ public class ClusterFactory {
 			cluster = payload.getClusterObject();
 		} else {
 
-			cluster = createStringCluster(dc, clusterName, index, mainProps);
+			cluster = createStringCluster(dc, clusterName, index, mainProps, consoleMode);
 		}
 		return cluster;
 	}
 
 	public static Cluster createStringCluster(DataCollector dc, String clusterName, int index,
-			SGE_MonitorProp mainProps) throws JSONException, IOException, URISyntaxException, JDOMException,
-			InterruptedException, TransformerException, ClassNotFoundException {
+			SGE_MonitorProp mainProps, boolean consoleMode) throws JSONException, IOException, URISyntaxException,
+			JDOMException, InterruptedException, TransformerException, ClassNotFoundException {
+		ClusterFactory.consoleMode = consoleMode;
 		logger.entering(sourceClass, "createCluster");
 		logger.info("Getting host data");
-		Console.setStatusLabel("Getting host data");
+
+		setStatusLabel("Getting host data");
 		Payload payLoadHost = dc.getHostsData(index);
 
 		logger.info("Getting job data");
-		Console.setStatusLabel("Getting job data");
+		setStatusLabel("Getting job data");
 		Payload payLoadJob = dc.getJobsData(index);
 
 		logger.info("Getting detailed job data");
-		Console.setStatusLabel("Getting detailed job data");
+		setStatusLabel("Getting detailed job data");
 		Payload payLoadoDetailedJob = dc.getDetailedJobsData(index);
 
 		logger.info("Creating host objects");
 		HashMap<String, Host> hostMap = HostFactory.createHostMap(payLoadHost, mainProps);
 
 		logger.info("Creating job objects");
-		Console.setStatusLabel("Creating job objects");
+		setStatusLabel("Creating job objects");
 		HashMap<Integer, Job> DetailedJobsmap = JobFactory.createJobsMap(payLoadJob, payLoadoDetailedJob, mainProps);
 
-		//logger.info("Setting user for MyJobs queue (" + System.getProperty("user.name") + ")");
-		//QueueFactory.userName = System.getProperty("user.name");
-
 		logger.info("Job and Host cross reference");
-		Console.setStatusLabel("Job and Host cross referencing");
+		setStatusLabel("Job and Host cross referencing");
 		JobHostCrossReference(DetailedJobsmap, hostMap);
 
 		logger.info("Creating Job Queues");
-		Console.setStatusLabel("Creating Job Queues");
+		setStatusLabel("Creating Job Queues");
 		AnsQueue jobsQueue = QueueFactory.createMasterQueue(SGE_DataConst.mqEntryJobs, SGE_DataConst.clusterTypeQueue,
 				DetailedJobsmap);
 
 		logger.info("Creating Host Queues");
-		Console.setStatusLabel("Creating Host Queues");
+		setStatusLabel("Creating Host Queues");
 		AnsQueue hostsQueue = QueueFactory.createMasterQueue(SGE_DataConst.mqEntryQueues,
 				SGE_DataConst.clusterTypeQueue, hostMap);
 
@@ -108,7 +113,7 @@ public class ClusterFactory {
 		JobQueueTargetQueue(jobsQueue, hostsQueue);
 
 		logger.info("Creating Cluster object");
-		Console.setStatusLabel("Creating Cluster object " + clusterName);
+		setStatusLabel("Creating Cluster object " + clusterName);
 		Cluster cluster = new Cluster(clusterName, hostsQueue, jobsQueue);
 
 		logger.exiting(sourceClass, "createCluster", cluster);

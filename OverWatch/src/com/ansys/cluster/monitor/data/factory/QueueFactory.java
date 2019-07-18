@@ -6,9 +6,13 @@
 package com.ansys.cluster.monitor.data.factory;
 
 import java.util.HashMap;
+import java.util.SortedMap;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.AnsQueue;
+import com.ansys.cluster.monitor.data.Cluster;
+import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
@@ -151,6 +155,50 @@ public class QueueFactory {
 		logger.exiting(sourceClass, "createQueue", masterQueue);
 		return masterQueue;
 
+	}
+
+	public static void addMyJobs(Cluster cluster, String userName) {
+		logger.entering(sourceClass, "addMyJobs");
+		if (userName != null && userName != "") {
+
+			AnsQueue myJobQueue = new AnsQueue(SGE_DataConst.myJob);
+			AnsQueue jobMasterQueue = cluster.getMasterQueue().get(SGE_DataConst.mqEntryJobs);
+
+			SortedMap<String, ClusterNodeAbstract> jobsQueuesMap = jobMasterQueue.getNodes();
+			for (Entry<String, ClusterNodeAbstract> entry : jobsQueuesMap.entrySet()) {
+				logger.finer("Expecting Job queue " + entry.getKey());
+
+				AnsQueue queue = (AnsQueue) entry.getValue();
+				for (Entry<String, ClusterNodeAbstract> entryJob : queue.getJobs().entrySet()) {
+
+					Job job = (Job) entryJob.getValue();
+
+					if (myJobs(job, userName)) {
+
+						myJobQueue.addNode(job);
+					}
+				}
+			}
+
+			if (myJobQueue.size() > 0) {
+				jobMasterQueue.addNode(myJobQueue);
+			}
+		}
+
+		logger.entering(userName, "addMyJobs");
+	}
+
+	public static boolean myJobs(Job job, String userName) {
+		logger.entering(sourceClass, "myJobs", job);
+		boolean result = false;
+		if (job != null) {
+			String jobOwner = job.getJobOwner();
+			if (jobOwner != null && jobOwner.equalsIgnoreCase(userName)) {
+				result = true;
+			}
+		}
+		logger.exiting(sourceClass, "myJobs", result);
+		return result;
 	}
 
 }

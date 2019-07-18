@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
+import com.ansys.cluster.monitor.data.interfaces.JobInterface;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.JobState;
 
@@ -20,7 +21,7 @@ import com.ansys.cluster.monitor.data.state.JobState;
  * @author rmartine
  * @since
  */
-public class Job extends ClusterNodeAbstract {
+public class Job extends ClusterNodeAbstract implements JobInterface {
 
 	/**
 	 * 
@@ -95,14 +96,15 @@ public class Job extends ClusterNodeAbstract {
 
 	}
 
+	@Override
 	public Duration getDuration() {
 
 		LocalDateTime startTime = LocalDateTime.now(Clock.systemDefaultZone());
-		if (nodeProp.getJobStartTime() != null) {
-			startTime = nodeProp.getJobStartTime();
+		if (getJobStartTime() != null) {
+			startTime = getJobStartTime();
 		}
-		if (nodeProp.getJobSubmissionTime() != null) {
-			startTime = nodeProp.getJobSubmissionTime();
+		if (getJobSubmissionTime() != null) {
+			startTime = getJobSubmissionTime();
 		}
 
 		LocalDateTime finishTime = LocalDateTime.now(Clock.systemDefaultZone());
@@ -115,10 +117,11 @@ public class Job extends ClusterNodeAbstract {
 	public void setStatus() {
 		// TODO Auto-generated method stub
 
-		status = "Name: " + nodeProp.getJobName() + "\tID: " + getJobNumber() + "\tOwner: " + nodeProp.getJobOwner()
+		status = "Name: " + getJobName() + "\tID: " + getJobNumber() + "\tOwner: " + getJobOwner()
 				+ "\tExclusive: " + isExclusive() + "\tDuration: " + getDuration().toHours() + " hours";
 	}
 
+	@Override
 	public void checkIdleStatus() {
 		logger.entering(sourceClass, "checkIdleStatus");
 
@@ -158,15 +161,15 @@ public class Job extends ClusterNodeAbstract {
 	@Override
 	public String getSummary() {
 		// TODO Auto-generated method stub
-		String summary = "Job Name: \t\t" + nodeProp.getJobName();
-		summary += "\nOwner: \t\t" + nodeProp.getJobOwner();
-		summary += "\nTarget Queue: \t\t" + nodeProp.getTargetQueue();
-		summary += "\nStart Host \t\t" + nodeProp.getStartHost();
-		summary += "\nJob #: \t\t" + nodeProp.getJobNumber();
-		summary += "\nJob Priority: \t\t" + nodeProp.getJobPriority();
-		summary += "\nCores: \t\t" + nodeProp.getSlots();
-		summary += "\nJob Start: \t\t" + nodeProp.getJobStartTime();
-		summary += "\nJob Submission: \t\t" + nodeProp.getJobSubmissionTime();
+		String summary = "Job Name: \t\t" + getJobName();
+		summary += "\nOwner: \t\t" + getJobOwner();
+		summary += "\nTarget Queue: \t\t" + getTargetQueue();
+		summary += "\nStart Host \t\t" + getStartHost();
+		summary += "\nJob #: \t\t" + getJobNumber();
+		summary += "\nJob Priority: \t\t" + getJobPriority();
+		summary += "\nCores: \t\t" + getSlots();
+		summary += "\nJob Start: \t\t" + getJobStartTime();
+		summary += "\nJob Submission: \t\t" + getJobSubmissionTime();
 		summary += "\nExclusive: \t\t" + isExclusive();
 		summary += "\nDuration: \t\t" + getDuration().toHours() + " hours";
 		summary += "\nState: \t\t" + getStateDescriptions();
@@ -200,6 +203,7 @@ public class Job extends ClusterNodeAbstract {
 		checkIdleStatus();
 	}
 
+	@Override
 	public int getJobNumber() {
 		return nodeProp.getJobNumber();
 	}
@@ -212,18 +216,22 @@ public class Job extends ClusterNodeAbstract {
 		this.resourceList = resourceList;
 	}
 
+	@Override
 	public ArrayList<Host> getList() {
 		return hostList;
 	}
 
+	@Override
 	public void addHost(Host host) {
 		this.hostList.add(host);
 	}
 
+	@Override
 	public void addState(StateAbstract state) {
 		addState(state, JobState.RunningState);
 	}
 
+	@Override
 	public String getMessages() {
 		StringBuffer sb = new StringBuffer();
 		ArrayList<JobMessage> list = nodeProp.getJobMessages();
@@ -238,18 +246,27 @@ public class Job extends ClusterNodeAbstract {
 		return sb.toString();
 	}
 
-	public String getOwner() {
+	@Override
+	public String getJobName() {
+		return nodeProp.getJobName();
+	}
+	
+	@Override
+	public String getJobOwner() {
 		return nodeProp.getJobOwner();
 	}
 
+	@Override
 	public String getTargetQueue() {
 		return nodeProp.getTargetQueue();
 	}
 
+	@Override
 	public String getStartHost() {
 		return nodeProp.getStartHost();
 	}
 
+	@Override
 	public double getJobPriority() {
 		return nodeProp.getJobPriority();
 	}
@@ -258,14 +275,17 @@ public class Job extends ClusterNodeAbstract {
 		return nodeProp.getSlots();
 	}
 
+	@Override
 	public LocalDateTime getJobStartTime() {
 		return nodeProp.getJobStartTime();
 	}
 
+	@Override
 	public LocalDateTime getJobSubmissionTime() {
 		return nodeProp.getJobSubmissionTime();
 	}
 
+	@Override
 	public String getIdentifier() {
 		return String.valueOf(getJobNumber());
 	}
@@ -276,7 +296,7 @@ public class Job extends ClusterNodeAbstract {
 		output.append("\nDuration: " + getDuration().toHours());
 		output.append("\nJob Id: " + getJobNumber());
 		output.append("\nExecute Hosts: " + getHostList());
-		output.append("\nJob Owner: " + getOwner());
+		output.append("\nJob Owner: " + getJobOwner());
 		output.append("\nTarget Queue: " + getTargetQueue());
 		output.append("\nStart Host: " + getStartHost());
 		output.append("\nJob Priority: " + getJobPriority());
@@ -288,6 +308,7 @@ public class Job extends ClusterNodeAbstract {
 
 	}
 
+	@Override
 	public String getJobState() {
 		return nodeProp.getJobState();
 

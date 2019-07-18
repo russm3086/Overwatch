@@ -84,7 +84,7 @@ public class Exporter {
 		int index = mainProps.getClusterIndex();
 
 		logger.info("Creating cluster object");
-		Cluster cluster = ClusterFactory.createCluster(dc, mainProps.getClusterName(index), index, mainProps);
+		Cluster cluster = ClusterFactory.createCluster(dc, mainProps.getClusterName(index), index, mainProps, false);
 
 		logger.exiting(sourceClass, "getCluster", cluster);
 		return cluster;
@@ -110,6 +110,7 @@ public class Exporter {
 
 		ObjectOutputStream out = new ObjectOutputStream(System.out);
 		out.writeObject(cluster);
+		out.flush();
 		out.close();
 
 	}
@@ -308,7 +309,7 @@ public class Exporter {
 		jobNameElem.setText(job.getName());
 
 		Element jobOwnerElem = new Element("owner");
-		jobOwnerElem.setText(job.getOwner());
+		jobOwnerElem.setText(job.getJobOwner());
 		jobElem.addContent(jobOwnerElem);
 
 		Element jobSlotsElem = new Element("slots");

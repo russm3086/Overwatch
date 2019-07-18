@@ -32,6 +32,7 @@ import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.net.http.HttpConnection;
 import com.ansys.cluster.monitor.net.http.HttpResponse;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
+import com.russ.util.UnitCoversion;
 import com.russ.util.nio.ResourceLoader;
 
 import org.jdom2.Document;
@@ -126,6 +127,8 @@ public class Connector {
 		builder.redirectErrorStream(true);
 		builder.command(list);
 		builder.directory(new File(System.getProperty("user.home")));
+
+		long startTime = System.currentTimeMillis();
 		Process process = builder.start();
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -144,6 +147,11 @@ public class Connector {
 		}
 
 		process.waitFor();
+
+		long estimatedTime = System.currentTimeMillis() - startTime;
+
+		logger.info("Data Size: " + UnitCoversion.humanReadableByteCount(sb.length(), false) + " Elapse Time: "
+				+ estimatedTime + " ms.");
 
 		if (process.exitValue() != 0) {
 			throw new IOException("Error executing " + command + " Error: " + sb);
@@ -221,7 +229,7 @@ public class Connector {
 		return createPayload(object, contentType);
 	}
 
-	public HttpResponse connectHttp(String url, SGE_MonitorProp mainProps) throws IOException {
+	public HttpResponse connectHttp(String url, SGE_MonitorProp mainProps) throws IOException, ClassNotFoundException {
 		logger.entering(sourceClass, "connectHttp", url);
 
 		HttpConnection connection = new HttpConnection(mainProps);
@@ -307,7 +315,7 @@ public class Connector {
 		return createPayload(response.getOutput(), contentType);
 	}
 
-	public Payload connect(String url) throws IOException, JDOMException, TransformerException {
+	public Payload connect(String url) throws IOException, JDOMException, TransformerException, ClassNotFoundException {
 		Payload payload = null;
 		int retries = mainProps.getClusterConnectionRetries();
 		for (int i = 1; i < retries + 1; i++) {

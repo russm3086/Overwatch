@@ -100,7 +100,7 @@ public class NodeTableModel extends AbstractTableModel {
 			returnValue = node.getJobNumber();
 			break;
 		case COLUMN_OWNER:
-			returnValue = node.getOwner();
+			returnValue = node.getJobOwner();
 			break;
 		case COLUMN_CORES:
 			returnValue = Integer.valueOf((node.getSlots()));

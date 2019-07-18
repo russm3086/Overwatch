@@ -1,20 +1,25 @@
 package com.ansys.cluster.monitor.net.http;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.net.HttpURLConnection;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.ansys.cluster.monitor.gui.Console;
+import com.ansys.cluster.monitor.data.Cluster;
+import com.ansys.cluster.monitor.data.factory.ClusterFactory;
 import com.russ.util.UnitCoversion;
 
 import java.time.temporal.ChronoUnit;
+
 /**
  * 
  */
@@ -33,12 +38,14 @@ public class HttpResponse {
 	private String contentType = new String();
 	private long contentSize = 0;
 	private String url;
+	private Cluster cluster = null;
 
 	/**
 	 * @throws IOException
+	 * @throws ClassNotFoundException
 	 * 
 	 */
-	public HttpResponse(HttpURLConnection con, int bufferLength) throws IOException {
+	public HttpResponse(HttpURLConnection con, int bufferLength) throws IOException, ClassNotFoundException {
 		logger.entering(sourceClass, "HttpResponse");
 		StringBuilder fullResponseBuilder = new StringBuilder();
 
@@ -64,14 +71,21 @@ public class HttpResponse {
 			fullResponseBuilder.append("\n");
 		});
 
-		if (getResponseCode() > 299) {
+		if (getResponseCode() > 200) {
 
-			String headerFields = readStream(con.getErrorStream(), bufferLength);
+			String headerFields = readStrStream(con.getErrorStream(), bufferLength);
 			fullResponseBuilder.append("Response: ").append(headerFields);
 
 		} else {
 
-			setOutput(readStream(con.getInputStream(), bufferLength));
+			if (getContentType().toLowerCase().contains("overwatch") == true) {
+
+				// readInStream(con.getInputStream(),bufferLength);
+
+				setCluster(readClusterStream(con.getInputStream(), bufferLength));
+			} else {
+				setOutput(readStrStream(con.getInputStream(), bufferLength));
+			}
 
 			setContentSize(getOutput().length());
 		}
@@ -80,47 +94,82 @@ public class HttpResponse {
 		logger.exiting(sourceClass, "HttpResponse");
 	}
 
-	protected String readStream(InputStream stream, int bufferLength) throws IOException {
-		StringBuilder content = new StringBuilder();
+	protected ByteArrayOutputStream readInStream(InputStream stream, int bufferLength) throws IOException {
+		logger.entering(sourceClass, "readInStream");
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		byte[] buffer = new byte[bufferLength];
 		int read;
 
 		LocalDateTime now = LocalDateTime.now();
-		
+
 		try {
 			while ((read = stream.read(buffer)) != -1) {
 				logger.finer("Buffer read " + read + " bytes");
 
 				if (read >= bufferLength * .85) {
-					logger.info("Reaching or reached buffer limited of " + bufferLength + " bytes" + "\n\tBytes read: "
-							+ read);
+					logger.info("Reaching or reached buffer limited of "
+							+ UnitCoversion.humanReadableByteCount(bufferLength, false) + "\n\t read: "
+							+ UnitCoversion.humanReadableByteCount(read, false));
 				}
 
 				if (logger.isLoggable(Level.FINEST)) {
 					logger.finest("Buffer content: " + new String(buffer, StandardCharsets.UTF_8));
 				}
 				os.write(buffer, 0, read);
-				
-				if(ChronoUnit.SECONDS.between(now, LocalDateTime.now()) > 10 ) {
-					
-					Console.setStatusLabel(getUrl() + " downloaded: " + UnitCoversion.humanReadableByteCount(os.size(), false));
+
+				if (ChronoUnit.SECONDS.between(now, LocalDateTime.now()) > 10) {
+
+					ClusterFactory.setStatusLabel(
+							getUrl() + " downloaded: " + UnitCoversion.humanReadableByteCount(os.size(), false));
 					now = LocalDateTime.now();
-					
+
 				}
-				
-				
+
 			}
 		} finally {
 			stream.close();
 		}
 
+		logger.exiting(sourceClass, "readInStream");
+
+		return os;
+	}
+
+	protected Cluster readClusterStream(InputStream stream, int bufferLength)
+			throws ClassNotFoundException, IOException {
+		logger.entering(sourceClass, "readClusterStream");
+
+		ByteArrayOutputStream bos = readInStream(stream, bufferLength);
+		ObjectInputStream in = null;
+
+		try {
+		
+		byte[] bytes = Base64.getDecoder().decode(bos.toByteArray());
+		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+
+			in = new ObjectInputStream(bis);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Cluster cluster = (Cluster) in.readObject();
+		logger.exiting(sourceClass, "readClusterStream");
+
+		return cluster;
+	}
+
+	protected String readStrStream(InputStream stream, int bufferLength) throws IOException {
+		logger.entering(sourceClass, "readStrStream");
+		ByteArrayOutputStream os = readInStream(stream, bufferLength);
+
+		StringBuilder content = new StringBuilder();
 		content.append(os.toString(StandardCharsets.UTF_8.displayName()));
 
 		if (logger.isLoggable(Level.FINEST)) {
 			logger.finest(content.toString());
 		}
 
+		logger.exiting(sourceClass, "readStrStream");
 		return content.toString();
 	}
 
@@ -218,6 +267,20 @@ public class HttpResponse {
 	 */
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	/**
+	 * @return the cluster
+	 */
+	public Cluster getCluster() {
+		return cluster;
+	}
+
+	/**
+	 * @param cluster the cluster to set
+	 */
+	public void setCluster(Cluster cluster) {
+		this.cluster = cluster;
 	}
 
 }

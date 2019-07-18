@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
+import com.russ.util.UnitCoversion;
 
 /**
  * @author rmartine
@@ -28,7 +29,7 @@ public class HttpConnection {
 		setMainProps(mainProps);
 	}
 
-	public HttpResponse httpRequest(String strUrl) throws IOException {
+	public HttpResponse httpRequest(String strUrl) throws IOException, ClassNotFoundException {
 
 		return httpRequest(strUrl, mainProps.getClusterConnectionRequestMethod(),
 				mainProps.getClusterConnectionRequestTimeOut(), mainProps.getClusterConnectionRequestReadTimeOut(),
@@ -37,12 +38,12 @@ public class HttpConnection {
 	}
 
 	public HttpResponse httpRequest(String strUrl, String requestMethod, int connectionTimeOut, int readTimeOut,
-			int bufferLength) throws IOException {
+			int bufferLength) throws IOException, ClassNotFoundException {
 		logger.entering(sourceClass, "httpRequest");
 
 		URL url = new URL(strUrl);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		//con.setRequestMethod(requestMethod);
+		// con.setRequestMethod(requestMethod);
 		con.setConnectTimeout(connectionTimeOut);
 		con.setReadTimeout(readTimeOut);
 
@@ -55,8 +56,9 @@ public class HttpConnection {
 
 		long estimatedTime = System.currentTimeMillis() - startTime;
 
-		logger.info("Downloaded " + strUrl + "\t Download Size: " + response.getContentSize() + " bytes\tElapse Time: "
-				+ estimatedTime +" ms.");
+		logger.info("Downloaded " + strUrl + "\t Download Size: "
+				+ UnitCoversion.humanReadableByteCount(response.getContentSize(), false) + " bytes\tElapse Time: "
+				+ estimatedTime + " ms.");
 
 		con.disconnect();
 		logger.exiting(sourceClass, "httpRequest");

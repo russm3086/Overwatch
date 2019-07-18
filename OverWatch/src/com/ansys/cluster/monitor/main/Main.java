@@ -55,8 +55,7 @@ public class Main {
 
 		propComments = SGE_DataConst.app_name + " v. " + SGE_DataConst.app_version;
 
-		// propsFilePath = SystemSettings.getUserHome() + "/" +
-		// ClusterMonitorConst.DefaultPropertiesPath;
+		//propsFilePath = SystemSettings.getUserHome() + "/" + ClusterMonitorConst.DefaultPropertiesPath;
 
 		String token = "\\.";
 
@@ -64,6 +63,7 @@ public class Main {
 
 		try {
 			logger.info("****Started****");
+			logger.info("****" + propComments + "****");
 
 			MonitorArgsSettings argsSetting = new MonitorArgsSettings(args);
 
@@ -99,7 +99,7 @@ public class Main {
 			} else {
 
 				if (!argsSetting.hasHelp()) {
-										
+
 					if (argsSetting.hasDataRequestMethod())
 						mainProps.setClusterConnectionRequestMethod(argsSetting.getDataRequestMethod());
 
