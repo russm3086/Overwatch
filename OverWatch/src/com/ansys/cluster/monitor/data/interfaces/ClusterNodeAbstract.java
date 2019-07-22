@@ -84,12 +84,11 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		this.name = name;
 	}
 
-	
 	public String getStateCode() {
-		
+
 		return nodeProp.getState();
 	}
-	
+
 	public StateAbstract getState() {
 
 		return store.firstEntry().getValue();
@@ -257,6 +256,10 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		output.append("\nQueue: " + getQueueName());
 
 		return output.toString();
+	}
+
+	public String toString() {
+		return getName();
 	}
 
 }

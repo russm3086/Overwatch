@@ -5,10 +5,10 @@
 */
 package com.ansys.cluster.monitor.data;
 
-import java.text.DecimalFormat;
 import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.Collections;
 import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeInterface;
@@ -32,71 +32,58 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 	private int freeSlots = 0;
 	private int totalNumberJobs = 0;
 	private int disabledHostCount = 0;
-	private DecimalFormat df2 = new DecimalFormat(".##");
-
-	private ConcurrentHashMap<String, AnsQueue> masterQueue = new ConcurrentHashMap<String, AnsQueue>();
+	private SortedMap<String, MasterQueue> masterQueue = new TreeMap<String, MasterQueue>(Collections.reverseOrder());
 
 	String name;
 
-	public Cluster(String clusterName, AnsQueue hostQueue, AnsQueue jobQueue) {
+	public Cluster(String clusterName, HostMasterQueue hostMasterQueue, JobMasterQueue jobMasterQueue) {
 		// TODO Auto-generated constructor stub
 		logger.entering(sourceClass, "Constructor");
 
 		setName(clusterName);
 
-		processQueue(hostQueue);
-		processQueue(jobQueue);
+		processHostQueue(hostMasterQueue);
+		processJobQueue(jobMasterQueue);
 
-		masterQueue.put(hostQueue.getName(), hostQueue);
-		masterQueue.put(jobQueue.getName(), jobQueue);
-		
+		setJobMasterQueue(jobMasterQueue);
+		setHostMasterQueue(hostMasterQueue);
+
 		setClusterType(SGE_DataConst.clusterTypeCluster);
-		
+
 		addState(ClusterState.Normal);
 
 		logger.exiting(sourceClass, "Constructor");
 	}
 
-	private void processQueue(AnsQueue queue) {
+	private void processHostQueue(HostMasterQueue hostMasterQueue) {
 
-		SortedMap<String, ClusterNodeAbstract> queueMap = queue.getNodes();
-		for (Entry<String, ClusterNodeAbstract> entryQueue : queueMap.entrySet()) {
+		SortedMap<String, HostQueue> hostMap = hostMasterQueue.getHostQueues();
+		for (Entry<String, HostQueue> entryQueue : hostMap.entrySet()) {
 
-			AnsQueue ansQueue = (AnsQueue) entryQueue.getValue();
+			HostQueue hostQueue = entryQueue.getValue();
 
-			switch (ansQueue.getMembersType()) {
-
-			case SGE_DataConst.clusterTypeHost:
-
-				logger.finer("Processing Queue " + ansQueue.getName());
-				logger.finer("Total Nodes " + ansQueue.getHosts().size());
-				addTotalNodes(ansQueue.size());
-				logger.finer("Total Free Nodes " + ansQueue.getAvailableNodes());
-				addTotalFreeNodes(ansQueue.getAvailableNodes());
-				addFreeMem(ansQueue.getFreeMem());
-				addFreeSlots(ansQueue.getSlotAvailable());
-				addDisabledHostCount(ansQueue.getDisabledNode().size());
-
-				break;
-
-			case SGE_DataConst.clusterTypeJob:
-
-				addTotalNumberJobs(ansQueue.size());
-				addTotalSlots(ansQueue.getSlotTotal());
-
-				break;
-			}
+			logger.finer("Processing Queue " + hostQueue.getName());
+			logger.finer("Total Nodes " + hostQueue.size());
+			addTotalNodes(hostQueue.size());
+			logger.finer("Total Free Nodes " + hostQueue.getAvailableNodes());
+			addTotalFreeNodes(hostQueue.getAvailableNodes());
+			addFreeMem(hostQueue.getFreeMem());
+			addFreeSlots(hostQueue.getSlotAvailable());
+			addDisabledHostCount(hostQueue.getDisabledNode().size());
 		}
 	}
 
-	public void processJobQueue(ConcurrentHashMap<String, AnsQueue> hostJobMap) {
-		logger.entering(sourceClass, "Constructor", hostJobMap);
+	private void processJobQueue(JobMasterQueue jobMasterQueue) {
 
-		for (Entry<String, AnsQueue> map : hostJobMap.entrySet()) {
+		SortedMap<String, JobsQueue> jobMap = jobMasterQueue.getJobQueues();
+		for (Entry<String, JobsQueue> entryQueue : jobMap.entrySet()) {
 
-			AnsQueue queue = map.getValue();
-			addTotalNumberJobs(queue.getJobs().size());
-			addTotalSlots(queue.getSlotTotal());
+			JobsQueue jobQueue = entryQueue.getValue();
+
+			logger.finer("Processing Queue " + jobQueue.getName());
+			logger.finer("Total Nodes " + jobQueue.size());
+			addTotalNumberJobs(jobQueue.size());
+			addTotalSlots(jobQueue.getSlotTotal());
 
 		}
 	}
@@ -185,7 +172,7 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 		StringBuilder sb = new StringBuilder();
 		sb.append("Free Nodes: " + getTotalFreeNodes());
 		sb.append("\nFree Cores: " + getFreeSlots());
-		sb.append("\nFree Memory: " + df2.format(getFreeMem()));
+		sb.append("\nFree Memory: " + decimalFormatter.format(getFreeMem()));
 		sb.append("\nTotal Node Count: " + getTotalNodes());
 		sb.append("\nTotal Active Job Count: " + getTotalNumberJobs());
 		sb.append("\nTotal Active disable node Count: " + getDisabledHostCount());
@@ -209,14 +196,6 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 		return name;
 	}
 
-	public ConcurrentHashMap<String, AnsQueue> getMasterQueue() {
-		return masterQueue;
-	}
-
-	public void setMasterQue(ConcurrentHashMap<String, AnsQueue> masterQueue) {
-		this.masterQueue = masterQueue;
-	}
-
 	public int getTotalNumberJobs() {
 		return totalNumberJobs;
 	}
@@ -229,7 +208,7 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 		addState(state, ClusterState.Normal);
 	}
 
-	public String  getQueueName() {
+	public String getQueueName() {
 		return "NA";
 	}
 
@@ -246,6 +225,37 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 	public void addDisabledHostCount(int disabledHostCount) {
 		this.disabledHostCount += disabledHostCount;
 	}
-	
+
+	/**
+	 * @return the hostMasterQueue
+	 */
+	public HostMasterQueue getHostMasterQueue() {
+		return (HostMasterQueue) masterQueue.get(SGE_DataConst.mqEntryQueues);
+	}
+
+	/**
+	 * @param hostMasterQueue the hostMasterQueue to set
+	 */
+	public void setHostMasterQueue(HostMasterQueue hostMasterQueue) {
+		masterQueue.put(SGE_DataConst.mqEntryQueues, hostMasterQueue);
+	}
+
+	/**
+	 * @return the jobMasterQueue
+	 */
+	public JobMasterQueue getJobMasterQueue() {
+		return (JobMasterQueue) masterQueue.get(SGE_DataConst.mqEntryJobs);
+	}
+
+	/**
+	 * @param jobMasterQueue the jobMasterQueue to set
+	 */
+	public void setJobMasterQueue(JobMasterQueue jobMasterQueue) {
+		masterQueue.put(SGE_DataConst.mqEntryJobs, jobMasterQueue);
+	}
+
+	public SortedMap<String, MasterQueue> getMasterQueue(){
+		return masterQueue;
+	}
 	
 }

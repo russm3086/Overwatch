@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
+import com.ansys.cluster.monitor.data.interfaces.HostInterface;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.HostState;
 
@@ -20,7 +21,7 @@ import com.ansys.cluster.monitor.data.state.HostState;
  * @author rmartine
  * @since
  */
-public class Host extends ClusterNodeAbstract {
+public class Host extends ClusterNodeAbstract implements HostInterface {
 	private static final long serialVersionUID = -737300777228526524L;
 	private final String sourceClass = this.getClass().getName();
 	private final transient Logger logger = Logger.getLogger(sourceClass);
@@ -31,8 +32,7 @@ public class Host extends ClusterNodeAbstract {
 	 */
 	public Host(NodeProp nodeProp) {
 		// TODO Auto-generated constructor stub
-
-		this.nodeProp = nodeProp;
+		super(nodeProp);
 		setName(nodeProp.getHostname());
 		addState(HostState.Normal);
 		processAllMem();
@@ -142,11 +142,13 @@ public class Host extends ClusterNodeAbstract {
 		return getName();
 	}
 
+	@Override
 	public double getLoad() {
 
 		return nodeProp.getNp_load_avg();
 	}
 
+	@Override
 	public void setStatus() {
 		// TODO Auto-generated method stub
 		int exclusiveSlots = 0;
@@ -188,14 +190,17 @@ public class Host extends ClusterNodeAbstract {
 		return sb.toString();
 	}
 
+	@Override
 	public ArrayList<Job> getListJob() {
 		return listJob;
 	}
 
+	@Override
 	public int JobCount() {
 		return listJob.size();
 	}
 
+	@Override
 	public void addJob(Job job) {
 		setBoExclusive(job.isExclusive());
 
@@ -207,46 +212,77 @@ public class Host extends ClusterNodeAbstract {
 		listJob.add(job);
 	}
 
+	@Override
 	public void setListJob(ArrayList<Job> listJob) {
 		this.listJob = listJob;
 	}
 
+	@Override
 	public void addState(StateAbstract state) {
 		addState(state, HostState.Normal);
 	}
 
+	@Override
 	public double getAvgLoad() {
 		return nodeProp.getNp_load_avg();
 	}
 
+	@Override
 	public int getSlotTotal() {
 		return nodeProp.getSlotTotal();
 	}
 
+	@Override
 	public int getSlotReserved() {
 		return nodeProp.getSlotReserved();
 	}
 	
+	@Override
 	public int getSlotUsed() {
 		return nodeProp.getSlotUsed();
 	}
 	
+	@Override
 	public String getMemTotal() {
 		return nodeProp.getMemTotal();
 	}
 	
-	public String getMemUsedNum() {
-		return decimalFormatter.format(nodeProp.getMemUsedNum());
+	@Override
+	public double getMemTotalNum() {
+		return nodeProp.getMemTotalNum();
 	}
 	
-	public String getMemFreeNum() {
-		return decimalFormatter.format(nodeProp.getMemFreeNum());
+	@Override
+	public String getMemUsedNumStr() {
+		return decimalFormatter.format(getMemUsedNum());
 	}
 	
+	@Override
+	public double getMemUsedNum() {
+		return nodeProp.getMemUsedNum();
+	}
+	
+	@Override
+	public double getMemFreeNum() {
+		return nodeProp.getMemFreeNum();
+	}
+
+	@Override
+	public String getMemFreeNumStr() {
+		return decimalFormatter.format(getMemFreeNum());
+	}
+	
+	@Override
 	public int getMachineCore() {
 		return nodeProp.getM_Core();		
 	}
 	
+	@Override
+	public double getNp_load_avg() {
+		return nodeProp.getNp_load_avg();
+	}
+	
+	@Override
 	public String getMetaData() {
 		StringBuffer output = new StringBuffer();
 		output.append(super.getMetaData());
@@ -255,8 +291,8 @@ public class Host extends ClusterNodeAbstract {
 		output.append("\nCore Reserved: " + getSlotReserved());
 		output.append("\nCore Used: " + getSlotUsed());
 		output.append("\nMemory Total: " + getMemTotal());
-		output.append("\nMemory Used: " + getMemUsedNum());
-		output.append("\nMemory Free: " + getMemFreeNum());
+		output.append("\nMemory Used: " + getMemUsedNumStr());
+		output.append("\nMemory Free: " + getMemFreeNumStr());
 		output.append("\nCore Machine: " + getMachineCore());
 		output.append("\nJob:\n" + getJobs());
 

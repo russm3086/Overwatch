@@ -11,8 +11,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import com.ansys.cluster.monitor.data.AnsQueue;
+import com.ansys.cluster.monitor.data.JobsQueue;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
+import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 
 public class TableBuilder {
 
@@ -20,15 +21,18 @@ public class TableBuilder {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void  buildTable(AnsQueue queue) {
+	public static void  buildTable(AnsQueueAbstract queue) {
 
 		if (queue.getTable() == null && queue.getMembersType().equalsIgnoreCase(SGE_DataConst.clusterTypeJob)) {
 
 			NodeTableModel model;
+			
+			JobsQueue jobsQueue = (JobsQueue) queue;
+			
 			if(queue.getName() != SGE_DataConst.noNameJobQueue) {
-				model = new NodeTableModel(queue, 6);
+				model = new NodeTableModel(jobsQueue, 6);
 			}else {
-				model = new NodeTableModel(queue);
+				model = new NodeTableModel(jobsQueue);
 			}
 
 			JTable table = new JTable(model);

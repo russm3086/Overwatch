@@ -144,7 +144,7 @@ public class HttpResponse {
 
 		try {
 		
-		byte[] bytes = Base64.getDecoder().decode(bos.toByteArray());
+		byte[] bytes = bos.toByteArray();
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
 
 			in = new ObjectInputStream(bis);

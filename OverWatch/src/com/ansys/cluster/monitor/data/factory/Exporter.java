@@ -26,12 +26,11 @@ import org.json.JSONException;
 import org.jdom2.Document;
 import org.jdom2.Element;
 
-import com.ansys.cluster.monitor.data.AnsQueue;
 import com.ansys.cluster.monitor.data.Cluster;
 import com.ansys.cluster.monitor.data.Host;
+import com.ansys.cluster.monitor.data.HostMasterQueue;
+import com.ansys.cluster.monitor.data.HostQueue;
 import com.ansys.cluster.monitor.data.Job;
-import com.ansys.cluster.monitor.data.SGE_DataConst;
-import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.net.Connector;
 import com.ansys.cluster.monitor.net.DataCollector;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
@@ -95,12 +94,15 @@ public class Exporter {
 		logger.entering(sourceClass, "exportSerial");
 
 		Cluster cluster = getCluster();
+		
+		logger.fine("Saving serial file to " + strFile);
 		FileOutputStream fos = new FileOutputStream(strFile);
 		ObjectOutputStream out = new ObjectOutputStream(fos);
 		out.writeObject(cluster);
 		out.close();
 		fos.close();
 
+		logger.info("Saved serial file to " + strFile);
 		logger.exiting(sourceClass, "exportSerial");
 	}
 
@@ -184,22 +186,22 @@ public class Exporter {
 
 	public Element createQueuesElm(Cluster cluster) {
 
-		AnsQueue masterQueue = cluster.getMasterQueue().get(SGE_DataConst.mqEntryQueues);
+		HostMasterQueue masterQueue = cluster.getHostMasterQueue();
 
 		Element queuesElem = new Element("Queues");
 
-		SortedMap<String, ClusterNodeAbstract> queues = masterQueue.getNodes();
+		SortedMap<String, HostQueue> queues = masterQueue.getHostQueues();
 
-		for (Entry<String, ClusterNodeAbstract> queue : queues.entrySet()) {
+		for (Entry<String, HostQueue> queue : queues.entrySet()) {
 			logger.finer("Creating Queue branch " + queue.getValue());
 
 			Element queueElem = new Element("Queue");
 			queueElem.setAttribute("name", queue.getKey());
-			AnsQueue subQueue = (AnsQueue) queue.getValue();
+			HostQueue subQueue = queue.getValue();
 
 			// Element hostsElem = new Element("Hosts");
 
-			SortedMap<String, ClusterNodeAbstract> hosts = subQueue.getHosts();
+			SortedMap<String, Host> hosts = subQueue.getHosts();
 
 			Element hostsElem = createHostsElem(hosts);
 
@@ -213,24 +215,10 @@ public class Exporter {
 
 	}
 
-	public Element createQueueElm(AnsQueue queue) {
-
-		logger.finer("Creating Queue branch " + queue.getName());
-
-		Element queueElem = new Element("Queue");
-		queueElem.setAttribute("name", queue.getName());
-
-		SortedMap<String, ClusterNodeAbstract> hosts = queue.getHosts();
-
-		queueElem.addContent(createHostsElem(hosts));
-
-		return queueElem;
-	}
-
-	public Element createHostsElem(SortedMap<String, ClusterNodeAbstract> hosts) {
+	public Element createHostsElem(SortedMap<String, Host> hosts) {
 
 		Element hostsElem = new Element("Hosts");
-		for (Entry<String, ClusterNodeAbstract> hostEntry : hosts.entrySet()) {
+		for (Entry<String, Host> hostEntry : hosts.entrySet()) {
 
 			Host host = (Host) hostEntry.getValue();
 			Element hostElem = createHostElem(host);

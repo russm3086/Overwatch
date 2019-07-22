@@ -13,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JTree;
-import javax.swing.tree.TreePath;
 
 import org.json.JSONException;
 
@@ -48,10 +47,9 @@ public class TreeBuilderMonitorThread {
 		int numFoundCluster = 0;
 		ExecutorService executor = Executors.newFixedThreadPool(1);
 		executor.execute(new TreeBuilderWorker(mainProps, numFoundCluster));
-		
+
 		logger.fine("Setting ExecutorService to shutdown");
 		executor.shutdown();
-
 
 		logger.fine("Thread pool terminated: " + executor.isTerminated());
 	}
@@ -69,8 +67,6 @@ public class TreeBuilderMonitorThread {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			TreePath lastSelected = tree.getSelectionPath();
-
 			try {
 
 				while (numFoundCluster < 1) {
@@ -97,14 +93,14 @@ public class TreeBuilderMonitorThread {
 					Thread.sleep(1000);
 
 				}
-				
+
 				TreeUtil tu = new TreeUtil();
 				tu.expandTreeToLevel(tree, mainProps.getGuiTreeExpansionLevel());
 
-				tree.expandPath(lastSelected);
+				tree.setSelectionRow(1);
 				
-				tree.setSelectionPath(lastSelected);
-				
+				// tree.expandPath(lastSelected);
+
 				logger.fine("All clusters pulled, terminating polling");
 
 			} catch (JSONException | IOException | InterruptedException e) {

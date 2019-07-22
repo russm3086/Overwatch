@@ -7,9 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import com.ansys.cluster.monitor.data.AnsQueue;
 import com.ansys.cluster.monitor.data.Job;
-import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
+import com.ansys.cluster.monitor.data.JobsQueue;
 
 /**
  * @author rmartine
@@ -20,7 +19,7 @@ public class NodeTableModel extends AbstractTableModel {
 		 * 
 		 */
 	private static final long serialVersionUID = 2331629876169607226L;
-	private ArrayList<ClusterNodeAbstract> valueList;
+	private ArrayList<Job> valueList;
 	private String[] columnNames = { "Name", "Job ID", "Owner", "Cores", "State", "Duration (hrs)", "Target Queue" };
 	private static final int COLUMN_NAME = 0;
 	private static final int COLUMN_ID = 1;
@@ -34,16 +33,16 @@ public class NodeTableModel extends AbstractTableModel {
 	/**
 	 * 
 	 */
-	public NodeTableModel(AnsQueue queue) {
+	public NodeTableModel(JobsQueue queue) {
 		// TODO Auto-generated constructor stub
-		ArrayList<ClusterNodeAbstract> list = new ArrayList<ClusterNodeAbstract>(queue.getNodes().values());
+		ArrayList<Job> list = new ArrayList<Job>(queue.getJobs().values());
 		setValueList(list);
 		setColumnCount(columnNames.length);
 	}
 
-	public NodeTableModel(AnsQueue queue, int column) {
+	public NodeTableModel(JobsQueue queue, int column) {
 		// TODO Auto-generated constructor stub
-		ArrayList<ClusterNodeAbstract> list = new ArrayList<ClusterNodeAbstract>(queue.getNodes().values());
+		ArrayList<Job> list = new ArrayList<Job>(queue.getJobs().values());
 		setValueList(list);
 		setColumnCount(column);
 	}
@@ -121,11 +120,11 @@ public class NodeTableModel extends AbstractTableModel {
 		return returnValue;
 	}
 
-	public ArrayList<ClusterNodeAbstract> getValueList() {
+	public ArrayList<Job> getValueList() {
 		return valueList;
 	}
 
-	public void setValueList(ArrayList<ClusterNodeAbstract> valueList) {
+	public void setValueList(ArrayList<Job> valueList) {
 		this.valueList = valueList;
 	}
 

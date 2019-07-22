@@ -6,7 +6,6 @@ package com.ansys.cluster.monitor.gui.tree;
 import java.io.IOException;
 import java.util.SortedMap;
 import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 import javax.swing.JTree;
@@ -17,8 +16,9 @@ import javax.swing.tree.TreePath;
 
 import org.json.JSONException;
 
-import com.ansys.cluster.monitor.data.AnsQueue;
 import com.ansys.cluster.monitor.data.Cluster;
+import com.ansys.cluster.monitor.data.MasterQueue;
+import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.gui.Console;
 
@@ -96,13 +96,13 @@ public class TreeBuilder {
 		logger.entering(sourceClass, "buildTree", root);
 		DefaultMutableTreeNode masterQueueNode = null;
 
-		ConcurrentHashMap<String, AnsQueue> masterQueue = cluster.getMasterQueue();
-		for (Entry<String, AnsQueue> masterMap : masterQueue.entrySet()) {
+		SortedMap<String, MasterQueue> masterQueue = cluster.getMasterQueue();
+		for (Entry<String, MasterQueue> masterMap : masterQueue.entrySet()) {
 
-			AnsQueue queue = masterMap.getValue();
+			MasterQueue queue = masterMap.getValue();
 			logger.finest("Creating master queue branch " + queue);
 			masterQueueNode = new DefaultMutableTreeNode(queue);
-			createNodes(model, masterQueueNode, queue);
+			parseMasterQueue(model, masterQueueNode, queue);
 
 			model.insertNodeInto(masterQueueNode, root, root.getChildCount());
 		}
@@ -110,24 +110,31 @@ public class TreeBuilder {
 		logger.exiting(sourceClass, "buildTree", root);
 	}
 
-	private void createNodes(DefaultTreeModel model, DefaultMutableTreeNode nodeQueue, AnsQueue queue) {
+	/**
+	 * 
+	 * @param model
+	 * @param nodeQueue
+	 * @param queue
+	 */
+	private void parseMasterQueue(DefaultTreeModel model, DefaultMutableTreeNode nodeQueue, MasterQueue masterQueue) {
 		logger.entering(sourceClass, "createNodes", nodeQueue);
 		DefaultMutableTreeNode nodeBranch = null;
 
-		SortedMap<String, ClusterNodeAbstract> nodes = queue.getNodes();
+		SortedMap<String, AnsQueueAbstract> queues = masterQueue.getQueues();
 
-		for (Entry<String, ClusterNodeAbstract> node : nodes.entrySet()) {
-			logger.finer("Creating Queue branch " + node.getValue());
-			nodeBranch = new DefaultMutableTreeNode(node.getValue());
-
-			createNode(model, nodeBranch, (AnsQueue) node.getValue());
+		for (Entry<String, AnsQueueAbstract> queue : queues.entrySet()) {
+			logger.finer("Creating Queue branch " + queue.getValue());
+			
+			nodeBranch = new DefaultMutableTreeNode(queue.getValue());
+			createNode(model, nodeBranch,  queue.getValue());
 			model.insertNodeInto(nodeBranch, nodeQueue, nodeQueue.getChildCount());
+			logger.finer("Created Queue branch " + queue.getValue());
 		}
 
 		logger.exiting(sourceClass, "createNodes");
 	}
 
-	private void createNode(DefaultTreeModel model, DefaultMutableTreeNode nodeBranch, AnsQueue queue) {
+	private void createNode(DefaultTreeModel model, DefaultMutableTreeNode nodeBranch, AnsQueueAbstract queue) {
 		logger.entering(sourceClass, "createNode");
 		DefaultMutableTreeNode nodeChild = null;
 

@@ -10,9 +10,13 @@ import java.util.SortedMap;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
-import com.ansys.cluster.monitor.data.AnsQueue;
 import com.ansys.cluster.monitor.data.Cluster;
+import com.ansys.cluster.monitor.data.Host;
+import com.ansys.cluster.monitor.data.HostMasterQueue;
+import com.ansys.cluster.monitor.data.HostQueue;
 import com.ansys.cluster.monitor.data.Job;
+import com.ansys.cluster.monitor.data.JobMasterQueue;
+import com.ansys.cluster.monitor.data.JobsQueue;
 import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
@@ -111,77 +115,103 @@ public class QueueFactory {
 
 	}
 
-	public static AnsQueue createMasterQueue(String queueName, String membersType, HashMap<?, ?> map) {
+	public static JobMasterQueue createJobMasterQueue(HashMap<Integer, Job> map) {
+		JobMasterQueue masterQueue = new JobMasterQueue(SGE_DataConst.mqEntryJobs);
 
-		AnsQueue masterQueue = new AnsQueue(queueName);
-		masterQueue.setMembersType(membersType);
+		map.forEach((id, job) -> {
 
-		map.forEach((id, node) -> {
+			getQueue(job);
+			jobQueue(job);
 
-			createNodeQueue((ClusterNodeAbstract) node, masterQueue);
+			String queueName = job.getQueueName();
+
+			if (!queueName.equalsIgnoreCase(SGE_DataConst.noNameHostQueue)) {
+
+				if (masterQueue.containsKey(queueName)) {
+
+					JobsQueue queue = masterQueue.getQueue(queueName);
+					queue.addJob(job);
+					logger.finer("Added node " + job + " to queue " + queue);
+
+				} else {
+
+					JobsQueue queue = new JobsQueue(job);
+
+					logger.finer("Created queue " + queue + " added node " + job);
+					masterQueue.addQueue(queue);
+				}
+			} else {
+
+				logger.fine(job.getName() + " with queue " + queueName + " was excluded from queue");
+
+			}
 
 		});
 
 		return masterQueue;
 	}
 
-	public static AnsQueue createNodeQueue(ClusterNodeAbstract node, AnsQueue masterQueue) {
-		logger.entering(sourceClass, "createQueue", node);
-		getQueue(node);
-		jobQueue(node);
+	public static HostMasterQueue createHostMasterQueue(HashMap<String, Host> map) {
+		HostMasterQueue masterQueue = new HostMasterQueue(SGE_DataConst.mqEntryQueues);
 
-		String queueName = node.getNodeProp().getQueueName();
+		map.forEach((id, node) -> {
 
-		if (!queueName.equalsIgnoreCase(SGE_DataConst.noNameHostQueue)) {
+			getQueue(node);
+			jobQueue(node);
 
-			if (masterQueue.containsKey(queueName)) {
+			String queueName = node.getQueueName();
 
-				AnsQueue queue = masterQueue.get(queueName);
-				queue.addNode(node);
-				logger.finer("Added node " + node + " to queue " + queue);
+			if (!queueName.equalsIgnoreCase(SGE_DataConst.noNameHostQueue)) {
 
+				if (masterQueue.containsKey(queueName)) {
+
+					HostQueue queue = masterQueue.getQueue(queueName);
+					queue.addHost(node);
+					logger.finer("Added node " + node + " to queue " + queue);
+
+				} else {
+
+					HostQueue queue = new HostQueue(node);
+
+					logger.finer("Created queue " + queue + " added node " + node);
+					masterQueue.addQueue(queue);
+				}
 			} else {
 
-				AnsQueue queue = new AnsQueue(node);
+				logger.fine(node.getName() + " with queue " + queueName + " was excluded from queue");
 
-				logger.finer("Created queue " + queue + " added node " + node);
-				masterQueue.addNode(queue);
 			}
-		} else {
 
-			logger.fine(node.getName() + " with queue " + queueName + " was excluded from queue");
+		});
 
-		}
-		logger.exiting(sourceClass, "createQueue", masterQueue);
 		return masterQueue;
-
 	}
 
 	public static void addMyJobs(Cluster cluster, String userName) {
 		logger.entering(sourceClass, "addMyJobs");
 		if (userName != null && userName != "") {
 
-			AnsQueue myJobQueue = new AnsQueue(SGE_DataConst.myJob);
-			AnsQueue jobMasterQueue = cluster.getMasterQueue().get(SGE_DataConst.mqEntryJobs);
+			JobsQueue myJobQueue = new JobsQueue(SGE_DataConst.myJob);
+			JobMasterQueue jobMasterQueue = cluster.getJobMasterQueue();
 
-			SortedMap<String, ClusterNodeAbstract> jobsQueuesMap = jobMasterQueue.getNodes();
-			for (Entry<String, ClusterNodeAbstract> entry : jobsQueuesMap.entrySet()) {
+			SortedMap<String, JobsQueue> jobsQueuesMap = jobMasterQueue.getJobQueues();
+			for (Entry<String, JobsQueue> entry : jobsQueuesMap.entrySet()) {
 				logger.finer("Expecting Job queue " + entry.getKey());
 
-				AnsQueue queue = (AnsQueue) entry.getValue();
-				for (Entry<String, ClusterNodeAbstract> entryJob : queue.getJobs().entrySet()) {
+				JobsQueue queue = entry.getValue();
+				for (Entry<String, Job> entryJob : queue.getJobs().entrySet()) {
 
-					Job job = (Job) entryJob.getValue();
+					Job job = entryJob.getValue();
 
 					if (myJobs(job, userName)) {
 
-						myJobQueue.addNode(job);
+						myJobQueue.addJob(job);
 					}
 				}
 			}
 
 			if (myJobQueue.size() > 0) {
-				jobMasterQueue.addNode(myJobQueue);
+				jobMasterQueue.addQueue(myJobQueue);
 			}
 		}
 

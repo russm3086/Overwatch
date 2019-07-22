@@ -15,10 +15,10 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.json.JSONException;
 
-import com.ansys.cluster.monitor.data.AnsQueue;
 import com.ansys.cluster.monitor.data.Cluster;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeInterface;
+import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.gui.tree.ClusterTreeCellRenderer;
 import com.ansys.cluster.monitor.gui.tree.ClusterTreeListener;
@@ -87,7 +87,6 @@ public class Console extends JFrame {
 
 		JMenu settingsMenu = new JMenu("Settings");
 
-		
 		// Connect to Db MenuItem
 
 		JMenuItem connectMenuItem = new JMenuItem("Connect to Cluster");
@@ -114,12 +113,12 @@ public class Console extends JFrame {
 		// Setting up MenuBar
 		fileMenu.setMnemonic(KeyEvent.VK_F);
 		menuBar.add(fileMenu);
-		
+
 		settingsMenu.setMnemonic(KeyEvent.VK_S);
 		menuBar.add(settingsMenu);
 
 		this.setJMenuBar(menuBar);
-		
+
 		JSplitPane splitPane = new JSplitPane();
 		getContentPane().add(splitPane, BorderLayout.CENTER);
 
@@ -219,6 +218,8 @@ public class Console extends JFrame {
 			tbmt.buildTree();
 			tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
+
+			
 		} catch (JSONException e) {
 
 			throw new JSONException(e);
@@ -234,7 +235,7 @@ public class Console extends JFrame {
 
 			if (clusterNode.getClusterType() == SGE_DataConst.clusterTypeQueue) {
 
-				AnsQueue queue = (AnsQueue) clusterNode;
+				AnsQueueAbstract queue = (AnsQueueAbstract) clusterNode;
 				TableBuilder.buildTable(queue);
 				if (queue.getTable() == null) {
 
@@ -408,16 +409,13 @@ public class Console extends JFrame {
 		 */
 		public void run() {
 			gui = new ParamGUI(Console.getFrames()[0], "Settings", true, mainProps);
-			// gui.make();
-			// gui.setSize(325, 325);
 
 			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 			int x = (int) (dim.getWidth() - gui.getWidth()) / 2;
 			int y = (int) (dim.getHeight() - gui.getHeight()) / 2;
+			
 			gui.setLocation(x, y);
-
 			gui.setVisible(true);
-
 			gui = null;
 
 		}

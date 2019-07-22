@@ -24,8 +24,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 
-import com.ansys.cluster.monitor.data.AnsQueue;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
+import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.HostState;
@@ -75,7 +75,9 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 		if (!(object instanceof String)) {
 
 			ClusterNodeAbstract node = (ClusterNodeAbstract) object;
+			logger.finer("Processing tree node: " + node);
 			StateAbstract state = node.getState();
+
 
 			label.setToolTipText(node.getStatus());
 
@@ -109,7 +111,7 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 
 	private Component queueStateProcessing(StateAbstract state, ClusterNodeAbstract node) throws IOException {
 
-		AnsQueue queue = (AnsQueue) node;
+		AnsQueueAbstract queue = (AnsQueueAbstract) node;
 		Component component = null;
 
 		if (queue.getMembersType().equalsIgnoreCase(SGE_DataConst.clusterTypeHost)) {

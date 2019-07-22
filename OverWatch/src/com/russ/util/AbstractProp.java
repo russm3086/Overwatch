@@ -134,7 +134,7 @@ public abstract class AbstractProp extends Properties {
 
 		} catch (NumberFormatException | NullPointerException e) {
 
-			logger.log(Level.FINEST, "Error retrieving data", e);
+			transLog(Level.FINEST, "Error retrieving data", e);
 		}
 
 		return value;
@@ -173,10 +173,10 @@ public abstract class AbstractProp extends Properties {
 		LocalDateTime dateTime = null;
 
 		try {
-			dateTime =  TimeUtil.getLocalDateTime(getLogProperty(key));
+			dateTime = TimeUtil.getLocalDateTime(getLogProperty(key));
 		} catch (java.lang.NullPointerException e) {
 
-			logger.finest(key + " is null");
+			transLog(Level.FINEST, key + " is null");
 
 		}
 
@@ -191,7 +191,7 @@ public abstract class AbstractProp extends Properties {
 
 	public synchronized Object setLogProperty(String key, String value) {
 
-		logger.finest("Setting key: " + key + " with value: " + value);
+		transLog(Level.FINEST, "Setting key: " + key + " with value: " + value);
 		return setProperty(key, value);
 
 	}
@@ -199,7 +199,7 @@ public abstract class AbstractProp extends Properties {
 	public synchronized String getLogProperty(String key, String defaultValue) {
 
 		String value = getProperty(key, defaultValue);
-		logger.finest("Getting  key: " + key + " with value: " + value + " (default: " + defaultValue + ")");
+		transLog(Level.FINEST, "Getting  key: " + key + " with value: " + value + " (default: " + defaultValue + ")");
 		return value;
 
 	}
@@ -207,7 +207,7 @@ public abstract class AbstractProp extends Properties {
 	public synchronized String getLogProperty(String key) {
 
 		String value = getProperty(key);
-		logger.finest("Getting  key: " + key + " with value: " + value);
+		transLog(Level.FINEST, "Getting  key: " + key + " with value: " + value);
 		return value;
 
 	}
@@ -215,33 +215,33 @@ public abstract class AbstractProp extends Properties {
 	public synchronized Object getLogObject(String key) {
 
 		Object value = get(key);
-		logger.finest("Getting  key: " + key + " with value: " + value);
+		transLog(Level.FINEST, "Getting  key: " + key + " with value: " + value);
 		return value;
 
 	}
 
 	public synchronized Object setLogObject(String key, Object value) {
 
-		logger.finest("Setting key: " + key + " with value: " + value);
+		transLog(Level.FINEST, "Setting key: " + key + " with value: " + value);
 		return put(key, value);
 
 	}
 
 	public synchronized Object putLog(Object key, Object value) {
-		
-		logger.finest("Setting key: " + key + " with value: " + value);
+
+		transLog(Level.FINEST, "Setting key: " + key + " with value: " + value);
 		return put(key, value);
-		
+
 	}
-	
+
 	public synchronized Object getLog(Object key) {
-		
+
 		Object value = get(key);
-		logger.finest("Getting  key: " + key + " with value: " + value);
+		transLog(Level.FINEST, "Getting  key: " + key + " with value: " + value);
 		return value;
-		
+
 	}
-	
+
 	public synchronized void update(Properties prop) {
 
 		Set<String> propertyNames = prop.stringPropertyNames();
@@ -274,6 +274,20 @@ public abstract class AbstractProp extends Properties {
 		}
 
 		return sb.toString();
+	}
+
+	private void transLog(Level level, String msg, Exception e) {
+		if (logger != null) {
+			logger.log(level, msg, e);
+		}
+	}
+
+	private void transLog(Level level, String msg) {
+
+		if (logger != null) {
+			logger.log(level, msg);
+		}
+
 	}
 
 }

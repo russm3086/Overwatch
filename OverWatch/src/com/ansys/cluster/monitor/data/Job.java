@@ -42,11 +42,10 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	public Job(NodeProp nodeProp) {
 		// TODO Auto-generated constructor stub
 		super(nodeProp);
-		addState(JobState.Queued);
+		setName(nodeProp.getJobName());
 		addState(JobState.parseCode(nodeProp.getJobState()), JobState.Queued);
 		setStatus();
 		setClusterType(SGE_DataConst.clusterTypeJob);
-		setName(nodeProp.getJobName());
 
 	}
 
@@ -181,9 +180,9 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		 sb.append(nodeProp.getJobName());
+		 sb.append(getJobName());
 		 sb.append("    ");
-		 sb.append(nodeProp.getJobNumber());
+		 sb.append(getJobNumber());
 		return sb.toString();
 	}
 

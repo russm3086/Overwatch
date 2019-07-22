@@ -19,12 +19,14 @@ import org.json.JSONException;
 
 import com.ansys.cluster.monitor.data.Cluster;
 import com.ansys.cluster.monitor.data.Host;
+import com.ansys.cluster.monitor.data.HostMasterQueue;
+import com.ansys.cluster.monitor.data.HostQueue;
 import com.ansys.cluster.monitor.data.Job;
+import com.ansys.cluster.monitor.data.JobMasterQueue;
+import com.ansys.cluster.monitor.data.JobsQueue;
 import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
-import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.gui.Console;
-import com.ansys.cluster.monitor.data.AnsQueue;
 import com.ansys.cluster.monitor.net.DataCollector;
 import com.ansys.cluster.monitor.net.Payload;
 import com.ansys.cluster.monitor.net.SGE_ConnectConst;
@@ -88,12 +90,13 @@ public class ClusterFactory {
 		setStatusLabel("Getting detailed job data");
 		Payload payLoadoDetailedJob = dc.getDetailedJobsData(index);
 
-		logger.info("Creating host objects");
-		HashMap<String, Host> hostMap = HostFactory.createHostMap(payLoadHost, mainProps);
-
 		logger.info("Creating job objects");
 		setStatusLabel("Creating job objects");
 		HashMap<Integer, Job> DetailedJobsmap = JobFactory.createJobsMap(payLoadJob, payLoadoDetailedJob, mainProps);
+
+		logger.info("Creating host objects");
+		setStatusLabel("Creating host objects");
+		HashMap<String, Host> hostMap = HostFactory.createHostMap(payLoadHost, mainProps);
 
 		logger.info("Job and Host cross reference");
 		setStatusLabel("Job and Host cross referencing");
@@ -101,36 +104,34 @@ public class ClusterFactory {
 
 		logger.info("Creating Job Queues");
 		setStatusLabel("Creating Job Queues");
-		AnsQueue jobsQueue = QueueFactory.createMasterQueue(SGE_DataConst.mqEntryJobs, SGE_DataConst.clusterTypeQueue,
-				DetailedJobsmap);
+		JobMasterQueue jobMasterQueue = QueueFactory.createJobMasterQueue(DetailedJobsmap);
 
 		logger.info("Creating Host Queues");
 		setStatusLabel("Creating Host Queues");
-		AnsQueue hostsQueue = QueueFactory.createMasterQueue(SGE_DataConst.mqEntryQueues,
-				SGE_DataConst.clusterTypeQueue, hostMap);
+		HostMasterQueue hostMasterQueue = QueueFactory.createHostMasterQueue(hostMap);
 
 		logger.info("Assigning jobs to target queues");
-		JobQueueTargetQueue(jobsQueue, hostsQueue);
+		JobQueueTargetQueue(jobMasterQueue, hostMasterQueue);
 
 		logger.info("Creating Cluster object");
 		setStatusLabel("Creating Cluster object " + clusterName);
-		Cluster cluster = new Cluster(clusterName, hostsQueue, jobsQueue);
+		Cluster cluster = new Cluster(clusterName, hostMasterQueue, jobMasterQueue);
 
 		logger.exiting(sourceClass, "createCluster", cluster);
 		return cluster;
 
 	}
 
-	public static void JobQueueTargetQueue(AnsQueue jobsQueue, AnsQueue hostsQueue) {
+	public static void JobQueueTargetQueue(JobMasterQueue jobMasterQueue, HostMasterQueue hostMasterQueue) {
 		logger.entering(sourceClass, "JobQueueTargetQueue");
-		AnsQueue jobPendingQueue = jobsQueue.get(SGE_DataConst.job_PendingQueue);
+		JobsQueue jobPendingQueue = jobMasterQueue.getQueue(SGE_DataConst.job_PendingQueue);
 
 		if (jobPendingQueue != null) {
-			for (Entry<String, ClusterNodeAbstract> entry : jobPendingQueue.getNodes().entrySet()) {
+			for (Entry<String, Job> entry : jobPendingQueue.getJobs().entrySet()) {
 
-				Job job = (Job) entry.getValue();
+				Job job = entry.getValue();
 				String targetQueue = job.getTargetQueue();
-				AnsQueue hostTargetQueue = hostsQueue.get(targetQueue);
+				HostQueue hostTargetQueue = hostMasterQueue.getQueue(targetQueue);
 
 				if (hostTargetQueue != null) {
 
