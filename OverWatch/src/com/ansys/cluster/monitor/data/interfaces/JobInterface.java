@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.ansys.cluster.monitor.data.Host;
+import com.ansys.cluster.monitor.data.NodeProp;
 
 public interface JobInterface {
 
@@ -26,9 +27,13 @@ public interface JobInterface {
 
 	String getJobOwner();
 
+	void setTargetQueue(String queue);
+
 	String getTargetQueue();
 
 	String getStartHost();
+	
+	public void setStartHost(String host);
 
 	double getJobPriority();
 
@@ -39,5 +44,7 @@ public interface JobInterface {
 	String getIdentifier();
 
 	String getJobState();
+
+	NodeProp getJB_hard_queue_list();
 
 }

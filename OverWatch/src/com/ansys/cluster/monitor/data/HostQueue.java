@@ -47,12 +47,12 @@ public class HostQueue extends AnsQueueAbstract {
 
 		logger.finest("Adding " + host + " to queue " + getQueueName());
 
-		hosts.put(host.getName(), host);
-
 		if (!host.getQueueName().equalsIgnoreCase(SGE_DataConst.noNameHostQueue)) {
 
+			hosts.put(host.getName(), host);
+
 			logger.finer("Adding slots for " + host.getName());
-			addSlots(host);
+			addResources(host);
 
 			logger.finer("Processng load for " + host.getName());
 			addNP_Load(host);
@@ -109,10 +109,18 @@ public class HostQueue extends AnsQueueAbstract {
 		np_load = total_np_load / hosts.size();
 	}
 
+	public void addResources(Host host) {
+		if (host.isVisualNode()) {
+			addSessions(host);
+		} else {
+			addSlots(host);
+		}
+	}
+
 	public void addSlots(Host host) {
 
 		if (host.isNodeAvailable()) {
-			addSlotAvailable(host.getSlotTotal());
+			addSlotAvailable(host.getSlotUnused());
 			addAvailableNodes();
 		}
 
@@ -121,6 +129,18 @@ public class HostQueue extends AnsQueueAbstract {
 		addSlotTotal(host.getSlotTotal());
 		addSlotRes(host.getSlotReserved());
 		addSlotUsed(host.getSlotUsed());
+		addSlotUnavailable(host.getSlotUnavailable());
+	}
+
+	public void addSessions(Host host) {
+		if (host.isNodeAvailable()) {
+			addAvailableNodes();
+			addSessionAvailable(host.getSlotUnused());
+		}
+
+		addSessionTotal(host.getSlotTotal());
+		addSessionUsed(host.getSlotUsed());
+		addSessionUnavailable(host.getSlotUnavailable());
 	}
 
 	public SortedMap<Integer, Job> getPendingJobs() {
@@ -148,7 +168,7 @@ public class HostQueue extends AnsQueueAbstract {
 	/**
 	 * @return the disabledNode
 	 */
-	public SortedMap<String, Host> getDisabledNode() {
+	public SortedMap<String, Host> getDisabledNodes() {
 		return disabledhosts;
 	}
 
@@ -176,7 +196,7 @@ public class HostQueue extends AnsQueueAbstract {
 			summary.append("  Job Name: " + prop.getJobName());
 			summary.append("\tOwner: " + prop.getJobOwner());
 			summary.append("\tJob #: " + job.getJobNumber());
-			summary.append("\tCores: " + prop.getSlots());
+			summary.append("\t" + getUnitRes() + ": " + prop.getSlots());
 			summary.append("\n");
 			sb.append(summary);
 		}
@@ -200,14 +220,26 @@ public class HostQueue extends AnsQueueAbstract {
 		StringBuilder summary = new StringBuilder();
 		summary.append("Queue Name: \t" + getName() + "\n");
 
-		summary.append("\n Cores Total: \t" + getSlotTotal());
-		summary.append("\n Cores Reserved: \t" + getSlotRes());
-		summary.append("\n Cores Used: \t" + getSlotUsed());
-		summary.append("\n Cores Available:\t" + getSlotAvailable());
-		summary.append("\n Cores % Available: \t" + availableSlotsPercent());
-		summary.append("\n Memory free: \t " + decimalFormatter.format(getFreeMem()));
-		summary.append("\n Free Nodes: \t" + getAvailableNodes());
-		summary.append("\n Total Nodes: \t" + size() + "\n");
+		if (isVisualNode()) {
+			summary.append("\n" + getUnitRes() + " Total:\t" + getSessionTotal());
+			summary.append("\n" + getUnitRes() + " Used:\t" + getSessionUsed());
+			summary.append("\n" + getUnitRes() + " Available:\t" + getSessionAvailable());
+			summary.append("\n" + getUnitRes() + " Unavailable:\t" + getSessionUnavailable());
+
+		} else {
+
+			summary.append("\n" + getUnitRes() + " Total:\t\t" + getSlotTotal());
+			summary.append("\n" + getUnitRes() + " Reserved:\t" + getSlotRes());
+			summary.append("\n" + getUnitRes() + " Used:\t\t" + getSlotUsed());
+			summary.append("\n" + getUnitRes() + " Available:\t" + getSlotAvailable());
+			summary.append("\n" + getUnitRes() + " Unavailable:\t" + getSlotUnavailable());
+			summary.append("\n" + getUnitRes() + " % Available:\t" + availableSlotsPercent());
+
+		}
+
+		summary.append("\n Memory free:\t\t" + decimalFormatter.format(getFreeMem()));
+		summary.append("\n Free Nodes:\t\t" + getAvailableNodes());
+		summary.append("\n Total Nodes:\t\t" + size() + "\n");
 
 		if (pendingJobs.size() > 0) {
 			summary.append("\n Pending Job(s):\n" + displayPendingJobs());
@@ -227,8 +259,8 @@ public class HostQueue extends AnsQueueAbstract {
 
 	public String getStatus() {
 
-		String status = "Free Nodes: " + getAvailableNodes() + "  Free Slots: " + getSlotAvailable() + "  Load "
-				+ decimalFormatter.format(getNp_Load());
+		String status = "Free Nodes: " + getAvailableNodes() + "  Free " + getUnitRes() + ": " + getSlotAvailable()
+				+ "  Load " + decimalFormatter.format(getNp_Load());
 		return status;
 	}
 
@@ -236,6 +268,7 @@ public class HostQueue extends AnsQueueAbstract {
 		return hosts;
 	}
 
+	// TODO SHould be part of an interface
 	@Override
 	public int size() {
 		return hosts.size();
@@ -251,7 +284,7 @@ public class HostQueue extends AnsQueueAbstract {
 		// TODO Auto-generated method stub
 		return hosts.get(host);
 	}
-	
+
 	public SortedMap<String, ClusterNodeAbstract> getNodes() {
 		SortedMap<String, ClusterNodeAbstract> map = new TreeMap<String, ClusterNodeAbstract>();
 		map.putAll(hosts);

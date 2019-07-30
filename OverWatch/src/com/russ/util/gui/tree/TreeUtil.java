@@ -5,6 +5,7 @@ package com.russ.util.gui.tree;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.StringTokenizer;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,7 +62,7 @@ public class TreeUtil {
 		logger.finer("Traversing " + object);
 
 		if (!(object instanceof String)) {
-			
+
 			ClusterNodeAbstract node = (ClusterNodeAbstract) object;
 			Matcher matcher = search(node.getMetaData(), pattern);
 
@@ -105,6 +106,11 @@ public class TreeUtil {
 		expandTree(tree, true, false, nodeLevel);
 	}
 
+	public void expandTreeToNode(JTree tree, TreePath path) {
+
+		expandAll(tree, path, true, true, 0, 0);
+	}
+
 	public void expandAllTree(JTree tree) {
 		expandTree(tree, true, true, 0);
 	}
@@ -135,13 +141,87 @@ public class TreeUtil {
 
 				expandAll(tree, childPath, expand, allNodes, level, childPath.getPathCount());
 			}
-
 		}
 
 		if (expand) {
 			tree.expandPath(path);
 		} else {
 			tree.collapsePath(path);
+		}
+	}
+
+	// is path1 descendant of path2
+	public static boolean isDescendant(TreePath path1, TreePath path2) {
+		int count1 = path1.getPathCount();
+		int count2 = path2.getPathCount();
+		if (count1 <= count2)
+			return false;
+		while (count1 != count2) {
+			path1 = path1.getParentPath();
+			count1--;
+		}
+		return path1.equals(path2);
+	}
+
+	public static String getExpansionState(JTree tree, int row) {
+		TreePath rowPath = tree.getPathForRow(row);
+		StringBuffer buf = new StringBuffer();
+		int rowCount = tree.getRowCount();
+		for (int i = row; i < rowCount; i++) {
+			TreePath path = tree.getPathForRow(i);
+			if (i == row || isDescendant(path, rowPath)) {
+				if (tree.isExpanded(path)) {
+					buf.append(",");
+					buf.append(String.valueOf(i - row));
+
+				}
+			} else
+				break;
+		}
+		return buf.toString();
+	}
+
+	public static void restoreExpanstionState(JTree tree, int row, String expansionState) {
+		StringTokenizer stok = new StringTokenizer(expansionState, ",");
+		while (stok.hasMoreTokens()) {
+			int token = row + Integer.parseInt(stok.nextToken());
+			tree.expandRow(token);
+		}
+	}
+
+	/**
+	 * 
+	 * Save the expansion state of a tree.
+	 * 
+	 * @param tree
+	 * 
+	 * @return expanded tree path as Enumeration
+	 * 
+	 */
+
+	public static Enumeration<TreePath> saveExpansionState(JTree tree) {
+		return tree.getExpandedDescendants(new TreePath(tree.getModel().getRoot()));
+	}
+
+	/**
+	 * 
+	 * Restore the expansion state of a JTree.
+	 * 
+	 * @param tree
+	 * 
+	 * @param enumeration an Enumeration of expansion state. You can get it using
+	 *                    {@link #saveExpansionState(javax.swing.JTree)}.
+	 * 
+	 */
+
+	public static void loadExpansionState(JTree tree, Enumeration<TreePath> enumeration) {
+
+		if (enumeration != null) {
+
+			while (enumeration.hasMoreElements()) {
+				TreePath treePath = (TreePath) enumeration.nextElement();
+				tree.expandPath(treePath);
+			}
 		}
 	}
 

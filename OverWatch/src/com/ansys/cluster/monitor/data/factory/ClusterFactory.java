@@ -131,6 +131,14 @@ public class ClusterFactory {
 
 				Job job = entry.getValue();
 				String targetQueue = job.getTargetQueue();
+
+				if (targetQueue.indexOf("@") > 0) {
+
+					int index = targetQueue.indexOf("@");
+					logger.finer("Parsing Job queue " + targetQueue);
+					targetQueue = targetQueue.substring(0, index);
+				}
+
 				HostQueue hostTargetQueue = hostMasterQueue.getQueue(targetQueue);
 
 				if (hostTargetQueue != null) {
@@ -141,6 +149,7 @@ public class ClusterFactory {
 
 					logger.severe("Target Queue " + targetQueue + " for pending job " + job.getJobNumber()
 							+ " does not exist");
+
 				}
 
 			}

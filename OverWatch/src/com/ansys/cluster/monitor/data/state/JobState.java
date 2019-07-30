@@ -23,6 +23,7 @@ public class JobState extends StateAbstract {
 	private static final String TransferringDesc = "Job is in a transferring state. The job is sent to the execution host.";
 	private static final String DeletionDesc = "The job is in a deletion state. The job is currently deleted by the system.";
 	private static final String ErrorDesc = "The job is in an error state.";
+	private static final String UnknownQueueDesc = "The target queue is unknown or not stated";	
 	private static final String RestartedDesc = "The job was restarted.";
 	private static final String SuspendedThresholdDesc = "The job is in a suspended state because of threshold limitations.";
 	private static final String WaitingDesc = "The job is in a waiting state.";
@@ -53,6 +54,8 @@ public class JobState extends StateAbstract {
 	public static final JobState Unknown = new JobState("Unknown", 3000, UnknownDesc, Color.RED);
 
 	public static final JobState Error = new JobState("Error", 2900, ErrorDesc, Color.RED);
+	
+	public static final JobState UnknownQueue = new JobState("Unknown Queue", 2850, UnknownQueueDesc, Color.RED);	
 
 	public static final JobState SuspendedThreshold = new JobState("Suspended Threshold", 2800,
 			SuspendedThresholdDesc, Color.YELLOW);

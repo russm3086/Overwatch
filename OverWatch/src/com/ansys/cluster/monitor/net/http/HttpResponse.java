@@ -8,7 +8,6 @@ import java.io.ObjectInputStream;
 import java.net.HttpURLConnection;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,11 +33,10 @@ public class HttpResponse {
 	private int responseCode = 0;
 	private String responseMessage = new String();
 	private String headerFields = new String();
-	private String output = new String();
+	private Object output = null;
 	private String contentType = new String();
 	private long contentSize = 0;
 	private String url;
-	private Cluster cluster = null;
 
 	/**
 	 * @throws IOException
@@ -79,15 +77,12 @@ public class HttpResponse {
 		} else {
 
 			if (getContentType().toLowerCase().contains("overwatch") == true) {
-
-				// readInStream(con.getInputStream(),bufferLength);
-
-				setCluster(readClusterStream(con.getInputStream(), bufferLength));
+				
+				setOutput(readClusterStream(con.getInputStream(), bufferLength));
 			} else {
 				setOutput(readStrStream(con.getInputStream(), bufferLength));
 			}
 
-			setContentSize(getOutput().length());
 		}
 
 		setHeaderFields(fullResponseBuilder.toString());
@@ -128,6 +123,9 @@ public class HttpResponse {
 			}
 		} finally {
 			stream.close();
+			
+			setContentSize(os.size());
+
 		}
 
 		logger.exiting(sourceClass, "readInStream");
@@ -219,11 +217,11 @@ public class HttpResponse {
 		this.headerFields = headerFields;
 	}
 
-	public String getOutput() {
+	public Object getOutput() {
 		return output;
 	}
 
-	public void setOutput(String output) {
+	public void setOutput(Object output) {
 		this.output = output;
 	}
 
@@ -269,18 +267,5 @@ public class HttpResponse {
 		this.url = url;
 	}
 
-	/**
-	 * @return the cluster
-	 */
-	public Cluster getCluster() {
-		return cluster;
-	}
-
-	/**
-	 * @param cluster the cluster to set
-	 */
-	public void setCluster(Cluster cluster) {
-		this.cluster = cluster;
-	}
 
 }

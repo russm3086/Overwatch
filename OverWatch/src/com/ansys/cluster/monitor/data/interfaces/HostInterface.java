@@ -29,6 +29,8 @@ public interface HostInterface {
 	int getSlotReserved();
 
 	int getSlotUsed();
+	
+	int getSlotUnused();
 
 	String getMemTotal();
 
@@ -42,7 +44,7 @@ public interface HostInterface {
 
 	String getMemFreeNumStr();
 
-	int getMachineCore();
+	int getM_Core();
 
 	double getNp_load_avg();
 

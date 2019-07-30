@@ -47,26 +47,23 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 
 		if (nodeProp.getSlotTotal() > 0) {
 			if (nodeProp.getSlotUsed() == nodeProp.getSlotTotal()) {
-
 				addState(HostState.MaxedSlotUsed);
 			}
 
 			if (nodeProp.getSlotTotal() == nodeProp.getSlotReserved()) {
-
 				addState(HostState.MaxedSlotReserved);
 			}
 		}
 
 		if (nodeProp.getNp_load_avg() >= 5) {
-
 			addState(HostState.HighCpuLoad);
 		}
 
 		if (nodeProp.getSlotTotal() <= 0) {
-
 			addState(HostState.NoSLotsAllocated);
 		}
 
+		setSlotUnavailable(nodeProp.getSlotUsed());
 		setAvailabilty();
 	}
 
@@ -77,6 +74,7 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 				|| (state.between(HostState.Unknown, HostState.Error)) || (isExclusive())) {
 
 			setNodeAvailable(false);
+			setSlotUnavailable(nodeProp.getSlotTotal());
 		}
 	}
 
@@ -156,28 +154,36 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 			exclusiveSlots = nodeProp.getSlotTotal();
 		}
 
-		status = "Free Slots: " + exclusiveSlots + "  Mem Free: " + decimalFormatter.format(nodeProp.getMemFreeNum()) + "  Load: "
-				+ decimalFormatter.format(nodeProp.getNp_load_avg());
+		status = "Free Slots: " + exclusiveSlots + "  Mem Free: " + decimalFormatter.format(nodeProp.getMemFreeNum())
+				+ "  Load: " + decimalFormatter.format(nodeProp.getNp_load_avg());
 	}
 
 	@Override
 	public String getSummary() {
 		// TODO Auto-generated method stub
-		String summary = "Hostname: " + nodeProp.getHostname();
-		summary += "\nLoad: \t\t" + decimalFormatter.format(nodeProp.getNp_load_avg());
-		summary += "\nSlot Total: \t\t" + nodeProp.getSlotTotal();
-		summary += "\nSlot Reserved: \t\t" + getSlotReserved();
-		summary += "\nSlot Used: \t\t" + nodeProp.getSlotUsed();
-		summary += "\nMemory Total: \t\t" + nodeProp.getMemTotal();
-		summary += "\nMemory Used: \t\t" + decimalFormatter.format(nodeProp.getMemUsedNum());
-		summary += "\nMemory Free: \t\t" + decimalFormatter.format(nodeProp.getMemFreeNum());
-		summary += "\nCore #: \t\t" + nodeProp.getM_Core();
-		summary += "\nState: \t\t" + nodeProp.getState();
-		summary += "\nState Description:\t\t" + getStateDescriptions();
-		summary += "\nQueue : \t\t" + nodeProp.getHostQueueName();
-		summary += "\nJob:\n" + getJobs();
 
-		return summary;
+		StringBuffer output = new StringBuffer();
+
+		output.append("Hostname:\t\t\t" + nodeProp.getHostname());
+		output.append("\nQueue:\t\t\t" + nodeProp.getHostQueueName());
+		output.append("\nLoad: \t\t\t" + decimalFormatter.format(getNp_load_avg()));
+		output.append("\n" + getUnitRes() + " Total:\t\t\t" + getSlotTotal());
+		output.append("\n" + getUnitRes() + " Reserved:\t\t" + getSlotReserved());
+		output.append("\n" + getUnitRes() + " Used:\t\t\t" + getSlotUsed());
+		output.append("\n" + getUnitRes() + " Unavailable:\t\t" + getSlotUnavailable());
+		output.append("\n" + getUnitRes() + " Available:\t\t" + getSlotUnused());
+		output.append("\nMemory Total:\t\t\t" + getMemTotal());
+		output.append("\nMemory Used:\t\t\t" + decimalFormatter.format(getMemUsedNum()));
+		output.append("\nMemory Free:\t\t\t" + decimalFormatter.format(getMemFreeNum()));
+		output.append("\nCore #:\t\t\t" + getM_Core());
+		output.append("\nState:\t\t\t" + getState());
+		output.append("\n\nState Description:\t\t" + getStateDescriptions());
+
+		if (getListJob().size() > 0) {
+			output.append("\n\nJob:\n" + getJobs());
+		}
+
+		return output.toString();
 	}
 
 	private String getJobs() {
@@ -208,7 +214,6 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 			addState(HostState.Exclusive);
 			setAvailabilty();
 		}
-
 		listJob.add(job);
 	}
 
@@ -236,32 +241,37 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 	public int getSlotReserved() {
 		return nodeProp.getSlotReserved();
 	}
-	
+
 	@Override
 	public int getSlotUsed() {
 		return nodeProp.getSlotUsed();
 	}
-	
+
+	@Override
+	public int getSlotUnused() {
+		return nodeProp.getSlotTotal() - nodeProp.getSlotUsed();
+	}
+
 	@Override
 	public String getMemTotal() {
 		return nodeProp.getMemTotal();
 	}
-	
+
 	@Override
 	public double getMemTotalNum() {
 		return nodeProp.getMemTotalNum();
 	}
-	
+
 	@Override
 	public String getMemUsedNumStr() {
 		return decimalFormatter.format(getMemUsedNum());
 	}
-	
+
 	@Override
 	public double getMemUsedNum() {
 		return nodeProp.getMemUsedNum();
 	}
-	
+
 	@Override
 	public double getMemFreeNum() {
 		return nodeProp.getMemFreeNum();
@@ -271,29 +281,35 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 	public String getMemFreeNumStr() {
 		return decimalFormatter.format(getMemFreeNum());
 	}
-	
+
 	@Override
-	public int getMachineCore() {
-		return nodeProp.getM_Core();		
+	public int getM_Core() {
+		return nodeProp.getM_Core();
 	}
-	
+
 	@Override
 	public double getNp_load_avg() {
 		return nodeProp.getNp_load_avg();
 	}
-	
+
+	public String getHostQueueName() {
+		return nodeProp.getHostQueueName();
+	}
+
 	@Override
 	public String getMetaData() {
+
 		StringBuffer output = new StringBuffer();
 		output.append(super.getMetaData());
 		output.append("\nLoad: " + getAvgLoad());
-		output.append("\nCore Total: " + getSlotTotal());
-		output.append("\nCore Reserved: " + getSlotReserved());
-		output.append("\nCore Used: " + getSlotUsed());
+		output.append("\n" + getUnitRes() + " Total: " + getSlotTotal());
+		output.append("\n" + getUnitRes() + " Reserved: " + getSlotReserved());
+		output.append("\n" + getUnitRes() + " Used: " + getSlotUsed());
+		output.append("\n" + getUnitRes() + " Unavailable: " + getSlotUnavailable());
 		output.append("\nMemory Total: " + getMemTotal());
 		output.append("\nMemory Used: " + getMemUsedNumStr());
 		output.append("\nMemory Free: " + getMemFreeNumStr());
-		output.append("\nCore Machine: " + getMachineCore());
+		output.append("\nCore Machine: " + getM_Core());
 		output.append("\nJob:\n" + getJobs());
 
 		return output.toString();

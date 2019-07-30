@@ -275,6 +275,10 @@ public class Connector {
 			output = SGE_ConnectConst.jsonType;
 		}
 
+		if (contentType.toUpperCase().contains(SGE_ConnectConst.overwatchType)) {
+			output = SGE_ConnectConst.clusterType;
+		}
+
 		logger.exiting(sourceClass, "contentType", output);
 		return output;
 	}

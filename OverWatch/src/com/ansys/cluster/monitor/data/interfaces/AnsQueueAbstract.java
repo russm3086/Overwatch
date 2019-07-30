@@ -6,7 +6,6 @@
 package com.ansys.cluster.monitor.data.interfaces;
 
 import java.util.SortedMap;
-import java.util.logging.Logger;
 
 import javax.swing.JTable;
 
@@ -24,19 +23,25 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 	 * 
 	 */
 	private static final long serialVersionUID = -364220974815470506L;
-
-	private final String sourceClass = this.getClass().getName();
-	private final transient Logger logger = Logger.getLogger(sourceClass);
 	protected double total_np_load = 0;
 	protected double np_load = 0;
 	private int nodesAvailable = 0;
 	private double freeMem = 0;
 	private double totalMem = 0;
+	protected int sessionUsed = 0;
+	protected int sessionTotal = 0;
+	protected int sessionAvailable = 0;
+	protected int sessionUnavailable = 0;
+	protected int slotReserved = 0;
+	protected int slotUsed = 0;
+	protected int slotTotal = 0;
+	protected int slotAvailable = 0;
 	private String membersType;
 	private JTable table;
 
 	public AnsQueueAbstract(ClusterNodeAbstract node) {
 		this(node.getQueueName(), node.getClusterType());
+		setVisualNode(node.isVisualNode());
 	}
 
 	public AnsQueueAbstract(String name, String membersType) {
@@ -54,11 +59,15 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 		nodesAvailable += 1;
 	}
 
+	public void addAvailableNodes(int nodes) {
+		nodesAvailable += nodes;
+	}
+
 	public void addFreeMem(double freeMem) {
 		setFreeMem(getFreeMem() + freeMem);
 	}
 
-	protected void addQueue(AnsQueueAbstract queue) {
+	protected void calcQueue(AnsQueueAbstract queue) {
 
 		switch (queue.getMembersType()) {
 		case SGE_DataConst.clusterTypeJob:
@@ -66,15 +75,75 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 			break;
 
 		case SGE_DataConst.clusterTypeHost:
-			addSlotTotal(queue.getSlotTotal());
-			addSlotRes(queue.getSlotRes());
-			addSlotUsed(queue.getSlotUsed());
+			if (queue.isVisualNode()) {
+
+				addSessionTotal(queue.getSessionTotal());
+				addSessionAvailable(queue.getSessionAvailable());
+				addSessionUsed(queue.getSessionUsed());
+				addSessionUnavailable(queue.getSessionUnavailable());
+
+			} else {
+
+				addSlotTotal(queue.getSlotTotal());
+				addSlotRes(queue.getSlotRes());
+				addSlotUsed(queue.getSlotUsed());
+				addSlotAvailable(queue.getSlotAvailable());
+				addSlotUnavailable(queue.getSlotUnavailable());
+			}
+
 			addNp_load(queue.getNp_Load());
 			addFreeMem(queue.getFreeMem());
+			addAvailableNodes(queue.getAvailableNodes());
 
 			break;
 		}
 
+	}
+
+	/**
+	 * @return the freeSlots
+	 */
+	public int getSlotAvailable() {
+		return slotAvailable;
+	}
+
+	/**
+	 * @return the slotRes
+	 */
+	public int getSlotRes() {
+		return slotReserved;
+	}
+
+	/**
+	 * @return the slotTotal
+	 */
+	public int getSlotTotal() {
+		return slotTotal;
+	}
+
+	/**
+	 * @return the slotUsed
+	 */
+	public int getSlotUsed() {
+		return slotUsed;
+	}
+
+	/**
+	 * @param slotAvailable the slotAvailable to set
+	 */
+	public void setSlotAvailable(int slotAvailable) {
+		this.slotAvailable = slotAvailable;
+	}
+
+	public String availableSlotsPercent() {
+		String result = "0%";
+		try {
+			float calc = (getSlotAvailable() * 100) / getSlotTotal();
+			result = decimalFormatter.format(calc) + "%";
+		} catch (java.lang.ArithmeticException e) {
+			System.out.println(e.getLocalizedMessage());
+		}
+		return result;
 	}
 
 	public void addNp_load(double np_load) {
@@ -87,14 +156,21 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 	 * @param freeSlots the freeSlots to set
 	 */
 	public void addSlotAvailable(int slotAvailable) {
-		this.slotAvailable += slotAvailable;
+		setSlotAvailable(getSlotAvailable() + slotAvailable);
 	}
 
 	/**
 	 * @param slotRes the slotRes to set
 	 */
-	public void addSlotRes(int slotRes) {
-		setSlotRes(getSlotRes() + slotRes);
+	public void setSlotRes(int slotReserved) {
+		this.slotReserved = slotReserved;
+	}
+
+	/**
+	 * @param slotTotal the slotTotal to set
+	 */
+	public void setSlotTotal(int slotTotal) {
+		this.slotTotal = slotTotal;
 	}
 
 	/**
@@ -107,8 +183,19 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 	/**
 	 * @param slotUsed the slotUsed to set
 	 */
+	public void setSlotUsed(int slotUsed) {
+		this.slotUsed = slotUsed;
+	}
+
 	public void addSlotUsed(int slotUsed) {
 		setSlotUsed(getSlotUsed() + slotUsed);
+	}
+
+	/**
+	 * @param slotRes the slotRes to set
+	 */
+	public void addSlotRes(int slotRes) {
+		setSlotRes(getSlotRes() + slotRes);
 	}
 
 	@Override
@@ -126,13 +213,6 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 
 	public double getFreeMem() {
 		return freeMem;
-	}
-
-	/**
-	 * @return the logger
-	 */
-	public Logger getLogger() {
-		return logger;
 	}
 
 	public String getMembersType() {
@@ -172,7 +252,7 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 	}
 
 	public void setMembersType(String membersType) {
-			this.membersType = membersType;
+		this.membersType = membersType;
 	}
 
 	/**
@@ -217,6 +297,101 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 
 	public String toString() {
 		return getName();
+	}
+
+	/**
+	 * @return the sessionUsed
+	 */
+	public int getSessionUsed() {
+		return sessionUsed;
+	}
+
+	/**
+	 * @param sessionUsed the sessionUsed to set
+	 */
+	public void addSessionUsed(int sessionUsed) {
+		this.sessionUsed += sessionUsed;
+	}
+
+	public void setSessionTotal(int sessionTotal) {
+		this.sessionTotal = sessionTotal;
+	}
+
+	/**
+	 * @return the sessionTotal
+	 */
+	public int getSessionTotal() {
+		return sessionTotal;
+	}
+
+	/**
+	 * @param sessionTotal the sessionTotal to set
+	 */
+	public void addSessionTotal(int sessionTotal) {
+		setSessionTotal(getSessionTotal() + sessionTotal);
+	}
+
+	/**
+	 * @param sessionTotal the sessionTotal to set
+	 */
+	public void addSessionTotal() {
+		setSessionTotal(getSessionTotal() + 1);
+	}
+
+	/**
+	 * @return the sessionAvailable
+	 */
+	public int getSessionAvailable() {
+		return sessionAvailable;
+	}
+
+	/**
+	 * @param sessionAvailable the sessionAvailable to set
+	 */
+	public void addSessionAvailable(int sessionAvailable) {
+		setSessionAvailable(getSessionAvailable() + sessionAvailable);
+	}
+
+	/**
+	 * @param sessionAvailable the sessionAvailable to set
+	 */
+	public void addSessionAvailable() {
+		setSessionAvailable(getSessionAvailable() + 1);
+	}
+
+	/**
+	 * @param sessionAvailable the sessionAvailable to set
+	 */
+	public void setSessionAvailable(int sessionAvailable) {
+		this.sessionAvailable = sessionAvailable;
+	}
+
+	/**
+	 * @return the sessionUnavailable
+	 */
+	public int getSessionUnavailable() {
+		return sessionUnavailable;
+	}
+
+	/**
+	 * @param sessionUnavailable the sessionUnavailable to set
+	 */
+	public void setSessionUnavailable(int sessionUnavailable) {
+		this.sessionUnavailable = sessionUnavailable;
+	}
+
+	/**
+	 * @param sessionUnavailable the sessionUnavailable to set
+	 */
+	public void addSessionUnavailable(int sessionUnavailable) {
+		setSessionUnavailable(getSessionUnavailable() + sessionUnavailable);
+	}
+
+	/**
+	 * @param sessionUnavailable the sessionUnavailable to set
+	 */
+	public void addSessionUnavailable() {
+		setSessionUnavailable(getSessionUnavailable() + 1);
 	}
 
 	public int size() {

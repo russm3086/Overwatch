@@ -78,7 +78,6 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 			logger.finer("Processing tree node: " + node);
 			StateAbstract state = node.getState();
 
-
 			label.setToolTipText(node.getStatus());
 
 			try {
@@ -117,7 +116,7 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 		if (queue.getMembersType().equalsIgnoreCase(SGE_DataConst.clusterTypeHost)) {
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.WHITE);
-			panel.setMaximumSize(new Dimension(200, 40));
+			panel.setMaximumSize(new Dimension(235, 40));
 			panel.setPreferredSize(new Dimension(225, 30));
 
 			JLabel lblNewLabel = new JLabel(queue.getName());
@@ -128,16 +127,35 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 			JProgressBar progressBar = new JProgressBar();
 			progressBar.setPreferredSize(new Dimension(150, 25));
 
-			int nodes = queue.size() - queue.getAvailableNodes();
-			panel.setToolTipText(queue.getAvailableNodes() + " of " + queue.size() + " are available.");
+			int resAvailable;
+			int resTotal;
+			int resUnavailable;
 
-			logger.finest("Setting " + queue.getName() + " progress bar min: " + nodes + " max: " + queue.size());
+			if (node.isVisualNode()) {
+
+				resAvailable = queue.getSessionAvailable();
+				resTotal = queue.getSessionTotal();
+				resUnavailable = queue.getSessionUnavailable();
+
+			} else {
+
+				resAvailable = queue.getSlotAvailable();
+				resTotal = queue.getSlotTotal();
+				resUnavailable = queue.getSlotUnavailable();
+
+			}
+
+			panel.setToolTipText(resAvailable + " of " + resTotal + " " + queue.getUnitRes() + " are available.");
+
+			logger.finest("Setting " + queue.getName() + " progress bar min: " + resAvailable + " max: "
+					+ queue.getSlotTotal());
 			progressBar.setBackground(Color.GREEN);
 			progressBar.setForeground(Color.RED);
-			progressBar.setMaximum(queue.size());
-			progressBar.setValue(nodes);
-			progressBar.setString("Utilized Nodes");
-			// progressBar.setStringPainted(true);
+			progressBar.setMaximum(resTotal);
+			progressBar.setValue(resUnavailable);
+
+			progressBar.setString(resAvailable + " of " + resTotal + " " + queue.getUnitRes());
+			progressBar.setStringPainted(true);
 			panel.add(progressBar);
 			panel.setBorder(getBorderSelect());
 			component = panel;
@@ -235,13 +253,7 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 			label.setToolTipText(state.getDescription());
 		}
 
-		if (state.equals(JobState.Error)) {
-
-			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_RedLight_Small_Path)));
-			label.setToolTipText(state.getDescription());
-		}
-
-		if (state.equals(JobState.Unknown)) {
+		if (state.between(JobState.UnknownQueue, JobState.Unknown)) {
 
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Skull_and_Bones_Small_Path)));
 			label.setToolTipText(state.getDescription());

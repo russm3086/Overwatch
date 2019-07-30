@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
+import com.ansys.cluster.monitor.data.state.JobState;
 
 /**
  * @author rmartine
@@ -23,6 +24,7 @@ public class JobsQueue extends AnsQueueAbstract {
 	private final String sourceClass = this.getClass().getName();
 	private final transient Logger logger = Logger.getLogger(sourceClass);
 	private SortedMap<String, Job> jobs = new TreeMap<String, Job>();
+	private SortedMap<String, Job> errorJobs = new TreeMap<String, Job>();
 
 	public JobsQueue(String name) {
 		super(name, SGE_DataConst.clusterTypeJob);
@@ -30,7 +32,6 @@ public class JobsQueue extends AnsQueueAbstract {
 	}
 
 	public JobsQueue(Job job) {
-
 		super(job);
 		addJob(job);
 	}
@@ -40,7 +41,21 @@ public class JobsQueue extends AnsQueueAbstract {
 
 		jobs.put(String.valueOf(job.getJobNumber()), job);
 
-		addSlotTotal(job.getSlots());
+		if (job.getState().equals(JobState.Error))
+			errorJobs.put(String.valueOf(job.getJobNumber()), job);
+
+		if (job.isVisualNode()) {
+
+			addSessionTotal();
+
+			if (job.getState().equals(JobState.Error)) {
+				addSessionUnavailable();
+			} else {
+				addSessionAvailable();
+			}
+		} else {
+			addSlotTotal(job.getSlots());
+		}
 
 		logger.finest("Adding " + job + " to queue " + getQueueName());
 	}
@@ -69,8 +84,22 @@ public class JobsQueue extends AnsQueueAbstract {
 
 	public String getStatus() {
 
-		String status = "# of jobs: " + jobs.size() + "  Used Slots: " + getSlotUsed();
+		String status = "# of jobs: " + jobs.size() + "  Used " + getUnitRes() + ": " + getSlotUsed();
 		return status;
+	}
+
+	/**
+	 * @return the errorJobs
+	 */
+	public SortedMap<String, Job> getErrorJobs() {
+		return errorJobs;
+	}
+
+	/**
+	 * @param errorJobs the errorJobs to set
+	 */
+	public void setErrorJobs(SortedMap<String, Job> errorJobs) {
+		this.errorJobs = errorJobs;
 	}
 
 	@Override
@@ -84,12 +113,13 @@ public class JobsQueue extends AnsQueueAbstract {
 		// TODO Auto-generated method stub
 		return jobs.containsKey(queueName);
 	}
+
 	public SortedMap<String, ClusterNodeAbstract> getNodes() {
 		// TODO Auto-generated method stub
-		
+
 		SortedMap<String, ClusterNodeAbstract> map = new TreeMap<String, ClusterNodeAbstract>();
 		map.putAll(jobs);
-		
+
 		return map;
 	}
 

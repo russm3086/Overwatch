@@ -5,6 +5,7 @@
 */
 package com.ansys.cluster.monitor.data.factory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.SortedMap;
 import java.util.Map.Entry;
@@ -73,33 +74,34 @@ public class QueueFactory {
 		logger.finest(node + ": Setting Queue name to " + node.getNodeProp().getQueueName());
 	}
 
-	private static void jobQueue(ClusterNodeAbstract node) {
-		logger.entering(sourceClass, "jobQueue", node);
-		String queueName = node.getNodeProp().getQueueName();
+	private static void jobQueue(Job job) {
+		logger.entering(sourceClass, "jobQueue", job);
+		String queueName = job.getQueueName();
 		int index = queueName.indexOf("@");
 		if (index > 0) {
 			logger.finer("Parsing Job queue " + queueName);
 			String newQueueName = queueName.substring(0, index);
 			String startHost = queueName.substring(index + 1);
 
-			node.getNodeProp().setQueueName(newQueueName);
-			node.getNodeProp().setStartHost(startHost);
+			job.setQueueName(newQueueName);
+			job.setStartHost(startHost);
 		}
 
 		if (queueName.equalsIgnoreCase(SGE_DataConst.job_PendingQueue)) {
 
 			logger.finer(SGE_DataConst.job_PendingQueue + " looking ");
-			NodeProp propList = (NodeProp) node.getNodeProp().get("JB_hard_queue_list");
+			NodeProp propList = job.getJB_hard_queue_list();
 
 			if (propList != null) {
 				String queue = (String) propList.get("QR_name");
-				node.getNodeProp().setTargetQueue(queue);
+				job.setTargetQueue(queue);
 			} else {
-				node.getNodeProp().setTargetQueue("NA");
+				job.setTargetQueue("NTQ");
 			}
 		}
 		logger.exiting(sourceClass, "jobQueue");
 	}
+
 
 	public static boolean myJobs(ClusterNodeAbstract node) {
 		logger.entering(sourceClass, "myJobs", node);
@@ -122,6 +124,7 @@ public class QueueFactory {
 
 			getQueue(job);
 			jobQueue(job);
+			detectVisualNode(job);
 
 			String queueName = job.getQueueName();
 
@@ -157,7 +160,8 @@ public class QueueFactory {
 		map.forEach((id, node) -> {
 
 			getQueue(node);
-			jobQueue(node);
+			//jobQueue(node);
+			detectVisualNode(node);
 
 			String queueName = node.getQueueName();
 
@@ -183,10 +187,21 @@ public class QueueFactory {
 			}
 
 		});
+		
+		masterQueue.recalc();
 
 		return masterQueue;
 	}
 
+	private static void detectVisualNode(ClusterNodeAbstract node) {
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("dcv2017");
+		list.add("vnc");
+		if(list.contains(node.getQueueName().toLowerCase())){
+			node.setVisualNode(true);
+		}
+	}
+	
 	public static void addMyJobs(Cluster cluster, String userName) {
 		logger.entering(sourceClass, "addMyJobs");
 		if (userName != null && userName != "") {

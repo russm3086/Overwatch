@@ -30,7 +30,7 @@ public class TreeBuilderMonitorThread {
 	private final Logger logger = Logger.getLogger(sourceClass);
 	private SGE_MonitorProp mainProps = null;
 	private ConcurrentLinkedQueue<Cluster> linkedQueue = new ConcurrentLinkedQueue<>();
-	JTree tree;
+	private JTree tree;
 
 	/**
 	 * 
@@ -95,11 +95,9 @@ public class TreeBuilderMonitorThread {
 				}
 
 				TreeUtil tu = new TreeUtil();
-				tu.expandTreeToLevel(tree, mainProps.getGuiTreeExpansionLevel());
 
-				tree.setSelectionRow(1);
-				
-				// tree.expandPath(lastSelected);
+
+					tu.expandTreeToLevel(tree, mainProps.getGuiTreeExpansionLevel());
 
 				logger.fine("All clusters pulled, terminating polling");
 

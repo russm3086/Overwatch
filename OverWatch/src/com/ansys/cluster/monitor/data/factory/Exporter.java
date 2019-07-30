@@ -34,6 +34,7 @@ import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.net.Connector;
 import com.ansys.cluster.monitor.net.DataCollector;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
+import com.russ.util.UnitCoversion;
 
 /**
  * @author rmartine
@@ -94,15 +95,17 @@ public class Exporter {
 		logger.entering(sourceClass, "exportSerial");
 
 		Cluster cluster = getCluster();
-		
+
+		File file = new File(strFile);
 		logger.fine("Saving serial file to " + strFile);
-		FileOutputStream fos = new FileOutputStream(strFile);
+		FileOutputStream fos = new FileOutputStream(file);
 		ObjectOutputStream out = new ObjectOutputStream(fos);
 		out.writeObject(cluster);
 		out.close();
 		fos.close();
 
-		logger.info("Saved serial file to " + strFile);
+		logger.info("Saved serial file to " + strFile + " Bytes written: "
+				+ UnitCoversion.humanReadableByteCount(file.length(), true));
 		logger.exiting(sourceClass, "exportSerial");
 	}
 

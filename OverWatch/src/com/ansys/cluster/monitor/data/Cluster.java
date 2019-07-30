@@ -35,6 +35,11 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 	private SortedMap<String, MasterQueue> masterQueue = new TreeMap<String, MasterQueue>(Collections.reverseOrder());
 
 	String name;
+	
+	//TODO Gather all Slot information Total, Used, Used Reserved, Used Exclusive
+	//TODO Gather all node information # Running, # Available, # out of service
+	//TODO Gather all Job information  # Running, # Pending, # Pending Error
+	//TODO Gather all Job information  Duration, # Pending, # Pending Error
 
 	public Cluster(String clusterName, HostMasterQueue hostMasterQueue, JobMasterQueue jobMasterQueue) {
 		// TODO Auto-generated constructor stub
@@ -69,7 +74,7 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 			addTotalFreeNodes(hostQueue.getAvailableNodes());
 			addFreeMem(hostQueue.getFreeMem());
 			addFreeSlots(hostQueue.getSlotAvailable());
-			addDisabledHostCount(hostQueue.getDisabledNode().size());
+			addDisabledHostCount(hostQueue.getDisabledNodes().size());
 		}
 	}
 

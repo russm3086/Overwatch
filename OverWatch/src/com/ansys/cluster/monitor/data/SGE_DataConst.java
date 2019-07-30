@@ -7,7 +7,7 @@ public final class SGE_DataConst {
 	}
 
 	public static String app_name = "OverWatch";
-	public static String app_version = "1.4.3.5";
+	public static String app_version = "1.4.3.6";
 	public static String app_version_regex = "(\\d+\\.)+(\\d)";
 	
 	
@@ -238,6 +238,9 @@ public final class SGE_DataConst {
 	public final static String connTypeHttp = "HTTP";
 	public final static String connTypeFile = "FILE";
 	public final static String connTypeCMD = "CMD";
+	
+	public final static String unitResCore = "Core(s)";
+	public final static String unitResSession = "Session(s)";
 	
 	
 

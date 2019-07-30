@@ -23,6 +23,7 @@ import com.ansys.cluster.monitor.data.state.JobState;
  */
 public class Job extends ClusterNodeAbstract implements JobInterface {
 
+	// TODO session information
 	/**
 	 * 
 	 */
@@ -116,8 +117,8 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	public void setStatus() {
 		// TODO Auto-generated method stub
 
-		status = "Name: " + getJobName() + "\tID: " + getJobNumber() + "\tOwner: " + getJobOwner()
-				+ "\tExclusive: " + isExclusive() + "\tDuration: " + getDuration().toHours() + " hours";
+		status = "Name: " + getJobName() + "\tID: " + getJobNumber() + "\tOwner: " + getJobOwner() + "\tExclusive: "
+				+ isExclusive() + "\tDuration: " + getDuration().toHours() + " hours";
 	}
 
 	@Override
@@ -160,37 +161,50 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	@Override
 	public String getSummary() {
 		// TODO Auto-generated method stub
-		String summary = "Job Name: \t\t" + getJobName();
-		summary += "\nOwner: \t\t" + getJobOwner();
-		summary += "\nTarget Queue: \t\t" + getTargetQueue();
-		summary += "\nStart Host \t\t" + getStartHost();
-		summary += "\nJob #: \t\t" + getJobNumber();
+		String summary = "Job Name:\t\t" + getJobName();
+		summary += "\nOwner:\t\t" + getJobOwner();
+
+		if (getTargetQueue() != null)
+			summary += "\nTarget Queue:\t\t" + getTargetQueue();
+
+		if (getStartHost() != null)
+			summary += "\nStart Host\t\t" + getStartHost();
+
+		summary += "\nJob #:\t\t" + getJobNumber();
 		summary += "\nJob Priority: \t\t" + getJobPriority();
-		summary += "\nCores: \t\t" + getSlots();
-		summary += "\nJob Start: \t\t" + getJobStartTime();
-		summary += "\nJob Submission: \t\t" + getJobSubmissionTime();
-		summary += "\nExclusive: \t\t" + isExclusive();
-		summary += "\nDuration: \t\t" + getDuration().toHours() + " hours";
-		summary += "\nState: \t\t" + getStateDescriptions();
-		summary += "\nHost(s): \n" + getHostList();
-		summary += "\n\nMessages: \n" + getMessages();
+		summary += "\n" + getUnitRes() + ":\t\t" + getSlots();
+
+		if (getJobStartTime() != null)
+			summary += "\nJob Start:\t\t" + getJobStartTime();
+		
+		summary += "\nJob Submission:\t" + getJobSubmissionTime();
+		summary += "\nExclusive:\t\t" + isExclusive();
+		summary += "\nDuration:\t\t" + getDuration().toHours() + " hours";
+		summary += "\n\nState:\t\t" + getStateDescriptions();
+
+		if (hostList.size() > 0)
+			summary += "\nHost(s):" + getHostList();
+
+		if (getMessages().length() > 0)
+			summary += "\n\nMessages:\n" + getMessages();
 
 		return summary;
 	}
 
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		 sb.append(getJobName());
-		 sb.append("    ");
-		 sb.append(getJobNumber());
+		sb.append(getJobName());
+		sb.append("    ");
+		sb.append(getJobNumber());
 		return sb.toString();
 	}
 
 	private String getHostList() {
 		StringBuffer sb = new StringBuffer();
-
+		sb.append("\n");
 		for (Host host : hostList) {
-			sb.append(" " + host + " ");
+			sb.append(host);
+			sb.append("\t");
 		}
 		return sb.toString();
 	}
@@ -238,10 +252,10 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		if (list != null) {
 			for (JobMessage jm : list) {
 
-				sb.append("\nMessage #: " + jm.getMessageNumber() + " Message: " + jm.getMessage());
+				sb.append("\tMessage: " + jm.getMessage());
+				sb.append("\n");
 			}
 		}
-
 		return sb.toString();
 	}
 
@@ -249,7 +263,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	public String getJobName() {
 		return nodeProp.getJobName();
 	}
-	
+
 	@Override
 	public String getJobOwner() {
 		return nodeProp.getJobOwner();
@@ -261,8 +275,17 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	}
 
 	@Override
+	public void setTargetQueue(String queue) {
+		nodeProp.setTargetQueue(queue);
+	}
+
+	@Override
 	public String getStartHost() {
 		return nodeProp.getStartHost();
+	}
+	
+	public void setStartHost(String host) {
+		nodeProp.setStartHost(host);
 	}
 
 	@Override
@@ -288,6 +311,11 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	public String getIdentifier() {
 		return String.valueOf(getJobNumber());
 	}
+	
+	@Override
+	public NodeProp getJB_hard_queue_list() {
+		return (NodeProp) nodeProp.get("JB_hard_queue_list");
+	}
 
 	public String getMetaData() {
 		StringBuffer output = new StringBuffer();
@@ -299,7 +327,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		output.append("\nTarget Queue: " + getTargetQueue());
 		output.append("\nStart Host: " + getStartHost());
 		output.append("\nJob Priority: " + getJobPriority());
-		output.append("\nCores: " + getSlots());
+		output.append("\n" + getUnitRes() + ": " + getSlots());
 		output.append("\nJob Start Time: " + getJobStartTime());
 		output.append("\nJob Submission Time: " + getJobSubmissionTime());
 

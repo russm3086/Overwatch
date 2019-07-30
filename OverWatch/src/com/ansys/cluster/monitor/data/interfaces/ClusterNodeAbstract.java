@@ -7,9 +7,9 @@ import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.TreeMap;
 import java.util.Map.Entry;
-import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.NodeProp;
+import com.ansys.cluster.monitor.data.SGE_DataConst;
 
 /**
  * @author rmartine
@@ -20,20 +20,17 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	 * 
 	 */
 	private static final long serialVersionUID = -9178140942708008301L;
-	private String sourceClass = this.getClass().getName();
-	private transient Logger logger = Logger.getLogger(sourceClass);
 	protected TreeMap<Integer, StateAbstract> store = new TreeMap<Integer, StateAbstract>((Collections.reverseOrder()));
 	protected boolean boExclusive = false;
 	protected String name;
-	public NodeProp nodeProp;
+	protected NodeProp nodeProp;
 	protected DecimalFormat decimalFormatter = new DecimalFormat(".##");
 	protected String status;
 	protected String clusterType;
 	protected boolean isNodeAvailable = true;
-	protected int slotRes = 0;
-	protected int slotUsed = 0;
-	protected int slotTotal = 0;
-	protected int slotAvailable = 0;
+	protected boolean visualNode = false;
+	protected int slotUnavailable = 0;
+	protected String unitRes = SGE_DataConst.unitResCore;
 
 	protected ClusterNodeAbstract() {
 
@@ -46,13 +43,6 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		// TODO Auto-generated constructor stub
 		this.nodeProp = nodeProp;
 
-	}
-
-	public String availableSlotsPercent() {
-
-		float calc = (getSlotAvailable() * 100) / getSlotTotal();
-		String result = decimalFormatter.format(calc) + "%";
-		return result;
 	}
 
 	public boolean isExclusive() {
@@ -118,7 +108,6 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 
 		if (!store.containsKey(Integer.valueOf(state.value))) {
 
-			logger.finest("Adding state" + state);
 			store.put(Integer.valueOf(state.value), state);
 		}
 	}
@@ -138,7 +127,8 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	public String getStateDescriptions() {
 		StringBuffer desc = new StringBuffer();
 		for (Entry<Integer, StateAbstract> sa : store.entrySet()) {
-			desc.append("\n\t" + sa.getValue().getDescription());
+			desc.append(sa.getValue().getDescription());
+			desc.append("\n\t\t");
 		}
 		return desc.toString();
 	}
@@ -181,8 +171,33 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		this.isNodeAvailable = isNodeAvailable;
 	}
 
+	/**
+	 * @return the slotUnavailable
+	 */
+	public int getSlotUnavailable() {
+		return slotUnavailable;
+	}
+
+	/**
+	 * @param slotUnavailable the slotUnavailable to set
+	 */
+	public void setSlotUnavailable(int slotUnavailable) {
+		this.slotUnavailable = slotUnavailable;
+	}
+
+	/**
+	 * @param slotUnavailable the slotUnavailable to set
+	 */
+	public void addSlotUnavailable(int slotUnavailable) {
+		setSlotUnavailable(getSlotUnavailable() + slotUnavailable);
+	}
+
 	public String getQueueName() {
 		return nodeProp.getQueueName();
+	}
+
+	public void setQueueName(String name) {
+		nodeProp.setQueueName(name);
 	}
 
 	public String getIdentifier() {
@@ -190,61 +205,44 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	}
 
 	/**
-	 * @return the freeSlots
+	 * @return the visualNode
 	 */
-	public int getSlotAvailable() {
-		return slotAvailable;
+	public boolean isVisualNode() {
+		return visualNode;
 	}
 
 	/**
-	 * @return the slotRes
+	 * @param visualNode the visualNode to set
 	 */
-	public int getSlotRes() {
-		return slotRes;
+	public void setVisualNode(boolean visualNode) {
+		this.visualNode = visualNode;
+
+		if (visualNode == true) {
+			setUnitRes(SGE_DataConst.unitResSession);
+		}
 	}
 
 	/**
-	 * @return the slotTotal
+	 * @return the unitRes
 	 */
-	public int getSlotTotal() {
-		return slotTotal;
+	public String getUnitRes() {
+		return unitRes;
 	}
 
 	/**
-	 * @return the slotUsed
+	 * @param unitRes the unitRes to set
 	 */
-	public int getSlotUsed() {
-		return slotUsed;
+	public void setUnitRes(String unitRes) {
+		this.unitRes = unitRes;
+	}
+
+	public String toString() {
+		return getName();
 	}
 
 	/**
-	 * @param slotAvailable the slotAvailable to set
+	 * 
 	 */
-	public void setSlotAvailable(int slotAvailable) {
-		this.slotAvailable = slotAvailable;
-	}
-
-	/**
-	 * @param slotRes the slotRes to set
-	 */
-	public void setSlotRes(int slotRes) {
-		this.slotRes = slotRes;
-	}
-
-	/**
-	 * @param slotTotal the slotTotal to set
-	 */
-	public void setSlotTotal(int slotTotal) {
-		this.slotTotal = slotTotal;
-	}
-
-	/**
-	 * @param slotUsed the slotUsed to set
-	 */
-	public void setSlotUsed(int slotUsed) {
-		this.slotUsed = slotUsed;
-	}
-
 	public String getMetaData() {
 		StringBuffer output = new StringBuffer();
 
@@ -256,10 +254,6 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		output.append("\nQueue: " + getQueueName());
 
 		return output.toString();
-	}
-
-	public String toString() {
-		return getName();
 	}
 
 }
