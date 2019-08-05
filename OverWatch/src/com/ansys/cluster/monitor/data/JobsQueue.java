@@ -25,6 +25,7 @@ public class JobsQueue extends AnsQueueAbstract {
 	private final transient Logger logger = Logger.getLogger(sourceClass);
 	private SortedMap<String, Job> jobs = new TreeMap<String, Job>();
 	private SortedMap<String, Job> errorJobs = new TreeMap<String, Job>();
+	private SortedMap<String, Job> idleJobs = new TreeMap<String, Job>();
 
 	public JobsQueue(String name) {
 		super(name, SGE_DataConst.clusterTypeJob);
@@ -41,22 +42,28 @@ public class JobsQueue extends AnsQueueAbstract {
 
 		jobs.put(String.valueOf(job.getJobNumber()), job);
 
-		if (job.getState().equals(JobState.Error))
+		if (job.hasState(JobState.Error)) {
 			errorJobs.put(String.valueOf(job.getJobNumber()), job);
 
-		if (job.isVisualNode()) {
-
-			addSessionTotal();
-
-			if (job.getState().equals(JobState.Error)) {
+			if (job.isVisualNode()) {
 				addSessionUnavailable();
-			} else {
-				addSessionAvailable();
+				addSessionTotal();
 			}
-		} else {
-			addSlotTotal(job.getSlots());
-		}
 
+		} else {
+
+			if (job.isVisualNode()) {
+
+				addSessionTotal();
+				addSessionAvailable();
+
+			} else {
+				addSlotTotal(job.getSlots());
+				if (job.hasState(JobState.Idle)) {
+					addIdleJobs(String.valueOf(job.getJobNumber()), job);
+				}
+			}
+		}
 		logger.finest("Adding " + job + " to queue " + getQueueName());
 	}
 
@@ -121,6 +128,24 @@ public class JobsQueue extends AnsQueueAbstract {
 		map.putAll(jobs);
 
 		return map;
+	}
+
+	/**
+	 * @return the idleJobs
+	 */
+	public SortedMap<String, Job> getIdleJobs() {
+		return idleJobs;
+	}
+
+	/**
+	 * @param idleJobs the idleJobs to set
+	 */
+	public void setIdleJobs(SortedMap<String, Job> idleJobs) {
+		this.idleJobs = idleJobs;
+	}
+
+	public void addIdleJobs(String jobId, Job job) {
+		getIdleJobs().put(jobId, job);
 	}
 
 }

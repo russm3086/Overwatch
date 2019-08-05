@@ -29,7 +29,7 @@ public class JobMessage implements JobMessageInterface {
 	@Override
 	public LinkedHashSet<?> getJobList() {
 		
-		LinkedHashSet<?> list = (LinkedHashSet<?>) prop.getLinkedHashSett("MES_job_number_list");
+		LinkedHashSet<?> list = (LinkedHashSet<?>) prop.getLinkedHashSet("MES_job_number_list");
 		
 		return list;
 	}

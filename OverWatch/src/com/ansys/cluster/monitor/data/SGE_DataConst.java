@@ -7,7 +7,7 @@ public final class SGE_DataConst {
 	}
 
 	public static String app_name = "OverWatch";
-	public static String app_version = "1.4.3.6";
+	public static String app_version = "1.4.3.7";
 	public static String app_version_regex = "(\\d+\\.)+(\\d)";
 	
 	
@@ -166,6 +166,8 @@ public final class SGE_DataConst {
 	public final static String noNameHostQueue = "LIMBO";
 
 	public final static String noNameJobQueue = "PENDING";
+	
+	public final static String job_ntq = "NonexisitngTargetQueue";
 
 	public final static String queueType = json_qtype_string;
 

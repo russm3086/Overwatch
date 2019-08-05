@@ -114,7 +114,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setMonitorVersion(String version) {
-		setLogProperty(SGE_MonitorPropConst.ansysVersion, version);
+		putLog(SGE_MonitorPropConst.ansysVersion, version);
 	}
 
 	public String getMonitorVersion() {
@@ -126,7 +126,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionRequestMethod(String requestMethod) {
-		setLogProperty(SGE_MonitorPropConst.connectionRequestMethod, requestMethod);
+		putLog(SGE_MonitorPropConst.connectionRequestMethod, requestMethod);
 	}
 
 	public int getClusterConnectionRequestTimeOut() {
@@ -158,7 +158,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionRequestContentType(String contentType) {
-		setLogProperty(SGE_MonitorPropConst.connectionContentType, contentType);
+		putLog(SGE_MonitorPropConst.connectionContentType, contentType);
 	}
 
 	public String getClusterConnectionClusterUrl(int item) {
@@ -167,7 +167,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionClusterUrl(int item, String clusterUrl) {
-		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionClusterUrlSuffix,
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionClusterUrlSuffix,
 				clusterUrl);
 	}
 
@@ -177,7 +177,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionDetailedJobsUrl(int item, String detailedJobsUrl) {
-		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionDetailedJobsUrlSuffix,
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionDetailedJobsUrlSuffix,
 				detailedJobsUrl);
 	}
 
@@ -187,7 +187,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionSummaryJobsUrl(int item, String sumJobsUrl) {
-		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionSummaryJobsUrlSuffix,
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionSummaryJobsUrlSuffix,
 				sumJobsUrl);
 	}
 
@@ -196,7 +196,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionHostUrl(int item, String hostUrl) {
-		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionHostUrlSuffix,
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionHostUrlSuffix,
 				hostUrl);
 	}
 
@@ -206,7 +206,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionShellCmd(int item, String shellCmd) {
-		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellCmdSuffix,
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellCmdSuffix,
 				shellCmd);
 	}
 
@@ -216,7 +216,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionShellArgsCmd(int item, String shellArgs) {
-		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellArgsCmdSuffix,
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellArgsCmdSuffix,
 				shellArgs);
 	}
 
@@ -225,7 +225,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionHostCmd(int item, String hostCmd) {
-		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionHostCmdSuffix,
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionHostCmdSuffix,
 				hostCmd);
 	}
 
@@ -235,7 +235,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionSummaryJobsCmd(int item, String sumJobsCmd) {
-		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionSummaryJobsCmdSuffix,
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionSummaryJobsCmdSuffix,
 				sumJobsCmd);
 	}
 
@@ -245,7 +245,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionDetailedJobsCmd(int item, String detailedJobsCmd) {
-		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionDetailedJobsCmdSuffix,
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionDetailedJobsCmdSuffix,
 				detailedJobsCmd);
 	}
 
@@ -254,7 +254,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterType(int item, String type) {
-		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionTypeSuffix, type);
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionTypeSuffix, type);
 	}
 
 	public String getClusterName(int item) {
@@ -262,7 +262,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterName(int item, String name) {
-		setLogProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.nameSuffix, name);
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.nameSuffix, name);
 	}
 
 	public int getClusterIndex() {
@@ -298,7 +298,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setGuiTimerDelayTimeUnit(String timeUnit) {
-		setLogProperty(SGE_MonitorPropConst.guiTimerDelayTimeUnit, timeUnit);
+		putLog(SGE_MonitorPropConst.guiTimerDelayTimeUnit, timeUnit);
 	}
 
 	public int getGuiTimerDelay() {
@@ -338,7 +338,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setLogHandlers(String handlers) {
-		setLogProperty(SGE_MonitorPropConst.logHandler, handlers);
+		putLog(SGE_MonitorPropConst.logHandler, handlers);
 	}
 
 	public String getLogDefaultLevel() {
@@ -346,7 +346,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setLogDefaultLevel(String defaultLevel) {
-		setLogProperty(SGE_MonitorPropConst.defaultLevel, defaultLevel);
+		putLog(SGE_MonitorPropConst.defaultLevel, defaultLevel);
 	}
 
 	public String getLogFileHandlerPattern() {
@@ -354,7 +354,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setLogFileHandlerPattern(String filePattern) {
-		setLogProperty(SGE_MonitorPropConst.logFileHandlerPattern, filePattern);
+		putLog(SGE_MonitorPropConst.logFileHandlerPattern, filePattern);
 	}
 
 	public String getLogFileHandlerLimit() {
@@ -362,7 +362,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setLogFileHandlerLimit(String limit) {
-		setLogProperty(SGE_MonitorPropConst.logFileHandlerLimit, limit);
+		putLog(SGE_MonitorPropConst.logFileHandlerLimit, limit);
 	}
 
 	public String getLogFileHandlerCount() {
@@ -370,7 +370,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setLogFileHandlerCount(String count) {
-		setLogProperty(SGE_MonitorPropConst.logFileHandlerCount, count);
+		putLog(SGE_MonitorPropConst.logFileHandlerCount, count);
 	}
 
 	public String getLogFileHandlerFormatter() {
@@ -378,7 +378,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setLogFileHandlerFormatter(String formatter) {
-		setLogProperty(SGE_MonitorPropConst.logFileHandlerFormatter, formatter);
+		putLog(SGE_MonitorPropConst.logFileHandlerFormatter, formatter);
 	}
 
 	public String getLogFileHandlerLevel() {
@@ -386,7 +386,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setLogFileHandlerLevel(String level) {
-		setLogProperty(SGE_MonitorPropConst.logFileHandlerLevel, level);
+		putLog(SGE_MonitorPropConst.logFileHandlerLevel, level);
 	}
 
 	public boolean getLogFileHandlerAppend() {
@@ -402,7 +402,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setLogConsoleHandlerLevel(String level) {
-		setLogProperty(SGE_MonitorPropConst.logConsoleHandlerLevel, level);
+		putLog(SGE_MonitorPropConst.logConsoleHandlerLevel, level);
 	}
 
 	public String getLogConsoleHandlerFormatter() {
@@ -410,7 +410,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setLogConsoleHandlerFormatter(String formatter) {
-		setLogProperty(SGE_MonitorPropConst.logConsoleHandlerLevel, formatter);
+		putLog(SGE_MonitorPropConst.logConsoleHandlerLevel, formatter);
 	}
 
 	public String getLogAnsysLevel() {
@@ -418,7 +418,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setLogAnsysLevel(String level) {
-		setLogProperty(SGE_MonitorPropConst.logAnsysLevel, level);
+		putLog(SGE_MonitorPropConst.logAnsysLevel, level);
 	}
 
 	public String getDirEtc() {
@@ -426,7 +426,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setDirEtc(String etc) {
-		setLogProperty(SGE_MonitorPropConst.sgeMonitor_dir_etc, etc);
+		putLog(SGE_MonitorPropConst.sgeMonitor_dir_etc, etc);
 	}
 
 	public double getJobIdleThreshold() {
@@ -458,7 +458,7 @@ public class SGE_MonitorProp extends AbstractProp {
 
 	public void setClusterConnectionRetriesDelayTimeUnit(String value) {
 
-		setLogProperty(SGE_MonitorPropConst.connectionRetriesDelayTimeUnit, value);
+		putLog(SGE_MonitorPropConst.connectionRetriesDelayTimeUnit, value);
 	}
 
 	public String getClusterConnectionRetriesDelayTimeUnit() {
@@ -478,7 +478,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterQueueOmissions(String queues) {
-		setLogProperty(SGE_MonitorPropConst.clusterQueueOmissions, queues);
+		putLog(SGE_MonitorPropConst.clusterQueueOmissions, queues);
 	}
 
 	public String getClusterDataJobList() {
@@ -486,7 +486,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterDataJobList(String tags) {
-		setLogProperty(SGE_MonitorPropConst.clusterJobListXtag, tags);
+		putLog(SGE_MonitorPropConst.clusterJobListXtag, tags);
 	}
 
 }

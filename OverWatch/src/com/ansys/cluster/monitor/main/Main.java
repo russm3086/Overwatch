@@ -28,7 +28,7 @@ import com.russ.util.settings.SystemSettings;
  * @since
  */
 public class Main {
-	private static String sourceClass = Test.class.getName();
+	private static String sourceClass = Main.class.getName();
 	private static Logger logger = Logger.getLogger(sourceClass);
 	private static SystemSettings systemSettings = null;
 	private static String propComments;

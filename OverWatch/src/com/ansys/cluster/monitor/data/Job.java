@@ -9,6 +9,8 @@ import java.time.Clock;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
@@ -30,7 +32,9 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	private static final long serialVersionUID = 3221740341615040025L;
 	private final String sourceClass = this.getClass().getName();
 	private final transient Logger logger = Logger.getLogger(sourceClass);
-	private ArrayList<Host> hostList = new ArrayList<Host>();
+	//private ArrayList<Host> hostList = new ArrayList<Host>();
+	private HashMap<Host, Double> hostMap= new HashMap<Host, Double>();
+	private double hostLoad = 0.0;
 
 	/**
 	 * Contains the resources the job is using
@@ -62,36 +66,115 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 		NodeProp jaTaskProp = (NodeProp) nodeProp.get("JB_ja_tasks");
 		if (jaTaskProp != null) {
+			processResourcesList(jaTaskProp);
+			processScaledUsageList(jaTaskProp);
 
-			Object data = jaTaskProp.get("JAT_granted_resources_list");
-			if (data != null) {
+		}
 
-				ArrayList<NodeProp> resourceList = new ArrayList<NodeProp>();
-				String instance = data.getClass().getSimpleName();
+	}
 
-				switch (instance) {
+	private ArrayList<NodeProp> retrieveNodePropList(String key) {
 
-				case "ArrayList":
+		ArrayList<NodeProp> nodePropList = new ArrayList<NodeProp>();
+		ArrayList<?> list = (ArrayList<?>) nodeProp.get(key);
+		if (list != null) {
 
-					ArrayList<?> jat_grant_res_list = (ArrayList<?>) data;
-					for (Object propObj : jat_grant_res_list) {
+			for (Object object : list) {
 
-						NodeProp propGrantRes = (NodeProp) propObj;
-						resourceList.add(propGrantRes);
-
-						setBoExclusive(checkExclusivity(propGrantRes));
-					}
-
-					break;
-
-				case "NodeProp":
-					NodeProp propGrantRes = (NodeProp) data;
-
-					resourceList.add(propGrantRes);
-					break;
-				}
-				setResourceList(resourceList);
+				NodeProp nodeProp = (NodeProp) object;
+				nodePropList.add(nodeProp);
 			}
+
+		}
+		return nodePropList;
+	}
+
+	private String printNodePropList(ArrayList<NodeProp> nodePropList) {
+		ArrayList<String> allowedList = new ArrayList<String>();
+		allowedList.add("ST_name");
+		allowedList.add("VA_variable");
+		allowedList.add("VA_value");
+
+		return printNodePropList(nodePropList, allowedList, false, 200);
+	}
+
+	private String printNodePropList(ArrayList<NodeProp> nodePropList, ArrayList<String> allowedList,
+			boolean showFields, int intLength) {
+
+		StringBuilder sb = new StringBuilder();
+		for (NodeProp prop : nodePropList) {
+
+			for (Entry<Object, Object> e : prop.entrySet()) {
+
+				String key = (String) e.getKey();
+				String value = (String) e.getValue();
+
+				if (allowedList.contains(key)) {
+					if (showFields) {
+						sb.append(key);
+						sb.append(": ");
+
+					}
+					sb.append(value);
+					sb.append(" ");
+				}
+			}
+		}
+
+		if (intLength != -1) {
+			sb = new StringBuilder(sb.substring(0, Math.min(sb.length(), intLength)));
+			sb.append(" ...");
+		}
+
+		return sb.toString();
+	}
+
+	private void processScaledUsageList(NodeProp jaTaskProp) {
+
+		ArrayList<?> JAT_scaled_usage_list = (ArrayList<?>) jaTaskProp.get("JAT_scaled_usage_list");
+
+		if (JAT_scaled_usage_list != null) {
+
+			for (Object prop : JAT_scaled_usage_list) {
+
+				NodeProp props = (NodeProp) prop;
+				String key = (String) props.get("UA_name");
+				String value = (String) props.get("UA_value");
+				this.nodeProp.putLog(key, value);
+			}
+		}
+
+	}
+
+	private void processResourcesList(NodeProp jaTaskProp) {
+
+		Object data = jaTaskProp.get("JAT_granted_resources_list");
+		if (data != null) {
+
+			ArrayList<NodeProp> resourceList = new ArrayList<NodeProp>();
+			String instance = data.getClass().getSimpleName();
+
+			switch (instance) {
+
+			case "ArrayList":
+
+				ArrayList<?> jat_grant_res_list = (ArrayList<?>) data;
+				for (Object propObj : jat_grant_res_list) {
+
+					NodeProp propGrantRes = (NodeProp) propObj;
+					resourceList.add(propGrantRes);
+
+					setBoExclusive(checkExclusivity(propGrantRes));
+				}
+
+				break;
+
+			case "NodeProp":
+				NodeProp propGrantRes = (NodeProp) data;
+				resourceList.add(propGrantRes);
+				break;
+			}
+			setResourceList(resourceList);
 		}
 
 	}
@@ -125,33 +208,9 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	public void checkIdleStatus() {
 		logger.entering(sourceClass, "checkIdleStatus");
 
-		if (idleExecNodes()) {
-
-			logger.finer("Adding JobState: idle");
-			addState(JobState.Idle);
-		}
-
 		logger.exiting(sourceClass, "checkIdleStatus");
 	}
 
-	public boolean idleExecNodes() {
-		boolean result = false;
-
-		if (hostList != null) {
-			for (Host host : hostList) {
-
-				logger.finer("Host: " + host + " load: " + host.getLoad());
-
-				if (host.getLoad() <= nodeProp.getJobIdleThreshold()) {
-					result = true;
-
-				} else {
-					return false;
-				}
-			}
-		}
-		return result;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -167,26 +226,44 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		if (getTargetQueue() != null)
 			summary += "\nTarget Queue:\t\t" + getTargetQueue();
 
-		if (getStartHost() != null)
-			summary += "\nStart Host\t\t" + getStartHost();
+		if (getStartHost() != null) {
+			summary += "\nStart Host:\t\t" + getStartHost();
+			summary += "\nHost Load:\t\t" + decimalFormatter.format(getHostLoad());
+		}
 
 		summary += "\nJob #:\t\t" + getJobNumber();
 		summary += "\nJob Priority: \t\t" + getJobPriority();
+		summary += "\nJob Status Code:\t" + nodeProp.getJobState();
 		summary += "\n" + getUnitRes() + ":\t\t" + getSlots();
 
 		if (getJobStartTime() != null)
 			summary += "\nJob Start:\t\t" + getJobStartTime();
-		
+
 		summary += "\nJob Submission:\t" + getJobSubmissionTime();
 		summary += "\nExclusive:\t\t" + isExclusive();
 		summary += "\nDuration:\t\t" + getDuration().toHours() + " hours";
-		summary += "\n\nState:\t\t" + getStateDescriptions();
+		summary += "\nState:\t\t" + getStateDescriptions();
 
-		if (hostList.size() > 0)
-			summary += "\nHost(s):" + getHostList();
+		summary += "\nScaled Usage:";
+		summary += "\n" + "CPU:\t\t" + getCPU();
+		summary += "\n" + "Memory:\t\t" + getMem();
+		summary += "\n" + "IO:\t\t" + getIO();
+
+		if (hostMap.size() > 0)
+			summary += "\n\nHost(s):" + getHostList();
 
 		if (getMessages().length() > 0)
 			summary += "\n\nMessages:\n" + getMessages();
+
+		if (getSubmissionCommandLine().size() > 0) {
+			summary += "\nSubmission Commandline:\n";
+			summary += printNodePropList(getSubmissionCommandLine());
+		}
+
+		if (getJobEnv().size() > 0) {
+			summary += "\n\nEnvironment Settings:\n";
+			summary += printNodePropList(getJobEnv());
+		}
 
 		return summary;
 	}
@@ -194,7 +271,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(getJobName());
-		sb.append("    ");
+		sb.append("\t");
 		sb.append(getJobNumber());
 		return sb.toString();
 	}
@@ -202,9 +279,11 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	private String getHostList() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("\n");
-		for (Host host : hostList) {
-			sb.append(host);
-			sb.append("\t");
+		for (Entry<Host, Double> entry : hostMap.entrySet()) {
+			sb.append(entry.getKey());
+			sb.append(" load:\t");
+			sb.append(entry.getValue());
+			sb.append("\n");
 		}
 		return sb.toString();
 	}
@@ -230,13 +309,23 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	}
 
 	@Override
-	public ArrayList<Host> getList() {
-		return hostList;
+	public HashMap<Host, Double> getList() {
+		return hostMap;
 	}
 
 	@Override
 	public void addHost(Host host) {
-		this.hostList.add(host);
+		addHostLoad(host.getAvgLoad());
+		if (getJobIdleThreshold() > getHostLoad()) {
+			addState(JobState.Idle);
+		}else {
+			if(hasState(JobState.Idle)) {
+				remove(JobState.Idle);
+			}
+		}
+
+		Double load = new Double(host.getAvgLoad());
+		this.hostMap.put(host, load);
 	}
 
 	@Override
@@ -283,7 +372,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	public String getStartHost() {
 		return nodeProp.getStartHost();
 	}
-	
+
 	public void setStartHost(String host) {
 		nodeProp.setStartHost(host);
 	}
@@ -311,10 +400,57 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	public String getIdentifier() {
 		return String.valueOf(getJobNumber());
 	}
-	
+
 	@Override
 	public NodeProp getJB_hard_queue_list() {
 		return (NodeProp) nodeProp.get("JB_hard_queue_list");
+	}
+
+	public double getJobIdleThreshold() {
+		return nodeProp.getJobIdleThreshold();
+	}
+
+	public double getCPU() {
+		return nodeProp.getDoubleProperty("cpu");
+	}
+
+	public double getMem() {
+		return nodeProp.getDoubleProperty("mem");
+	}
+
+	public double getIO() {
+		return nodeProp.getDoubleProperty("io");
+	}
+
+	public double getIOW() {
+		return nodeProp.getDoubleProperty("iow");
+	}
+
+	public double getIoOps() {
+		return nodeProp.getDoubleProperty("ioops");
+	}
+
+	public double getVmem() {
+		return nodeProp.getDoubleProperty("vmem");
+	}
+
+	public double getMaxVmem() {
+		return nodeProp.getDoubleProperty("maxvmem");
+	}
+
+	public double getMemVmm() {
+		return nodeProp.getDoubleProperty("memvmm");
+	}
+
+	public ArrayList<NodeProp> getSubmissionCommandLine() {
+		ArrayList<NodeProp> JB_submission_command_line_list = retrieveNodePropList("JB_submission_command_line");
+
+		return JB_submission_command_line_list;
+	}
+
+	public ArrayList<NodeProp> getJobEnv() {
+		ArrayList<NodeProp> JB_Env_list = retrieveNodePropList("JB_env_list");
+		return JB_Env_list;
 	}
 
 	public String getMetaData() {
@@ -341,4 +477,25 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 	}
 
+	/**
+	 * @return the hostLoad
+	 */
+	public double getHostLoad() {
+		return hostLoad;
+	}
+
+	/**
+	 * @param hostLoad the hostLoad to set
+	 */
+	public void setHostLoad(double hostLoad) {
+		this.hostLoad = hostLoad;
+	}
+
+	public void addHostLoad(double hostLoad) {
+		
+		double avg = ((getHostLoad()*hostMap.size()+hostLoad))/(hostMap.size() +1);
+		
+		setHostLoad(avg);
+	}
+	
 }

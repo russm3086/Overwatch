@@ -128,7 +128,7 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 	@Override
 	public void setHostname(String hostname) {
 
-		setLogProperty(SGE_DataConst.hostname, hostname);
+		putLog(SGE_DataConst.hostname, hostname);
 	}
 
 	/*
@@ -151,7 +151,7 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 	@Override
 	public void setSlotType(String queueType) {
 
-		setLogProperty(SGE_DataConst.queueType, queueType);
+		putLog(SGE_DataConst.queueType, queueType);
 	}
 
 	/*
@@ -236,7 +236,7 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 	 */
 	@Override
 	public void setArch(String arch) {
-		setLogProperty(SGE_DataConst.arch, arch);
+		putLog(SGE_DataConst.arch, arch);
 	}
 
 	/*
@@ -257,7 +257,7 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 	 */
 	@Override
 	public void setState(String states) {
-		setLogProperty(SGE_DataConst.states, states);
+		putLog(SGE_DataConst.states, states);
 	}
 
 	/*
@@ -278,7 +278,7 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 	 */
 	@Override
 	public void setMemTotal(String memTotal) {
-		setLogProperty(SGE_DataConst.memTotal, memTotal);
+		putLog(SGE_DataConst.memTotal, memTotal);
 	}
 
 	/*
@@ -319,7 +319,7 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 	 */
 	@Override
 	public void setMemUsed(String memUsed) {
-		setLogProperty(SGE_DataConst.memUsed, memUsed);
+		putLog(SGE_DataConst.memUsed, memUsed);
 	}
 
 	/*
@@ -360,7 +360,7 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 	 */
 	@Override
 	public void setMemFree(String memFree) {
-		setLogProperty(SGE_DataConst.memFree, memFree);
+		putLog(SGE_DataConst.memFree, memFree);
 	}
 
 	/*
@@ -624,13 +624,13 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 	 */
 	@Override
 	public void setStartHost(String start_Host) {
-		setLogProperty(SGE_DataConst.json_job_start_host, start_Host);
+		putLog(SGE_DataConst.json_job_start_host, start_Host);
 	}
 
 	@Override
 	public void setHostQueueName(String queueName) {
 		// TODO Auto-generated method stub
-		setLogProperty(SGE_DataConst.json_queue, queueName);
+		putLog(SGE_DataConst.json_queue, queueName);
 	}
 
 	@Override
@@ -648,7 +648,7 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 	@Override
 	public void setJobQueueName(String queue) {
 		// TODO Auto-generated method stub
-		setLogProperty(SGE_DataConst.json_job_queue_name, queue);
+		putLog(SGE_DataConst.json_job_queue_name, queue);
 	}
 
 	@Override
@@ -730,7 +730,7 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 	@Override
 	public void setTargetQueue(String queue) {
 		// TODO Auto-generated method stub
-		setLogProperty(SGE_DataConst.queueTarget, queue);
+		putLog(SGE_DataConst.queueTarget, queue);
 	}
 
 }

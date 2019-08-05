@@ -253,19 +253,19 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 			label.setToolTipText(state.getDescription());
 		}
 
-		if (state.between(JobState.UnknownQueue, JobState.Unknown)) {
-
-			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Skull_and_Bones_Small_Path)));
-			label.setToolTipText(state.getDescription());
-		}
-
 		if (state.equals(JobState.Zombie)) {
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Zombie_Small_Path)));
 			label.setToolTipText(state.getDescription());
 		}
 
 		if (state.equals(JobState.Idle)) {
-			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Zombie_Small_Path)));
+			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_BlueLight_Small_Path)));
+			label.setToolTipText(state.getDescription());
+		}
+
+		if (state.between(JobState.UnknownQueue, JobState.Unknown)) {
+
+			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Skull_and_Bones_Small_Path)));
 			label.setToolTipText(state.getDescription());
 		}
 

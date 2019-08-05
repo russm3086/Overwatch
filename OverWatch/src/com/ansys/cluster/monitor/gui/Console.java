@@ -21,9 +21,10 @@ import com.ansys.cluster.monitor.data.interfaces.ClusterNodeInterface;
 import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.gui.tree.ClusterTreeCellRenderer;
-import com.ansys.cluster.monitor.gui.tree.ClusterTreeListener;
 import com.ansys.cluster.monitor.gui.tree.TreeBuilderMonitorThread;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
+import com.russ.util.gui.tree.TreeStateProps;
+import com.russ.util.gui.tree.TreeUtil;
 import com.russ.util.nio.ResourceLoader;
 
 import java.awt.*;
@@ -209,17 +210,19 @@ public class Console extends JFrame {
 		try {
 
 			tree.setRootVisible(true);
+
+			TreeUtil tu = new TreeUtil();
+			TreeStateProps tsProps = tu.saveTreeState(tree);
+
 			ClusterMonitorThread clusterMonitor = new ClusterMonitorThread(mainProps, blockingQueue);
 			clusterMonitor.retrieveData();
 
-			tree.getModel().addTreeModelListener(new ClusterTreeListener(tree));
+			// tree.getModel().addTreeModelListener(new ClusterTreeListener(tree));
 
 			TreeBuilderMonitorThread tbmt = new TreeBuilderMonitorThread(mainProps, blockingQueue, tree);
-			tbmt.buildTree();
+			tbmt.buildTree(tsProps);
 			tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
-
-			
 		} catch (JSONException e) {
 
 			throw new JSONException(e);
@@ -254,8 +257,11 @@ public class Console extends JFrame {
 
 				scrollPane.setViewportView(editorPane);
 				editorPane.setText(clusterNode.getSummary());
+
 			}
 
+			scrollPane.setAutoscrolls(true);
+			scrollPane.getVerticalScrollBar().setValue(0);
 		} else {
 			editorPane.setText("Not Found");
 		}
@@ -313,6 +319,9 @@ public class Console extends JFrame {
 			// TODO Auto-generated method stub
 
 			TreePath treePath = ((TreeSelectionEvent) eo).getNewLeadSelectionPath();
+
+			if (treePath == null)
+				treePath = ((TreeSelectionEvent) eo).getOldLeadSelectionPath();
 
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePath.getLastPathComponent();
 
@@ -413,7 +422,7 @@ public class Console extends JFrame {
 			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 			int x = (int) (dim.getWidth() - gui.getWidth()) / 2;
 			int y = (int) (dim.getHeight() - gui.getHeight()) / 2;
-			
+
 			gui.setLocation(x, y);
 			gui.setVisible(true);
 			gui = null;

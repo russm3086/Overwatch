@@ -90,7 +90,7 @@ public class JSONParser extends ParserAbstract {
 		logger.entering(sourceClass, "jsoParse");
 
 		logger.finer("Processing json object " + jsObject.getString(SGE_DataConst.json_key_name));
-		nodeProp.setLogProperty(SGE_DataConst.hostname, jsObject.getString(SGE_DataConst.json_key_name));
+		nodeProp.putLog(SGE_DataConst.hostname, jsObject.getString(SGE_DataConst.json_key_name));
 		JSONArray jsaHostValue = (JSONArray) jsObject.getJSONArray(SGE_DataConst.json_host_value);
 		jsaParse(jsaHostValue, nodeProp);
 
@@ -105,7 +105,7 @@ public class JSONParser extends ParserAbstract {
 
 			String key = jsonArray.getJSONObject(i).getString("@name");
 			String value = (String) jsonArray.getJSONObject(i).optString("$");
-			nodeProp.setLogProperty(key, value);
+			nodeProp.putLog(key, value);
 
 		}
 
@@ -238,7 +238,7 @@ public class JSONParser extends ParserAbstract {
 				break;
 			}
 
-			nodeProp.setLogProperty(jobKey, value);
+			nodeProp.putLog(jobKey, value);
 		}
 
 		Job job = new Job(nodeProp);

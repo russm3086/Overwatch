@@ -147,8 +147,9 @@ public class ClusterFactory {
 					hostTargetQueue.addPendingJobs(job);
 				} else {
 
-					logger.severe("Target Queue " + targetQueue + " for pending job " + job.getJobNumber()
-							+ " does not exist");
+					if (!targetQueue.equalsIgnoreCase(SGE_DataConst.job_ntq))
+						logger.severe("Target Queue " + targetQueue + " for pending job " + job.getJobNumber()
+								+ " does not exist");
 
 				}
 

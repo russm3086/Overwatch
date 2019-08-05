@@ -6,6 +6,7 @@ package com.russ.util.gui.tree;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,17 +40,77 @@ public class TreeUtil {
 		// TODO Auto-generated constructor stub
 	}
 
+	public TreeStateProps saveTreeState(JTree tree) {
+
+		TreeStateProps tsProps = new TreeStateProps();
+		try {
+			tsProps.setSelectedPaths(tree.getSelectionPaths());
+
+			TreePath root = new TreePath(tree.getModel().getRoot());
+			Enumeration<TreePath> expandedState = tree.getExpandedDescendants(root);
+			tsProps.setExpandedState(expandedState);
+		} catch (Exception e) {
+
+			logger.log(Level.FINE, "The tree is not ready", e);
+		}
+		return tsProps;
+	}
+
+	public void applyTreeState(JTree tree, TreeStateProps tsProps) {
+
+		Enumeration<TreePath> enTsProp = tsProps.getExpandedState();
+
+		while (enTsProp.hasMoreElements()) {
+
+			TreePath treePath = enTsProp.nextElement();
+			TreePath foundPath = findTreePath(treePath, tree);
+			logger.info("Expanding branch " + foundPath);
+			tree.expandPath(foundPath);
+
+		}
+
+		TreePath[] selectedPaths = tsProps.getSelectedPaths();
+		for (TreePath treePath : selectedPaths) {
+			TreePath foundPath = findTreePath(treePath, tree);
+			tree.setSelectionPath(foundPath);
+		}
+
+	}
+
+	public TreePath findTreePath(TreePath treePath, JTree tree) {
+
+		String path = buildMetaDataPath(treePath);
+		
+		ArrayList<TreeUtilSearchItem> tusi = search(tree, path);
+		TreePath foundPath = null;
+
+		if (tusi.size() > 0)
+			foundPath = tusi.get(0).getPath();
+
+		return foundPath;
+
+	}
+
 	public ArrayList<TreeUtilSearchItem> search(JTree tree, String search) {
 		logger.entering(sourceClass, "search");
 
+		logger.info("Looking for " + search);
 		Pattern pattern = Pattern.compile(search);
+		ArrayList<TreeUtilSearchItem> tusi = search(tree, pattern);
+
+		return tusi;
+	}
+
+	public ArrayList<TreeUtilSearchItem> search(JTree tree, Pattern pattern) {
+
 		TreeNode root = (TreeNode) tree.getModel().getRoot();
 		TreePath path = new TreePath(root);
 
+		ArrayList<TreeUtilSearchItem> tusi = search(path, pattern);
+
 		logger.exiting(sourceClass, "search");
 
-		return search(path, pattern);
-
+		return tusi;
 	}
 
 	public ArrayList<TreeUtilSearchItem> search(TreePath path, Pattern pattern) {
@@ -64,7 +125,11 @@ public class TreeUtil {
 		if (!(object instanceof String)) {
 
 			ClusterNodeAbstract node = (ClusterNodeAbstract) object;
-			Matcher matcher = search(node.getMetaData(), pattern);
+			StringBuilder sb = new StringBuilder(node.getMetaData());
+
+			sb.append(buildMetaDataPath(path));
+
+			Matcher matcher = search(sb.toString(), pattern);
 
 			if (matcher != null) {
 				TreeUtilSearchItem searchItem = new TreeUtilSearchItem(node, path, matcher);
@@ -86,6 +151,17 @@ public class TreeUtil {
 		return list;
 	}
 
+	private String buildMetaDataPath(TreePath path) {
+		
+		StringBuilder sbPath = new StringBuilder("\nPath: ");
+		String newPath = path.toString().replaceAll("\\[", "");
+		newPath = newPath.replaceAll("\\]", "");
+		newPath = newPath.replaceAll("\\(S\\)", "");
+		newPath = newPath.replaceAll("\\(s\\)", "");
+		sbPath.append(newPath);
+		return sbPath.toString();
+	}
+	
 	public Matcher search(String source, Pattern pattern) {
 		logger.entering(sourceClass, "search");
 		Matcher result = null;
@@ -95,6 +171,9 @@ public class TreeUtil {
 		if (matcher.find()) {
 			logger.finest("Found: " + matcher.toString());
 			result = matcher;
+		} else {
+
+			logger.finest("Did not find: " + matcher.toString());
 		}
 
 		logger.exiting(sourceClass, "search", result);

@@ -7,6 +7,7 @@ package com.russ.util;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.LinkedHashSet;
@@ -45,49 +46,8 @@ public abstract class AbstractProp extends Properties {
 	}
 
 	public synchronized Object setIntProperty(String key, int value) {
-
-		Object obj = setLogProperty(key, String.valueOf(value));
-
+		Object obj = putLog(key, String.valueOf(value));
 		return obj;
-	}
-
-	public synchronized ArrayList<?> getArrayList(String key) {
-		ArrayList<?> list = null;
-		try {
-
-			list = (ArrayList<?>) getLogObject(key);
-
-		} catch (ClassCastException | NullPointerException e) {
-
-			logger.log(Level.FINEST, "Error retrieving data", e);
-
-		}
-
-		return list;
-	}
-
-	public synchronized void setArrayList(String key, ArrayList<?> value) {
-
-		setLogObject(key, value);
-	}
-
-	public synchronized LinkedHashSet<?> getLinkedHashSett(String key) {
-		LinkedHashSet<?> list = null;
-		try {
-
-			list = (LinkedHashSet<?>) getLogObject(key);
-
-		} catch (ClassCastException | NullPointerException e) {
-
-			logger.log(Level.FINEST, "Error retrieving data", e);
-		}
-
-		return list;
-	}
-
-	public synchronized void setLinkedHashSet(String key, LinkedHashSet<?> value) {
-
-		setLogObject(key, value);
 	}
 
 	public synchronized int getIntProperty(String key) {
@@ -102,6 +62,43 @@ public abstract class AbstractProp extends Properties {
 		}
 
 		return value;
+	}
+
+	public synchronized ArrayList<?> getArrayList(String key) {
+		ArrayList<?> list = null;
+		try {
+
+			list = (ArrayList<?>) getLog(key);
+
+		} catch (ClassCastException | NullPointerException e) {
+
+			logger.log(Level.FINEST, "Error retrieving data", e);
+
+		}
+
+		return list;
+	}
+
+	public synchronized Object setArrayList(String key, ArrayList<?> value) {
+		return putLog(key, value);
+	}
+
+	public synchronized LinkedHashSet<?> getLinkedHashSet(String key) {
+		LinkedHashSet<?> list = null;
+		try {
+
+			list = (LinkedHashSet<?>) getLog(key);
+
+		} catch (ClassCastException | NullPointerException e) {
+
+			logger.log(Level.FINEST, "Error retrieving data", e);
+		}
+
+		return list;
+	}
+
+	public synchronized void setLinkedHashSet(String key, LinkedHashSet<?> value) {
+		putLog(key, value);
 	}
 
 	public synchronized double getDoubleProperty(String key) {
@@ -120,10 +117,8 @@ public abstract class AbstractProp extends Properties {
 
 	public synchronized Object setDoubleProperty(String key, double value) {
 
-		Object obj = setLogProperty(key, String.valueOf(value));
-
+		Object obj = putLog(key, String.valueOf(value));
 		return obj;
-
 	}
 
 	public synchronized long getLongProperty(String key) {
@@ -142,17 +137,14 @@ public abstract class AbstractProp extends Properties {
 
 	public synchronized Object setLongProperty(String key, long value) {
 
-		Object obj = setLogProperty(key, String.valueOf(value));
-
+		Object obj = putLog(key, String.valueOf(value));
 		return obj;
 	}
 
 	public synchronized Object setBoolProperty(String key, boolean value) {
 
-		Object obj = setLogProperty(key, String.valueOf(value));
-
+		Object obj = putLog(key, String.valueOf(value));
 		return obj;
-
 	}
 
 	public synchronized boolean getBoolProperty(String key) {
@@ -185,61 +177,78 @@ public abstract class AbstractProp extends Properties {
 
 	public synchronized Object setDateProperty(String key, LocalDateTime value) {
 
-		Object obj = setLogProperty(key, value.toString());
+		Object obj = putLog(key, value.toString());
 		return obj;
 	}
 
-	public synchronized Object setLogProperty(String key, String value) {
-
-		transLog(Level.FINEST, "Setting key: " + key + " with value: " + value);
-		return setProperty(key, value);
-
-	}
-
 	public synchronized String getLogProperty(String key, String defaultValue) {
-
-		String value = getProperty(key, defaultValue);
-		transLog(Level.FINEST, "Getting  key: " + key + " with value: " + value + " (default: " + defaultValue + ")");
+		String value = (String) getLog(key, defaultValue);
 		return value;
-
 	}
 
 	public synchronized String getLogProperty(String key) {
-
-		String value = getProperty(key);
-		transLog(Level.FINEST, "Getting  key: " + key + " with value: " + value);
+		String value = (String) getLog(key);
 		return value;
-
 	}
 
-	public synchronized Object getLogObject(String key) {
-
-		Object value = get(key);
-		transLog(Level.FINEST, "Getting  key: " + key + " with value: " + value);
-		return value;
-
-	}
-
-	public synchronized Object setLogObject(String key, Object value) {
+	public synchronized Object setArrayProperty(String key, Object[] value) {
 
 		transLog(Level.FINEST, "Setting key: " + key + " with value: " + value);
-		return put(key, value);
+		ArrayList<Object> list = new ArrayList<Object>(Arrays.asList(value));
+		return setArrayList(key, list);
+	}
 
+	public synchronized Object[] getArrayProperty(String key) {
+
+		ArrayList<?> value = getArrayList(key);
+		transLog(Level.FINEST, "Getting  key: " + key + " with value: " + value);
+		Object[] object= value.toArray();
+		
+		return object;
 	}
 
 	public synchronized Object putLog(Object key, Object value) {
 
-		transLog(Level.FINEST, "Setting key: " + key + " with value: " + value);
-		return put(key, value);
+		String msg = createLogMsg(key, value);
 
+		transLog(Level.FINEST, msg);
+		return put(key, value);
 	}
 
 	public synchronized Object getLog(Object key) {
 
 		Object value = get(key);
-		transLog(Level.FINEST, "Getting  key: " + key + " with value: " + value);
+		String msg = createLogMsg(key, value);
+
+		transLog(Level.FINEST, msg);
 		return value;
 
+	}
+
+	private String createLogMsg(Object key, Object value) {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("Setting key: ");
+		sb.append(key);
+		sb.append(" with value: ");
+
+		if (value == null) {
+			sb.append("null");
+		} else {
+			sb.append(value.toString());
+		}
+		return sb.toString();
+	}
+
+	public synchronized Object getLog(Object key, Object defaultValue) {
+
+		Object value = get(key);
+		if (value == null) {
+			value = defaultValue;
+		}
+
+		transLog(Level.FINEST, "Getting  key: " + key + " with value: " + value + " (default: " + defaultValue + ")");
+		return value;
 	}
 
 	public synchronized void update(Properties prop) {
@@ -267,8 +276,8 @@ public abstract class AbstractProp extends Properties {
 		Enumeration<?> e = propertyNames();
 		while (e.hasMoreElements()) {
 
-			String key = (String) e.nextElement();
-			String value = (String) getLogProperty(key);
+			String key = e.nextElement().toString();
+			String value = getLog(key).toString();
 			sb.append("key: " + key + " value: " + value + "| ");
 
 		}

@@ -174,6 +174,7 @@ public class XMLParser extends ParserAbstract {
 		List<Element> listElem = element.getChildren();
 
 		for (Element elem : listElem) {
+
 			NodeProp nodeProp = createJobProp(elem);
 			listProp.add(nodeProp);
 		}

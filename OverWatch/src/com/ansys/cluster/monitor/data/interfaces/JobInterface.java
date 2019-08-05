@@ -2,7 +2,7 @@ package com.ansys.cluster.monitor.data.interfaces;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.ansys.cluster.monitor.data.Host;
 import com.ansys.cluster.monitor.data.NodeProp;
@@ -15,7 +15,7 @@ public interface JobInterface {
 
 	int getJobNumber();
 
-	ArrayList<Host> getList();
+	HashMap<Host, Double> getList();
 
 	void addHost(Host host);
 

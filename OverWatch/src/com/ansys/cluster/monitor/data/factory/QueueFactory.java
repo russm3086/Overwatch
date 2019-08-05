@@ -96,7 +96,7 @@ public class QueueFactory {
 				String queue = (String) propList.get("QR_name");
 				job.setTargetQueue(queue);
 			} else {
-				job.setTargetQueue("NTQ");
+				job.setTargetQueue(SGE_DataConst.job_ntq);
 			}
 		}
 		logger.exiting(sourceClass, "jobQueue");

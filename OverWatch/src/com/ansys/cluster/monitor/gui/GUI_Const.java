@@ -36,5 +36,8 @@ public final class GUI_Const {
 	public static final String Icon_Orange_Small_Path = "icons/orange-icon16p.png";
 	public static final String Icon_Skull_and_Bones_Small_Path = "icons/Skull-and-bones-icon16p.png";
 	public static final String Icon_Skull_and_Bones_Large_Path = "icons/Skull-and-bones-icon32p.png";
+	public static final String Icon_BlueLight_Small_Path = "icons/Button-Blue-Sleeping-icon16p.png";
+	public static final String Icon_BlueLight_Medium_Path = "icons/Button-Blue-Sleeping-icon48p.png";
+	public static final String Icon_BlueLight_Large_Path = "icons/Button-Blue-Sleeping-icon64p.png";
 
 }

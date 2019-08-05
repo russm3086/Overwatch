@@ -111,6 +111,11 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 			store.put(Integer.valueOf(state.value), state);
 		}
 	}
+	
+	
+	protected void remove(StateAbstract state) {
+		store.remove(Integer.valueOf(state.value), state);
+	}
 
 	public String getStateDescription() {
 		return getState().getDescription();

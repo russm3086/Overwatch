@@ -45,36 +45,37 @@ public class JobState extends StateAbstract {
 		return store;
 	}
 
-	public static final JobState RunningState = new JobState("Running", 3300, RunningDesc, Color.GREEN);
+	public static final JobState RunningState = new JobState("Running", 3400, RunningDesc, Color.GREEN);
 
-	public static final JobState Zombie = new JobState("Zombie", 3200, ZombieDesc, Color.RED);
+	public static final JobState Zombie = new JobState("Zombie", 3300, ZombieDesc, Color.RED);
 
-	public static final JobState Idle = new JobState("Idle", 3100, IdleDesc, Color.RED);
+	public static final JobState Unknown = new JobState("Unknown", 3200, UnknownDesc, Color.RED);
 
-	public static final JobState Unknown = new JobState("Unknown", 3000, UnknownDesc, Color.RED);
-
-	public static final JobState Error = new JobState("Error", 2900, ErrorDesc, Color.RED);
+	public static final JobState Error = new JobState("Error", 3100, ErrorDesc, Color.RED);
 	
-	public static final JobState UnknownQueue = new JobState("Unknown Queue", 2850, UnknownQueueDesc, Color.RED);	
+	public static final JobState UnknownQueue = new JobState("Unknown Queue", 3000, UnknownQueueDesc, Color.RED);	
 
-	public static final JobState SuspendedThreshold = new JobState("Suspended Threshold", 2800,
+	public static final JobState SuspendedThreshold = new JobState("Suspended Threshold", 2900,
 			SuspendedThresholdDesc, Color.YELLOW);
 
-	public static final JobState SuspendedAuto = new JobState("Suspended Automatically", 2700, SuspendedAutoDesc, Color.YELLOW);
+	public static final JobState SuspendedAuto = new JobState("Suspended Automatically", 2800, SuspendedAutoDesc, Color.YELLOW);
 
-	public static final JobState SuspendedManual = new JobState("Suspended Manual", 2600, SuspendedManualDesc, Color.YELLOW);
+	public static final JobState SuspendedManual = new JobState("Suspended Manual", 2700, SuspendedManualDesc, Color.YELLOW);
 
-	public static final JobState Transferring = new JobState("Transferring", 2500, TransferringDesc, Color.YELLOW);
+	public static final JobState Transferring = new JobState("Transferring", 2600, TransferringDesc, Color.YELLOW);
 
-	public static final JobState Restarted = new JobState("Restarted", 2400, RestartedDesc, Color.YELLOW);
+	public static final JobState Restarted = new JobState("Restarted", 2500, RestartedDesc, Color.YELLOW);
 
-	public static final JobState Queued = new JobState("Queued", 2300, QueuedDesc, Color.YELLOW);
+	public static final JobState Queued = new JobState("Queued", 2400, QueuedDesc, Color.YELLOW);
 
-	public static final JobState Waiting = new JobState("Waiting", 2200, WaitingDesc, Color.YELLOW);
+	public static final JobState Waiting = new JobState("Waiting", 2300, WaitingDesc, Color.YELLOW);
 
-	public static final JobState Hold = new JobState("Hold", 2100, HoldDesc, Color.YELLOW);
+	public static final JobState Hold = new JobState("Hold", 2200, HoldDesc, Color.YELLOW);
 
-	public static final JobState Deletion = new JobState("Deletion", 2000, DeletionDesc, Color.YELLOW);
+	public static final JobState Deletion = new JobState("Deletion", 2100, DeletionDesc, Color.YELLOW);
+
+	public static final JobState Idle = new JobState("Idle", 2000, IdleDesc, Color.RED);
+
 
 	
 }

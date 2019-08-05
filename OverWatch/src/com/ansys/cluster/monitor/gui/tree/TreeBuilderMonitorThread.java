@@ -19,6 +19,7 @@ import org.json.JSONException;
 import com.ansys.cluster.monitor.data.Cluster;
 import com.ansys.cluster.monitor.gui.Console;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
+import com.russ.util.gui.tree.TreeStateProps;
 import com.russ.util.gui.tree.TreeUtil;
 
 /**
@@ -31,6 +32,7 @@ public class TreeBuilderMonitorThread {
 	private SGE_MonitorProp mainProps = null;
 	private ConcurrentLinkedQueue<Cluster> linkedQueue = new ConcurrentLinkedQueue<>();
 	private JTree tree;
+	private TreeStateProps tsProps;
 
 	/**
 	 * 
@@ -42,8 +44,9 @@ public class TreeBuilderMonitorThread {
 		this.tree = tree;
 	}
 
-	public void buildTree() {
+	public void buildTree(TreeStateProps tsProps) {
 
+		this.tsProps = tsProps;
 		int numFoundCluster = 0;
 		ExecutorService executor = Executors.newFixedThreadPool(1);
 		executor.execute(new TreeBuilderWorker(mainProps, numFoundCluster));
@@ -95,9 +98,15 @@ public class TreeBuilderMonitorThread {
 				}
 
 				TreeUtil tu = new TreeUtil();
+				if (tsProps.size() > 0) {
 
+					tu.applyTreeState(tree, tsProps);
+
+				} else {
 
 					tu.expandTreeToLevel(tree, mainProps.getGuiTreeExpansionLevel());
+					tree.setSelectionRow(1);
+				}
 
 				logger.fine("All clusters pulled, terminating polling");
 
