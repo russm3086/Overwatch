@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Events>
+  <Messages>
+    <Message>
+      <StartDate></StartDate>
+      <EffectiveDate></EffectiveDate>
+      <EndDate></EndDate>
+      <MessagePayLoad></MessagePayLoad>
+    </Message>
+  </Messages>
+  <Alerts>
+   <Alert>
+    <StartDate></StartDate>
+    <EffectiveDate></EffectiveDate>
+    <EndDate></EndDate>
+    <MessagePayLoad></MessagePayLoad>
+    <Severity></Severity>
+  </Alert>
+  </Alerts>
+</Events>

@@ -78,9 +78,9 @@ public class SGE_MonitorProp extends AbstractProp {
 		setClusterIndex(0);
 
 		setClusterName(0, "Otterfing");
-		setClusterConnectionDetailedJobsUrl(0, "http://ottsimportal2.ansys.com:5080/alljobs/details/xml");
-		setClusterConnectionSummaryJobsUrl(0, "http://ottsimportal2.ansys.com:5080/alljobs/xml");
-		setClusterConnectionHostUrl(0, "http://ottsimportal2.ansys.com:5080/allhosts/xml");
+		setClusterConnectionDetailedJobsUrl(0, "http://ottsimportal3.ansys.com:7878/alljobdetails");
+		setClusterConnectionSummaryJobsUrl(0, "http://ottsimportal3.ansys.com:7878/alljobs");
+		setClusterConnectionHostUrl(0, "http://ottsimportal3.ansys.com:7878/allnodes");
 
 		setClusterName(1, "CDC");
 		setClusterConnectionDetailedJobsUrl(1, "http://cdcsimportal1.ansys.com:5080/alljobs/details/xml");

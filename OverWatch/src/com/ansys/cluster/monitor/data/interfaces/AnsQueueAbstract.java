@@ -89,6 +89,7 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 				addSlotUsed(queue.getSlotUsed());
 				addSlotAvailable(queue.getSlotAvailable());
 				addSlotUnavailable(queue.getSlotUnavailable());
+				addTotalMem(queue.getTotalMem());
 			}
 
 			addNp_load(queue.getNp_Load());
