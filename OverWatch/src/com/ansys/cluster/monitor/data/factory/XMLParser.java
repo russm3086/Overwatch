@@ -145,22 +145,25 @@ public class XMLParser extends ParserAbstract {
 			key = elem.getName();
 			logger.finest("Retrieving element " + key);
 
-			if (elem.getChildren().size() > 0) {
+			if (!matchSettings(mainProps.getJobDetailOmissions(), key)) {
 
-				if (matchSettings(mainProps.getClusterDataJobList(), elem.getName())) {
-					value = processList(elem);
-				} else if (elem.getChild(SGE_DataConst.xml_Element) == null) {
-					value = createJobProp(elem);
+				if (elem.getChildren().size() > 0) {
+
+					if (matchSettings(mainProps.getClusterDataJobList(), key)) {
+						value = processList(elem);
+					} else if (elem.getChild(SGE_DataConst.xml_Element) == null) {
+						value = createJobProp(elem);
+					} else {
+						Element child = elem.getChild(SGE_DataConst.xml_Element);
+						value = createJobProp(child);
+					}
+
 				} else {
-					Element child = elem.getChild(SGE_DataConst.xml_Element);
-					value = createJobProp(child);
+					value = elem.getValue();
 				}
 
-			} else {
-				value = elem.getValue();
+				prop.putLog(key, value);
 			}
-
-			prop.putLog(key, value);
 		}
 
 		logger.exiting(sourceClass, "createDetailedJobProps");
@@ -190,7 +193,7 @@ public class XMLParser extends ParserAbstract {
 
 		logger.finer("Create detailed Job Properties Object");
 		HashMap<Integer, NodeProp> hashMapProp = createDetailedJobsProp(djobInfoElm, mainProp);
-		
+
 		logger.info("Parsed " + hashMapProp.size() + " detailed jobs");
 
 		logger.finer("Retrieving " + SGE_DataConst.msg);
@@ -233,9 +236,9 @@ public class XMLParser extends ParserAbstract {
 		ArrayList<JobMessage> listJobMsg = new ArrayList<JobMessage>();
 		Element element = messagesElm.getChild(SGE_DataConst.xml_Element);
 		Element subElement = element.getChild("SME_message_list");
-		
+
 		if (subElement != null) {
-		List<Element> listElem = subElement.getChildren();
+			List<Element> listElem = subElement.getChildren();
 
 			for (Element elem : listElem) {
 

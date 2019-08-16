@@ -64,6 +64,10 @@ public final class SGE_MonitorPropConst {
 
 	public static final String clusterJobPrefix = clusterDataPrefix + "job.";
 
+	public static final String clusterJobDetailPrefix = clusterJobPrefix + "detail.";
+
+	public static final String clusterJobDetailOmissions = clusterJobDetailPrefix + "omissions";
+
 	public static final String clusterJobListPrefix = clusterDataPrefix + "list.";
 
 	public static final String clusterJobListXtag = clusterDataPrefix + "xtags";
@@ -93,7 +97,7 @@ public final class SGE_MonitorPropConst {
 	public static final String nameSuffix = ".name";
 
 	public static final String connectionClusterUrlSuffix = ".connection.cluster.URL";
-	
+
 	public static final String connectionTypeSuffix = ".connection.type";
 
 	public static final String connectionHostUrlSuffix = ".connection.hosts.URL";

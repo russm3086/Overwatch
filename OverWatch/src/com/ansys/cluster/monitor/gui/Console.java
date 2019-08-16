@@ -23,6 +23,7 @@ import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.gui.tree.ClusterTreeCellRenderer;
 import com.ansys.cluster.monitor.gui.tree.TreeBuilderMonitorThread;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
+import com.russ.test.DetailedInfoFactory;
 import com.russ.util.gui.tree.TreeStateProps;
 import com.russ.util.gui.tree.TreeUtil;
 import com.russ.util.nio.ResourceLoader;
@@ -142,7 +143,7 @@ public class Console extends JFrame {
 		treeView.setPreferredSize(new Dimension(300, 200));
 		splitPane.setTopComponent(treeView);
 
-		scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		splitPane.setBottomComponent(scrollPane);
 
 		editorPane = new JEditorPane();
@@ -236,32 +237,10 @@ public class Console extends JFrame {
 	private void displayURL(ClusterNodeAbstract clusterNode) {
 		if (clusterNode != null) {
 
-			if (clusterNode.getClusterType() == SGE_DataConst.clusterTypeQueue) {
-
-				AnsQueueAbstract queue = (AnsQueueAbstract) clusterNode;
-				TableBuilder.buildTable(queue);
-				if (queue.getTable() == null) {
-
-					scrollPane.setViewportView(editorPane);
-					editorPane.setText(clusterNode.getSummary());
-
-				} else {
-
-					JTable table = queue.getTable();
-					table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-					// table.setPreferredScrollableViewportSize(table.getPreferredSize());
-					scrollPane.getViewport().add(table);
-				}
-
-			} else {
-
-				scrollPane.setViewportView(editorPane);
-				editorPane.setText(clusterNode.getSummary());
-
-			}
-
 			scrollPane.setAutoscrolls(true);
-			scrollPane.getVerticalScrollBar().setValue(0);
+			JPanel panel = DetailedInfoFactory.createDetailedInfoPanel(clusterNode);
+			scrollPane.getViewport().add(panel);
+			
 		} else {
 			editorPane.setText("Not Found");
 		}

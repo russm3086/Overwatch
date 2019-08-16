@@ -15,6 +15,7 @@ import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.HostInterface;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.HostState;
+import com.russ.test.DetailedInfoProp;
 
 /**
  * 
@@ -158,6 +159,14 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 				+ "  Load: " + decimalFormatter.format(nodeProp.getNp_load_avg());
 	}
 
+	public String getFormattedLoad() {
+		return  decimalFormatter.format(getNp_load_avg());
+	}
+	
+	public String getFormattedAvalMem() {
+		return decimalFormatter.format(getMemFreeNum());
+	}
+	
 	@Override
 	public String getSummary() {
 		// TODO Auto-generated method stub
@@ -314,5 +323,12 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 
 		return output.toString();
 	}
+
+	@Override
+	public DetailedInfoProp getDetailedInfoProp() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

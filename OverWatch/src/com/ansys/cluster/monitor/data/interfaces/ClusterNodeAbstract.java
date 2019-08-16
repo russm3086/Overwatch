@@ -31,6 +31,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	protected boolean visualNode = false;
 	protected int slotUnavailable = 0;
 	protected String unitRes = SGE_DataConst.unitResCore;
+	protected String fixLength = "%-50.25s%s%n";
 
 	protected ClusterNodeAbstract() {
 
@@ -111,8 +112,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 			store.put(Integer.valueOf(state.value), state);
 		}
 	}
-	
-	
+
 	protected void remove(StateAbstract state) {
 		store.remove(Integer.valueOf(state.value), state);
 	}
@@ -245,6 +245,38 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		return getName();
 	}
 
+	protected String summaryOutput(String unit, Object field) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(unit);
+		sb.append(" ");
+		sb.append(field);
+
+		return sb.toString();
+	}
+	
+	protected StringBuilder summaryOutput(String unit, Object field, Object value) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(unit);
+		sb.append(" ");
+		sb.append(field);
+
+		return outputFormatter(sb.toString(), value);
+	}
+
+	
+	protected StringBuilder outputFormatter(String field, Object value) {
+
+		StringBuilder sb = new StringBuilder(String.format(fixLength, field, value));
+		// Formatter fmt = new Formatter(sb);
+		// fmt.format(fixLength, field);
+		// fmt.close();
+		// sb.append(value);
+		return sb;
+
+	}
+
+	
+	
 	/**
 	 * 
 	 */

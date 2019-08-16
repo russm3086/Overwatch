@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
+import com.russ.test.DetailedInfoProp;
 
 /**
  * @author rmartine
@@ -93,24 +94,6 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 		getDisabledNodes().putAll(map);
 	}
 
-	protected String printDisabledNodes() {
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("\n");
-		sb.append("Disabled Node(s):\t" + getDisabledNodes().size());
-
-		if (getDisabledNodes().size() > 0) {
-
-			sb.append("\n");
-			for (String hostName : getDisabledNodes().keySet()) {
-
-				sb.append("\t");
-				sb.append(hostName);
-			}
-		}
-		return sb.toString();
-	}
-
 	/**
 	 * @return the totalSize
 	 */
@@ -132,71 +115,98 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 		setTotalSize(getTotalSize() + totalSize);
 	}
 
+	public DetailedInfoProp getDetailedInfoProp() {
+
+		DetailedInfoProp masterDiProp = new DetailedInfoProp();
+		masterDiProp.setTitleMetric("Queue Name:");
+		masterDiProp.setTitleValue(getName());
+
+		DetailedInfoProp coreDiProp = new DetailedInfoProp();
+		coreDiProp.setPanelName(getUnitRes());
+		coreDiProp.addMetric("Available: ", getSlotAvailable());
+		coreDiProp.addMetric("Unavailable: ", getSlotUnavailable());
+		coreDiProp.addMetric("% Available: ", availableSlotsPercent());
+		coreDiProp.addMetric("Total: ", getSlotTotal());
+		coreDiProp.addMetric("Reserved: ", getSlotRes());
+		coreDiProp.addMetric("Used: ", getSlotUsed());
+		masterDiProp.addDetailedInfoProp(coreDiProp);
+
+		DetailedInfoProp sessionDiProp = new DetailedInfoProp();
+		sessionDiProp.setPanelName(SGE_DataConst.unitResSession);
+		sessionDiProp.addMetric("Available: ", getSessionAvailable());
+		sessionDiProp.addMetric("Total: ", getSessionTotal());
+		sessionDiProp.addMetric("Used: ", getSessionUsed());
+		sessionDiProp.addMetric("Unavailable: ", getSessionUnavailable());
+		masterDiProp.addDetailedInfoProp(sessionDiProp);
+
+		DetailedInfoProp memoryDiProp = new DetailedInfoProp();
+		memoryDiProp.setPanelName("Memory");
+		memoryDiProp.addMetric("Available Memory: ", decimalFormatter.format(getFreeMem()));
+		memoryDiProp.addMetric("Total Memory: ", decimalFormatter.format(getTotalMem()));
+		masterDiProp.addDetailedInfoProp(memoryDiProp);
+
+		DetailedInfoProp nodesDiProp = new DetailedInfoProp();
+		nodesDiProp.setPanelName("Node(s");
+		nodesDiProp.addMetric("Available Nodes: ", getAvailableNodes());
+		nodesDiProp.addMetric("Total Nodes: ", getTotalSize());
+		masterDiProp.addDetailedInfoProp(nodesDiProp);
+
+		displayDisabledHosts(masterDiProp);
+
+		return masterDiProp;
+	}
+
 	public String getSummary() {
 		StringBuilder summary = new StringBuilder();
-		summary.append("Queue Name: \t");
-		summary.append(getName());
-		summary.append("\n\n");
+		summary.append(outputFormatter("Queue Name:", getName()));
+		summary.append("\n");
 
 		summary.append(SGE_DataConst.unitResSession);
 		summary.append("\n");
-		summary.append("\tTotal: \t");
-		summary.append(getSessionTotal());
-		summary.append("\n");
-
-		summary.append("\tUsed: \t");
-		summary.append(getSessionUsed());
-		summary.append("\n");
-
-		summary.append("\tAvailable:\t");
-		summary.append(getSessionAvailable());
-		summary.append("\n");
-
-		summary.append("\tUnavailable:\t");
-		summary.append(getSessionUnavailable());
-		summary.append("\n\n");
+		summary.append(outputFormatter("\tTotal:", getSessionTotal()));
+		summary.append(outputFormatter("\tUsed:", getSessionUsed()));
+		summary.append(outputFormatter("\tAvailable:", getSessionAvailable()));
+		summary.append(outputFormatter("\tUnavailable:", getSessionUnavailable()));
 
 		summary.append(getUnitRes());
 		summary.append("\n");
 
-		summary.append("\tTotal: \t");
-		summary.append(getSlotTotal());
-		summary.append("\n");
+		summary.append(outputFormatter("\tTotal:", getSlotTotal()));
+		summary.append(outputFormatter("\tReserved:", getSlotRes()));
+		summary.append(outputFormatter("\tUsed:", getSlotUsed()));
+		summary.append(outputFormatter("\tAvailable:", getSlotAvailable()));
+		summary.append(outputFormatter("\tUnavailable:", getSlotUnavailable()));
+		summary.append(outputFormatter("\t% Available:", availableSlotsPercent()));
 
-		summary.append("\tReserved: \t");
-		summary.append(getSlotRes());
-		summary.append("\n");
-
-		summary.append("\tUsed: \t");
-		summary.append(getSlotUsed());
-		summary.append("\n");
-			
-		summary.append("\tAvailable:\t");
-		summary.append(getSlotAvailable());
-		summary.append("\n");
-		
-		summary.append("\tUnavailable:\t");
-		summary.append(getSlotUnavailable());
-		summary.append("\n");
-		
-		summary.append("\t% Available: \t");
-		summary.append(availableSlotsPercent());
-		summary.append("\n");
-		
-		summary.append("\n Memory free: \t\t"  );
-		summary.append(decimalFormatter.format(getFreeMem()));
-		
-		summary.append("\n Free Nodes: \t\t");
-		summary.append(getAvailableNodes());
-		
-		summary.append("\n Total Nodes:\t\t");
-		summary.append(getTotalSize());
-		
-		summary.append("\n");
-		summary.append(printDisabledNodes());
+		summary.append(outputFormatter("Memory free:", decimalFormatter.format(getFreeMem())));
+		summary.append(outputFormatter("Free Nodes:", getAvailableNodes()));
+		summary.append(outputFormatter("Total Nodes:", getTotalSize()));
 
 		return summary.toString();
 
 	}
 
+	protected void printDisabledNodes(DetailedInfoProp masterDiProp) {
+
+		if (getDisabledNodes().size() > 0) {
+
+			DetailedInfoProp disabledNodesDiProp = new DetailedInfoProp();
+			StringBuilder sb = new StringBuilder("Disabled Node(s): ");
+			sb.append(getDisabledNodes().size());
+
+			disabledNodesDiProp.setPanelName(sb.toString());
+
+			int i = 1;
+			for (String hostName : getDisabledNodes().keySet()) {
+				String strHost = "Host(" + i + "): ";
+				disabledNodesDiProp.addMetric(strHost, hostName);
+				i += 1;
+			}
+
+			masterDiProp.addDetailedInfoProp(disabledNodesDiProp);
+		}
+	}
+
+
+	
 }

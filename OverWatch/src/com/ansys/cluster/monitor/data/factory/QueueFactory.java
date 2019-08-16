@@ -214,7 +214,7 @@ public class QueueFactory {
 				logger.finer("Expecting Job queue " + entry.getKey());
 
 				JobsQueue queue = entry.getValue();
-				for (Entry<String, Job> entryJob : queue.getJobs().entrySet()) {
+				for (Entry<Integer, Job> entryJob : queue.getJobs().entrySet()) {
 
 					Job job = entryJob.getValue();
 

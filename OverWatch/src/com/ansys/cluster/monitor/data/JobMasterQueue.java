@@ -107,39 +107,22 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 
 	public String getSummary() {
 		StringBuilder summary = new StringBuilder();
-		summary.append("Queue Name: \t");
-		summary.append(getName());
-		summary.append("\n\n");
-
-		summary.append("Total Jobs:\t");
-		summary.append(size());
-		summary.append("\n");
 		
-		summary.append("Total session:\t");
-		summary.append(getSessionTotal());
+		summary.append(outputFormatter("Queue Name:", getName()));
 		summary.append("\n");
 
-		summary.append("\tUsed: \t");
-		summary.append(getSessionUsed());
-		summary.append("\n");
-
-		summary.append("\tAvailable:\t");
-		summary.append(getSessionAvailable());
-		summary.append("\n");
-
-		summary.append("\tUnavailable:\t");
-		summary.append(getSessionUnavailable());
-		summary.append("\n\n");
+		summary.append(outputFormatter("Total Jobs:", size()));
+		summary.append(outputFormatter("Idle Jobs:", getIdleJobsCount()));
+		summary.append(outputFormatter("Total session:", getSessionTotal()));
+		summary.append(outputFormatter("Used:", getSessionUsed()));
+		summary.append(outputFormatter("Available:", getSessionAvailable()));
+		summary.append(outputFormatter("Unavailable:", getSessionUnavailable()));
 
 		summary.append(getUnitRes());
 		summary.append("\n");
 
-		summary.append("\tTotal: \t");
-		summary.append(getSlotTotal());
-		summary.append("\n");
-
+		summary.append(outputFormatter("Total:", getSlotTotal()));
 		return summary.toString();
-
 	}
 
 	/**

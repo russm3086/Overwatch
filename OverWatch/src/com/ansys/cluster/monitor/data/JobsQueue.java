@@ -3,6 +3,7 @@
  */
 package com.ansys.cluster.monitor.data;
 
+import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -10,6 +11,7 @@ import java.util.logging.Logger;
 import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.state.JobState;
+import com.russ.test.DetailedInfoProp;
 
 /**
  * @author rmartine
@@ -23,9 +25,6 @@ public class JobsQueue extends AnsQueueAbstract {
 	private static final long serialVersionUID = -6349369496228918137L;
 	private final String sourceClass = this.getClass().getName();
 	private final transient Logger logger = Logger.getLogger(sourceClass);
-	private SortedMap<String, Job> jobs = new TreeMap<String, Job>();
-	private SortedMap<String, Job> errorJobs = new TreeMap<String, Job>();
-	private SortedMap<String, Job> idleJobs = new TreeMap<String, Job>();
 
 	public JobsQueue(String name) {
 		super(name, SGE_DataConst.clusterTypeJob);
@@ -37,13 +36,23 @@ public class JobsQueue extends AnsQueueAbstract {
 		addJob(job);
 	}
 
+	public void checkForIdle() {
+
+		for (Entry<Integer, Job> entry : jobs.entrySet()) {
+
+			if (entry.getValue().hasState(JobState.Idle)) {
+				addIdleJobs(entry.getKey(), entry.getValue());
+			}
+		}
+	}
+
 	public void addJob(Job job) {
 		logger.entering(sourceClass, "addJob", job);
 
-		jobs.put(String.valueOf(job.getJobNumber()), job);
+		jobs.put(job.getJobNumber(), job);
 
 		if (job.hasState(JobState.Error)) {
-			errorJobs.put(String.valueOf(job.getJobNumber()), job);
+			errorJobs.put(job.getJobNumber(), job);
 
 			if (job.isVisualNode()) {
 				addSessionUnavailable();
@@ -60,7 +69,7 @@ public class JobsQueue extends AnsQueueAbstract {
 			} else {
 				addSlotTotal(job.getSlots());
 				if (job.hasState(JobState.Idle)) {
-					addIdleJobs(String.valueOf(job.getJobNumber()), job);
+					addIdleJobs(job.getJobNumber(), job);
 				}
 			}
 		}
@@ -68,16 +77,9 @@ public class JobsQueue extends AnsQueueAbstract {
 	}
 
 	/**
-	 * @return the jobs
-	 */
-	public SortedMap<String, Job> getJobs() {
-		return jobs;
-	}
-
-	/**
 	 * @param jobs the jobs to set
 	 */
-	public void setJobs(SortedMap<String, Job> jobs) {
+	public void setJobs(SortedMap<Integer, Job> jobs) {
 		this.jobs = jobs;
 	}
 
@@ -96,16 +98,9 @@ public class JobsQueue extends AnsQueueAbstract {
 	}
 
 	/**
-	 * @return the errorJobs
-	 */
-	public SortedMap<String, Job> getErrorJobs() {
-		return errorJobs;
-	}
-
-	/**
 	 * @param errorJobs the errorJobs to set
 	 */
-	public void setErrorJobs(SortedMap<String, Job> errorJobs) {
+	public void setErrorJobs(SortedMap<Integer, Job> errorJobs) {
 		this.errorJobs = errorJobs;
 	}
 
@@ -121,30 +116,47 @@ public class JobsQueue extends AnsQueueAbstract {
 		return jobs.containsKey(queueName);
 	}
 
-	public SortedMap<String, ClusterNodeAbstract> getNodes() {
+	public SortedMap<Object, ClusterNodeAbstract> getNodes() {
 		// TODO Auto-generated method stub
 
-		SortedMap<String, ClusterNodeAbstract> map = new TreeMap<String, ClusterNodeAbstract>();
+		SortedMap<Object, ClusterNodeAbstract> map = new TreeMap<Object, ClusterNodeAbstract>();
 		map.putAll(jobs);
 
 		return map;
 	}
 
-	/**
-	 * @return the idleJobs
-	 */
-	public SortedMap<String, Job> getIdleJobs() {
-		return idleJobs;
+	public DetailedInfoProp getDetailedInfoProp() {
+
+		DetailedInfoProp masterDiProp = new DetailedInfoProp();
+		masterDiProp.setTitleMetric("Queue Name: ");
+		masterDiProp.setTitleValue(getName());
+
+		DetailedInfoProp jobSumDiProp = new DetailedInfoProp();
+		jobSumDiProp.setPanelName("Job Summary");
+		jobSumDiProp.addMetric("Jobs count: ", jobs.size());
+		jobSumDiProp.addMetric("Active Jobs count: ", activeJobs.size());
+		jobSumDiProp.addMetric("Pending Jobs count: ", pendingJobs.size());
+		jobSumDiProp.addMetric("Error Jobs count: ", errorJobs.size());
+		jobSumDiProp.addMetric("Idle Jobs count: ", idleJobs.size());
+		masterDiProp.addDetailedInfoProp(jobSumDiProp);
+
+		displayJobs(masterDiProp);
+		displayActiveJobs(masterDiProp);
+		displayPendingJobs(masterDiProp);
+		displayErrorJobs(masterDiProp);
+		displayIdleJobs(masterDiProp);
+		
+		return masterDiProp;
 	}
 
 	/**
 	 * @param idleJobs the idleJobs to set
 	 */
-	public void setIdleJobs(SortedMap<String, Job> idleJobs) {
+	public void setIdleJobs(SortedMap<Integer, Job> idleJobs) {
 		this.idleJobs = idleJobs;
 	}
 
-	public void addIdleJobs(String jobId, Job job) {
+	public void addIdleJobs(Integer jobId, Job job) {
 		getIdleJobs().put(jobId, job);
 	}
 

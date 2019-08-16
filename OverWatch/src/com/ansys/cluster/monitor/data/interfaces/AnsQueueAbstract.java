@@ -5,12 +5,20 @@
 */
 package com.ansys.cluster.monitor.data.interfaces;
 
+import java.util.ArrayList;
 import java.util.SortedMap;
+import java.util.TreeMap;
 
-import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 
+import com.ansys.cluster.monitor.data.Host;
+import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.data.state.AnsQueueState;
+import com.ansys.cluster.monitor.gui.HostTableModel;
+import com.ansys.cluster.monitor.gui.JobTableModel;
+import com.ansys.cluster.monitor.gui.TableBuilder;
+import com.russ.test.DetailedInfoProp;
 
 /**
  * 
@@ -37,7 +45,13 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 	protected int slotTotal = 0;
 	protected int slotAvailable = 0;
 	private String membersType;
-	private JTable table;
+	protected SortedMap<String, Host> hosts = new TreeMap<String, Host>();
+	protected SortedMap<String, Host> disabledhosts = new TreeMap<String, Host>();
+	protected SortedMap<Integer, Job> activeJobs = new TreeMap<Integer, Job>();
+	protected SortedMap<Integer, Job> pendingJobs = new TreeMap<Integer, Job>();
+	protected SortedMap<Integer, Job> jobs = new TreeMap<Integer, Job>();
+	protected SortedMap<Integer, Job> errorJobs = new TreeMap<Integer, Job>();
+	protected SortedMap<Integer, Job> idleJobs = new TreeMap<Integer, Job>();
 
 	public AnsQueueAbstract(ClusterNodeAbstract node) {
 		this(node.getQueueName(), node.getClusterType());
@@ -48,6 +62,10 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 		setName(name);
 		setMembersType(membersType);
 		setup();
+	}
+
+	public AnsQueueAbstract() {
+
 	}
 
 	private void setup() {
@@ -284,14 +302,6 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 		this.totalMem = totalMem;
 	}
 
-	public JTable getTable() {
-		return table;
-	}
-
-	public void setTable(JTable table) {
-		this.table = table;
-	}
-
 	public String getQueueName() {
 		return getName();
 	}
@@ -400,6 +410,127 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 		return 0;
 	}
 
+	public void displayDisabledHosts(DetailedInfoProp mainDiProp) {
+		if (disabledhosts.size() > 0) {
+
+			DetailedInfoProp disabledDiProp = new DetailedInfoProp();
+			disabledDiProp.setPanelName("Disabled host(s)");
+			disabledDiProp.setDataTypeTable();
+			disabledDiProp.addMetric(TableBuilder.table_Host, displayHosts(getDisabledNodes()));
+			mainDiProp.addDetailedInfoProp(disabledDiProp);
+		}
+	}
+
+	public void displayPendingJobs(DetailedInfoProp mainDiProp) {
+		if (pendingJobs.size() > 0) {
+
+			DetailedInfoProp pendingDiProp = new DetailedInfoProp();
+			pendingDiProp.setPanelName("Pending Jobs");
+			pendingDiProp.setDataTypeTable();
+			pendingDiProp.addMetric(TableBuilder.table_Job, displayJobs(getPendingJobs()));
+			mainDiProp.addDetailedInfoProp(pendingDiProp);
+		}
+	}
+
+	public void displayActiveJobs(DetailedInfoProp mainDiProp) {
+		if (activeJobs.size() > 0) {
+
+			DetailedInfoProp activeDiProp = new DetailedInfoProp();
+			activeDiProp.setPanelName("Active Jobs");
+			activeDiProp.setDataTypeTable();
+			activeDiProp.addMetric(TableBuilder.table_Job, displayJobs(getActiveJobs()));
+			mainDiProp.addDetailedInfoProp(activeDiProp);
+		}
+	}
+
+	public void displayJobs(DetailedInfoProp mainDiProp) {
+		if (jobs.size() > 0) {
+
+			DetailedInfoProp pendingDiProp = new DetailedInfoProp();
+			pendingDiProp.setPanelName("Jobs");
+			pendingDiProp.setDataTypeTable();
+			pendingDiProp.addMetric(TableBuilder.table_Job, displayJobs(getJobs()));
+			mainDiProp.addDetailedInfoProp(pendingDiProp);
+		}
+	}
+
+	public void displayErrorJobs(DetailedInfoProp mainDiProp) {
+		if (errorJobs.size() > 0) {
+
+			DetailedInfoProp pendingDiProp = new DetailedInfoProp();
+			pendingDiProp.setPanelName("Error Jobs");
+			pendingDiProp.setDataTypeTable();
+			pendingDiProp.addMetric(TableBuilder.table_Job, displayJobs(getErrorJobs()));
+			mainDiProp.addDetailedInfoProp(pendingDiProp);
+		}
+	}
+
+	public void displayIdleJobs(DetailedInfoProp mainDiProp) {
+		if (idleJobs.size() > 0) {
+
+			DetailedInfoProp pendingDiProp = new DetailedInfoProp();
+			pendingDiProp.setPanelName("Idle Jobs");
+			pendingDiProp.setDataTypeTable();
+			pendingDiProp.addMetric(TableBuilder.table_Job, displayJobs(getIdleJobs()));
+			mainDiProp.addDetailedInfoProp(pendingDiProp);
+		}
+	}
+
+	public AbstractTableModel displayJobs(SortedMap<Integer, Job> jobs) {
+
+		ArrayList<Job> list = new ArrayList<Job>(jobs.values());
+		JobTableModel jobTableModel = new JobTableModel(list);
+
+		return jobTableModel;
+	}
+
+	public AbstractTableModel displayHosts(SortedMap<String, Host> hosts) {
+
+		ArrayList<Host> list = new ArrayList<Host>(hosts.values());
+		HostTableModel hostTableModel = new HostTableModel(list);
+
+		return hostTableModel;
+	}
+
+	/**
+	 * @return the jobs
+	 */
+	public SortedMap<Integer, Job> getJobs() {
+		return jobs;
+	}
+
+	/**
+	 * @return the errorJobs
+	 */
+	public SortedMap<Integer, Job> getErrorJobs() {
+		return errorJobs;
+	}
+
+	/**
+	 * @return the idleJobs
+	 */
+	public SortedMap<Integer, Job> getIdleJobs() {
+		return idleJobs;
+	}
+
+	/**
+	 * @return the disabledNode
+	 */
+	public SortedMap<String, Host> getDisabledNodes() {
+		return disabledhosts;
+	}
+
+	public SortedMap<Integer, Job> getPendingJobs() {
+		return pendingJobs;
+	}
+
+	/**
+	 * @return the activeJobs
+	 */
+	protected SortedMap<Integer, Job> getActiveJobs() {
+		return activeJobs;
+	}
+
 	@Override
 	public String getSummary() {
 		// TODO Auto-generated method stub
@@ -412,9 +543,18 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 		return false;
 	}
 
-	public SortedMap<String, ClusterNodeAbstract> getNodes() {
+	@Override
+	public SortedMap<Object, ClusterNodeAbstract> getNodes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+	public DetailedInfoProp getDetailedInfoProp() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 }
+

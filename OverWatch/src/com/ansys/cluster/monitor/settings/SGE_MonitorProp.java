@@ -66,6 +66,15 @@ public class SGE_MonitorProp extends AbstractProp {
 				"JAT_scaled_usage_list JB_env_list " + "JB_submission_command_line JAT_granted_resources_list "
 						+ "JB_job_args JAT_granted_destin_identifier_list");
 
+		setJobDetailOmissions("JB_execution_time JB_deadline JB_notify JB_type "
+				+ "JB_reserve JB_priority JB_jobshare JB_shell_list JB_verify JB_checkpoint_attr "
+				+ "JB_checkpoint_interval JB_restart JB_merge_stderr JB_hard_resource_list "
+				+ "JB_mail_options JB_mail_list JB_pe JB_pe_range JB_ja_structure "
+				+ "JB_verify_suitable_queues JB_soft_wallclock_gmt JB_hard_wallclock_gmt "
+				+ "JB_override_tickets JB_ar JB_ja_task_concurrency JB_ja_task_concurrency_all "
+				+ "JB_binding JB_is_binary JB_no_shell JB_is_array JB_is_immediate "
+				+ "JB_mbind JB_preemption JB_supplementary_group_list JB_env_list");
+
 		// Connections
 		setClusterConnectionRequestMethod("GET");
 		setClusterConnectionRequestReadBuffer(131072);
@@ -93,13 +102,12 @@ public class SGE_MonitorProp extends AbstractProp {
 		setClusterConnectionHostUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/details/xml");
 
 		setClusterConnectionRequestMethod("HTTP");
-		
-		setClusterConnectionShellCmd(0,"/bin/sh");
+
+		setClusterConnectionShellCmd(0, "/bin/sh");
 		setClusterConnectionShellArgsCmd(0, "-c");
 		setClusterConnectionHostCmd(0, "qhost -q -xml");
 		setClusterConnectionSummaryJobsCmd(0, "qstat -u '*' -xml");
 		setClusterConnectionDetailedJobsCmd(0, "qstat -j '*' -xml");
-		
 
 		// Job
 		setJobIdleThreshold(.1);
@@ -167,8 +175,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionClusterUrl(int item, String clusterUrl) {
-		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionClusterUrlSuffix,
-				clusterUrl);
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionClusterUrlSuffix, clusterUrl);
 	}
 
 	public String getClusterConnectionDetailedJobsUrl(int item) {
@@ -196,8 +203,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionHostUrl(int item, String hostUrl) {
-		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionHostUrlSuffix,
-				hostUrl);
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionHostUrlSuffix, hostUrl);
 	}
 
 	public String getClusterConnectionShellCmd(int item) {
@@ -206,8 +212,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionShellCmd(int item, String shellCmd) {
-		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellCmdSuffix,
-				shellCmd);
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellCmdSuffix, shellCmd);
 	}
 
 	public String getClusterConnectionShellArgCmd(int item) {
@@ -225,8 +230,7 @@ public class SGE_MonitorProp extends AbstractProp {
 	}
 
 	public void setClusterConnectionHostCmd(int item, String hostCmd) {
-		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionHostCmdSuffix,
-				hostCmd);
+		putLog(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionHostCmdSuffix, hostCmd);
 	}
 
 	public String getClusterConnectionSummaryJobsCmd(int item) {
@@ -487,6 +491,14 @@ public class SGE_MonitorProp extends AbstractProp {
 
 	public void setClusterDataJobList(String tags) {
 		putLog(SGE_MonitorPropConst.clusterJobListXtag, tags);
+	}
+
+	public String getJobDetailOmissions() {
+		return getLogProperty(SGE_MonitorPropConst.clusterJobDetailOmissions);
+	}
+
+	public void setJobDetailOmissions(String tags) {
+		putLog(SGE_MonitorPropConst.clusterJobDetailOmissions, tags);
 	}
 
 }

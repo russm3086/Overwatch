@@ -7,6 +7,8 @@ package com.ansys.cluster.monitor.data.interfaces;
 
 import java.io.Serializable;
 
+import com.russ.test.DetailedInfoProp;
+
 
 /**
  * 
@@ -15,6 +17,7 @@ import java.io.Serializable;
  */
 public interface ClusterNodeInterface extends Serializable {
 
+	public DetailedInfoProp getDetailedInfoProp();
 	public String getSummary();
 	public String toString();
 	public String getName();

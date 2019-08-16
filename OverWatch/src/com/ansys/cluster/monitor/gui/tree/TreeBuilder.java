@@ -138,8 +138,8 @@ public class TreeBuilder {
 		logger.entering(sourceClass, "createNode");
 		DefaultMutableTreeNode nodeChild = null;
 
-		SortedMap<String, ClusterNodeAbstract> nodes = queue.getNodes();
-		for (Entry<String, ClusterNodeAbstract> node : nodes.entrySet()) {
+		SortedMap<Object, ClusterNodeAbstract> nodes = queue.getNodes();
+		for (Entry<Object, ClusterNodeAbstract> node : nodes.entrySet()) {
 
 			logger.finer("Creating leaf " + node.getKey());
 			nodeChild = new DefaultMutableTreeNode(node.getValue());

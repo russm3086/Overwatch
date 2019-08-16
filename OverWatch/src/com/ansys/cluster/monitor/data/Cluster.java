@@ -11,25 +11,24 @@ import java.util.Collections;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
-import com.ansys.cluster.monitor.data.interfaces.ClusterNodeInterface;
-import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
+import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.ClusterState;
+import com.russ.test.DetailedInfoProp;
 
 /**
  * 
  * @author rmartine
  * @since
  */
-public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface {
+public class Cluster extends AnsQueueAbstract {
 	private final String sourceClass = this.getClass().getName();
 	private final transient Logger logger = Logger.getLogger(sourceClass);
 	private static final long serialVersionUID = -3265482837785245141L;
 
 	private int totalComputeNodes = 0;
 	private int availableComputeNodes = 0;
-	private SortedMap<String, Host> disabledhosts = new TreeMap<String, Host>();
-
+	
 	private int totalVisualNodes = 0;
 	private int availalableVisualNodes = 0;
 
@@ -53,7 +52,7 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 	// TODO Gather all Job information Duration, # Pending, # Pending Error
 
 	public Cluster(String clusterName, HostMasterQueue hostMasterQueue, JobMasterQueue jobMasterQueue) {
-		// TODO Auto-generated constructor stub
+		super();
 		logger.entering(sourceClass, "Constructor");
 
 		setName(clusterName);
@@ -111,6 +110,8 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 
 			JobsQueue jobQueue = entryQueue.getValue();
 
+			jobQueue.checkForIdle();
+
 			logger.finer("Processing Queue " + jobQueue.getName());
 			logger.finer("Total Nodes " + jobQueue.size());
 			addTotalNumberJobs(jobQueue.size());
@@ -121,6 +122,8 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 
 			}
 
+			if (jobQueue.getIdleJobs().size() > 0)
+				addIdleJobs(jobQueue.getIdleJobs());
 		}
 	}
 
@@ -150,30 +153,6 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 		this.name = name;
 	}
 
-	public String disabledHostsOutput() {
-		String result = new String();
-
-		if (getDisabledHostCount() > 0) {
-
-			StringBuilder sb = new StringBuilder("\nDisableHost(s):\t\t");
-			sb.append(getDisabledHostCount());
-			sb.append("\n\t");
-
-			for (Entry<String, Host> entry : getDisabledhosts().entrySet()) {
-
-				sb.append("Host: ");
-				sb.append(entry.getKey());
-				sb.append("\t");
-			}
-
-			sb.append("\n");
-			result = sb.toString();
-
-		}
-
-		return result;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -184,47 +163,27 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 		// TODO Auto-generated method stub
 		StringBuilder sb = new StringBuilder();
 		sb.append("Compute Nodes\n");
-		sb.append("Total Compute Node:\t");
-		sb.append(getTotalComputeNodes());
-
-		sb.append("\nAvaiable Compute Node:\t");
-		sb.append(getAvailableComputeNodes());
-
-		sb.append("\nTotal Cores:\t\t");
-		sb.append(getTotalCores());
-
-		sb.append("\nAvaiable Cores:\t\t");
-		sb.append(getAvailableCores());
-
-		sb.append("\nTotal Memory:\t\t");
-		sb.append(decimalFormatter.format(getTotalMem()));
-		sb.append("\nFree Memory:\t\t");
-		sb.append(decimalFormatter.format(getAvailableMem()));
+		sb.append(outputFormatter("Total Compute Node:", getTotalComputeNodes()));
+		sb.append(outputFormatter("Available Compute Node:", getAvailableComputeNodes()));
 
 		sb.append("\n");
+		sb.append(outputFormatter("Total Cores:", getTotalCores()));
+		sb.append(outputFormatter("Avaiable Cores:", getAvailableCores()));
+		sb.append(outputFormatter("Total Memory:", decimalFormatter.format(getTotalMem())));
+		sb.append(outputFormatter("Free Memory:", decimalFormatter.format(getAvailableMem())));
 
-		sb.append("\nVisual Nodes\n");
-		sb.append("Total Visual Node:\t");
-		sb.append(getTotalVisualNodes());
+		sb.append("\n\nVisual Nodes\n");
+		sb.append(outputFormatter("Total Visual Node:", getTotalVisualNodes()));
+		sb.append(outputFormatter("Available Visual Node(s):", getAvailalableVisualNodes()));
+		sb.append(outputFormatter("Total Session:", getTotalSession()));
+		sb.append(outputFormatter("Available Session:", getAvailableSessions()));
 
-		sb.append("\nAvailable Visual Node(s):\t");
-		sb.append(getAvailalableVisualNodes());
-		
-		sb.append("\nTotal Session:\t\t");
-		sb.append(getTotalSession());
-		
-		sb.append("\nAvailable Session:\t");
-		sb.append(getAvailableSessions());
-		
-
-		sb.append("\n\nJobs:");
-		sb.append("\nTotal Active Job Count:\t");
-		sb.append(getTotalNumberJobs());
-		sb.append("\nJobs Pending:\t\t");
-		sb.append(getPendingJobs());
+		sb.append("\n\nJobs:\n");
+		sb.append(outputFormatter("Total Active Job Count:", getTotalNumberJobs()));
+		sb.append(outputFormatter("Jobs Pending:", getPendingJobs()));
+		sb.append(outputFormatter("Total Idle Jobs:", totalIdleJobs()));
 
 		sb.append("\n");
-		sb.append(disabledHostsOutput());
 
 		return sb.toString();
 	}
@@ -251,13 +210,6 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 
 	public String getQueueName() {
 		return "NA";
-	}
-
-	/**
-	 * @return the disabledHost
-	 */
-	public int getDisabledHostCount() {
-		return disabledhosts.size();
 	}
 
 	/**
@@ -328,17 +280,11 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 		setAvailableComputeNodes(getAvailableComputeNodes() + availableComputeNodes);
 	}
 
-	/**
-	 * @return the disabledhosts
-	 */
-	public SortedMap<String, Host> getDisabledhosts() {
-		return disabledhosts;
-	}
 
 	/**
 	 * @param disabledhosts the disabledhosts to set
 	 */
-	public void setDisabledhosts(SortedMap<String, Host> disabledhosts) {
+	public void setDisabledHosts(SortedMap<String, Host> disabledhosts) {
 		this.disabledhosts = disabledhosts;
 	}
 
@@ -487,10 +433,90 @@ public class Cluster extends ClusterNodeAbstract implements ClusterNodeInterface
 		setTotalMem(getTotalMem() + totalMem);
 	}
 
-	public int getPendingJobs() {
+	/**
+	 * @return the idleJobs
+	 */
+	public SortedMap<Integer, Job> getIdleJobs() {
+		return idleJobs;
+	}
+
+	/**
+	 * @param idleJobs the idleJobs to set
+	 */
+	public void setIdleJobs(SortedMap<Integer, Job> idleJobs) {
+		this.idleJobs = idleJobs;
+	}
+
+	public void addIdleJobs(SortedMap<Integer, Job> idleJobs) {
+		this.idleJobs.putAll(idleJobs);
+	}
+
+	public int totalIdleJobs() {
+		return idleJobs.size();
+	}
+
+	public int getPendingJobsSize() {
 		JobMasterQueue jmq = getJobMasterQueue();
 		JobsQueue jq = jmq.getQueue(SGE_DataConst.job_PendingQueue);
 		return jq.size();
 	}
 
+	@Override
+	public DetailedInfoProp getDetailedInfoProp() {
+
+		DetailedInfoProp masterDiProp = new DetailedInfoProp();
+		masterDiProp.setTitleMetric("Cluster Name: ");
+		masterDiProp.setTitleValue(getName());
+
+		DetailedInfoProp coreDiProp = new DetailedInfoProp();
+		coreDiProp.setPanelName(getUnitRes());
+		coreDiProp.addMetric("Available: ", getAvailableCores());
+		coreDiProp.addMetric("Unavailable: ", getSlotUnavailable());
+		coreDiProp.addMetric("% Available: ", "");
+		coreDiProp.addMetric("Total: ", getTotalCores());
+		coreDiProp.addMetric("Reserved: ", "");
+		coreDiProp.addMetric("Used: ", "");
+		masterDiProp.addDetailedInfoProp(coreDiProp);
+
+		DetailedInfoProp sessionDiProp = new DetailedInfoProp();
+		sessionDiProp.setPanelName(SGE_DataConst.unitResSession);
+		sessionDiProp.addMetric("Available: ", getAvailableSessions());
+		sessionDiProp.addMetric("Total: ", getTotalSession());
+		sessionDiProp.addMetric("Used: ", "");
+		sessionDiProp.addMetric("Unavailable: ", "");
+		masterDiProp.addDetailedInfoProp(sessionDiProp);
+
+		DetailedInfoProp memoryDiProp = new DetailedInfoProp();
+		memoryDiProp.setPanelName("Memory");
+		memoryDiProp.addMetric("Available Memory: ", decimalFormatter.format(getAvailableMem()));
+		memoryDiProp.addMetric("Total Memory: ", decimalFormatter.format(getTotalMem()));
+		masterDiProp.addDetailedInfoProp(memoryDiProp);
+
+		DetailedInfoProp nodesDiProp = new DetailedInfoProp();
+		nodesDiProp.setPanelName("Node(s");
+		nodesDiProp.addMetric("Available Nodes: ", getAvailableComputeNodes());
+		nodesDiProp.addMetric("Total Nodes: ", getTotalComputeNodes());
+		masterDiProp.addDetailedInfoProp(nodesDiProp);
+		
+		DetailedInfoProp visualDiProp = new DetailedInfoProp();
+		visualDiProp.setPanelName("Visual Node");
+		visualDiProp.addMetric("Total Session: ", getTotalSession());
+		visualDiProp.addMetric("Available Session: ", getAvailableSessions());
+		visualDiProp.addMetric("Total Visual Node: ", getTotalVisualNodes());
+		visualDiProp.addMetric("Available Visual Node(s): ", getAvailalableVisualNodes());
+		masterDiProp.addDetailedInfoProp(visualDiProp);
+		
+		DetailedInfoProp jobDiProp = new DetailedInfoProp();
+		jobDiProp.setPanelName("Jobs:");
+		jobDiProp.addMetric("Total Active Job Count:", getTotalNumberJobs());
+		jobDiProp.addMetric("Jobs Pending:", getPendingJobsSize());
+		jobDiProp.addMetric("Total Idle Jobs:", totalIdleJobs());
+		masterDiProp.addDetailedInfoProp(jobDiProp);
+
+		displayDisabledHosts(masterDiProp);
+
+		return masterDiProp;
+	}
+
+	
 }

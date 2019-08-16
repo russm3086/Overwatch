@@ -7,7 +7,7 @@ public final class SGE_DataConst {
 	}
 
 	public static String app_name = "OverWatch";
-	public static String app_version = "1.4.3.8";
+	public static String app_version = "1.4.3.9";
 	public static String app_version_regex = "(\\d+\\.)+(\\d)";
 	
 	
@@ -233,6 +233,7 @@ public final class SGE_DataConst {
 
 	// Cluster Type
 	public final static String clusterTypeCluster = "CLUSTER";
+	public final static String clusterTypeHostMasterQueue = "HOST_MASTER_QUEUE";
 	public final static String clusterTypeQueue = "QUEUE";
 	public final static String clusterTypeHost = "HOST";
 	public final static String clusterTypeJob = "JOB";

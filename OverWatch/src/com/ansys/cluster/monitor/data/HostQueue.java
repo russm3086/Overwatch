@@ -6,13 +6,13 @@ package com.ansys.cluster.monitor.data;
 import java.util.ArrayList;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.HostState;
+import com.russ.test.DetailedInfoProp;
 
 /**
  * @author rmartine
@@ -26,10 +26,6 @@ public class HostQueue extends AnsQueueAbstract {
 	private static final long serialVersionUID = -8728921820872189083L;
 	private final String sourceClass = this.getClass().getName();
 	private final transient Logger logger = Logger.getLogger(sourceClass);
-	private SortedMap<String, Host> hosts = new TreeMap<String, Host>();
-	private SortedMap<String, Host> disabledhosts = new TreeMap<String, Host>();
-	private SortedMap<Integer, Job> activeJobs = new TreeMap<Integer, Job>();
-	private SortedMap<Integer, Job> pendingJobs = new TreeMap<Integer, Job>();
 
 	public HostQueue(String name) {
 		super(name, SGE_DataConst.clusterTypeHost);
@@ -143,20 +139,10 @@ public class HostQueue extends AnsQueueAbstract {
 		addSessionUnavailable(host.getSlotUnavailable());
 	}
 
-	public SortedMap<Integer, Job> getPendingJobs() {
-		return pendingJobs;
-	}
-
 	public void addPendingJobs(Job pendingJob) {
 		this.pendingJobs.put(pendingJob.getJobNumber(), pendingJob);
 	}
 
-	/**
-	 * @return the activeJobs
-	 */
-	public SortedMap<Integer, Job> getActiveJobs() {
-		return activeJobs;
-	}
 
 	/**
 	 * @param activeJobs the activeJobs to set
@@ -166,96 +152,53 @@ public class HostQueue extends AnsQueueAbstract {
 	}
 
 	/**
-	 * @return the disabledNode
-	 */
-	public SortedMap<String, Host> getDisabledNodes() {
-		return disabledhosts;
-	}
-
-	/**
 	 * @param disabledNode the disabledNode to set
 	 */
 	public void setDisabledNodes(SortedMap<String, Host> disabledhosts) {
 		this.disabledhosts = disabledhosts;
 	}
 
-	public String displayPendingJobs() {
-		return displayJobs(getPendingJobs());
-	}
 
-	public String displayActiveJobs() {
-		return displayJobs(getActiveJobs());
-	}
+	public DetailedInfoProp getDetailedInfoProp() {
+		DetailedInfoProp mainDiProp = new DetailedInfoProp();
+		mainDiProp.setTitleMetric("Queue Name:");
+		mainDiProp.setTitleValue(getName());
 
-	public String displayJobs(SortedMap<Integer, Job> jobs) {
-		StringBuilder sb = new StringBuilder();
-		for (Entry<Integer, Job> entry : jobs.entrySet()) {
-			StringBuilder summary = new StringBuilder();
-			Job job = entry.getValue();
-			NodeProp prop = job.getNodeProp();
-			summary.append("  Job Name: " + prop.getJobName());
-			summary.append("\tOwner: " + prop.getJobOwner());
-			summary.append("\tJob #: " + job.getJobNumber());
-			summary.append("\t" + getUnitRes() + ": " + prop.getSlots());
-			summary.append("\n");
-			sb.append(summary);
-		}
-		return sb.toString();
-	}
-
-	public String displayDisabledHosts() {
-		StringBuilder sb = new StringBuilder();
-		for (Entry<String, Host> entry : disabledhosts.entrySet()) {
-			StringBuilder summary = new StringBuilder();
-			Host host = entry.getValue();
-			summary.append("  Host: " + host.getName());
-			summary.append("\tState: " + host.getStateNames());
-			summary.append("\n");
-			sb.append(summary);
-		}
-		return sb.toString();
-	}
-
-	public String getSummary() {
-		StringBuilder summary = new StringBuilder();
-		summary.append("Queue Name: \t" + getName() + "\n");
+		DetailedInfoProp resourceDiProp = new DetailedInfoProp();
 
 		if (isVisualNode()) {
-			summary.append("\n" + getUnitRes() + " Total:\t" + getSessionTotal());
-			summary.append("\n" + getUnitRes() + " Used:\t" + getSessionUsed());
-			summary.append("\n" + getUnitRes() + " Available:\t" + getSessionAvailable());
-			summary.append("\n" + getUnitRes() + " Unavailable:\t" + getSessionUnavailable());
+
+			resourceDiProp.setPanelName("Session(s)");
+			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "Available: "), getSessionAvailable());
+			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "Unavailable: "), getSessionUnavailable());
+			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "Total: "), getSessionTotal());
 
 		} else {
 
-			summary.append("\n" + getUnitRes() + " Total:\t\t" + getSlotTotal());
-			summary.append("\n" + getUnitRes() + " Reserved:\t" + getSlotRes());
-			summary.append("\n" + getUnitRes() + " Used:\t\t" + getSlotUsed());
-			summary.append("\n" + getUnitRes() + " Available:\t" + getSlotAvailable());
-			summary.append("\n" + getUnitRes() + " Unavailable:\t" + getSlotUnavailable());
-			summary.append("\n" + getUnitRes() + " % Available:\t" + availableSlotsPercent());
+			resourceDiProp.setPanelName("Core(s)");
+			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "Available: "), getSlotAvailable());
+			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "Unavailable: "), getSlotUnavailable());
+			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "Total: "), getSlotTotal());
+			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "Reserved: "), getSlotRes());
+			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "% Available: "), availableSlotsPercent());
 
 		}
 
-		summary.append("\n Memory free:\t\t" + decimalFormatter.format(getFreeMem()));
-		summary.append("\n Free Nodes:\t\t" + getAvailableNodes());
-		summary.append("\n Total Nodes:\t\t" + size() + "\n");
+		mainDiProp.addDetailedInfoProp(resourceDiProp);
 
-		if (pendingJobs.size() > 0) {
-			summary.append("\n Pending Job(s):\n" + displayPendingJobs());
-		}
+		DetailedInfoProp memDiProp = new DetailedInfoProp();
+		memDiProp.setPanelName("Memory");
+		memDiProp.addMetric("Available Memory: ", decimalFormatter.format(getFreeMem()));
+		memDiProp.addMetric("Total Memory: ", decimalFormatter.format(getTotalMem()));
+		mainDiProp.addDetailedInfoProp(memDiProp);
 
-		if (activeJobs.size() > 0) {
-			summary.append("\n Active Job(s):\n" + displayActiveJobs());
-		}
-
-		if (disabledhosts.size() > 0) {
-			summary.append("\n Disabled Nodes: \n" + displayDisabledHosts());
-		}
-
-		return summary.toString();
-
+		displayPendingJobs(mainDiProp);
+		displayActiveJobs(mainDiProp);
+		displayDisabledHosts(mainDiProp);
+		
+		return mainDiProp;
 	}
+
 
 	public String getStatus() {
 
@@ -285,9 +228,12 @@ public class HostQueue extends AnsQueueAbstract {
 		return hosts.get(host);
 	}
 
-	public SortedMap<String, ClusterNodeAbstract> getNodes() {
-		SortedMap<String, ClusterNodeAbstract> map = new TreeMap<String, ClusterNodeAbstract>();
+	public SortedMap<Object, ClusterNodeAbstract> getNodes() {
+		// TODO Auto-generated method stub
+
+		SortedMap<Object, ClusterNodeAbstract> map = new TreeMap<Object, ClusterNodeAbstract>();
 		map.putAll(hosts);
+
 		return map;
 	}
 

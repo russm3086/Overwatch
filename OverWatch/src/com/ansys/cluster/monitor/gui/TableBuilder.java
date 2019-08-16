@@ -7,56 +7,57 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import com.ansys.cluster.monitor.data.JobsQueue;
-import com.ansys.cluster.monitor.data.SGE_DataConst;
-import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 
 public class TableBuilder {
+	public static final String table_Job = "JOB_TABLE";
+	public static final String table_Host = "HOST_TABLE";
 
 	public TableBuilder() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void  buildTable(AnsQueueAbstract queue) {
+	public static JTable buildTable(String tableModleName, AbstractTableModel tableModel) {
+		JTable jtable = null;
 
-		if (queue.getTable() == null && queue.getMembersType().equalsIgnoreCase(SGE_DataConst.clusterTypeJob)) {
+		switch (tableModleName) {
 
-			NodeTableModel model;
-			
-			JobsQueue jobsQueue = (JobsQueue) queue;
-			
-			if(queue.getName() != SGE_DataConst.noNameJobQueue) {
-				model = new NodeTableModel(jobsQueue, 6);
-			}else {
-				model = new NodeTableModel(jobsQueue);
-			}
+		case table_Job:
+			jtable = buildTable(tableModel, 1, Integer.class);
+			break;
+		case table_Host:
+			jtable = buildTable(tableModel, 0, String.class);
+			break;
 
-			JTable table = new JTable(model);
-			table.setAutoCreateRowSorter(true);
-
-			TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
-			table.setRowSorter(sorter);
-			List<RowSorter.SortKey> sortKeys = new ArrayList<>();
-
-			int columnIndexToSort = 1;
-			sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING));
-
-			sorter.setSortKeys(sortKeys);
-			sorter.sort();
-			
-			DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-			centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-			table.setDefaultRenderer(Long.class, centerRenderer);
-			table.setDefaultRenderer(Integer.class, centerRenderer);
-			
-			
-			queue.setTable(table);
-			
 		}
+
+		return jtable;
+
+	}
+
+	public static JTable buildTable(AbstractTableModel tableModel, int columnIndexToSort,
+			Class<?> defaultRendererClass) {
+
+		JTable table = new JTable(tableModel);
+		table.setAutoCreateRowSorter(true);
+
+		TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+		table.setRowSorter(sorter);
+		List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+		sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING));
+
+		sorter.setSortKeys(sortKeys);
+		sorter.sort();
+
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		table.setDefaultRenderer(defaultRendererClass, centerRenderer);
+
+		return table;
 	}
 
 }

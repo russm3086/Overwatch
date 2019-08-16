@@ -14,7 +14,7 @@ import com.ansys.cluster.monitor.data.JobsQueue;
  * @author rmartine
  *
  */
-public class NodeTableModel extends AbstractTableModel {
+public class JobTableModel extends AbstractTableModel {
 	/**
 		 * 
 		 */
@@ -33,16 +33,20 @@ public class NodeTableModel extends AbstractTableModel {
 	/**
 	 * 
 	 */
-	public NodeTableModel(JobsQueue queue) {
-		// TODO Auto-generated constructor stub
-		ArrayList<Job> list = new ArrayList<Job>(queue.getJobs().values());
+	public JobTableModel(JobsQueue queue) {
+		this(new ArrayList<Job>(queue.getJobs().values()));
+	}
+
+	public JobTableModel(JobsQueue queue, int column) {
+		this(new ArrayList<Job>(queue.getJobs().values()), column);
+	}
+
+	public JobTableModel(ArrayList<Job> list) {
 		setValueList(list);
 		setColumnCount(columnNames.length);
 	}
 
-	public NodeTableModel(JobsQueue queue, int column) {
-		// TODO Auto-generated constructor stub
-		ArrayList<Job> list = new ArrayList<Job>(queue.getJobs().values());
+	public JobTableModel(ArrayList<Job> list, int column) {
 		setValueList(list);
 		setColumnCount(column);
 	}
@@ -88,30 +92,30 @@ public class NodeTableModel extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
 
-		Job node = (Job) valueList.get(rowIndex);
+		Job job = (Job) valueList.get(rowIndex);
 		Object returnValue = null;
 
 		switch (columnIndex) {
 		case COLUMN_NAME:
-			returnValue = node.getName();
+			returnValue = job.getName();
 			break;
 		case COLUMN_ID:
-			returnValue = node.getJobNumber();
+			returnValue = job.getJobNumber();
 			break;
 		case COLUMN_OWNER:
-			returnValue = node.getJobOwner();
+			returnValue = job.getJobOwner();
 			break;
 		case COLUMN_CORES:
-			returnValue = Integer.valueOf((node.getSlots()));
+			returnValue = Integer.valueOf((job.getSlots()));
 			break;
 		case COLUMN_STATE:
-			returnValue = node.getState();
+			returnValue = job.getState();
 			break;
 		case COLUMN_DURATION:
-			returnValue = Long.valueOf(node.getDuration().toHours());
+			returnValue = Long.valueOf(job.getDuration().toHours());
 			break;
 		case COLUMN_TARGET_QUEUE:
-			returnValue = node.getTargetQueue();
+			returnValue = job.getTargetQueue();
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid column index");

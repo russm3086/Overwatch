@@ -127,7 +127,7 @@ public class ClusterFactory {
 		JobsQueue jobPendingQueue = jobMasterQueue.getQueue(SGE_DataConst.job_PendingQueue);
 
 		if (jobPendingQueue != null) {
-			for (Entry<String, Job> entry : jobPendingQueue.getJobs().entrySet()) {
+			for (Entry<Integer, Job> entry : jobPendingQueue.getJobs().entrySet()) {
 
 				Job job = entry.getValue();
 				String targetQueue = job.getTargetQueue();

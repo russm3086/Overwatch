@@ -18,7 +18,6 @@ import com.ansys.cluster.monitor.data.factory.Exporter;
 import com.ansys.cluster.monitor.gui.Console;
 import com.ansys.cluster.monitor.settings.MonitorArgsSettings;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
-import com.russ.test.Test;
 import com.russ.util.FileStructure;
 import com.russ.util.settings.SystemSettings;
 

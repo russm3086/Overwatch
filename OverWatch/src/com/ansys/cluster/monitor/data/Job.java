@@ -17,6 +17,7 @@ import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.JobInterface;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.JobState;
+import com.russ.test.DetailedInfoProp;
 
 /**
  * 
@@ -32,8 +33,8 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	private static final long serialVersionUID = 3221740341615040025L;
 	private final String sourceClass = this.getClass().getName();
 	private final transient Logger logger = Logger.getLogger(sourceClass);
-	//private ArrayList<Host> hostList = new ArrayList<Host>();
-	private HashMap<Host, Double> hostMap= new HashMap<Host, Double>();
+	// private ArrayList<Host> hostList = new ArrayList<Host>();
+	private HashMap<Host, Double> hostMap = new HashMap<Host, Double>();
 	private double hostLoad = 0.0;
 
 	/**
@@ -121,7 +122,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 			}
 		}
 
-		if (intLength != -1) {
+		if (intLength != -1 && sb.length() > intLength) {
 			sb = new StringBuilder(sb.substring(0, Math.min(sb.length(), intLength)));
 			sb.append(" ...");
 		}
@@ -211,7 +212,6 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		logger.exiting(sourceClass, "checkIdleStatus");
 	}
 
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -220,52 +220,58 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	@Override
 	public String getSummary() {
 		// TODO Auto-generated method stub
-		String summary = "Job Name:\t\t" + getJobName();
-		summary += "\nOwner:\t\t" + getJobOwner();
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(outputFormatter("Job Name:", getJobName()));
+		sb.append(outputFormatter("Owner:", getJobOwner()));
 
 		if (getTargetQueue() != null)
-			summary += "\nTarget Queue:\t\t" + getTargetQueue();
+			sb.append(outputFormatter("Target Queue:", getTargetQueue()));
 
 		if (getStartHost() != null) {
-			summary += "\nStart Host:\t\t" + getStartHost();
-			summary += "\nHost Load:\t\t" + decimalFormatter.format(getHostLoad());
+			sb.append(outputFormatter("Start Host:", getStartHost()));
+			sb.append(outputFormatter("Host Load:", decimalFormatter.format(getHostLoad())));
 		}
 
-		summary += "\nJob #:\t\t" + getJobNumber();
-		summary += "\nJob Priority: \t\t" + getJobPriority();
-		summary += "\nJob Status Code:\t" + nodeProp.getJobState();
-		summary += "\n" + getUnitRes() + ":\t\t" + getSlots();
+		sb.append(outputFormatter("Job #:", getJobNumber()));
+		sb.append(outputFormatter("Job Priority:", getJobPriority()));
+		sb.append(outputFormatter("Job Status Code:", getJobState()));
+		sb.append(outputFormatter(getUnitRes(), getSlots()));
 
 		if (getJobStartTime() != null)
-			summary += "\nJob Start:\t\t" + getJobStartTime();
+			sb.append(outputFormatter("Job Start:", getJobStartTime()));
 
-		summary += "\nJob Submission:\t" + getJobSubmissionTime();
-		summary += "\nExclusive:\t\t" + isExclusive();
-		summary += "\nDuration:\t\t" + getDuration().toHours() + " hours";
-		summary += "\nState:\t\t" + getStateDescriptions();
+		sb.append(outputFormatter("Job Submission:", getJobSubmissionTime()));
+		sb.append(outputFormatter("Exclusive:", isExclusive()));
+		sb.append(summaryOutput("Duration:", getDuration().toHours(), "hours"));
+		sb.append(outputFormatter("State:", getStateDescriptions()));
 
-		summary += "\nScaled Usage:";
-		summary += "\n" + "CPU:\t\t" + getCPU();
-		summary += "\n" + "Memory:\t\t" + getMem();
-		summary += "\n" + "IO:\t\t" + getIO();
+		sb.append("Scaled Usage:\n");
+		sb.append(outputFormatter("CPU:", getCPU()));
+		sb.append(outputFormatter("Memory:", getMem()));
+		sb.append(outputFormatter("IO:", getIO()));
 
-		if (hostMap.size() > 0)
-			summary += "\n\nHost(s):" + getHostList();
+		if (hostMap.size() > 0) {
+			sb.append("\nHost(s):");
+			sb.append(getHostList());
+		}
 
-		if (getMessages().length() > 0)
-			summary += "\n\nMessages:\n" + getMessages();
+		if (getMessages().length() > 0) {
+			sb.append("\nMessages:\n");
+			sb.append(getMessages());
+		}
 
 		if (getSubmissionCommandLine().size() > 0) {
-			summary += "\nSubmission Commandline:\n";
-			summary += printNodePropList(getSubmissionCommandLine());
+			sb.append("\nSubmission Commandline:\n");
+			sb.append(printNodePropList(getSubmissionCommandLine()));
 		}
 
 		if (getJobEnv().size() > 0) {
-			summary += "\n\nEnvironment Settings:\n";
-			summary += printNodePropList(getJobEnv());
+			sb.append("\nEnvironment Settings:\n");
+			sb.append(printNodePropList(getJobEnv()));
 		}
 
-		return summary;
+		return sb.toString();
 	}
 
 	public String toString() {
@@ -318,8 +324,8 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		addHostLoad(host.getAvgLoad());
 		if (getJobIdleThreshold() > getHostLoad()) {
 			addState(JobState.Idle);
-		}else {
-			if(hasState(JobState.Idle)) {
+		} else {
+			if (hasState(JobState.Idle)) {
 				remove(JobState.Idle);
 			}
 		}
@@ -492,10 +498,14 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	}
 
 	public void addHostLoad(double hostLoad) {
-		
-		double avg = ((getHostLoad()*hostMap.size()+hostLoad))/(hostMap.size() +1);
-		
+		double avg = ((getHostLoad() * hostMap.size() + hostLoad)) / (hostMap.size() + 1);
 		setHostLoad(avg);
 	}
-	
+
+	@Override
+	public DetailedInfoProp getDetailedInfoProp() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
