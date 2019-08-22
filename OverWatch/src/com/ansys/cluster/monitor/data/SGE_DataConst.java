@@ -7,7 +7,7 @@ public final class SGE_DataConst {
 	}
 
 	public static String app_name = "OverWatch";
-	public static String app_version = "1.4.4.0";
+	public static String app_version = "1.4.4.1";
 	public static String app_version_regex = "(\\d+\\.)+(\\d)";
 	
 	
@@ -244,6 +244,10 @@ public final class SGE_DataConst {
 	
 	public final static String unitResCore = "Core(s)";
 	public final static String unitResSession = "Session(s)";
+	
+	//Panel Name
+	public final static String panelTitleJob = "Job(s)";
+	public final static String panelTitleVisualNode = "Visual Node(s)";
 	
 	
 

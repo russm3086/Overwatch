@@ -100,6 +100,10 @@ public class ClusterFactory {
 
 		logger.info("Job and Host cross reference");
 		setStatusLabel("Job and Host cross referencing");
+
+		/**
+		 * Matches jobs with host. Detect for idle jobs
+		 */
 		JobHostCrossReference(DetailedJobsmap, hostMap);
 
 		logger.info("Creating Job Queues");
@@ -127,7 +131,7 @@ public class ClusterFactory {
 		JobsQueue jobPendingQueue = jobMasterQueue.getQueue(SGE_DataConst.job_PendingQueue);
 
 		if (jobPendingQueue != null) {
-			for (Entry<Integer, Job> entry : jobPendingQueue.getJobs().entrySet()) {
+			for (Entry<Integer, Job> entry : jobPendingQueue.getPendingJobs().entrySet()) {
 
 				Job job = entry.getValue();
 				String targetQueue = job.getTargetQueue();
@@ -144,7 +148,7 @@ public class ClusterFactory {
 				if (hostTargetQueue != null) {
 
 					logger.finer("Pending Job: " + job + " adding to queue: " + hostTargetQueue);
-					hostTargetQueue.addPendingJobs(job);
+					hostTargetQueue.addPendingJobs(job.getJobNumber(), job);
 				} else {
 
 					if (!targetQueue.equalsIgnoreCase(SGE_DataConst.job_ntq))
@@ -170,7 +174,15 @@ public class ClusterFactory {
 			ArrayList<NodeProp> list = job.getResourceList();
 			for (NodeProp nodeProp : list) {
 
-				String hostName = (String) nodeProp.get("GRU_host");
+				String hostName = new String();
+				if (nodeProp.get("GRU_host") != null) {
+
+					hostName = (String) nodeProp.get("GRU_host");
+				} else if (nodeProp.get("JG_qhostname") != null) {
+
+					hostName = (String) nodeProp.get("JG_qhostname");
+				}
+
 				Host host = hostMap.get(hostName);
 
 				if (host != null) {

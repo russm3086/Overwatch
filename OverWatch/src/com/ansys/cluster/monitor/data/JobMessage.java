@@ -52,8 +52,6 @@ public class JobMessage implements JobMessageInterface {
 
 		StringBuffer sb = new StringBuffer();
 
-		sb.append(prop.get("MES_message_number"));
-		sb.append(": ");
 		sb.append(prop.get("MES_message"));
 		
 		return sb.toString();

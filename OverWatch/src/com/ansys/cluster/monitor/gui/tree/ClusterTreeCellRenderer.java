@@ -116,8 +116,8 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 		if (queue.getMembersType().equalsIgnoreCase(SGE_DataConst.clusterTypeHost)) {
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.WHITE);
-			panel.setMaximumSize(new Dimension(235, 40));
-			panel.setPreferredSize(new Dimension(225, 30));
+			//panel.setMaximumSize(new Dimension(235, 40));
+			panel.setPreferredSize(new Dimension(250, 40));
 
 			JLabel lblNewLabel = new JLabel(queue.getName());
 			lblNewLabel.setPreferredSize(new Dimension(50, 25));
@@ -125,7 +125,7 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 			panel.add(lblNewLabel);
 
 			JProgressBar progressBar = new JProgressBar();
-			progressBar.setPreferredSize(new Dimension(150, 25));
+			progressBar.setPreferredSize(new Dimension(150, 30));
 
 			int resAvailable;
 			int resTotal;
@@ -139,16 +139,16 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 
 			} else {
 
-				resAvailable = queue.getSlotAvailable();
-				resTotal = queue.getSlotTotal();
-				resUnavailable = queue.getSlotUnavailable();
+				resAvailable = queue.getCoreAvailable();
+				resTotal = queue.getCoreTotal();
+				resUnavailable = queue.getCoreUnavailable();
 
 			}
 
 			panel.setToolTipText(resAvailable + " of " + resTotal + " " + queue.getUnitRes() + " are available.");
 
 			logger.finest("Setting " + queue.getName() + " progress bar min: " + resAvailable + " max: "
-					+ queue.getSlotTotal());
+					+ queue.getCoreTotal());
 			progressBar.setBackground(Color.GREEN);
 			progressBar.setForeground(Color.RED);
 			progressBar.setMaximum(resTotal);
@@ -278,10 +278,14 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 	private Border getBorderSelect() {
 		Border border;
 		if (selected) {
-			border = BorderFactory.createLineBorder(Color.BLACK, 1);
+
+			border = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true),
+					BorderFactory.createEmptyBorder(2, 2, 2, 2));
+
 		} else {
 
-			border = BorderFactory.createLineBorder(Color.WHITE, 0);
+			border = null;
+			// border = BorderFactory.createLineBorder(Color.WHITE, 0);
 		}
 		return border;
 

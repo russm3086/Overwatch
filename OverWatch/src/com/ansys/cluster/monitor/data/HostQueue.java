@@ -12,7 +12,7 @@ import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.HostState;
-import com.russ.test.DetailedInfoProp;
+import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 
 /**
  * @author rmartine
@@ -45,7 +45,19 @@ public class HostQueue extends AnsQueueAbstract {
 
 		if (!host.getQueueName().equalsIgnoreCase(SGE_DataConst.noNameHostQueue)) {
 
-			hosts.put(host.getName(), host);
+			if (host.isVisualNode()) {
+
+				if (!addUnavailbleHost(host, getUnavailableVisualHosts())) {
+
+					addAvailableVisualHosts(host.getName(), host);
+				}
+			} else {
+
+				if (!addUnavailbleHost(host, getUnavailableComputeHosts())) {
+
+					addAvailableComputeHosts(host.getName(), host);
+				}
+			}
 
 			logger.finer("Adding slots for " + host.getName());
 			addResources(host);
@@ -55,9 +67,6 @@ public class HostQueue extends AnsQueueAbstract {
 
 			logger.finer("Processng free memory for " + host.getName());
 			addMemory(host);
-
-			logger.finer("Processing for disabled host: " + host.getName());
-			addDisabledHost(host);
 
 			logger.finer("Processing for job list on host: " + host.getName());
 			addActiveJobs(host.getListJob());
@@ -69,68 +78,70 @@ public class HostQueue extends AnsQueueAbstract {
 	private void addActiveJobs(ArrayList<Job> listJobs) {
 		logger.entering(sourceClass, "addActiveJobs", listJobs);
 		for (Job job : listJobs) {
-			addActiveJobs(job);
+			addActiveJobs(job.getJobNumber(), job);
 		}
 		logger.exiting(sourceClass, "addActiveJobs", listJobs);
 	}
 
-	private void addDisabledHost(Host host) {
+	private boolean addUnavailbleHost(Host host, SortedMap<String, Host> map) {
 		logger.entering(sourceClass, "addDisabledHost", host);
+		boolean result = false;
 		StateAbstract nodeState = host.getState();
 
 		if ((nodeState.between(HostState.Unknown, HostState.Error))
 				|| (nodeState.between(HostState.Suspended, HostState.DisabledManually))) {
-			disabledhosts.put(host.getName(), host);
+			map.put(host.getName(), host);
+			result = true;
 		}
 		logger.exiting(sourceClass, "addDisabledHost");
+		return result;
 	}
 
 	public void addNP_Load(Host host) {
-		addNp_load(host.getNp_load_avg());
-		calc_NP_Load();
+		int totalNum = getAvailableComputeHostsSize() + getAvailableVisualHostsSize();
+		double avg = ((getNp_Load() * (totalNum)) + host.getNp_load_avg()) / (totalNum + 1);
+
+		setNp_Load(avg);
 	}
 
 	public void addMemory(Host host) {
 		logger.entering(sourceClass, "addMemory", host);
 		if (host.isNodeAvailable()) {
-			addFreeMem(host.getMemFreeNum());
+			addAvailableMem(host.getMemFreeNum());
 		}
 		addTotalMem(host.getNodeProp().getMemTotalNum());
 
 		logger.exiting(sourceClass, "addMemory");
 	}
 
-	public void calc_NP_Load() {
-
-		np_load = total_np_load / hosts.size();
-	}
-
 	public void addResources(Host host) {
 		if (host.isVisualNode()) {
 			addSessions(host);
 		} else {
-			addSlots(host);
+			addCores(host);
 		}
+	
+		addMemory(host);
 	}
 
-	public void addSlots(Host host) {
+	
+	
+	public void addCores(Host host) {
 
 		if (host.isNodeAvailable()) {
-			addSlotAvailable(host.getSlotUnused());
-			addAvailableNodes();
+			addCoreAvailable(host.getSlotUnused());
 		}
 
 		logger.fine("Queue: " + getName() + " Node: " + host.getName() + " is avaialble: " + host.isNodeAvailable());
 
-		addSlotTotal(host.getSlotTotal());
-		addSlotRes(host.getSlotReserved());
-		addSlotUsed(host.getSlotUsed());
-		addSlotUnavailable(host.getSlotUnavailable());
+		addCoreTotal(host.getSlotTotal());
+		addCoreReserved(host.getSlotReserved());
+		addCoreUsed(host.getSlotUsed());
+		addCoreUnavailable(host.getSlotUnavailable());
 	}
 
 	public void addSessions(Host host) {
 		if (host.isNodeAvailable()) {
-			addAvailableNodes();
 			addSessionAvailable(host.getSlotUnused());
 		}
 
@@ -139,26 +150,6 @@ public class HostQueue extends AnsQueueAbstract {
 		addSessionUnavailable(host.getSlotUnavailable());
 	}
 
-	public void addPendingJobs(Job pendingJob) {
-		this.pendingJobs.put(pendingJob.getJobNumber(), pendingJob);
-	}
-
-
-	/**
-	 * @param activeJobs the activeJobs to set
-	 */
-	public void addActiveJobs(Job activeJob) {
-		this.activeJobs.put(activeJob.getJobNumber(), activeJob);
-	}
-
-	/**
-	 * @param disabledNode the disabledNode to set
-	 */
-	public void setDisabledNodes(SortedMap<String, Host> disabledhosts) {
-		this.disabledhosts = disabledhosts;
-	}
-
-
 	public DetailedInfoProp getDetailedInfoProp() {
 		DetailedInfoProp mainDiProp = new DetailedInfoProp();
 		mainDiProp.setTitleMetric("Queue Name:");
@@ -166,73 +157,83 @@ public class HostQueue extends AnsQueueAbstract {
 
 		DetailedInfoProp resourceDiProp = new DetailedInfoProp();
 
+		resourceDiProp.setPanelName(getUnitRes());
 		if (isVisualNode()) {
 
-			resourceDiProp.setPanelName("Session(s)");
-			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "Available: "), getSessionAvailable());
-			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "Unavailable: "), getSessionUnavailable());
-			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "Total: "), getSessionTotal());
-
+			resourceDiProp.addMetric("Available: ", getSessionAvailable());
+			resourceDiProp.addMetric("Unavailable: ", getSessionUnavailable());
+			resourceDiProp.addMetric("Total: ", getSessionTotal());
 		} else {
 
-			resourceDiProp.setPanelName("Core(s)");
-			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "Available: "), getSlotAvailable());
-			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "Unavailable: "), getSlotUnavailable());
-			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "Total: "), getSlotTotal());
-			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "Reserved: "), getSlotRes());
-			resourceDiProp.addMetric(summaryOutput(getUnitRes(), "% Available: "), availableSlotsPercent());
-
+			resourceDiProp.addMetric("Available: ", getCoreAvailable());
+			resourceDiProp.addMetric("Unavailable: ", getCoreUnavailable());
+			resourceDiProp.addMetric("Total: ", getCoreTotal());
+			resourceDiProp.addMetric("Reserved: ", getCoreReserved());
 		}
 
 		mainDiProp.addDetailedInfoProp(resourceDiProp);
 
 		DetailedInfoProp memDiProp = new DetailedInfoProp();
 		memDiProp.setPanelName("Memory");
-		memDiProp.addMetric("Available Memory: ", decimalFormatter.format(getFreeMem()));
+		memDiProp.addMetric("Available Memory: ", decimalFormatter.format(getAvailableMem()));
 		memDiProp.addMetric("Total Memory: ", decimalFormatter.format(getTotalMem()));
 		mainDiProp.addDetailedInfoProp(memDiProp);
 
 		displayPendingJobs(mainDiProp);
 		displayActiveJobs(mainDiProp);
-		displayDisabledHosts(mainDiProp);
-		
+		displayUnavailableVisualHosts(mainDiProp);
+		displayUnavailableComputeHosts(mainDiProp);
+
 		return mainDiProp;
 	}
 
-
 	public String getStatus() {
 
-		String status = "Free Nodes: " + getAvailableNodes() + "  Free " + getUnitRes() + ": " + getSlotAvailable()
-				+ "  Load " + decimalFormatter.format(getNp_Load());
+		String status = "";
 		return status;
 	}
 
 	public SortedMap<String, Host> getHosts() {
-		return hosts;
+		return getAllmaps();
 	}
 
 	// TODO SHould be part of an interface
 	@Override
 	public int size() {
-		return hosts.size();
+		return getAllmaps().size();
 	}
 
 	@Override
-	public boolean containsKey(String queueName) {
+	public boolean containsKey(String key) {
 		// TODO Auto-generated method stub
-		return hosts.containsKey(queueName);
+		return getAllmaps().containsKey(key);
 	}
 
 	public Host get(String host) {
 		// TODO Auto-generated method stub
-		return hosts.get(host);
+		return getAllmaps().get(host);
 	}
 
 	public SortedMap<Object, ClusterNodeAbstract> getNodes() {
 		// TODO Auto-generated method stub
 
 		SortedMap<Object, ClusterNodeAbstract> map = new TreeMap<Object, ClusterNodeAbstract>();
-		map.putAll(hosts);
+		map.putAll(getAllmaps());
+
+		return map;
+	}
+
+	public SortedMap<String, Host> getAllmaps() {
+		SortedMap<String, Host> map = new TreeMap<String, Host>();
+		if (isVisualNode()) {
+
+			map.putAll(getAvailableVisualHosts());
+			map.putAll(getUnavailableVisualHosts());
+		} else {
+
+			map.putAll(getAvailableComputeHosts());
+			map.putAll(getUnavailableComputeHosts());
+		}
 
 		return map;
 	}

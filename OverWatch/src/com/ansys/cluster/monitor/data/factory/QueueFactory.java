@@ -102,7 +102,6 @@ public class QueueFactory {
 		logger.exiting(sourceClass, "jobQueue");
 	}
 
-
 	public static boolean myJobs(ClusterNodeAbstract node) {
 		logger.entering(sourceClass, "myJobs", node);
 		boolean result = false;
@@ -151,6 +150,7 @@ public class QueueFactory {
 
 		});
 
+		masterQueue.processQueues();
 		return masterQueue;
 	}
 
@@ -160,7 +160,7 @@ public class QueueFactory {
 		map.forEach((id, node) -> {
 
 			getQueue(node);
-			//jobQueue(node);
+			// jobQueue(node);
 			detectVisualNode(node);
 
 			String queueName = node.getQueueName();
@@ -187,9 +187,8 @@ public class QueueFactory {
 			}
 
 		});
-		
-		masterQueue.recalc();
 
+		masterQueue.processQueues();
 		return masterQueue;
 	}
 
@@ -197,11 +196,11 @@ public class QueueFactory {
 		ArrayList<String> list = new ArrayList<String>();
 		list.add("dcv2017");
 		list.add("vnc");
-		if(list.contains(node.getQueueName().toLowerCase())){
+		if (list.contains(node.getQueueName().toLowerCase())) {
 			node.setVisualNode(true);
 		}
 	}
-	
+
 	public static void addMyJobs(Cluster cluster, String userName) {
 		logger.entering(sourceClass, "addMyJobs");
 		if (userName != null && userName != "") {
@@ -214,7 +213,7 @@ public class QueueFactory {
 				logger.finer("Expecting Job queue " + entry.getKey());
 
 				JobsQueue queue = entry.getValue();
-				for (Entry<Integer, Job> entryJob : queue.getJobs().entrySet()) {
+				for (Entry<Integer, Job> entryJob : queue.getAllmaps().entrySet()) {
 
 					Job job = entryJob.getValue();
 

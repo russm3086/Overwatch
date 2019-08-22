@@ -5,53 +5,78 @@
 */
 package com.ansys.cluster.monitor.data.interfaces;
 
-import java.util.ArrayList;
 import java.util.SortedMap;
 import java.util.TreeMap;
-
-import javax.swing.table.AbstractTableModel;
 
 import com.ansys.cluster.monitor.data.Host;
 import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.data.state.AnsQueueState;
-import com.ansys.cluster.monitor.gui.HostTableModel;
-import com.ansys.cluster.monitor.gui.JobTableModel;
 import com.ansys.cluster.monitor.gui.TableBuilder;
-import com.russ.test.DetailedInfoProp;
+import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 
 /**
  * 
  * @author rmartine
  * @since
  */
-public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInterface {
+public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInterface {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -364220974815470506L;
-	protected double total_np_load = 0;
+	// protected double total_np_load = 0;
 	protected double np_load = 0;
-	private int nodesAvailable = 0;
-	private double freeMem = 0;
+	// private int nodesAvailable = 0;
+
+	/**
+	 * Memory
+	 */
+	private double unAvailableMem = 0;
+	private double availableMem = 0;
 	private double totalMem = 0;
-	protected int sessionUsed = 0;
-	protected int sessionTotal = 0;
-	protected int sessionAvailable = 0;
-	protected int sessionUnavailable = 0;
-	protected int slotReserved = 0;
-	protected int slotUsed = 0;
-	protected int slotTotal = 0;
-	protected int slotAvailable = 0;
+
+	/**
+	 * Session data
+	 */
+	private int sessionUsed = 0;
+	private int sessionTotal = 0;
+	private int sessionAvailable = 0;
+	private int sessionUnavailable = 0;
+
+	/**
+	 * cores data
+	 */
+
+	/**
+	 * 
+	 */
+	private int coreReserved = 0;
+	private int coreUsed = 0;
+	private int coreTotal = 0;
+	private int coreAvailable = 0;
+	private int coreUnavailable = 0;
+
+	/**
+	 * 
+	 */
 	private String membersType;
-	protected SortedMap<String, Host> hosts = new TreeMap<String, Host>();
-	protected SortedMap<String, Host> disabledhosts = new TreeMap<String, Host>();
-	protected SortedMap<Integer, Job> activeJobs = new TreeMap<Integer, Job>();
-	protected SortedMap<Integer, Job> pendingJobs = new TreeMap<Integer, Job>();
-	protected SortedMap<Integer, Job> jobs = new TreeMap<Integer, Job>();
-	protected SortedMap<Integer, Job> errorJobs = new TreeMap<Integer, Job>();
-	protected SortedMap<Integer, Job> idleJobs = new TreeMap<Integer, Job>();
+
+	private SortedMap<String, Host> availableComputeHosts = new TreeMap<String, Host>();
+	private SortedMap<String, Host> unAvailableComputeHosts = new TreeMap<String, Host>();
+
+	private SortedMap<String, Host> availableVisualHosts = new TreeMap<String, Host>();
+	private SortedMap<String, Host> unAvailableVisualHosts = new TreeMap<String, Host>();
+
+	private SortedMap<Integer, Job> activeJobs = new TreeMap<Integer, Job>();
+	private SortedMap<Integer, Job> pendingJobs = new TreeMap<Integer, Job>();
+	private SortedMap<Integer, Job> errorJobs = new TreeMap<Integer, Job>();
+	private SortedMap<Integer, Job> idleJobs = new TreeMap<Integer, Job>();
+
+	private SortedMap<Integer, Job> activeSessionJobs = new TreeMap<Integer, Job>();
+	private SortedMap<Integer, Job> pendingSessionJobs = new TreeMap<Integer, Job>();
+	private SortedMap<Integer, Job> errorSessionJobs = new TreeMap<Integer, Job>();
 
 	public AnsQueueAbstract(ClusterNodeAbstract node) {
 		this(node.getQueueName(), node.getClusterType());
@@ -73,150 +98,6 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 		addState(AnsQueueState.Normal);
 	}
 
-	public void addAvailableNodes() {
-		nodesAvailable += 1;
-	}
-
-	public void addAvailableNodes(int nodes) {
-		nodesAvailable += nodes;
-	}
-
-	public void addFreeMem(double freeMem) {
-		setFreeMem(getFreeMem() + freeMem);
-	}
-
-	protected void calcQueue(AnsQueueAbstract queue) {
-
-		switch (queue.getMembersType()) {
-		case SGE_DataConst.clusterTypeJob:
-			addSlotTotal(queue.getSlotTotal());
-			break;
-
-		case SGE_DataConst.clusterTypeHost:
-			if (queue.isVisualNode()) {
-
-				addSessionTotal(queue.getSessionTotal());
-				addSessionAvailable(queue.getSessionAvailable());
-				addSessionUsed(queue.getSessionUsed());
-				addSessionUnavailable(queue.getSessionUnavailable());
-
-			} else {
-
-				addSlotTotal(queue.getSlotTotal());
-				addSlotRes(queue.getSlotRes());
-				addSlotUsed(queue.getSlotUsed());
-				addSlotAvailable(queue.getSlotAvailable());
-				addSlotUnavailable(queue.getSlotUnavailable());
-				addTotalMem(queue.getTotalMem());
-			}
-
-			addNp_load(queue.getNp_Load());
-			addFreeMem(queue.getFreeMem());
-			addAvailableNodes(queue.getAvailableNodes());
-
-			break;
-		}
-
-	}
-
-	/**
-	 * @return the freeSlots
-	 */
-	public int getSlotAvailable() {
-		return slotAvailable;
-	}
-
-	/**
-	 * @return the slotRes
-	 */
-	public int getSlotRes() {
-		return slotReserved;
-	}
-
-	/**
-	 * @return the slotTotal
-	 */
-	public int getSlotTotal() {
-		return slotTotal;
-	}
-
-	/**
-	 * @return the slotUsed
-	 */
-	public int getSlotUsed() {
-		return slotUsed;
-	}
-
-	/**
-	 * @param slotAvailable the slotAvailable to set
-	 */
-	public void setSlotAvailable(int slotAvailable) {
-		this.slotAvailable = slotAvailable;
-	}
-
-	public String availableSlotsPercent() {
-		String result = "0%";
-		try {
-			float calc = (getSlotAvailable() * 100) / getSlotTotal();
-			result = decimalFormatter.format(calc) + "%";
-		} catch (java.lang.ArithmeticException e) {
-			System.out.println(e.getLocalizedMessage());
-		}
-		return result;
-	}
-
-	public void addNp_load(double np_load) {
-
-		setNp_Load(getNp_Load() + np_load);
-		this.total_np_load += np_load;
-	}
-
-	/**
-	 * @param freeSlots the freeSlots to set
-	 */
-	public void addSlotAvailable(int slotAvailable) {
-		setSlotAvailable(getSlotAvailable() + slotAvailable);
-	}
-
-	/**
-	 * @param slotRes the slotRes to set
-	 */
-	public void setSlotRes(int slotReserved) {
-		this.slotReserved = slotReserved;
-	}
-
-	/**
-	 * @param slotTotal the slotTotal to set
-	 */
-	public void setSlotTotal(int slotTotal) {
-		this.slotTotal = slotTotal;
-	}
-
-	/**
-	 * @param slotTotal the slotTotal to set
-	 */
-	public void addSlotTotal(int slotTotal) {
-		setSlotTotal(getSlotTotal() + slotTotal);
-	}
-
-	/**
-	 * @param slotUsed the slotUsed to set
-	 */
-	public void setSlotUsed(int slotUsed) {
-		this.slotUsed = slotUsed;
-	}
-
-	public void addSlotUsed(int slotUsed) {
-		setSlotUsed(getSlotUsed() + slotUsed);
-	}
-
-	/**
-	 * @param slotRes the slotRes to set
-	 */
-	public void addSlotRes(int slotRes) {
-		setSlotRes(getSlotRes() + slotRes);
-	}
-
 	@Override
 	public void addState(StateAbstract state) {
 		addState(state, AnsQueueState.Normal);
@@ -226,23 +107,8 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 		setTotalMem(getTotalMem() + totalMem);
 	}
 
-	public int getAvailableNodes() {
-		return nodesAvailable;
-	}
-
-	public double getFreeMem() {
-		return freeMem;
-	}
-
 	public String getMembersType() {
 		return membersType;
-	}
-
-	/**
-	 * @return the nodesAvailable
-	 */
-	public int getNodesAvailable() {
-		return nodesAvailable;
 	}
 
 	/**
@@ -252,22 +118,8 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 		return np_load;
 	}
 
-	/**
-	 * @return the total_np_load
-	 */
-	public double getTotal_np_load() {
-		return total_np_load;
-	}
-
 	public double getTotalMem() {
 		return totalMem;
-	}
-
-	/**
-	 * @param freeMem the freeMem to set
-	 */
-	public void setFreeMem(double freeMem) {
-		this.freeMem = freeMem;
 	}
 
 	public void setMembersType(String membersType) {
@@ -275,24 +127,10 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 	}
 
 	/**
-	 * @param nodesAvailable the nodesAvailable to set
-	 */
-	public void setNodesAvailable(int nodesAvailable) {
-		this.nodesAvailable = nodesAvailable;
-	}
-
-	/**
 	 * @param np_load the np_load to set
 	 */
 	public void setNp_Load(double np_load) {
 		this.np_load = np_load;
-	}
-
-	/**
-	 * @param total_np_load the total_np_load to set
-	 */
-	public void setTotal_np_load(double total_np_load) {
-		this.total_np_load = total_np_load;
 	}
 
 	/**
@@ -308,6 +146,131 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 
 	public String toString() {
 		return getName();
+	}
+
+	/**
+	 * @return the unAvailableMem
+	 */
+	public double getUnAvailableMem() {
+		return unAvailableMem;
+	}
+
+	/**
+	 * @param unAvailableMem the unAvailableMem to set
+	 */
+	public void setUnAvailableMem(double unAvailableMem) {
+		this.unAvailableMem = unAvailableMem;
+	}
+
+	/**
+	 * @return the availableMem
+	 */
+	public double getAvailableMem() {
+		return availableMem;
+	}
+
+	/**
+	 * @param availableMem the availableMem to set
+	 */
+	public void setAvailableMem(double availableMem) {
+		this.availableMem = availableMem;
+	}
+
+	public void addAvailableMem(double availableMem) {
+		setAvailableMem(getAvailableMem() + availableMem);
+	}
+
+	/**
+	 * @return the coreReserved
+	 */
+	public int getCoreReserved() {
+		return coreReserved;
+	}
+
+	/**
+	 * @param coreReserved the coreReserved to set
+	 */
+	public void setCoreReserved(int coreReserved) {
+		this.coreReserved = coreReserved;
+	}
+
+	public void addCoreReserved(int coreReserved) {
+		setCoreReserved(getCoreReserved() + coreReserved);
+	}
+
+	/**
+	 * @return the coreUsed
+	 */
+	public int getCoreUsed() {
+		return coreUsed;
+	}
+
+	/**
+	 * @param coreUsed the coreUsed to set
+	 */
+	public void setCoreUsed(int coreUsed) {
+		this.coreUsed = coreUsed;
+	}
+
+	public void addCoreUsed(int coreUsed) {
+		setCoreUsed(getCoreUsed() + coreUsed);
+	}
+
+	/**
+	 * @return the coreTotal
+	 */
+	public int getCoreTotal() {
+		return coreTotal;
+	}
+
+	/**
+	 * @param coreTotal the coreTotal to set
+	 */
+	public void setCoreTotal(int coreTotal) {
+		this.coreTotal = coreTotal;
+	}
+
+	public void addCoreTotal(int coreTotal) {
+		setCoreTotal(getCoreTotal() + coreTotal);
+	}
+
+	/**
+	 * @return the coreAvailable
+	 */
+	public int getCoreAvailable() {
+		return coreAvailable;
+	}
+
+	/**
+	 * @param coreAvailable the coreAvailable to set
+	 */
+	public void setCoreAvailable(int coreAvailable) {
+		this.coreAvailable = coreAvailable;
+	}
+
+	/**
+	 * @param coreAvailable the coreAvailable to set
+	 */
+	public void addCoreAvailable(int coreAvailable) {
+		setCoreAvailable(getCoreAvailable() + coreAvailable);
+	}
+
+	/**
+	 * @return the coreUnavailable
+	 */
+	public int getCoreUnavailable() {
+		return coreUnavailable;
+	}
+
+	/**
+	 * @param coreUnavailable the coreUnavailable to set
+	 */
+	public void setCoreUnavailable(int coreUnavailable) {
+		this.coreUnavailable = coreUnavailable;
+	}
+
+	public void addCoreUnavailable(int coreUnavailable) {
+		setCoreUnavailable(getCoreUnavailable() + coreUnavailable);
 	}
 
 	/**
@@ -405,98 +368,294 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 		setSessionUnavailable(getSessionUnavailable() + 1);
 	}
 
-	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void displayUnavailableVisualHosts(DetailedInfoProp mainDiProp) {
+		tableDisplay(mainDiProp, getUnavailableVisualHosts(), "Unavailable Visual host(s)", TableBuilder.table_Host);
 	}
 
-	public void displayDisabledHosts(DetailedInfoProp mainDiProp) {
-		if (disabledhosts.size() > 0) {
+	public void displayUnavailableVisualHosts(DetailedInfoProp mainDiProp, SortedMap<String, Host> map) {
+		tableDisplay(mainDiProp, map, "Unavailable Visual host(s)", TableBuilder.table_Host);
+	}
 
-			DetailedInfoProp disabledDiProp = new DetailedInfoProp();
-			disabledDiProp.setPanelName("Disabled host(s)");
-			disabledDiProp.setDataTypeTable();
-			disabledDiProp.addMetric(TableBuilder.table_Host, displayHosts(getDisabledNodes()));
-			mainDiProp.addDetailedInfoProp(disabledDiProp);
-		}
+	public void displayUnavailableComputeHosts(DetailedInfoProp mainDiProp) {
+		tableDisplay(mainDiProp, getUnavailableComputeHosts(), "Unavailable Compute host(s)", TableBuilder.table_Host);
+	}
+
+	public void displayUnavailableComputeHosts(DetailedInfoProp mainDiProp, SortedMap<String, Host> map) {
+		tableDisplay(mainDiProp, map, "Unavailable Compute host(s)", TableBuilder.table_Host);
 	}
 
 	public void displayPendingJobs(DetailedInfoProp mainDiProp) {
-		if (pendingJobs.size() > 0) {
-
-			DetailedInfoProp pendingDiProp = new DetailedInfoProp();
-			pendingDiProp.setPanelName("Pending Jobs");
-			pendingDiProp.setDataTypeTable();
-			pendingDiProp.addMetric(TableBuilder.table_Job, displayJobs(getPendingJobs()));
-			mainDiProp.addDetailedInfoProp(pendingDiProp);
-		}
+		tableDisplay(mainDiProp, getPendingJobs(), "Pending Jobs", TableBuilder.table_Job);
 	}
 
 	public void displayActiveJobs(DetailedInfoProp mainDiProp) {
-		if (activeJobs.size() > 0) {
-
-			DetailedInfoProp activeDiProp = new DetailedInfoProp();
-			activeDiProp.setPanelName("Active Jobs");
-			activeDiProp.setDataTypeTable();
-			activeDiProp.addMetric(TableBuilder.table_Job, displayJobs(getActiveJobs()));
-			mainDiProp.addDetailedInfoProp(activeDiProp);
-		}
-	}
-
-	public void displayJobs(DetailedInfoProp mainDiProp) {
-		if (jobs.size() > 0) {
-
-			DetailedInfoProp pendingDiProp = new DetailedInfoProp();
-			pendingDiProp.setPanelName("Jobs");
-			pendingDiProp.setDataTypeTable();
-			pendingDiProp.addMetric(TableBuilder.table_Job, displayJobs(getJobs()));
-			mainDiProp.addDetailedInfoProp(pendingDiProp);
-		}
+		tableDisplay(mainDiProp, getActiveJobs(), "Active Jobs", TableBuilder.table_Job);
 	}
 
 	public void displayErrorJobs(DetailedInfoProp mainDiProp) {
-		if (errorJobs.size() > 0) {
-
-			DetailedInfoProp pendingDiProp = new DetailedInfoProp();
-			pendingDiProp.setPanelName("Error Jobs");
-			pendingDiProp.setDataTypeTable();
-			pendingDiProp.addMetric(TableBuilder.table_Job, displayJobs(getErrorJobs()));
-			mainDiProp.addDetailedInfoProp(pendingDiProp);
-		}
+		tableDisplay(mainDiProp, getErrorJobs(), "Error Jobs", TableBuilder.table_Job);
 	}
 
 	public void displayIdleJobs(DetailedInfoProp mainDiProp) {
-		if (idleJobs.size() > 0) {
-
-			DetailedInfoProp pendingDiProp = new DetailedInfoProp();
-			pendingDiProp.setPanelName("Idle Jobs");
-			pendingDiProp.setDataTypeTable();
-			pendingDiProp.addMetric(TableBuilder.table_Job, displayJobs(getIdleJobs()));
-			mainDiProp.addDetailedInfoProp(pendingDiProp);
-		}
+		tableDisplay(mainDiProp, getIdleJobs(), "Idle Jobs", TableBuilder.table_Job);
 	}
 
-	public AbstractTableModel displayJobs(SortedMap<Integer, Job> jobs) {
-
-		ArrayList<Job> list = new ArrayList<Job>(jobs.values());
-		JobTableModel jobTableModel = new JobTableModel(list);
-
-		return jobTableModel;
+	public void displayActiveSessionJobs(DetailedInfoProp mainDiProp) {
+		tableDisplay(mainDiProp,getActiveSessionJobs(), "Active Sessions", TableBuilder.table_Job);
 	}
 
-	public AbstractTableModel displayHosts(SortedMap<String, Host> hosts) {
+	public void displayErrorSessionJobs(DetailedInfoProp mainDiProp) {
+		tableDisplay(mainDiProp, getErrorSessionJobs(), "Error Sessions", TableBuilder.table_Job);
+	}
 
-		ArrayList<Host> list = new ArrayList<Host>(hosts.values());
-		HostTableModel hostTableModel = new HostTableModel(list);
-
-		return hostTableModel;
+	public void displayPendingSessionJobs(DetailedInfoProp mainDiProp) {
+		tableDisplay(mainDiProp, getPendingSessionJobs(), "Idle Sessions", TableBuilder.table_Job);
 	}
 
 	/**
-	 * @return the jobs
+	 * ******** Map Data
+	 * 
+	 * ******* Available Host
 	 */
-	public SortedMap<Integer, Job> getJobs() {
-		return jobs;
+
+	/**
+	 * 
+	 * @param name
+	 * @param host
+	 */
+
+	public void addAvailableVisualHosts(String name, Host host) {
+		getAvailableVisualHosts().put(name, host);
+	}
+
+	/**
+	 * 
+	 * @param map
+	 */
+	public void addAvailableVisualHosts(SortedMap<String, Host> map) {
+		getAvailableVisualHosts().putAll(map);
+	}
+
+	/**
+	 * @param availableHost the availableHost to set
+	 */
+	public void setAvailableVisualHosts(SortedMap<String, Host> availableHosts) {
+		this.availableVisualHosts = availableHosts;
+	}
+
+	/**
+	 * @return the availableHost
+	 */
+	public SortedMap<String, Host> getAvailableVisualHosts() {
+		return availableVisualHosts;
+	}
+
+	public int getAvailableVisualHostsSize() {
+		return getAvailableVisualHosts().size();
+	}
+
+	/**
+	 * Disabled Host
+	 */
+	/**
+	 * @param disabledhosts the disabledhosts to set
+	 */
+	public void setUnavailableVisualHosts(SortedMap<String, Host> unAvailableVisualHosts) {
+		this.unAvailableVisualHosts = unAvailableVisualHosts;
+	}
+
+	public void addUnvailableVisualHostsMap(SortedMap<String, Host> unAvailableVisualHosts) {
+		getUnavailableVisualHosts().putAll(unAvailableVisualHosts);
+	}
+
+	public void addUnavailableVisualHosts(String strHost, Host host) {
+		getUnavailableVisualHosts().put(strHost, host);
+	}
+
+	/**
+	 * @return the disabledNode
+	 */
+	public SortedMap<String, Host> getUnavailableVisualHosts() {
+		return unAvailableVisualHosts;
+	}
+
+	public int getUnavailableVisualHostsSize() {
+		return getUnavailableVisualHosts().size();
+	}
+
+	/**
+	 * 
+	 * @param name
+	 * @param host
+	 */
+
+	public void addAvailableComputeHosts(String name, Host host) {
+		getAvailableComputeHosts().put(name, host);
+	}
+
+	/**
+	 * 
+	 * @param map
+	 */
+	public void addAvailableComputeHosts(SortedMap<String, Host> map) {
+		getAvailableComputeHosts().putAll(map);
+	}
+
+	/**
+	 * @param availableHost the availableHost to set
+	 */
+	public void setAvailableComputeHosts(SortedMap<String, Host> availableHosts) {
+		this.availableComputeHosts = availableHosts;
+	}
+
+	/**
+	 * @return the availableHost
+	 */
+	public SortedMap<String, Host> getAvailableComputeHosts() {
+		return availableComputeHosts;
+	}
+
+	public int getAvailableComputeHostsSize() {
+		return getAvailableComputeHosts().size();
+	}
+
+	/**
+	 * ******* Error Hosts
+	 */
+
+	/**
+	 * Disabled Host
+	 */
+	/**
+	 * @param disabledhosts the disabledhosts to set
+	 */
+	public void setUnavailableComputeHosts(SortedMap<String, Host> unAvailableComputeHosts) {
+		this.unAvailableComputeHosts = unAvailableComputeHosts;
+	}
+
+	public void addUnavailableComputeHostsMap(SortedMap<String, Host> unAvailableComputeHosts) {
+		getUnavailableComputeHosts().putAll(unAvailableComputeHosts);
+	}
+
+	public void addUnavailableComputeHosts(String strHost, Host host) {
+		getUnavailableComputeHosts().put(strHost, host);
+	}
+
+	/**
+	 * @return the disabledNode
+	 */
+	public SortedMap<String, Host> getUnavailableComputeHosts() {
+		return unAvailableComputeHosts;
+	}
+
+	public int getUnavailableComputeHostsSize() {
+		return getUnavailableComputeHosts().size();
+	}
+
+	/**
+	 * ********Error Session JObs
+	 */
+
+	/**
+	 * 
+	 * @param jobId
+	 * @param job
+	 */
+	public void addErrorSessionJobs(Integer jobId, Job job) {
+		getErrorSessionJobs().put(jobId, job);
+	}
+
+	public void addErrorSessionJobsMap(SortedMap<Integer, Job> map) {
+		getErrorSessionJobs().putAll(map);
+	}
+
+	public void setErrorSessionJobsMap(SortedMap<Integer, Job> map) {
+		this.errorSessionJobs = map;
+	}
+
+	public SortedMap<Integer, Job> getErrorSessionJobs() {
+		return errorSessionJobs;
+	}
+
+	public int getErrorSessionJobsSize() {
+		return getErrorSessionJobs().size();
+	}
+
+	/**
+	 * ********Pending Sessions Jobs
+	 */
+
+	/**
+	 * 
+	 * @param jobId
+	 * @param job
+	 */
+	public void addPendingSessionJobs(Integer jobId, Job job) {
+		getPendingSessionJobs().put(jobId, job);
+	}
+
+	public void addPendingSessionJobsMap(SortedMap<Integer, Job> map) {
+		getPendingSessionJobs().putAll(map);
+	}
+
+	public void setPendingSessionJobsMap(SortedMap<Integer, Job> map) {
+		this.pendingSessionJobs = map;
+	}
+
+	public SortedMap<Integer, Job> getPendingSessionJobs() {
+		return pendingSessionJobs;
+	}
+
+	public int getPendingSessionJobsSize() {
+		return getPendingSessionJobs().size();
+	}
+
+	/**
+	 * ********Active Session Jobs
+	 */
+
+	/**
+	 * 
+	 * @param jobId
+	 * @param job
+	 */
+	public void addActiveSessionJobs(Integer jobId, Job job) {
+		getActiveSessionJobs().put(jobId, job);
+	}
+
+	public void addActiveSessionJobsMap(SortedMap<Integer, Job> map) {
+		getActiveSessionJobs().putAll(map);
+	}
+
+	public void setActiveSessionJobs(SortedMap<Integer, Job> map) {
+		this.activeSessionJobs = map;
+	}
+
+	public SortedMap<Integer, Job> getActiveSessionJobs() {
+		return activeSessionJobs;
+	}
+
+	public int getActiveSessionJobsSize() {
+		return getActiveSessionJobs().size();
+	}
+
+	/**
+	 * ********Error Jobs
+	 */
+
+	public void addErrorJobs(Integer jobId, Job errorJob) {
+		getErrorJobs().put(jobId, errorJob);
+	}
+
+	public void addErrorJobsMap(SortedMap<Integer, Job> errorJobs) {
+		getErrorJobs().putAll(errorJobs);
+	}
+
+	/**
+	 * @param errorJobs the errorJobs to set
+	 */
+	public void setErrorJobs(SortedMap<Integer, Job> errorJobs) {
+		this.errorJobs = errorJobs;
 	}
 
 	/**
@@ -506,6 +665,26 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 		return errorJobs;
 	}
 
+	public int getErrorJobsSize() {
+		return getErrorJobs().size();
+	}
+
+	/**
+	 * *******Idle Job
+	 */
+
+	public void addIdleJobs(Integer jobId, Job job) {
+		getIdleJobs().put(jobId, job);
+	}
+
+	public void addIdleJobsMap(SortedMap<Integer, Job> idleJobs) {
+		getIdleJobs().putAll(idleJobs);
+	}
+
+	public void setIdleJobs(SortedMap<Integer, Job> idleJobs) {
+		this.idleJobs = idleJobs;
+	}
+
 	/**
 	 * @return the idleJobs
 	 */
@@ -513,30 +692,71 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 		return idleJobs;
 	}
 
-	/**
-	 * @return the disabledNode
-	 */
-	public SortedMap<String, Host> getDisabledNodes() {
-		return disabledhosts;
+	public int getIdleJobsSize() {
+		return idleJobs.size();
 	}
 
+	/**
+	 *********** Pending Job
+	 */
+
+	public void addPendingJobs(Integer jobId, Job pendingJob) {
+		getPendingJobs().put(jobId, pendingJob);
+	}
+
+	public void addPendingJobsMap(SortedMap<Integer, Job> map) {
+		getPendingJobs().putAll(map);
+	}
+
+	public void setPendingJobss(SortedMap<Integer, Job> map) {
+		this.idleJobs = map;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
 	public SortedMap<Integer, Job> getPendingJobs() {
 		return pendingJobs;
+	}
+
+	public int getPendingJobsSize() {
+		return getPendingJobs().size();
+	}
+
+	/**
+	 *********** Active Jobs
+	 */
+
+	/**
+	 * @param activeJobs the activeJobs to set
+	 */
+	public void addActiveJobs(int jobID, Job activeJob) {
+		getActiveJobs().put(jobID, activeJob);
+	}
+
+	public void addActiveJobsMap(SortedMap<Integer, Job> map) {
+		getActiveJobs().putAll(map);
+	}
+
+	public void setActiveJobsMap(SortedMap<Integer, Job> map) {
+		this.activeJobs = map;
 	}
 
 	/**
 	 * @return the activeJobs
 	 */
-	protected SortedMap<Integer, Job> getActiveJobs() {
+	public SortedMap<Integer, Job> getActiveJobs() {
 		return activeJobs;
 	}
 
-	@Override
-	public String getSummary() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getActiveJobsSize() {
+		return getActiveJobs().size();
 	}
 
+	public abstract int size();
+
+	
 	@Override
 	public boolean containsKey(String node) {
 		// TODO Auto-generated method stub
@@ -549,12 +769,9 @@ public class AnsQueueAbstract extends ClusterNodeAbstract implements AnsQueueInt
 		return null;
 	}
 
-	
-
 	public DetailedInfoProp getDetailedInfoProp() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 }
-

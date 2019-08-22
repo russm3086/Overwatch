@@ -16,14 +16,12 @@ import javax.swing.tree.TreeSelectionModel;
 import org.json.JSONException;
 
 import com.ansys.cluster.monitor.data.Cluster;
-import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeInterface;
-import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.gui.tree.ClusterTreeCellRenderer;
+import com.ansys.cluster.monitor.gui.tree.DetailedInfoFactory;
 import com.ansys.cluster.monitor.gui.tree.TreeBuilderMonitorThread;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
-import com.russ.test.DetailedInfoFactory;
 import com.russ.util.gui.tree.TreeStateProps;
 import com.russ.util.gui.tree.TreeUtil;
 import com.russ.util.nio.ResourceLoader;
@@ -140,10 +138,10 @@ public class Console extends JFrame {
 		JScrollPane treeView = new JScrollPane(tree);
 
 		treeView.setMinimumSize(new Dimension(300, 200));
-		treeView.setPreferredSize(new Dimension(300, 200));
+		treeView.setPreferredSize(new Dimension(325, 200));
 		splitPane.setTopComponent(treeView);
 
-		scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		splitPane.setBottomComponent(scrollPane);
 
 		editorPane = new JEditorPane();

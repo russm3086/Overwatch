@@ -2,26 +2,25 @@ package com.ansys.cluster.monitor.data.interfaces;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import com.ansys.cluster.monitor.data.Host;
+import com.ansys.cluster.monitor.data.JobMessage;
 import com.ansys.cluster.monitor.data.NodeProp;
 
 public interface JobInterface {
 
 	Duration getDuration();
 
-	void checkIdleStatus();
-
 	int getJobNumber();
 
-	HashMap<Host, Double> getList();
+	ArrayList<Host> getList();
 
 	void addHost(Host host);
 
 	void addState(StateAbstract state);
 
-	String getMessages();
+	ArrayList<JobMessage> getMessages();
 
 	String getJobName();
 

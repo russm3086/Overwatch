@@ -3,13 +3,25 @@
  */
 package com.ansys.cluster.monitor.data.interfaces;
 
+import java.awt.Color;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import javax.swing.table.AbstractTableModel;
+
 import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
+import com.ansys.cluster.monitor.gui.HostTableModel;
+import com.ansys.cluster.monitor.gui.JobTableModel;
+import com.ansys.cluster.monitor.gui.MessageTableModel;
+import com.ansys.cluster.monitor.gui.StateTableModel;
+import com.ansys.cluster.monitor.gui.TableBuilder;
+import com.ansys.cluster.monitor.gui.tree.DetailedInfoFactory;
+import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 
 /**
  * @author rmartine
@@ -31,7 +43,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	protected boolean visualNode = false;
 	protected int slotUnavailable = 0;
 	protected String unitRes = SGE_DataConst.unitResCore;
-	protected String fixLength = "%-50.25s%s%n";
+	protected String strDetailedInfoPanel = DetailedInfoFactory.DetailedInfoPanel;
 
 	protected ClusterNodeAbstract() {
 
@@ -129,13 +141,8 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		return desc.toString();
 	}
 
-	public String getStateDescriptions() {
-		StringBuffer desc = new StringBuffer();
-		for (Entry<Integer, StateAbstract> sa : store.entrySet()) {
-			desc.append(sa.getValue().getDescription());
-			desc.append("\n\t\t");
-		}
-		return desc.toString();
+	public void displayStateDescriptions(DetailedInfoProp masterDiProp) {
+		tableDisplay(masterDiProp, store, "States", TableBuilder.table_State);
 	}
 
 	public String getStatus() {
@@ -253,30 +260,113 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 
 		return sb.toString();
 	}
-	
+
 	protected StringBuilder summaryOutput(String unit, Object field, Object value) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(unit);
 		sb.append(" ");
 		sb.append(field);
+		sb.append(" ");
+		sb.append(value);
 
-		return outputFormatter(sb.toString(), value);
-	}
-
-	
-	protected StringBuilder outputFormatter(String field, Object value) {
-
-		StringBuilder sb = new StringBuilder(String.format(fixLength, field, value));
-		// Formatter fmt = new Formatter(sb);
-		// fmt.format(fixLength, field);
-		// fmt.close();
-		// sb.append(value);
 		return sb;
+	}
+
+	protected void textAreaDisplay(DetailedInfoProp masterDiProp, String content, String panelName) {
+		if (content != null && content.length() > 0) {
+			DetailedInfoProp diProp = new DetailedInfoProp();
+			diProp.setPanelName(panelName);
+			diProp.setDataTypeTextArea();
+			diProp.addMetric(DetailedInfoProp.const_DataTypeTextArea, content);
+			masterDiProp.addDetailedInfoProp(diProp);
+		}
+	}
+
+	protected void createAvailableChartPanel(DetailedInfoProp masterDiProp, String panelName, String title, String unit,
+			Number numAvail, Number numUnavail) {
+
+		DetailedInfoProp diProp = new DetailedInfoProp();
+		diProp.setPanelName(panelName);
+		diProp.setChartDataTitle(title);
+		diProp.setChartDataUnit(unit);
+		diProp.setDataTypePieChart();
+		diProp.addChartData("Available", numAvail, new Color(0, 153, 0));
+		diProp.addChartData("Unavailable", numUnavail, new Color(204, 0, 0));
+
+		masterDiProp.addDetailedInfoProp(diProp);
+	}
+
+	protected void createPieChartPanel(DetailedInfoProp masterDiProp, String panelName, String title, String unit) {
+
+		DetailedInfoProp diProp = new DetailedInfoProp();
+		diProp.setPanelName(panelName);
+		diProp.setChartDataTitle(title);
+		diProp.setChartDataUnit(unit);
+		diProp.setDataTypePieChart();
+
+		masterDiProp.addDetailedInfoProp(diProp);
+	}
+
+	public void tableDisplay(DetailedInfoProp masterDiProp, SortedMap<?, ?> map, String panelName, String tableType) {
+
+		ArrayList<?> list = new ArrayList<>(map.values());
+		tableDisplay(masterDiProp, list, panelName, tableType);
+	}
+
+	public void tableDisplay(DetailedInfoProp masterDiProp, ArrayList<?> list, String panelName, String tableType) {
+		if (list != null && list.size() > 0) {
+
+			DetailedInfoProp diProp = new DetailedInfoProp();
+			diProp.setPanelName(panelName + ": " + list.size());
+			diProp.setDataTypeTable();
+			AbstractTableModel tableModel = getTableModel(tableType, list);
+			diProp.addMetric(tableType, tableModel);
+			masterDiProp.addDetailedInfoProp(diProp);
+
+		}
+	}
+
+	public AbstractTableModel getTableModel(String nodeType, ArrayList<?> list) {
+
+		switch (nodeType) {
+
+		case TableBuilder.table_Job:
+			JobTableModel jobTableModel = new JobTableModel(list);
+			return jobTableModel;
+
+		case TableBuilder.table_Host:
+			HostTableModel hostTableModel = new HostTableModel(list);
+			return hostTableModel;
+
+		case TableBuilder.table_State:
+			StateTableModel stateTableModel = new StateTableModel(list);
+			return stateTableModel;
+
+		case TableBuilder.table_JOB_MSG:
+			MessageTableModel msgTableModel = new MessageTableModel(list);
+			return msgTableModel;
+
+		default:
+			return null;
+
+		}
 
 	}
 
-	
-	
+	/**
+	 * @return the strDetailedInfoPanel
+	 */
+	public String getDetailedInfoPanel() {
+		return strDetailedInfoPanel;
+	}
+
+	/**
+	 * @param strDetailedInfoPanel the strDetailedInfoPanel to set
+	 */
+	public void setDetailedInfoPanel(String strDetailedInfoPanel) {
+		this.strDetailedInfoPanel = strDetailedInfoPanel;
+	}
+
 	/**
 	 * 
 	 */

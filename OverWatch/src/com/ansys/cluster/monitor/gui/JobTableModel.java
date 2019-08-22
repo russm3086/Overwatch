@@ -5,7 +5,6 @@ package com.ansys.cluster.monitor.gui;
 
 import java.util.ArrayList;
 
-import javax.swing.table.AbstractTableModel;
 
 import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.data.JobsQueue;
@@ -14,13 +13,12 @@ import com.ansys.cluster.monitor.data.JobsQueue;
  * @author rmartine
  *
  */
-public class JobTableModel extends AbstractTableModel {
+public class JobTableModel extends AbstractClusterNodeTableModel {
 	/**
 		 * 
 		 */
 	private static final long serialVersionUID = 2331629876169607226L;
-	private ArrayList<Job> valueList;
-	private String[] columnNames = { "Name", "Job ID", "Owner", "Cores", "State", "Duration (hrs)", "Target Queue" };
+	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "State", "Duration (hrs)", "Target Queue" };
 	private static final int COLUMN_NAME = 0;
 	private static final int COLUMN_ID = 1;
 	private static final int COLUMN_OWNER = 2;
@@ -28,49 +26,26 @@ public class JobTableModel extends AbstractTableModel {
 	private static final int COLUMN_STATE = 4;
 	private static final int COLUMN_DURATION = 5;
 	private static final int COLUMN_TARGET_QUEUE = 6;
-	private int columnCount = 0;
 
 	/**
 	 * 
 	 */
 	public JobTableModel(JobsQueue queue) {
-		this(new ArrayList<Job>(queue.getJobs().values()));
+		this(new ArrayList<Job>(queue.getActiveJobs().values()), jobColumnNames.length);
 	}
 
 	public JobTableModel(JobsQueue queue, int column) {
-		this(new ArrayList<Job>(queue.getJobs().values()), column);
+		this(new ArrayList<Job>(queue.getActiveJobs().values()), column);
 	}
 
-	public JobTableModel(ArrayList<Job> list) {
-		setValueList(list);
-		setColumnCount(columnNames.length);
+	public JobTableModel(ArrayList<?> list, int column) {
+		super(list, jobColumnNames,column);
 	}
 
-	public JobTableModel(ArrayList<Job> list, int column) {
-		setValueList(list);
-		setColumnCount(column);
+	public JobTableModel(ArrayList<?> list) {
+		super(list, jobColumnNames);
 	}
-
-	public void setColumnCount(int columnCount) {
-		this.columnCount = columnCount;
-	}
-
-	@Override
-	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return valueList.size();
-	}
-
-	@Override
-	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return columnCount;
-	}
-
-	public String getColumnName(int col) {
-		return columnNames[col].toString();
-	}
-
+	
 	public Class<?> getColumnClass(int column) {
 		switch (column) {
 		case COLUMN_NAME:
@@ -122,14 +97,6 @@ public class JobTableModel extends AbstractTableModel {
 		}
 
 		return returnValue;
-	}
-
-	public ArrayList<Job> getValueList() {
-		return valueList;
-	}
-
-	public void setValueList(ArrayList<Job> valueList) {
-		this.valueList = valueList;
 	}
 
 }

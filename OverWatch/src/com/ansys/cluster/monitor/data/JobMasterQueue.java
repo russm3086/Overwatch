@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
+import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 
 /**
  * @author rmartine
@@ -21,9 +22,13 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 	private final String sourceClass = this.getClass().getName();
 	private final transient Logger logger = Logger.getLogger(sourceClass);
 	private static final long serialVersionUID = -8532349133666707546L;
-	private int totalSize = 0;
 	private int errorJobsCount = 0;
 	private int idleJobsCount = 0;
+	private int activeJobsCount = 0;
+	private int pendingJobsCount = 0;
+	private int activeSessionJobsCount = 0;
+	private int errorSessionJobsCount = 0;
+	private int pendingSessionJobsCount = 0;
 
 	private SortedMap<String, JobsQueue> jobQueues = new TreeMap<String, JobsQueue>();
 
@@ -33,54 +38,49 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 	}
 
 	public void addQueue(JobsQueue queue) {
-		super.calcQueue(queue);
-		addErrorJobsCount(queue.getErrorJobs().size());
+
 		jobQueues.put(queue.getQueueName(), queue);
-		addIdleJobsCount(queue.getIdleJobs().size());
+	}
+
+	public void processQueues() {
+		for (Entry<String, JobsQueue> entry : jobQueues.entrySet()) {
+			processQueue(entry.getValue());
+		}
+	}
+
+	public void processQueue(JobsQueue queue) {
+
+		if (queue.isVisualNode()) {
+
+			addErrorSessionJobsCount(queue.getErrorSessionJobsSize());
+			addActiveSessionJobsCount(queue.getActiveSessionJobsSize());
+			addPendingSessionJobsCount(queue.getPendingSessionJobsSize());
+		} else {
+
+			addErrorJobsCount(queue.getErrorJobsSize());
+			addIdleJobsCount(queue.getIdleJobsSize());
+			addActiveJobsCount(queue.getActiveJobsSize());
+			addPendingJobsCount(queue.getPendingJobsSize());
+		}
 	}
 
 	public SortedMap<String, JobsQueue> getJobQueues() {
 		return jobQueues;
-
-	}
-
-	public void recalc() {
-		recalc(jobQueues);
-	}
-
-	public void recalc(SortedMap<String, ?> map) {
-
-		for (Entry<String, ?> entry : map.entrySet()) {
-
-			logger.finer("Processing " + entry.getKey());
-
-			AnsQueueAbstract queue = (AnsQueueAbstract) entry.getValue();
-			calcQueue(queue);
-			addTotalSize(queue.size());
-			addAvailableNodes(queue.getAvailableNodes());
-
-		}
 	}
 
 	/**
 	 * @return the totalSize
 	 */
-	public int getTotalSize() {
-		return totalSize;
+	public int getTotalCount() {
+		return getQueues().size();
 	}
 
-	/**
-	 * @param totalSize the totalSize to set
-	 */
-	public void setTotalSize(int totalSize) {
-		this.totalSize = totalSize;
+	public int getTotalSessionCount() {
+		return (getErrorSessionJobsCount() + getActiveSessionJobsCount() + getPendingSessionJobsCount());
 	}
 
-	/**
-	 * @param totalSize the totalSize to set
-	 */
-	public void addTotalSize(int totalSize) {
-		setTotalSize(getTotalSize() + totalSize);
+	public int getTotalJobsCount() {
+		return (getErrorJobsCount() + getActiveJobsCount() + getPendingJobsCount());
 	}
 
 	public SortedMap<String, AnsQueueAbstract> getQueues() {
@@ -105,24 +105,78 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 		return jobQueues.get(queueName);
 	}
 
-	public String getSummary() {
-		StringBuilder summary = new StringBuilder();
-		
-		summary.append(outputFormatter("Queue Name:", getName()));
-		summary.append("\n");
+	public DetailedInfoProp getDetailedInfoProp() {
 
-		summary.append(outputFormatter("Total Jobs:", size()));
-		summary.append(outputFormatter("Idle Jobs:", getIdleJobsCount()));
-		summary.append(outputFormatter("Total session:", getSessionTotal()));
-		summary.append(outputFormatter("Used:", getSessionUsed()));
-		summary.append(outputFormatter("Available:", getSessionAvailable()));
-		summary.append(outputFormatter("Unavailable:", getSessionUnavailable()));
+		DetailedInfoProp masterDiProp = new DetailedInfoProp();
+		masterDiProp.setTitleMetric("Queue Name: ");
+		masterDiProp.setTitleValue(getName());
 
-		summary.append(getUnitRes());
-		summary.append("\n");
+		DetailedInfoProp jobSumDiProp = new DetailedInfoProp();
+		jobSumDiProp.setPanelName("Job Summary");
+		jobSumDiProp.addMetric("Active Jobs count: ", getActiveJobsCount());
+		jobSumDiProp.addMetric("Pending Jobs count: ", getPendingJobsCount());
+		jobSumDiProp.addMetric("Error Jobs count: ", getErrorJobsCount());
+		jobSumDiProp.addMetric("Idle Jobs count: ", getIdleJobsCount());
+		jobSumDiProp.addMetric("Active Session count: ", getActiveSessionJobsCount());
+		jobSumDiProp.addMetric("Pending Session count: ", getPendingSessionJobsCount());
+		jobSumDiProp.addMetric("Error Session count: ", getErrorSessionJobsCount());
+		masterDiProp.addDetailedInfoProp(jobSumDiProp);
 
-		summary.append(outputFormatter("Total:", getSlotTotal()));
-		return summary.toString();
+		displayActiveJobs(masterDiProp);
+		displayPendingJobs(masterDiProp);
+		displayErrorJobs(masterDiProp);
+		displayIdleJobs(masterDiProp);
+
+		displayActiveSessionJobs(masterDiProp);
+		displayPendingSessionJobs(masterDiProp);
+		displayErrorSessionJobs(masterDiProp);
+
+		return masterDiProp;
+	}
+
+	public SortedMap<Integer, Job> findActiveJobs() {
+		SortedMap<Integer, Job> map = new TreeMap<Integer, Job>();
+
+		for (Entry<String, JobsQueue> entry : getJobQueues().entrySet()) {
+			map.putAll(entry.getValue().getActiveJobs());
+		}
+		return map;
+	}
+
+	public SortedMap<Integer, Job> findIdleJobs() {
+		SortedMap<Integer, Job> map = new TreeMap<Integer, Job>();
+
+		for (Entry<String, JobsQueue> entry : getJobQueues().entrySet()) {
+			map.putAll(entry.getValue().getIdleJobs());
+		}
+		return map;
+	}
+
+	public SortedMap<Integer, Job> findActiveSessionJobs() {
+		SortedMap<Integer, Job> map = new TreeMap<Integer, Job>();
+
+		for (Entry<String, JobsQueue> entry : getJobQueues().entrySet()) {
+			map.putAll(entry.getValue().getActiveSessionJobs());
+		}
+		return map;
+	}
+
+	public SortedMap<Integer, Job> findErrorSessionJobs() {
+		SortedMap<Integer, Job> map = new TreeMap<Integer, Job>();
+
+		for (Entry<String, JobsQueue> entry : getJobQueues().entrySet()) {
+			map.putAll(entry.getValue().getErrorSessionJobs());
+		}
+		return map;
+	}
+
+	public SortedMap<Integer, Job> findPendingSessionJobs() {
+		SortedMap<Integer, Job> map = new TreeMap<Integer, Job>();
+
+		for (Entry<String, JobsQueue> entry : getJobQueues().entrySet()) {
+			map.putAll(entry.getValue().getPendingSessionJobs());
+		}
+		return map;
 	}
 
 	/**
@@ -165,6 +219,103 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 	 */
 	public void addIdleJobsCount(int idleJobsCount) {
 		setIdleJobsCount(getIdleJobsCount() + idleJobsCount);
+	}
+
+	/**
+	 * @return the activeJobsCount
+	 */
+	public int getActiveJobsCount() {
+		return activeJobsCount;
+	}
+
+	/**
+	 * @param activeJobsCount the activeJobsCount to set
+	 */
+	public void setActiveJobsCount(int activeJobsCount) {
+		this.activeJobsCount = activeJobsCount;
+	}
+
+	/**
+	 * @param activeJobsCount the activeJobsCount to set
+	 */
+	public void addActiveJobsCount(int activeJobsCount) {
+		setActiveJobsCount(getActiveJobsCount() + activeJobsCount);
+	}
+
+	/**
+	 * @return the activeSessionJobsCount
+	 */
+	public int getActiveSessionJobsCount() {
+		return activeSessionJobsCount;
+	}
+
+	/**
+	 * @param activeSessionJobsCount the activeSessionJobsCount to set
+	 */
+	public void setActiveSessionJobsCount(int activeSessionJobsCount) {
+		this.activeSessionJobsCount = activeSessionJobsCount;
+	}
+
+	public void addActiveSessionJobsCount(int activeSessionJobsCount) {
+		setActiveSessionJobsCount(getActiveSessionJobsCount() + activeSessionJobsCount);
+	}
+
+	/**
+	 * @return the errorSessionJobsCount
+	 */
+	public int getErrorSessionJobsCount() {
+		return errorSessionJobsCount;
+	}
+
+	/**
+	 * @param errorSessionJobsCount the errorSessionJobsCount to set
+	 */
+	public void setErrorSessionJobsCount(int errorSessionJobsCount) {
+		this.errorSessionJobsCount = errorSessionJobsCount;
+	}
+
+	public void addErrorSessionJobsCount(int errorSessionJobsCount) {
+		setErrorSessionJobsCount(getErrorSessionJobsCount() + errorSessionJobsCount);
+	}
+
+	/**
+	 * @return the pendingJobsCount
+	 */
+	public int getPendingJobsCount() {
+		return pendingJobsCount;
+	}
+
+	/**
+	 * @param pendingJobsCount the pendingJobsCount to set
+	 */
+	public void setPendingJobsCount(int pendingJobsCount) {
+		this.pendingJobsCount = pendingJobsCount;
+	}
+
+	/**
+	 * @param pendingJobsCount the pendingJobsCount to set
+	 */
+	public void addPendingJobsCount(int pendingJobsCount) {
+		setPendingJobsCount(getPendingJobsCount() + pendingJobsCount);
+	}
+
+	/**
+	 * @return the pendingSessionJobsCount
+	 */
+	public int getPendingSessionJobsCount() {
+		return pendingSessionJobsCount;
+	}
+
+	/**
+	 * @param pendingSessionJobsCount the pendingSessionJobsCount to set
+	 */
+	public void setPendingSessionJobsCount(int pendingSessionJobsCount) {
+		this.pendingSessionJobsCount = pendingSessionJobsCount;
+	}
+
+	public void addPendingSessionJobsCount(int pendingSessionJobsCount) {
+		setPendingSessionJobsCount(getPendingSessionJobsCount() + getPendingSessionJobsCount());
+
 	}
 
 }

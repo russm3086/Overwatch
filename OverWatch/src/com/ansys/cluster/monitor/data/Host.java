@@ -15,7 +15,8 @@ import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.HostInterface;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.HostState;
-import com.russ.test.DetailedInfoProp;
+import com.ansys.cluster.monitor.gui.TableBuilder;
+import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 
 /**
  * 
@@ -150,49 +151,19 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 	@Override
 	public void setStatus() {
 		// TODO Auto-generated method stub
-		int exclusiveSlots = 0;
-		if (getSlotReserved() == 0) {
-			exclusiveSlots = nodeProp.getSlotTotal();
-		}
+		StringBuilder sb = new StringBuilder();
+		sb.append(getName());
 
-		status = "Free Slots: " + exclusiveSlots + "  Mem Free: " + decimalFormatter.format(nodeProp.getMemFreeNum())
-				+ "  Load: " + decimalFormatter.format(nodeProp.getNp_load_avg());
+		status = sb.toString();
+
 	}
 
 	public String getFormattedLoad() {
-		return  decimalFormatter.format(getNp_load_avg());
+		return decimalFormatter.format(getNp_load_avg());
 	}
-	
+
 	public String getFormattedAvalMem() {
 		return decimalFormatter.format(getMemFreeNum());
-	}
-	
-	@Override
-	public String getSummary() {
-		// TODO Auto-generated method stub
-
-		StringBuffer output = new StringBuffer();
-
-		output.append("Hostname:\t\t\t" + nodeProp.getHostname());
-		output.append("\nQueue:\t\t\t" + nodeProp.getHostQueueName());
-		output.append("\nLoad: \t\t\t" + decimalFormatter.format(getNp_load_avg()));
-		output.append("\n" + getUnitRes() + " Total:\t\t\t" + getSlotTotal());
-		output.append("\n" + getUnitRes() + " Reserved:\t\t" + getSlotReserved());
-		output.append("\n" + getUnitRes() + " Used:\t\t\t" + getSlotUsed());
-		output.append("\n" + getUnitRes() + " Unavailable:\t\t" + getSlotUnavailable());
-		output.append("\n" + getUnitRes() + " Available:\t\t" + getSlotUnused());
-		output.append("\nMemory Total:\t\t\t" + getMemTotal());
-		output.append("\nMemory Used:\t\t\t" + decimalFormatter.format(getMemUsedNum()));
-		output.append("\nMemory Free:\t\t\t" + decimalFormatter.format(getMemFreeNum()));
-		output.append("\nCore #:\t\t\t" + getM_Core());
-		output.append("\nState:\t\t\t" + getState());
-		output.append("\n\nState Description:\t\t" + getStateDescriptions());
-
-		if (getListJob().size() > 0) {
-			output.append("\n\nJob:\n" + getJobs());
-		}
-
-		return output.toString();
 	}
 
 	private String getJobs() {
@@ -205,6 +176,10 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 		return sb.toString();
 	}
 
+	public void displayJobs(DetailedInfoProp masterDiProp) {
+		tableDisplay(masterDiProp, getListJob(), "Active Jobs", TableBuilder.table_Job);
+	}
+
 	@Override
 	public ArrayList<Job> getListJob() {
 		return listJob;
@@ -212,7 +187,7 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 
 	@Override
 	public int JobCount() {
-		return listJob.size();
+		return getListJob().size();
 	}
 
 	@Override
@@ -326,9 +301,35 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 
 	@Override
 	public DetailedInfoProp getDetailedInfoProp() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+		DetailedInfoProp masterDiProp = new DetailedInfoProp();
+		masterDiProp.setTitleMetric("Host Name: ");
+		masterDiProp.setTitleValue(getName());
+
+		DetailedInfoProp cpuDiProp = new DetailedInfoProp();
+		cpuDiProp.setPanelName("CPU");
+		cpuDiProp.addMetric("Host Core(s): ", getM_Core());
+		cpuDiProp.addMetric("Load: ", decimalFormatter.format(getNp_load_avg()));
+		masterDiProp.addDetailedInfoProp(cpuDiProp);
+
+		DetailedInfoProp resourceDiProp = new DetailedInfoProp();
+		resourceDiProp.setPanelName(getUnitRes());
+		resourceDiProp.addMetric("Available: ", getSlotTotal() - getSlotUnavailable());
+		resourceDiProp.addMetric("Unavailable: ", getSlotUnavailable());
+		resourceDiProp.addMetric("Total: ", getSlotTotal());
+		masterDiProp.addDetailedInfoProp(resourceDiProp);
+
+		DetailedInfoProp memDiProp = new DetailedInfoProp();
+		memDiProp.setPanelName("Memory");
+		memDiProp.addMetric("Available: ", decimalFormatter.format(getMemFreeNum()));
+		memDiProp.addMetric("Used: ", decimalFormatter.format(getMemUsedNum()));
+		memDiProp.addMetric("Total: ", getMemTotal());
+		masterDiProp.addDetailedInfoProp(memDiProp);
+
+		displayStateDescriptions(masterDiProp);
+		displayJobs(masterDiProp);
+
+		return masterDiProp;
+	}
 
 }

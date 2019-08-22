@@ -12,8 +12,11 @@ import java.util.SortedMap;
 public interface AnsQueueInterface {
 
 	public String getMembersType();
+
 	public int size();
+
 	boolean containsKey(String node);
+
 	public SortedMap<Object, ClusterNodeAbstract> getNodes();
 
 }

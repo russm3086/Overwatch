@@ -10,8 +10,6 @@ public interface HostInterface {
 
 	void setStatus();
 
-	String getSummary();
-
 	ArrayList<Job> getListJob();
 
 	int JobCount();
@@ -29,7 +27,7 @@ public interface HostInterface {
 	int getSlotReserved();
 
 	int getSlotUsed();
-	
+
 	int getSlotUnused();
 
 	String getMemTotal();

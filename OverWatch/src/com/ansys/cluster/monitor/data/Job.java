@@ -9,7 +9,6 @@ import java.time.Clock;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
@@ -17,7 +16,8 @@ import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.JobInterface;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.JobState;
-import com.russ.test.DetailedInfoProp;
+import com.ansys.cluster.monitor.gui.TableBuilder;
+import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 
 /**
  * 
@@ -33,8 +33,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	private static final long serialVersionUID = 3221740341615040025L;
 	private final String sourceClass = this.getClass().getName();
 	private final transient Logger logger = Logger.getLogger(sourceClass);
-	// private ArrayList<Host> hostList = new ArrayList<Host>();
-	private HashMap<Host, Double> hostMap = new HashMap<Host, Double>();
+	private ArrayList<Host> hostList = new ArrayList<Host>();
 	private double hostLoad = 0.0;
 
 	/**
@@ -57,8 +56,11 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 	private boolean checkExclusivity(NodeProp nodeProp) {
 		boolean result = false;
-		if (((String) nodeProp.get("GRU_name")).equalsIgnoreCase("exclusive"))
+
+		String gruName = (String) nodeProp.get("GRU_name");
+		if (gruName != null && gruName.equalsIgnoreCase("exclusive"))
 			result = true;
+
 		logger.finer("Job: " + getJobNumber() + " Exclusivity: " + result);
 		return result;
 	}
@@ -149,10 +151,16 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 	private void processResourcesList(NodeProp jaTaskProp) {
 
-		Object data = jaTaskProp.get("JAT_granted_resources_list");
+		processResourcesList(jaTaskProp, "JAT_granted_resources_list");
+		processResourcesList(jaTaskProp, "JAT_granted_destin_identifier_list");
+	}
+
+	private void processResourcesList(NodeProp jaTaskProp, String element) {
+
+		Object data = jaTaskProp.get(element);
+		ArrayList<NodeProp> resourceList = new ArrayList<NodeProp>();
 		if (data != null) {
 
-			ArrayList<NodeProp> resourceList = new ArrayList<NodeProp>();
 			String instance = data.getClass().getSimpleName();
 
 			switch (instance) {
@@ -175,9 +183,10 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 				resourceList.add(propGrantRes);
 				break;
 			}
-			setResourceList(resourceList);
-		}
 
+			setResourceList(resourceList);
+
+		}
 	}
 
 	@Override
@@ -201,77 +210,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	public void setStatus() {
 		// TODO Auto-generated method stub
 
-		status = "Name: " + getJobName() + "\tID: " + getJobNumber() + "\tOwner: " + getJobOwner() + "\tExclusive: "
-				+ isExclusive() + "\tDuration: " + getDuration().toHours() + " hours";
-	}
-
-	@Override
-	public void checkIdleStatus() {
-		logger.entering(sourceClass, "checkIdleStatus");
-
-		logger.exiting(sourceClass, "checkIdleStatus");
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.ansys.cluster.monitor.data.ClusterNode#Summary()
-	 */
-	@Override
-	public String getSummary() {
-		// TODO Auto-generated method stub
-		StringBuilder sb = new StringBuilder();
-
-		sb.append(outputFormatter("Job Name:", getJobName()));
-		sb.append(outputFormatter("Owner:", getJobOwner()));
-
-		if (getTargetQueue() != null)
-			sb.append(outputFormatter("Target Queue:", getTargetQueue()));
-
-		if (getStartHost() != null) {
-			sb.append(outputFormatter("Start Host:", getStartHost()));
-			sb.append(outputFormatter("Host Load:", decimalFormatter.format(getHostLoad())));
-		}
-
-		sb.append(outputFormatter("Job #:", getJobNumber()));
-		sb.append(outputFormatter("Job Priority:", getJobPriority()));
-		sb.append(outputFormatter("Job Status Code:", getJobState()));
-		sb.append(outputFormatter(getUnitRes(), getSlots()));
-
-		if (getJobStartTime() != null)
-			sb.append(outputFormatter("Job Start:", getJobStartTime()));
-
-		sb.append(outputFormatter("Job Submission:", getJobSubmissionTime()));
-		sb.append(outputFormatter("Exclusive:", isExclusive()));
-		sb.append(summaryOutput("Duration:", getDuration().toHours(), "hours"));
-		sb.append(outputFormatter("State:", getStateDescriptions()));
-
-		sb.append("Scaled Usage:\n");
-		sb.append(outputFormatter("CPU:", getCPU()));
-		sb.append(outputFormatter("Memory:", getMem()));
-		sb.append(outputFormatter("IO:", getIO()));
-
-		if (hostMap.size() > 0) {
-			sb.append("\nHost(s):");
-			sb.append(getHostList());
-		}
-
-		if (getMessages().length() > 0) {
-			sb.append("\nMessages:\n");
-			sb.append(getMessages());
-		}
-
-		if (getSubmissionCommandLine().size() > 0) {
-			sb.append("\nSubmission Commandline:\n");
-			sb.append(printNodePropList(getSubmissionCommandLine()));
-		}
-
-		if (getJobEnv().size() > 0) {
-			sb.append("\nEnvironment Settings:\n");
-			sb.append(printNodePropList(getJobEnv()));
-		}
-
-		return sb.toString();
+		status = "ID: " + getJobNumber() + " Duration: " + getDuration().toHours() + " hours";
 	}
 
 	public String toString() {
@@ -285,12 +224,6 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	private String getHostList() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("\n");
-		for (Entry<Host, Double> entry : hostMap.entrySet()) {
-			sb.append(entry.getKey());
-			sb.append(" load:\t");
-			sb.append(entry.getValue());
-			sb.append("\n");
-		}
 		return sb.toString();
 	}
 
@@ -298,7 +231,6 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		this.nodeProp.putAll(prop);
 		resourceCheck();
 		setStatus();
-		checkIdleStatus();
 	}
 
 	@Override
@@ -315,8 +247,8 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	}
 
 	@Override
-	public HashMap<Host, Double> getList() {
-		return hostMap;
+	public ArrayList<Host> getList() {
+		return hostList;
 	}
 
 	@Override
@@ -330,8 +262,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 			}
 		}
 
-		Double load = new Double(host.getAvgLoad());
-		this.hostMap.put(host, load);
+		this.hostList.add(host);
 	}
 
 	@Override
@@ -340,18 +271,9 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	}
 
 	@Override
-	public String getMessages() {
-		StringBuffer sb = new StringBuffer();
+	public ArrayList<JobMessage> getMessages() {
 		ArrayList<JobMessage> list = nodeProp.getJobMessages();
-
-		if (list != null) {
-			for (JobMessage jm : list) {
-
-				sb.append("\tMessage: " + jm.getMessage());
-				sb.append("\n");
-			}
-		}
-		return sb.toString();
+		return list;
 	}
 
 	@Override
@@ -498,14 +420,67 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	}
 
 	public void addHostLoad(double hostLoad) {
-		double avg = ((getHostLoad() * hostMap.size() + hostLoad)) / (hostMap.size() + 1);
+		double avg = ((getHostLoad() * hostList.size() + hostLoad)) / (hostList.size() + 1);
 		setHostLoad(avg);
 	}
 
 	@Override
 	public DetailedInfoProp getDetailedInfoProp() {
-		// TODO Auto-generated method stub
-		return null;
+		DetailedInfoProp masterDiProp = new DetailedInfoProp();
+		masterDiProp.setTitleMetric("Job Name: ");
+		masterDiProp.setTitleValue(getName());
+
+		DetailedInfoProp jobDiProp = new DetailedInfoProp();
+		jobDiProp.setPanelName("Job Info");
+		jobDiProp.addMetric("Owner: ", getJobOwner());
+		jobDiProp.addMetric("Job #: ", getJobNumber());
+		jobDiProp.addMetric("Job Priority: ", getJobPriority());
+		jobDiProp.addMetric("Job Status Code: ", getJobState());
+
+		if (getTargetQueue() != null)
+			jobDiProp.addMetric("Target Queue: ", getTargetQueue());
+
+		if (getStartHost() != null) {
+			jobDiProp.addMetric("Start Host: ", getStartHost());
+			jobDiProp.addMetric("Host Load: ", decimalFormatter.format(getHostLoad()));
+		}
+
+		jobDiProp.addMetric(getUnitRes() + ": ", getSlots());
+		jobDiProp.addMetric("Job Submission: ", getJobSubmissionTime());
+		jobDiProp.addMetric("Exclusive: ", isExclusive());
+		jobDiProp.addMetric("Duration: ", getDuration().toHours());
+		masterDiProp.addDetailedInfoProp(jobDiProp);
+
+		DetailedInfoProp scaledDiProp = new DetailedInfoProp();
+		scaledDiProp.setPanelName("Scaled Usage");
+		scaledDiProp.addMetric("CPU: ", getCPU());
+		scaledDiProp.addMetric("Memory: ", getMem());
+		scaledDiProp.addMetric("IO: ", getIO());
+		masterDiProp.addDetailedInfoProp(scaledDiProp);
+
+		displayStateDescriptions(masterDiProp);
+		displayHosts(masterDiProp);
+		displayMessages(masterDiProp);
+		displaySubmissionCommandLine(masterDiProp);
+		displayJobEnv(masterDiProp);
+
+		return masterDiProp;
+	}
+
+	public void displayHosts(DetailedInfoProp masterDiProp) {
+		tableDisplay(masterDiProp, hostList, "Host(s)", TableBuilder.table_Host);
+	}
+
+	public void displayMessages(DetailedInfoProp masterDiProp) {
+		tableDisplay(masterDiProp, getMessages(), "Message(s)", TableBuilder.table_JOB_MSG);
+	}
+
+	public void displaySubmissionCommandLine(DetailedInfoProp masterDiProp) {
+		textAreaDisplay(masterDiProp, printNodePropList(getSubmissionCommandLine()), "Submission Command Line");
+	}
+
+	public void displayJobEnv(DetailedInfoProp masterDiProp) {
+		textAreaDisplay(masterDiProp, printNodePropList(getJobEnv()), "Job Environment");
 	}
 
 }

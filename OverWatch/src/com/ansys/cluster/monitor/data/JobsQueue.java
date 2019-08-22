@@ -3,15 +3,15 @@
  */
 package com.ansys.cluster.monitor.data;
 
-import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.state.JobState;
-import com.russ.test.DetailedInfoProp;
+import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 
 /**
  * @author rmartine
@@ -38,7 +38,7 @@ public class JobsQueue extends AnsQueueAbstract {
 
 	public void checkForIdle() {
 
-		for (Entry<Integer, Job> entry : jobs.entrySet()) {
+		for (Entry<Integer, Job> entry : getActiveJobs().entrySet()) {
 
 			if (entry.getValue().hasState(JobState.Idle)) {
 				addIdleJobs(entry.getKey(), entry.getValue());
@@ -49,78 +49,76 @@ public class JobsQueue extends AnsQueueAbstract {
 	public void addJob(Job job) {
 		logger.entering(sourceClass, "addJob", job);
 
-		jobs.put(job.getJobNumber(), job);
+		if (job.isVisualNode()) {
 
-		if (job.hasState(JobState.Error)) {
-			errorJobs.put(job.getJobNumber(), job);
+			if (job.hasState(JobState.RunningState)) {
 
-			if (job.isVisualNode()) {
-				addSessionUnavailable();
-				addSessionTotal();
+				addActiveSessionJobs(job.getJobNumber(), job);
+			} else if (job.getQueueName().equalsIgnoreCase(SGE_DataConst.job_PendingQueue)) {
+
+				addPendingSessionJobs(job.getJobNumber(), job);
+			} else {
+
+				addErrorSessionJobs(job.getJobNumber(), job);
 			}
 
 		} else {
 
-			if (job.isVisualNode()) {
+			if (job.hasState(JobState.RunningState)) {
 
-				addSessionTotal();
-				addSessionAvailable();
-
-			} else {
-				addSlotTotal(job.getSlots());
 				if (job.hasState(JobState.Idle)) {
+
 					addIdleJobs(job.getJobNumber(), job);
+				} else {
+
+					addActiveJobs(job.getJobNumber(), job);
 				}
+
+			} else if (job.hasState(JobState.Error)) {
+
+				addErrorJobs(job.getJobNumber(), job);
+
+			} else if (job.getQueueName().equalsIgnoreCase(SGE_DataConst.job_PendingQueue)) {
+
+				addPendingJobs(job.getJobNumber(), job);
 			}
+
 		}
+
 		logger.finest("Adding " + job + " to queue " + getQueueName());
-	}
-
-	/**
-	 * @param jobs the jobs to set
-	 */
-	public void setJobs(SortedMap<Integer, Job> jobs) {
-		this.jobs = jobs;
-	}
-
-	public String getSummary() {
-		StringBuilder summary = new StringBuilder();
-		summary.append("Queue Name: \t" + getName() + "\n");
-		summary.append("\n# of Jobs: \t" + jobs.size());
-
-		return summary.toString();
 	}
 
 	public String getStatus() {
 
-		String status = "# of jobs: " + jobs.size() + "  Used " + getUnitRes() + ": " + getSlotUsed();
+		String status = "# of active jobs: " + getActiveJobsSize();
 		return status;
 	}
 
-	/**
-	 * @param errorJobs the errorJobs to set
-	 */
-	public void setErrorJobs(SortedMap<Integer, Job> errorJobs) {
-		this.errorJobs = errorJobs;
-	}
-
-	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return jobs.size();
-	}
-
-	@Override
-	public boolean containsKey(String queueName) {
-		// TODO Auto-generated method stub
-		return jobs.containsKey(queueName);
+		return getAllmaps().size();
 	}
 
 	public SortedMap<Object, ClusterNodeAbstract> getNodes() {
-		// TODO Auto-generated method stub
-
 		SortedMap<Object, ClusterNodeAbstract> map = new TreeMap<Object, ClusterNodeAbstract>();
-		map.putAll(jobs);
+		map.putAll(getAllmaps());
+
+		return map;
+	}
+
+	public SortedMap<Integer, Job> getAllmaps() {
+		SortedMap<Integer, Job> map = new TreeMap<Integer, Job>();
+		if (!isVisualNode()) {
+
+			map.putAll(getActiveJobs());
+			map.putAll(getPendingJobs());
+			map.putAll(getIdleJobs());
+			map.putAll(getErrorJobs());
+		} else {
+
+			map.putAll(getActiveSessionJobs());
+			map.putAll(getPendingSessionJobs());
+			map.putAll(getErrorSessionJobs());
+		}
 
 		return map;
 	}
@@ -131,33 +129,16 @@ public class JobsQueue extends AnsQueueAbstract {
 		masterDiProp.setTitleMetric("Queue Name: ");
 		masterDiProp.setTitleValue(getName());
 
-		DetailedInfoProp jobSumDiProp = new DetailedInfoProp();
-		jobSumDiProp.setPanelName("Job Summary");
-		jobSumDiProp.addMetric("Jobs count: ", jobs.size());
-		jobSumDiProp.addMetric("Active Jobs count: ", activeJobs.size());
-		jobSumDiProp.addMetric("Pending Jobs count: ", pendingJobs.size());
-		jobSumDiProp.addMetric("Error Jobs count: ", errorJobs.size());
-		jobSumDiProp.addMetric("Idle Jobs count: ", idleJobs.size());
-		masterDiProp.addDetailedInfoProp(jobSumDiProp);
-
-		displayJobs(masterDiProp);
 		displayActiveJobs(masterDiProp);
 		displayPendingJobs(masterDiProp);
 		displayErrorJobs(masterDiProp);
 		displayIdleJobs(masterDiProp);
 		
+		displayActiveSessionJobs(masterDiProp);
+		displayPendingSessionJobs(masterDiProp);
+		displayErrorSessionJobs(masterDiProp);
+
 		return masterDiProp;
-	}
-
-	/**
-	 * @param idleJobs the idleJobs to set
-	 */
-	public void setIdleJobs(SortedMap<Integer, Job> idleJobs) {
-		this.idleJobs = idleJobs;
-	}
-
-	public void addIdleJobs(Integer jobId, Job job) {
-		getIdleJobs().put(jobId, job);
 	}
 
 }
