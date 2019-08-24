@@ -68,7 +68,7 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 		// TODO Auto-generated method stub
 
 		Job job = (Job) valueList.get(rowIndex);
-		Object returnValue = null;
+		Object returnValue = new String("?");
 
 		switch (columnIndex) {
 		case COLUMN_NAME:

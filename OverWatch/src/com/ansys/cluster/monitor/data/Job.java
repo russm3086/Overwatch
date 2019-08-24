@@ -259,11 +259,12 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	@Override
 	public void addHost(Host host) {
 		addHostLoad(host.getAvgLoad());
-		if (getJobIdleThreshold() > getHostLoad()) {
+		if (getJobIdleThreshold() > getHostLoad() || hasState(JobState.Error)) {
 			addState(JobState.Idle);
 		} else {
 			if (hasState(JobState.Idle)) {
 				remove(JobState.Idle);
+				addState(JobState.RunningState);
 			}
 		}
 

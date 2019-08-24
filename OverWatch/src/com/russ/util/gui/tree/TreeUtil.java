@@ -94,10 +94,10 @@ public class TreeUtil {
 	public ArrayList<TreeUtilSearchItem> search(JTree tree, String search) {
 		logger.entering(sourceClass, "search");
 
-		logger.info("Looking for " + search);
+		logger.fine("Looking for " + search);
 		Pattern pattern = Pattern.compile(search);
 		ArrayList<TreeUtilSearchItem> tusiList = search(tree, pattern);
-		logger.info("Found " + tusiList.size() + " items");
+		logger.fine("Found " + tusiList.size() + " items");
 
 		return tusiList;
 	}

@@ -141,6 +141,9 @@ public class Cluster extends AnsQueueAbstract {
 
 		displayNodesPie(masterDiProp);
 
+		displayErrorJobs(masterDiProp, getJobMasterQueue().findErrorJobs());
+		displayPendingJobs(masterDiProp, getJobMasterQueue().findPendingJobs());
+		displayIdleJobs(masterDiProp, getJobMasterQueue().findIdleJobs());
 		displayUnavailableVisualHosts(masterDiProp, getHostMasterQueue().findUnavailableVisualHosts());
 		displayUnavailableComputeHosts(masterDiProp, getHostMasterQueue().findUnavailableComputeHosts());
 
@@ -192,9 +195,9 @@ public class Cluster extends AnsQueueAbstract {
 		DetailedInfoProp jobDiProp = new DetailedInfoProp();
 		SortedMap<Integer, Job> mapActiveJob = getJobMasterQueue().findActiveJobs();
 		SortedMap<Integer, Job> mapIdleJob = getJobMasterQueue().findIdleJobs();
-		
-		generateSeries(mapActiveJob,jobDiProp, "Active", new Color(0, 153, 0));
-		generateSeries(mapIdleJob,jobDiProp, "Idle", Color.BLUE);
+
+		generateSeries(mapActiveJob, jobDiProp, "Active", new Color(0, 153, 0));
+		generateSeries(mapIdleJob, jobDiProp, "Idle", Color.BLUE);
 
 		jobDiProp.setDataTypeBubbleChart();
 		jobDiProp.get_xAxisLabel("Host Load");
@@ -203,8 +206,8 @@ public class Cluster extends AnsQueueAbstract {
 		masterDiProp.addDetailedInfoProp(jobDiProp);
 	}
 
-	private void generateSeries(SortedMap<Integer, Job> map, 
-			DetailedInfoProp jobDiProp, String seriesName, Paint paint) {
+	private void generateSeries(SortedMap<Integer, Job> map, DetailedInfoProp jobDiProp, String seriesName,
+			Paint paint) {
 
 		double[] xArray = new double[map.size()];
 		double[] yArray = new double[map.size()];
@@ -218,8 +221,9 @@ public class Cluster extends AnsQueueAbstract {
 			yArray[i] = ((double) job.getDuration().toHours());
 			zArray[i] = job.getSlots();
 
-			//System.out.println("Load: " + xArray[i] + " Duration: " + yArray[i] + " core: " + zArray[i]);
-			
+			// System.out.println("Load: " + xArray[i] + " Duration: " + yArray[i] + " core:
+			// " + zArray[i]);
+
 			i += 1;
 		}
 		double series[][] = { xArray, yArray, zArray };

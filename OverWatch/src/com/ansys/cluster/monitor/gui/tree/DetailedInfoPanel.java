@@ -215,12 +215,6 @@ public class DetailedInfoPanel extends JPanel {
 		chartPanel.setPreferredSize(new java.awt.Dimension(320, 240));
 		chartPanel.setBackground(Color.WHITE);
 
-		/**
-		 * chartPanel.setMinimumDrawWidth(0);
-		 * chartPanel.setMaximumDrawWidth(Integer.MAX_VALUE);
-		 * chartPanel.setMinimumDrawHeight(0);
-		 * chartPanel.setMaximumDrawHeight(Integer.MAX_VALUE);
-		 */
 		return chartPanel;
 	}
 
@@ -279,13 +273,6 @@ public class DetailedInfoPanel extends JPanel {
 
 		chartPanel.setDomainZoomable(true);
 		chartPanel.setRangeZoomable(true);
-
-		/**
-		 * chartPanel.setMinimumDrawWidth(0);
-		 * chartPanel.setMaximumDrawWidth(Integer.MAX_VALUE);
-		 * chartPanel.setMinimumDrawHeight(0);
-		 * chartPanel.setMaximumDrawHeight(Integer.MAX_VALUE);
-		 */
 		return chartPanel;
 
 	}

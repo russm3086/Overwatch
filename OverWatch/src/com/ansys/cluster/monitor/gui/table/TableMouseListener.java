@@ -94,8 +94,6 @@ public class TableMouseListener implements MouseListener {
 
 				tree.setSelectionPath(treePath);
 				tree.scrollPathToVisible(treePath);
-
-				System.out.println(treePath);
 			}
 		}
 	}
