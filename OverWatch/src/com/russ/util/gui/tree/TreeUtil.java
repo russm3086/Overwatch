@@ -80,7 +80,7 @@ public class TreeUtil {
 	public TreePath findTreePath(TreePath treePath, JTree tree) {
 
 		String path = buildMetaDataPath(treePath);
-		
+
 		ArrayList<TreeUtilSearchItem> tusi = search(tree, path);
 		TreePath foundPath = null;
 
@@ -96,9 +96,10 @@ public class TreeUtil {
 
 		logger.info("Looking for " + search);
 		Pattern pattern = Pattern.compile(search);
-		ArrayList<TreeUtilSearchItem> tusi = search(tree, pattern);
+		ArrayList<TreeUtilSearchItem> tusiList = search(tree, pattern);
+		logger.info("Found " + tusiList.size() + " items");
 
-		return tusi;
+		return tusiList;
 	}
 
 	public ArrayList<TreeUtilSearchItem> search(JTree tree, Pattern pattern) {
@@ -120,7 +121,7 @@ public class TreeUtil {
 
 		TreeNode treeNode = (TreeNode) path.getLastPathComponent();
 		Object object = ((DefaultMutableTreeNode) treeNode).getUserObject();
-		logger.finer("Traversing " + object);
+		logger.fine("Traversing " + object);
 
 		if (!(object instanceof String)) {
 
@@ -128,6 +129,8 @@ public class TreeUtil {
 			StringBuilder sb = new StringBuilder(node.getMetaData());
 
 			sb.append(buildMetaDataPath(path));
+
+			logger.finer("Searching: " + sb.toString());
 
 			Matcher matcher = search(sb.toString(), pattern);
 
@@ -152,7 +155,7 @@ public class TreeUtil {
 	}
 
 	private String buildMetaDataPath(TreePath path) {
-		
+
 		StringBuilder sbPath = new StringBuilder("\nPath: ");
 		String newPath = path.toString().replaceAll("\\[", "");
 		newPath = newPath.replaceAll("\\]", "");
@@ -161,7 +164,7 @@ public class TreeUtil {
 		sbPath.append(newPath);
 		return sbPath.toString();
 	}
-	
+
 	public Matcher search(String source, Pattern pattern) {
 		logger.entering(sourceClass, "search");
 		Matcher result = null;

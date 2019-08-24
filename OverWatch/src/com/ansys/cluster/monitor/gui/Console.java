@@ -236,7 +236,7 @@ public class Console extends JFrame {
 		if (clusterNode != null) {
 
 			scrollPane.setAutoscrolls(true);
-			JPanel panel = DetailedInfoFactory.createDetailedInfoPanel(clusterNode);
+			JPanel panel = DetailedInfoFactory.createDetailedInfoPanel(clusterNode, tree);
 			scrollPane.getViewport().add(panel);
 			
 		} else {

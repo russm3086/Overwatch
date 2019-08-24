@@ -1,4 +1,4 @@
-package com.ansys.cluster.monitor.gui;
+package com.ansys.cluster.monitor.gui.table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +30,12 @@ public class TableBuilder {
 		case table_Job:
 			jtable = buildTable(tableModel, 1, Integer.class);
 			break;
-			
+
 		case table_Host:
 		case table_State:
 			jtable = buildTable(tableModel, 0, String.class);
 			break;
-			
+
 		case table_JOB_MSG:
 			jtable = buildTable(tableModel, 0, Integer.class);
 			break;

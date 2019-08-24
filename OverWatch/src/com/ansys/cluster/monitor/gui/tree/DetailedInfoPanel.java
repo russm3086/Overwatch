@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JTree;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -27,7 +28,8 @@ import org.jfree.data.general.PieDataset;
 import org.jfree.data.xy.DefaultXYZDataset;
 import org.jfree.data.xy.XYZDataset;
 
-import com.ansys.cluster.monitor.gui.TableBuilder;
+import com.ansys.cluster.monitor.gui.table.TableBuilder;
+import com.ansys.cluster.monitor.gui.table.TableMouseListener;
 import com.russ.util.OvalBorder;
 import com.russ.util.WrapLayout;
 
@@ -49,6 +51,7 @@ import javax.swing.JLabel;
 public class DetailedInfoPanel extends JPanel {
 
 	protected DetailedInfoProp masterDiProp;
+	protected JTree tree;
 	/**
 	 * 
 	 */
@@ -57,10 +60,11 @@ public class DetailedInfoPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public DetailedInfoPanel(DetailedInfoProp masterDiProp) {
+	public DetailedInfoPanel(DetailedInfoProp masterDiProp, JTree tree) {
 		setMinimumSize(new Dimension(210, 160));
 		setSize(420, 320);
 		this.masterDiProp = masterDiProp;
+		this.tree = tree;
 
 		setBackground(Color.WHITE);
 
@@ -180,8 +184,13 @@ public class DetailedInfoPanel extends JPanel {
 	}
 
 	protected JScrollPane createTable(String tableModleName, Object tableModel) {
+		
 		AbstractTableModel abstractTableModel = (AbstractTableModel) tableModel;
 		JTable table = TableBuilder.buildTable(tableModleName, abstractTableModel);
+
+		int column = table.getRowSorter().getSortKeys().get(0).getColumn();
+		table.addMouseListener(new TableMouseListener(table, column, tree));
+		
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		table.setBackground(Color.WHITE);
 

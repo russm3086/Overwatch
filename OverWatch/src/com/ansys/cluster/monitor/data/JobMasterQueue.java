@@ -34,6 +34,7 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 
 	public JobMasterQueue(String name) {
 		super(name);
+		logger.fine("Creating " + sourceClass + " is visual node " + isVisualNode());
 		setMembersType(SGE_DataConst.clusterTypeQueue);
 	}
 
@@ -80,7 +81,7 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 	}
 
 	public int getTotalJobsCount() {
-		return (getErrorJobsCount() + getActiveJobsCount() + getPendingJobsCount());
+		return (getErrorJobsCount() + getActiveJobsCount() + getPendingJobsCount() + getIdleJobsCount());
 	}
 
 	public SortedMap<String, AnsQueueAbstract> getQueues() {
@@ -122,14 +123,14 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 		jobSumDiProp.addMetric("Error Session count: ", getErrorSessionJobsCount());
 		masterDiProp.addDetailedInfoProp(jobSumDiProp);
 
-		displayActiveJobs(masterDiProp);
-		displayPendingJobs(masterDiProp);
-		displayErrorJobs(masterDiProp);
-		displayIdleJobs(masterDiProp);
+		displayActiveJobs(masterDiProp, findActiveJobs());
+		displayPendingJobs(masterDiProp, findPendingJobs());
+		displayErrorJobs(masterDiProp, findErrorJobs());
+		displayIdleJobs(masterDiProp, findIdleJobs());
 
-		displayActiveSessionJobs(masterDiProp);
-		displayPendingSessionJobs(masterDiProp);
-		displayErrorSessionJobs(masterDiProp);
+		displayActiveSessionJobs(masterDiProp, findActiveSessionJobs());
+		displayPendingSessionJobs(masterDiProp, findPendingSessionJobs());
+		displayErrorSessionJobs(masterDiProp, findErrorSessionJobs());
 
 		return masterDiProp;
 	}
@@ -139,6 +140,24 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 
 		for (Entry<String, JobsQueue> entry : getJobQueues().entrySet()) {
 			map.putAll(entry.getValue().getActiveJobs());
+		}
+		return map;
+	}
+
+	public SortedMap<Integer, Job> findPendingJobs() {
+		SortedMap<Integer, Job> map = new TreeMap<Integer, Job>();
+
+		for (Entry<String, JobsQueue> entry : getJobQueues().entrySet()) {
+			map.putAll(entry.getValue().getPendingJobs());
+		}
+		return map;
+	}
+
+	public SortedMap<Integer, Job> findErrorJobs() {
+		SortedMap<Integer, Job> map = new TreeMap<Integer, Job>();
+
+		for (Entry<String, JobsQueue> entry : getJobQueues().entrySet()) {
+			map.putAll(entry.getValue().getErrorJobs());
 		}
 		return map;
 	}
@@ -161,20 +180,20 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 		return map;
 	}
 
-	public SortedMap<Integer, Job> findErrorSessionJobs() {
-		SortedMap<Integer, Job> map = new TreeMap<Integer, Job>();
-
-		for (Entry<String, JobsQueue> entry : getJobQueues().entrySet()) {
-			map.putAll(entry.getValue().getErrorSessionJobs());
-		}
-		return map;
-	}
-
 	public SortedMap<Integer, Job> findPendingSessionJobs() {
 		SortedMap<Integer, Job> map = new TreeMap<Integer, Job>();
 
 		for (Entry<String, JobsQueue> entry : getJobQueues().entrySet()) {
 			map.putAll(entry.getValue().getPendingSessionJobs());
+		}
+		return map;
+	}
+
+	public SortedMap<Integer, Job> findErrorSessionJobs() {
+		SortedMap<Integer, Job> map = new TreeMap<Integer, Job>();
+
+		for (Entry<String, JobsQueue> entry : getJobQueues().entrySet()) {
+			map.putAll(entry.getValue().getErrorSessionJobs());
 		}
 		return map;
 	}

@@ -12,7 +12,7 @@ import com.ansys.cluster.monitor.data.Host;
 import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.data.state.AnsQueueState;
-import com.ansys.cluster.monitor.gui.TableBuilder;
+import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 
 /**
@@ -369,7 +369,7 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 	}
 
 	public void displayUnavailableVisualHosts(DetailedInfoProp mainDiProp) {
-		tableDisplay(mainDiProp, getUnavailableVisualHosts(), "Unavailable Visual host(s)", TableBuilder.table_Host);
+		displayUnavailableVisualHosts(mainDiProp, getUnavailableVisualHosts());
 	}
 
 	public void displayUnavailableVisualHosts(DetailedInfoProp mainDiProp, SortedMap<String, Host> map) {
@@ -377,7 +377,7 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 	}
 
 	public void displayUnavailableComputeHosts(DetailedInfoProp mainDiProp) {
-		tableDisplay(mainDiProp, getUnavailableComputeHosts(), "Unavailable Compute host(s)", TableBuilder.table_Host);
+		displayUnavailableComputeHosts(mainDiProp, getUnavailableComputeHosts());
 	}
 
 	public void displayUnavailableComputeHosts(DetailedInfoProp mainDiProp, SortedMap<String, Host> map) {
@@ -385,33 +385,62 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 	}
 
 	public void displayPendingJobs(DetailedInfoProp mainDiProp) {
-		tableDisplay(mainDiProp, getPendingJobs(), "Pending Jobs", TableBuilder.table_Job);
+		displayPendingJobs(mainDiProp, getPendingJobs());
+	}
+
+	public void displayPendingJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
+		tableDisplay(mainDiProp, map, "Pending Jobs", TableBuilder.table_Job);
 	}
 
 	public void displayActiveJobs(DetailedInfoProp mainDiProp) {
-		tableDisplay(mainDiProp, getActiveJobs(), "Active Jobs", TableBuilder.table_Job);
+		displayActiveJobs(mainDiProp, getActiveJobs());
+	}
+
+	public void displayActiveJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
+		tableDisplay(mainDiProp, map, "Active Jobs", TableBuilder.table_Job);
 	}
 
 	public void displayErrorJobs(DetailedInfoProp mainDiProp) {
-		tableDisplay(mainDiProp, getErrorJobs(), "Error Jobs", TableBuilder.table_Job);
+		displayErrorJobs(mainDiProp, getErrorJobs());
+	}
+
+	public void displayErrorJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
+		tableDisplay(mainDiProp, map, "Error Jobs", TableBuilder.table_Job);
 	}
 
 	public void displayIdleJobs(DetailedInfoProp mainDiProp) {
-		tableDisplay(mainDiProp, getIdleJobs(), "Idle Jobs", TableBuilder.table_Job);
+		displayIdleJobs(mainDiProp, getIdleJobs());
+	}
+
+	public void displayIdleJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
+		tableDisplay(mainDiProp, map, "Idle Jobs", TableBuilder.table_Job);
 	}
 
 	public void displayActiveSessionJobs(DetailedInfoProp mainDiProp) {
-		tableDisplay(mainDiProp,getActiveSessionJobs(), "Active Sessions", TableBuilder.table_Job);
+		displayActiveSessionJobs(mainDiProp,getActiveSessionJobs());
+	}
+
+	public void displayActiveSessionJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
+		tableDisplay(mainDiProp,map, "Active Sessions", TableBuilder.table_Job);
 	}
 
 	public void displayErrorSessionJobs(DetailedInfoProp mainDiProp) {
-		tableDisplay(mainDiProp, getErrorSessionJobs(), "Error Sessions", TableBuilder.table_Job);
+		displayErrorSessionJobs(mainDiProp, getErrorSessionJobs());
+	}
+
+	public void displayErrorSessionJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
+		tableDisplay(mainDiProp, map, "Error Sessions", TableBuilder.table_Job);
 	}
 
 	public void displayPendingSessionJobs(DetailedInfoProp mainDiProp) {
-		tableDisplay(mainDiProp, getPendingSessionJobs(), "Idle Sessions", TableBuilder.table_Job);
+		displayPendingSessionJobs(mainDiProp, getPendingSessionJobs());
 	}
 
+	public void displayPendingSessionJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
+		tableDisplay(mainDiProp, map, "Idle Sessions", TableBuilder.table_Job);
+	}
+
+	
 	/**
 	 * ******** Map Data
 	 * 

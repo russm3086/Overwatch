@@ -16,7 +16,7 @@ import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.JobInterface;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.JobState;
-import com.ansys.cluster.monitor.gui.TableBuilder;
+import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 
 /**
@@ -98,7 +98,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		allowedList.add("VA_variable");
 		allowedList.add("VA_value");
 
-		return printNodePropList(nodePropList, allowedList, false, 200);
+		return printNodePropList(nodePropList, allowedList, false, 1000);
 	}
 
 	private String printNodePropList(ArrayList<NodeProp> nodePropList, ArrayList<String> allowedList,
@@ -223,7 +223,12 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 	private String getHostList() {
 		StringBuffer sb = new StringBuffer();
-		sb.append("\n");
+		if (getList().size() > 0) {
+			for (Host host : getList()) {
+				sb.append(host);
+				sb.append("\n");
+			}
+		}
 		return sb.toString();
 	}
 
@@ -385,7 +390,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		StringBuffer output = new StringBuffer();
 		output.append(super.getMetaData());
 		output.append("\nDuration: " + getDuration().toHours());
-		output.append("\nJob Id: " + getJobNumber());
+		output.append("\nJob ID: " + getJobNumber());
 		output.append("\nExecute Hosts: " + getHostList());
 		output.append("\nJob Owner: " + getJobOwner());
 		output.append("\nTarget Queue: " + getTargetQueue());

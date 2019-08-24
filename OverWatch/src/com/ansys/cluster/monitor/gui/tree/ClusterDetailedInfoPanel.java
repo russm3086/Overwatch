@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTree;
 
 /**
  * @author rmartine
@@ -26,31 +27,9 @@ public class ClusterDetailedInfoPanel extends DetailedInfoPanel {
 	/**
 	 * @param masterDiProp
 	 */
-	public ClusterDetailedInfoPanel(DetailedInfoProp masterDiProp) {
-		super(masterDiProp);
+	public ClusterDetailedInfoPanel(DetailedInfoProp masterDiProp, JTree tree) {
+		super(masterDiProp, tree);
 		// TODO Auto-generated constructor stub
-
-	}
-
-	protected void createDetailInfoPageOld(DetailedInfoProp masterDiProp) {
-
-		ArrayList<DetailedInfoProp> list = masterDiProp.getDetailedInfoPropList();
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		createTitle(masterDiProp.getTitleMetric(), masterDiProp.getTitleValue());
-
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setLayout(new GridLayout(2, 3, 10, 10));
-
-		for (int i = 0; i < list.size(); i++) {
-
-			DetailedInfoProp diProp = list.get(i);
-
-			if (diProp.getDataType().equalsIgnoreCase(DetailedInfoProp.const_DataTypeBubbleChart)) {
-				add(createPanel(diProp));
-			}
-
-		}
 
 	}
 

@@ -196,6 +196,7 @@ public class QueueFactory {
 		ArrayList<String> list = new ArrayList<String>();
 		list.add("dcv2017");
 		list.add("vnc");
+		list.add("dcv");
 		if (list.contains(node.getQueueName().toLowerCase())) {
 			node.setVisualNode(true);
 		}

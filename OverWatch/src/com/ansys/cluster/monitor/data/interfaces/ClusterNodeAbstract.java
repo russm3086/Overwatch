@@ -15,11 +15,11 @@ import javax.swing.table.AbstractTableModel;
 
 import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
-import com.ansys.cluster.monitor.gui.HostTableModel;
-import com.ansys.cluster.monitor.gui.JobTableModel;
-import com.ansys.cluster.monitor.gui.MessageTableModel;
-import com.ansys.cluster.monitor.gui.StateTableModel;
-import com.ansys.cluster.monitor.gui.TableBuilder;
+import com.ansys.cluster.monitor.gui.table.HostTableModel;
+import com.ansys.cluster.monitor.gui.table.JobTableModel;
+import com.ansys.cluster.monitor.gui.table.MessageTableModel;
+import com.ansys.cluster.monitor.gui.table.StateTableModel;
+import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoFactory;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 
@@ -136,7 +136,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	public String getStateNames() {
 		StringBuffer desc = new StringBuffer();
 		for (Entry<Integer, StateAbstract> sa : store.entrySet()) {
-			desc.append("\t" + sa.getValue().getName());
+			desc.append(sa.getValue().getName() + "\t");
 		}
 		return desc.toString();
 	}

@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.state.JobState;
+import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 
 /**
@@ -66,23 +67,17 @@ public class JobsQueue extends AnsQueueAbstract {
 
 			if (job.hasState(JobState.RunningState)) {
 
-				if (job.hasState(JobState.Idle)) {
+				addActiveJobs(job.getJobNumber(), job);
+			} else if (job.hasState(JobState.Idle)) {
 
-					addIdleJobs(job.getJobNumber(), job);
-				} else {
-
-					addActiveJobs(job.getJobNumber(), job);
-				}
-
-			} else if (job.hasState(JobState.Error)) {
-
-				addErrorJobs(job.getJobNumber(), job);
-
+				addIdleJobs(job.getJobNumber(), job);
 			} else if (job.getQueueName().equalsIgnoreCase(SGE_DataConst.job_PendingQueue)) {
 
 				addPendingJobs(job.getJobNumber(), job);
-			}
+			} else {
 
+				addErrorJobs(job.getJobNumber(), job);
+			}
 		}
 
 		logger.finest("Adding " + job + " to queue " + getQueueName());
@@ -133,10 +128,12 @@ public class JobsQueue extends AnsQueueAbstract {
 		displayPendingJobs(masterDiProp);
 		displayErrorJobs(masterDiProp);
 		displayIdleJobs(masterDiProp);
-		
+		displayUnavailableComputeHosts(masterDiProp);
+
 		displayActiveSessionJobs(masterDiProp);
 		displayPendingSessionJobs(masterDiProp);
 		displayErrorSessionJobs(masterDiProp);
+		displayUnavailableVisualHosts(masterDiProp);
 
 		return masterDiProp;
 	}

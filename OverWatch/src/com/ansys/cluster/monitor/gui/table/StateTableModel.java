@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ansys.cluster.monitor.gui;
+package com.ansys.cluster.monitor.gui.table;
 
 import java.util.ArrayList;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
