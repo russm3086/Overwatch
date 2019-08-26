@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Cluster_Master>
+  <creation_time></creation_time>
+  <time_zone></time_zone>
+  <Clusters>
+    <Cluster name="">
+      <Queues>
+        <Queue name=""></Queue>
+      </Queues>
+      <Hosts>
+        <Host name=""></Host>
+      </Hosts>
+      <Jobs>
+        <Job ID ="">
+          <priority></priority>
+          <name></name>
+          <project></project>
+          <department></department>
+          <group>linuxhpc</group>
+          <owner></owner>
+          <start_time></start_time>
+          <submission_time></submission_time>
+          <submission_command_line></submission_command_line>
+          <queue_name></queue_name>
+          <cores></cores>
+          <sessions></sessions>
+          <hosts>
+            <host>
+              <host_name></host_name>
+              <exclusive></exclusive>
+            </host>
+          </hosts>
+          <resource_usage>
+            <resource>
+              <resource_name>cpu</resource_name>
+              <resource_value></resource_value>
+            </resource>
+            <resource>
+              <resource_name>mem</resource_name>
+              <resource_value></resource_value>
+            </resource>
+            <resource>
+              <resource_name>io</resource_name>
+              <resource_value></resource_value>
+            </resource>
+            <resource>
+              <resource_name>iow</resource_name>
+              <resource_value></resource_value>
+            </resource>
+            <resource>
+              <resource_name>ioops</resource_name>
+              <resource_value></resource_value>
+            </resource>
+            <resource>
+              <resource_name>vmem</resource_name>
+              <resource_value></resource_value>
+            </resource>
+            <resource>
+              <resource_name>maxvmem</resource_name>
+              <resource_value></resource_value>
+            </resource>
+            <resource>
+              <resource_name>memvmm</resource_name>
+              <resource_value></resource_value>
+            </resource>
+            <resource>
+              <resource_name>memrss</resource_name>
+              <resource_value></resource_value>
+            </resource>
+            <resource>
+              <resource_name>mempss</resource_name>
+              <resource_value></resource_value>
+            </resource>
+            <resource>
+              <resource_name>wallclock</resource_name>
+              <resource_value></resource_value>
+            </resource>
+
+          </resource_usage>
+        </Job>
+      </Jobs>
+    </Cluster>
+  </Clusters>
+</Cluster_Master>

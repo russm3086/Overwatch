@@ -43,12 +43,12 @@ public class TableMouseListener implements MouseListener {
 		// TODO Auto-generated method stub
 		if (e.getClickCount() == 2) {
 			int row = table.rowAtPoint(e.getPoint());
-			int column = table.columnAtPoint(e.getPoint());
+			//int column = table.columnAtPoint(e.getPoint());
 
-			int columnIndex = table.convertColumnIndexToModel(column);
-			Object value = table.getValueAt(row, column);
+			//int columnIndex = table.convertColumnIndexToModel(column);
+			Object value = table.getValueAt(row, getIndexSrchColumn());
 
-			search(columnIndex, value);
+			search(getIndexSrchColumn(), value);
 		} else {
 			// do something else
 		}
@@ -79,7 +79,7 @@ public class TableMouseListener implements MouseListener {
 	}
 
 	private void search(int column, Object value) {
-		if (column == getIndexSrchColumn() || getIndexSrchColumn() == SEARCH_ALL_COLUMNS) {
+		//if (column == getIndexSrchColumn() || getIndexSrchColumn() == SEARCH_ALL_COLUMNS) {
 
 			String columnName = table.getColumnName(column);
 			String searchQuery = "(?)" + columnName + ": " + String.valueOf(value);
@@ -95,7 +95,7 @@ public class TableMouseListener implements MouseListener {
 				tree.setSelectionPath(treePath);
 				tree.scrollPathToVisible(treePath);
 			}
-		}
+		//}
 	}
 
 	/**
