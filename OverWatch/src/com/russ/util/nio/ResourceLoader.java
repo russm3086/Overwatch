@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
@@ -36,7 +37,7 @@ public final class ResourceLoader {
 	 * 
 	 */
 
-	public static URL load(String path) throws IOException {
+	public static URL load(String path) {
 		logger.entering(sourceClass, "load", path);
 		logger.finer("Loading " + path);
 		URL input = ResourceLoader.class.getResource(path);
@@ -46,11 +47,13 @@ public final class ResourceLoader {
 			input = ResourceLoader.class.getResource("/" + path);
 
 			if (input == null)
-				throw new IOException("Could not find " + path);
+				logger.finer("Could not find " + path);
+
+		} else {
+			logger.finer("Loaded " + path);
 
 		}
 
-		logger.finer("Loaded " + path);
 		logger.exiting(sourceClass, "load", input);
 		return input;
 	}
@@ -58,12 +61,12 @@ public final class ResourceLoader {
 	public static Path readFile(String filePath) throws IOException, URISyntaxException {
 
 		Path file = Paths.get(filePath);
-		return getFile(file, false);
+		return getFile(file, false, false);
 	}
 
 	public static File readFile(Path filePath) throws IOException, URISyntaxException {
 
-		Path path = getFile(filePath, false);
+		Path path = getFile(filePath, false, false);
 		return path.toFile();
 	}
 
@@ -72,7 +75,7 @@ public final class ResourceLoader {
 
 		if (Files.exists(filePath)) {
 
-			if (Files.isWritable(filePath)) {
+			if (Files.isWritable(filePath) && !Files.isDirectory(filePath)) {
 
 				if (Files.exists(filePath) && !overWrite) {
 					errMsg = "Error with file: " + filePath + " File exist: " + (Files.exists(filePath))
@@ -93,38 +96,52 @@ public final class ResourceLoader {
 
 	}
 
-	public static Path getFile(Path filePath, boolean write) throws IOException, URISyntaxException {
+	public static Path getFile(Path filePath, boolean write, boolean isDirectory, LinkOption... options)
+			throws IOException, URISyntaxException {
 		logger.entering(sourceClass, "load", filePath);
 		logger.finer("Loading " + filePath);
 		Path file = null;
 
-		if (!(Files.exists(filePath))) {
+		if (!Files.isDirectory(filePath, options)) {
 
-			URL newPath = load(filePath.toString());
-			filePath = Paths.get(newPath.toURI());
+			if (!(Files.exists(filePath))) {
 
-		}
+				// Checking local reference
+				URL newPath = load(filePath.toString());
+				if (newPath != null)
+					file = Paths.get(newPath.toURI());
 
-		logger.finer("File " + filePath + " has been found");
-
-		if (write) {
-			if (Files.isReadable(filePath) && Files.isWritable(filePath)) {
+			} else {
 
 				file = filePath;
 			}
 
-		} else if (Files.isReadable(filePath)) {
+			if (file != null) {
+				logger.finer("File " + filePath + " has been found");
 
-			file = filePath;
+				if (write) {
+					if (!(Files.isReadable(file) && Files.isWritable(file))) {
+						file = null;
+					}
+
+				} else if (!Files.isReadable(file)) {
+
+					file = null;
+				}
+			}
 		}
 
-		if (file == null) {
+		if (!write) {
+			if (file == null) {
 
-			throw new IOException(
-					"Error with file: " + filePath + " File exist: " + (Files.exists(filePath) + " File readable: "
-							+ Files.isReadable(filePath) + " File writable: " + Files.isWritable(filePath)));
+				throw new IOException(
+						"Error with file: " + filePath + " File exist: " + (Files.exists(filePath) + " File readable: "
+								+ Files.isReadable(filePath) + " File writable: " + Files.isWritable(filePath)));
+			}
+		} else {
+			if (file == null)
+				file = filePath;
 		}
-
 		logger.finer("Loaded " + filePath);
 		logger.exiting(sourceClass, "load", filePath);
 		return file;

@@ -49,7 +49,6 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		super(nodeProp);
 		setName(nodeProp.getJobName());
 		addState(JobState.parseCode(nodeProp.getJobState()), JobState.Queued);
-		setStatus();
 		setClusterType(SGE_DataConst.clusterTypeJob);
 
 	}
@@ -207,12 +206,6 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		return duration;
 	}
 
-	public void setStatus() {
-		// TODO Auto-generated method stub
-
-		status = "ID: " + getJobNumber() + " Duration: " + getDuration().toHours() + " hours";
-	}
-
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(getJobName());
@@ -235,7 +228,6 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	public void mergeData(NodeProp prop) {
 		this.nodeProp.putAll(prop);
 		resourceCheck();
-		setStatus();
 	}
 
 	@Override
@@ -259,7 +251,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	@Override
 	public void addHost(Host host) {
 		addHostLoad(host.getAvgLoad());
-		if (getJobIdleThreshold() > getHostLoad() || hasState(JobState.Error)) {
+		if (getJobIdleThreshold() > getHostLoad()) {
 			addState(JobState.Idle);
 		} else {
 			if (hasState(JobState.Idle)) {
@@ -426,8 +418,12 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	}
 
 	public void addHostLoad(double hostLoad) {
+		
 		double avg = ((getHostLoad() * hostList.size() + hostLoad)) / (hostList.size() + 1);
-		setHostLoad(avg);
+		
+		double value =Double.valueOf(decimalFormatter.format(avg));
+		
+		setHostLoad(value);
 	}
 
 	@Override
@@ -487,6 +483,18 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 	public void displayJobEnv(DetailedInfoProp masterDiProp) {
 		textAreaDisplay(masterDiProp, printNodePropList(getJobEnv()), "Job Environment");
+	}
+
+	@Override
+	public String getToolTip() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" Duration: ");
+		sb.append(getDuration().toHours());
+		sb.append(" ");
+		sb.append(getUnitRes());
+		sb.append(": ");
+		sb.append(getSlots());
+		return sb.toString();
 	}
 
 }

@@ -78,7 +78,7 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 			logger.finer("Processing tree node: " + node);
 			StateAbstract state = node.getState();
 
-			label.setToolTipText(node.getStatus());
+			label.setToolTipText(node.getToolTip());
 
 			try {
 				switch (node.getClusterType()) {
@@ -116,7 +116,7 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 		if (queue.getMembersType().equalsIgnoreCase(SGE_DataConst.clusterTypeHost)) {
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.WHITE);
-			//panel.setMaximumSize(new Dimension(235, 40));
+			// panel.setMaximumSize(new Dimension(235, 40));
 			panel.setPreferredSize(new Dimension(250, 40));
 
 			JLabel lblNewLabel = new JLabel(queue.getName());
@@ -146,6 +146,7 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 			}
 
 			panel.setToolTipText(resAvailable + " of " + resTotal + " " + queue.getUnitRes() + " are available.");
+			panel.setToolTipText(queue.getToolTip());
 
 			logger.finest("Setting " + queue.getName() + " progress bar min: " + resAvailable + " max: "
 					+ queue.getCoreTotal());
@@ -171,6 +172,7 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 			}
 
 			JLabel lblNewLabel = new JLabel(text);
+			lblNewLabel.setToolTipText(queue.getToolTip());
 			lblNewLabel.setBorder(getBorderSelect());
 			component = lblNewLabel;
 		}
@@ -184,39 +186,39 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 
 		if (state.between(HostState.HighCpuLoad, HostState.SuspendedCalendar)) {
 
-			lblNewLabel.setToolTipText(state.getDescription());
+			lblNewLabel.setToolTipText(state.getDescription() + "-" + node.getToolTip());
 			lblNewLabel.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_YellowLight_Small_Path)));
 		}
 
 		if (state.between(HostState.Unknown, HostState.Error)) {
 
-			lblNewLabel.setToolTipText(HostState.Error.getDescription());
+			lblNewLabel.setToolTipText(HostState.Error.getDescription() + "-" + node.getToolTip());
 			lblNewLabel.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Skull_and_Bones_Small_Path)));
 		}
 
 		if (state.equals(HostState.Normal)) {
-			lblNewLabel.setToolTipText(HostState.Normal.getDescription());
+			lblNewLabel.setToolTipText(HostState.Normal.getDescription() + "-" + node.getToolTip());
 			lblNewLabel.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_GreenLight_Small_Path)));
 
 		}
 
 		if (state.between(HostState.MaxedSlotUsed, HostState.AlarmThreshold)) {
 
-			lblNewLabel.setToolTipText(state.getDescription());
+			lblNewLabel.setToolTipText(state.getDescription() + "-" + node.getToolTip());
 			lblNewLabel.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_RedLight_Small_Path)));
 
 		}
 
 		if (state.between(HostState.DisabledAuto, HostState.DisabledManually)) {
 
-			lblNewLabel.setToolTipText(state.getDescription());
+			lblNewLabel.setToolTipText(state.getDescription() + "-" + node.getToolTip());
 			lblNewLabel.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Skull_and_Bones_Small_Path)));
 
 		}
 
 		if (state.equals(HostState.MaxedSlotReserved)) {
 
-			lblNewLabel.setToolTipText(HostState.MaxedSlotReserved.getDescription());
+			lblNewLabel.setToolTipText(HostState.MaxedSlotReserved.getDescription() + "-" + node.getToolTip());
 
 			Font font = lblNewLabel.getFont();
 			Hashtable<TextAttribute, Object> map = new Hashtable<TextAttribute, Object>();
@@ -244,29 +246,29 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 		if (state.between(JobState.Restarted, JobState.RunningState)) {
 
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_GreenLight_Small_Path)));
-			label.setToolTipText(state.getDescription());
+			label.setToolTipText(state.getDescription() + "-" + node.getToolTip());
 		}
 
 		if (state.between(JobState.Deletion, JobState.SuspendedThreshold)) {
 
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_YellowLight_Small_Path)));
-			label.setToolTipText(state.getDescription());
+			label.setToolTipText(state.getDescription() + "-" + node.getToolTip());
 		}
 
 		if (state.equals(JobState.Zombie)) {
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Zombie_Small_Path)));
-			label.setToolTipText(state.getDescription());
+			label.setToolTipText(state.getDescription() + "-" + node.getToolTip());
 		}
 
 		if (state.equals(JobState.Idle)) {
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_BlueLight_Small_Path)));
-			label.setToolTipText(state.getDescription());
+			label.setToolTipText(state.getDescription() + "-" + node.getToolTip());
 		}
 
-		if (state.between(JobState.UnknownQueue, JobState.Unknown)) {
+		if (state.between(JobState.SuspendedThreshold, JobState.Unknown)) {
 
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Skull_and_Bones_Small_Path)));
-			label.setToolTipText(state.getDescription());
+			label.setToolTipText(state.getDescription() + "-" + node.getToolTip());
 		}
 
 		label.setText(node.getNodeProp().getJobOwner() + " - " + node.getNodeProp().getJobNumber());

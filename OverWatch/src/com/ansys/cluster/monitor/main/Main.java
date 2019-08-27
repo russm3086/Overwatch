@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+import org.apache.commons.configuration2.ex.ConfigurationException;
+
 import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.data.factory.Exporter;
 import com.ansys.cluster.monitor.gui.Console;
@@ -142,7 +144,7 @@ public class Main {
 
 	}
 
-	public static SGE_MonitorProp getSystemSettings(SGE_MonitorProp mainProps, String token) throws URISyntaxException {
+	public static SGE_MonitorProp getSystemSettings(SGE_MonitorProp mainProps, String token) throws URISyntaxException, ConfigurationException {
 
 		try {
 
@@ -163,17 +165,17 @@ public class Main {
 	}
 
 	public static SGE_MonitorProp loadDefaultProps(String propsFilePath, String minimalVersion, String propComments,
-			String token, SystemSettings systemSettings) throws IOException, URISyntaxException {
+			String token, SystemSettings systemSettings) throws IOException, URISyntaxException, ConfigurationException {
 		logger.entering(sourceClass, "loadDefaultProps");
 
 		logger.fine("Loading system settings");
-		SGE_MonitorProp mainProps = systemSettings.loadDefaultProps(new SGE_MonitorProp(), propsFilePath);
+		SGE_MonitorProp mainProps = (SGE_MonitorProp) systemSettings.loadDefaultProps(new SGE_MonitorProp(), propsFilePath);
 
 		if (!systemSettings.getMainPropertiesFileExist()) {
 
 			logger.fine("Cannot load settings, using default settings.");
 			logger.fine("Saving default settings to " + propsFilePath);
-			systemSettings.savePropertyFile(mainProps, propsFilePath, propComments);
+			systemSettings.savePropertyFile(mainProps, propsFilePath);
 
 		} else {
 
@@ -185,7 +187,7 @@ public class Main {
 
 				logger.fine("Version: " + mainProps.getMonitorVersion() + " is not compatible, will upgrade.");
 				mainProps = new SGE_MonitorProp();
-				systemSettings.savePropertyFile(mainProps, propsFilePath, propComments);
+				systemSettings.savePropertyFile(mainProps, propsFilePath);
 			}
 		}
 
@@ -194,15 +196,15 @@ public class Main {
 		return mainProps;
 	}
 
-	public static void saveSettings() throws IOException, URISyntaxException {
+	public static void saveSettings() throws IOException, URISyntaxException, ConfigurationException {
 
 		systemSettings.savePropertyFile(propsFilePath, propComments);
 
 	}
 
-	public static void saveSettings(SGE_MonitorProp mainProps) throws IOException, URISyntaxException {
+	public static void saveSettings(SGE_MonitorProp mainProps) throws IOException, URISyntaxException, ConfigurationException {
 
-		systemSettings.savePropertyFile(mainProps, propsFilePath, propComments);
+		systemSettings.savePropertyFile(mainProps, propsFilePath);
 
 	}
 

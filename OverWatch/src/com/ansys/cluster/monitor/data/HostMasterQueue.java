@@ -41,13 +41,13 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 	}
 
 	public void processQueues() {
-		for(Entry<String, HostQueue> entry : hostQueue.entrySet()) {	
-			 processQueue(entry.getValue());
+		for (Entry<String, HostQueue> entry : hostQueue.entrySet()) {
+			processQueue(entry.getValue());
 		}
 	}
-	
+
 	public void processQueue(HostQueue queue) {
-		
+
 		if (queue.isVisualNode()) {
 
 			addAvailableVisualHostsCount(queue.getAvailableVisualHostsSize());
@@ -61,7 +61,7 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 		calculateMetrics(queue);
 
 	}
-	
+
 	public SortedMap<String, HostQueue> getHostQueues() {
 		return hostQueue;
 	}
@@ -170,13 +170,15 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 
 	public void calculateMetrics(HostQueue queue) {
 		for (Entry<String, Host> entry : queue.getAllmaps().entrySet()) {
+			entry.getValue().processActiveListJob();
 			addResources(entry.getValue());
 		}
+		queue.processActiveListJob();
 	}
 
 	public SortedMap<String, Host> findUnavailableVisualHosts() {
 		SortedMap<String, Host> map = new TreeMap<String, Host>();
-		
+
 		for (Entry<String, HostQueue> entry : getHostQueues().entrySet()) {
 			map.putAll(entry.getValue().getUnavailableVisualHosts());
 		}
@@ -185,7 +187,7 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 
 	public SortedMap<String, Host> findUnavailableComputeHosts() {
 		SortedMap<String, Host> map = new TreeMap<String, Host>();
-		
+
 		for (Entry<String, HostQueue> entry : getHostQueues().entrySet()) {
 			map.putAll(entry.getValue().getUnavailableComputeHosts());
 		}
@@ -194,7 +196,7 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 
 	public SortedMap<String, Host> findAvailableVisualHosts() {
 		SortedMap<String, Host> map = new TreeMap<String, Host>();
-		
+
 		for (Entry<String, HostQueue> entry : getHostQueues().entrySet()) {
 			map.putAll(entry.getValue().getAvailableVisualHosts());
 		}
@@ -203,7 +205,7 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 
 	public SortedMap<String, Host> findAvailableComputeHosts() {
 		SortedMap<String, Host> map = new TreeMap<String, Host>();
-		
+
 		for (Entry<String, HostQueue> entry : getHostQueues().entrySet()) {
 			map.putAll(entry.getValue().getAvailableComputeHosts());
 		}
@@ -228,9 +230,9 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 		DetailedInfoProp sessionDiProp = new DetailedInfoProp();
 		sessionDiProp.setPanelName(SGE_DataConst.unitResSession);
 		sessionDiProp.addMetric("Available: ", getSessionAvailable());
+		sessionDiProp.addMetric("Unavailable: ", getSessionUnavailable());
 		sessionDiProp.addMetric("Total: ", getSessionTotal());
 		sessionDiProp.addMetric("Used: ", getSessionUsed());
-		sessionDiProp.addMetric("Unavailable: ", getSessionUnavailable());
 		masterDiProp.addDetailedInfoProp(sessionDiProp);
 
 		DetailedInfoProp memoryDiProp = new DetailedInfoProp();
@@ -250,8 +252,7 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 
 		displayUnavailableVisualHosts(masterDiProp, findUnavailableVisualHosts());
 		displayUnavailableComputeHosts(masterDiProp, findUnavailableComputeHosts());
-		
-		
+
 		return masterDiProp;
 	}
 

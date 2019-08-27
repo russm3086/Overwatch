@@ -187,8 +187,8 @@ public class ClusterFactory {
 
 				if (host != null) {
 					logger.finer("Added job id: " + jobId + " to " + hostName);
-					host.addJob(job);
 					job.addHost(host);
+					host.addJob(job);
 
 				}
 			}

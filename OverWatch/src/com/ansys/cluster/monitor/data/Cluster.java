@@ -59,22 +59,6 @@ public class Cluster extends AnsQueueAbstract {
 		this.name = name;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.ansys.cluster.monitor.data.ClusterNode#status()
-	 */
-	@Override
-	public String getStatus() {
-		// TODO Auto-generated method stub
-		StringBuilder sb = new StringBuilder();
-		sb.append("Cluster: ");
-		sb.append(getName());
-		sb.append("Available Cores:\n");
-		sb.append("Available Sessions:\n");
-		return sb.toString();
-	}
-
 	public String toString() {
 		return name;
 	}
@@ -196,8 +180,8 @@ public class Cluster extends AnsQueueAbstract {
 		SortedMap<Integer, Job> mapActiveJob = getJobMasterQueue().findActiveJobs();
 		SortedMap<Integer, Job> mapIdleJob = getJobMasterQueue().findIdleJobs();
 
-		generateSeries(mapActiveJob, jobDiProp, "Active", new Color(0, 153, 0));
-		generateSeries(mapIdleJob, jobDiProp, "Idle", Color.BLUE);
+		generateSeries(mapActiveJob, jobDiProp, "Active", new Color(0, 153, 0, 100));
+		generateSeries(mapIdleJob, jobDiProp, "Idle", new Color(0, 0, 255, 130));
 
 		jobDiProp.setDataTypeBubbleChart();
 		jobDiProp.get_xAxisLabel("Host Load");
@@ -236,6 +220,21 @@ public class Cluster extends AnsQueueAbstract {
 	public int size() {
 		int size = getJobMasterQueue().size() + getHostMasterQueue().size();
 		return size;
+	}
+
+	@Override
+	public String getToolTip() {
+		// TODO Auto-generated method stub
+		StringBuilder sb = new StringBuilder();
+		sb.append("Cluster: ");
+		sb.append(getName());
+		sb.append(" ");
+		sb.append("Available Cores:");
+		sb.append(getHostMasterQueue().getCoreAvailable());
+		sb.append("Available Sessions:");
+		sb.append(" ");
+		sb.append(getHostMasterQueue().getCoreAvailable());
+		return sb.toString();
 	}
 
 }

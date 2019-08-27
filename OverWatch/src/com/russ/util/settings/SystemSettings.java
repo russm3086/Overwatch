@@ -5,6 +5,9 @@
 */
 package com.russ.util.settings;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,6 +19,12 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+
+import org.apache.commons.configuration2.CombinedConfiguration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.PropertiesConfigurationLayout;
+import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.configuration2.tree.OverrideCombiner;
 
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 import com.ansys.cluster.monitor.settings.SGE_MonitorPropConst;
@@ -32,7 +41,7 @@ import com.russ.util.nio.ResourceLoader;
 public class SystemSettings {
 	private String sourceClass = this.getClass().getName();
 	private final Logger logger = Logger.getLogger(sourceClass);
-	private Properties mainProps = null;
+	private SGE_MonitorProp mainProps = null;
 	private Properties logProps = null;
 	private String logPropsFilePath = null;
 	private boolean mainPropertiesFileExist = false;
@@ -73,10 +82,11 @@ public class SystemSettings {
 	 * @param propsFilePath The {@code String} file path for system
 	 *                      {@link java.util.Properties} file.
 	 * 
-	 * @throws IOException        if the file cannot be located or accessed
+	 * @throws IOException            if the file cannot be located or accessed
 	 * @throws URISyntaxException
+	 * @throws ConfigurationException
 	 */
-	public SystemSettings(String propsFilePath) throws IOException, URISyntaxException {
+	public SystemSettings(String propsFilePath) throws IOException, URISyntaxException, ConfigurationException {
 		logger.entering(sourceClass, "MainSettings", propsFilePath);
 
 		loadProps(propsFilePath);
@@ -89,7 +99,7 @@ public class SystemSettings {
 	 * 
 	 * @return {@link java.util.Properties}
 	 */
-	public Properties getMainProps() {
+	public SGE_MonitorProp getMainProps() {
 
 		return mainProps;
 	}
@@ -102,7 +112,7 @@ public class SystemSettings {
 	 *                 {@link java.util.Properties}
 	 * 
 	 */
-	public void setMainProp(Properties mainProps) {
+	public void setMainProp(SGE_MonitorProp mainProps) {
 
 		this.mainProps = mainProps;
 	}
@@ -127,15 +137,27 @@ public class SystemSettings {
 		this.logProps = logProps;
 	}
 
-	public SGE_MonitorProp loadDefaultProps(SGE_MonitorProp defaultProps, String filePath) {
+	public PropertiesConfiguration loadDefaultProps(SGE_MonitorProp defaultProps, String filePath)
+			throws ConfigurationException {
 
-		Properties props = loadDefaultProps(filePath, SGE_MonitorPropConst.ansysVersion);
+		SGE_MonitorProp props = loadDefaultProps(filePath, SGE_MonitorPropConst.ansysVersion);
 
-		defaultProps.putAll(props);
+		if (props != null) {
 
-		mainProps = defaultProps;
+			CombinedConfiguration combined = new CombinedConfiguration();
+			combined.setNodeCombiner(new OverrideCombiner());
+			combined.addConfiguration(props);
+			combined.addConfiguration(defaultProps);
 
-		return (SGE_MonitorProp) mainProps;
+			SGE_MonitorProp finalFile = new SGE_MonitorProp(combined);
+	
+			mainProps = finalFile;
+
+		} else {
+			mainProps = defaultProps;
+		}
+
+		return mainProps;
 	}
 
 	/**
@@ -143,19 +165,20 @@ public class SystemSettings {
 	 * @param defaultProps
 	 * @param filePath
 	 * @return
+	 * @throws ConfigurationException
 	 */
-	public Properties loadDefaultProps(String filePath, String version) {
+	public SGE_MonitorProp loadDefaultProps(String filePath, String version) throws ConfigurationException {
 		logger.entering(sourceClass, "loadDefaultProps");
 
-		Properties props = new Properties();
+		SGE_MonitorProp props = null;
 
 		try {
-			
+
 			props = loadProps(filePath);
 			logger.fine("Loaded " + version + " version");
-			setVersion(props.getProperty(version, "0"));
+			setVersion(props.getString(version, "0"));
 			mainPropertiesFileExist = true;
-			
+
 		} catch (IOException | URISyntaxException e) {
 
 			logger.log(Level.WARNING, "Error loading settings file: " + filePath, e);
@@ -174,10 +197,11 @@ public class SystemSettings {
 	 * 
 	 * @return {@link java.util.Properties}
 	 * 
-	 * @throws IOException        if the file cannot be located or accessed
+	 * @throws IOException            if the file cannot be located or accessed
 	 * @throws URISyntaxException
+	 * @throws ConfigurationException
 	 */
-	public Properties loadProps(String filePath) throws IOException, URISyntaxException {
+	public SGE_MonitorProp loadProps(String filePath) throws IOException, URISyntaxException, ConfigurationException {
 		logger.entering(sourceClass, "loadProps");
 
 		mainProps = loadPropertyfile(filePath);
@@ -188,55 +212,36 @@ public class SystemSettings {
 	}
 
 	/**
-	 * Loads the log {@code Properties} with the given {@code String} file path.
-	 * 
-	 * @param filePath {@code String} file path
-	 * 
-	 * @return {@link java.util.Properties}
-	 * 
-	 * @throws IOException        if the file cannot be located or accessed
-	 * @throws URISyntaxException
-	 */
-	public Properties loadLogProperty(String filePath) throws IOException, URISyntaxException {
-		logger.entering(filePath, "retrieveLogProperty");
-
-		logProps = loadPropertyfile(filePath);
-
-		logger.exiting(sourceClass, "retrieveLogProperty", logProps);
-
-		return logProps;
-	}
-
-	/**
 	 * Loads the {@code Properties} with the given {@code String} file path.
 	 * 
 	 * @param filePath {@code String} file path
 	 * 
 	 * @return {@link java.util.Properties}
 	 * 
-	 * @throws IOException        if the file cannot be located or accessed
+	 * @throws IOException            if the file cannot be located or accessed
 	 * @throws URISyntaxException
+	 * @throws ConfigurationException
 	 */
-	public Properties loadPropertyfile(String filePath) throws IOException, URISyntaxException {
+	public SGE_MonitorProp loadPropertyfile(String filePath)
+			throws IOException, URISyntaxException, ConfigurationException {
 		logger.entering(filePath.toString(), "retrievePropertyfile", filePath);
 
-		Properties props = new Properties();
-
-		InputStream inStream = retrieveFileStream(filePath);
+		BufferedReader reader = retrieveReader(filePath);
+		SGE_MonitorProp props = new SGE_MonitorProp(reader);
 
 		logger.fine("Loading properties file " + filePath.toString());
-		props.load(inStream);
-		inStream.close();
+		reader.close();
 
 		logger.exiting(filePath.toString(), "retrievePropertyfile", props);
 		return props;
 	}
 
-	public void savePropertyFile(String filePath, String comments) throws IOException, URISyntaxException {
+	public void savePropertyFile(String filePath, String comments)
+			throws IOException, URISyntaxException, ConfigurationException {
 		logger.entering(sourceClass, "savePropertyFile");
 		if (getMainProps() != null) {
 
-			savePropertyFile(getMainProps(), filePath, comments);
+			savePropertyFile(getMainProps(), filePath);
 
 		} else {
 
@@ -252,13 +257,15 @@ public class SystemSettings {
 	 * @param comments
 	 * @throws IOException
 	 * @throws URISyntaxException
+	 * @throws ConfigurationException
 	 */
-	public void savePropertyFile(Properties props, String filePath, String comments)
-			throws IOException, URISyntaxException {
+	public void savePropertyFile(SGE_MonitorProp props, String filePath)
+			throws IOException, ConfigurationException, URISyntaxException {
 		logger.entering(sourceClass, "savePropertyFile");
 
-		FileWriter writer = retrieveFileWriter(filePath);
-		props.store(writer, comments);
+		BufferedWriter writer = retrieveFileWriter(filePath);
+		PropertiesConfigurationLayout layout = props.getLayout();
+		layout.save(props, writer);
 		logger.fine("Saved " + filePath);
 		writer.flush();
 		writer.close();
@@ -290,15 +297,48 @@ public class SystemSettings {
 	}
 
 	/**
+	 * Returns the {@code java.io.BufferedReader} with the given
+	 * {@link java.lang.String} file path.
+	 * 
+	 * 
+	 * @param filePath
+	 * @return
+	 * @throws URISyntaxException
+	 * @throws IOException
+	 */
+	public BufferedReader retrieveReader(String strFilePath) throws IOException, URISyntaxException {
+		Path filePath = Paths.get(strFilePath);
+		return retrieveReader(filePath);
+	}
+
+	/**
+	 * Returns the {@code java.io.BufferedReader} with the given
+	 * {@link java.nio.file.Path} file path.
+	 * 
+	 * 
+	 * @param filePath
+	 * @return
+	 * @throws URISyntaxException
+	 * @throws IOException
+	 */
+	public BufferedReader retrieveReader(Path filePath) throws IOException, URISyntaxException {
+
+		Path path = ResourceLoader.getFile(filePath, false, false);
+		BufferedReader reader = new BufferedReader(new FileReader(path.toString()));
+		return reader;
+	}
+
+	/**
 	 * 
 	 * @param strFilePath
 	 * @return
 	 * @throws IOException
 	 * @throws URISyntaxException
 	 */
-	public FileWriter retrieveFileWriter(String strFilePath) throws IOException, URISyntaxException {
+	public BufferedWriter retrieveFileWriter(String strFilePath) throws IOException, URISyntaxException {
 		Path filePath = Paths.get(strFilePath);
-		return retrieveFileWriter(filePath);
+		Path path = ResourceLoader.getFile(filePath, true, false);
+		return retrieveFileWriter(path);
 	}
 
 	/**
@@ -308,9 +348,9 @@ public class SystemSettings {
 	 * @throws IOException
 	 * @throws URISyntaxException
 	 */
-	public FileWriter retrieveFileWriter(Path path) throws IOException, URISyntaxException {
-		path = ResourceLoader.writeFile(path, true);
-		FileWriter writer = new FileWriter(path.toString());
+	public BufferedWriter retrieveFileWriter(Path path) throws IOException, URISyntaxException {
+		path = ResourceLoader.getFile(path, true, false);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(path.toString()));
 		return writer;
 	}
 
@@ -347,7 +387,7 @@ public class SystemSettings {
 		logger.entering(sourceClass, "retrievePropertyfile", filePath);
 		InputStream inStream;
 
-		filePath = ResourceLoader.getFile(filePath, true);
+		filePath = ResourceLoader.getFile(filePath, true, false);
 		inStream = Files.newInputStream(filePath);
 
 		return inStream;
@@ -413,7 +453,7 @@ public class SystemSettings {
 	 * @param defaultValue
 	 * @return
 	 */
-	
+
 	public String nullChecker(String value, String defaultValue) {
 
 		if (value == null || value.equals("")) {

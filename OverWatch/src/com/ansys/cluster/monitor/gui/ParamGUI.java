@@ -11,6 +11,8 @@ package com.ansys.cluster.monitor.gui;
 
 import javax.swing.*;
 
+import org.apache.commons.configuration2.ex.ConfigurationException;
+
 import com.ansys.cluster.monitor.main.Main;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 
@@ -343,6 +345,7 @@ public class ParamGUI extends JDialog {
 
 	/**
 	 * Populates the properties file with data from all textfields in the UI.
+	 * @throws ConfigurationException 
 	 */
 	private void saveData() {
 
@@ -351,7 +354,7 @@ public class ParamGUI extends JDialog {
 
 		try {
 			Main.saveSettings(mainProps);
-		} catch (IOException | URISyntaxException e) {
+		} catch (IOException | URISyntaxException | ConfigurationException e) {
 			// TODO Auto-generated catch block
 			logger.log(Level.WARNING, "Cannot save settings", e);
 		}

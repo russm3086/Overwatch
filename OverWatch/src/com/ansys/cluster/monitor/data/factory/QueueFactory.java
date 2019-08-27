@@ -71,7 +71,7 @@ public class QueueFactory {
 				node.getNodeProp().setQueueName(node.getNodeProp().getHostQueueName());
 			}
 		}
-		logger.finest(node + ": Setting Queue name to " + node.getNodeProp().getQueueName());
+		logger.fine(node + ": Setting Queue name to " + node.getNodeProp().getQueueName());
 	}
 
 	private static void jobQueue(Job job) {

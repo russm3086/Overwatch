@@ -82,12 +82,6 @@ public class JobsQueue extends AnsQueueAbstract {
 		logger.finest("Adding " + job + " to queue " + getQueueName());
 	}
 
-	public String getStatus() {
-
-		String status = "# of active jobs: " + getActiveJobsSize();
-		return status;
-	}
-
 	public int size() {
 		return getAllmaps().size();
 	}
@@ -101,18 +95,14 @@ public class JobsQueue extends AnsQueueAbstract {
 
 	public SortedMap<Integer, Job> getAllmaps() {
 		SortedMap<Integer, Job> map = new TreeMap<Integer, Job>();
-		if (!isVisualNode()) {
 
-			map.putAll(getActiveJobs());
-			map.putAll(getPendingJobs());
-			map.putAll(getIdleJobs());
-			map.putAll(getErrorJobs());
-		} else {
-
-			map.putAll(getActiveSessionJobs());
-			map.putAll(getPendingSessionJobs());
-			map.putAll(getErrorSessionJobs());
-		}
+		map.putAll(getActiveJobs());
+		map.putAll(getPendingJobs());
+		map.putAll(getIdleJobs());
+		map.putAll(getErrorJobs());
+		map.putAll(getActiveSessionJobs());
+		map.putAll(getPendingSessionJobs());
+		map.putAll(getErrorSessionJobs());
 
 		return map;
 	}
@@ -135,6 +125,25 @@ public class JobsQueue extends AnsQueueAbstract {
 		displayUnavailableVisualHosts(masterDiProp);
 
 		return masterDiProp;
+	}
+
+	@Override
+	public String getToolTip() {
+		// TODO Auto-generated method stub
+		StringBuilder sb = new StringBuilder(" Active Job(s): ");
+		sb.append(getActiveJobsSize());
+		sb.append(" Active Session(s): ");
+		sb.append(getActiveSessionJobsSize());
+		if(getPendingJobsSize()>0) {
+			sb.append(" Pending Job(s): ");
+			sb.append(getPendingJobsSize());
+		}
+		
+		if(getPendingSessionJobsSize()>0) {
+			sb.append(" Pending Session(s): ");
+			sb.append(getPendingSessionJobsSize());
+		}
+		return sb.toString();
 	}
 
 }

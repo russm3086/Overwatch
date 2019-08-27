@@ -22,5 +22,6 @@ public interface ClusterNodeInterface extends Serializable {
 	public String getName();
 	public void addState(StateAbstract state);
 	public String getMetaData();
+	public String getToolTip();
 
 }

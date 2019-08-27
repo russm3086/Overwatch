@@ -6,6 +6,7 @@
 package com.ansys.cluster.monitor.data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -15,6 +16,7 @@ import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.HostInterface;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.HostState;
+import com.ansys.cluster.monitor.data.state.JobState;
 import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 
@@ -27,7 +29,9 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 	private static final long serialVersionUID = -737300777228526524L;
 	private final String sourceClass = this.getClass().getName();
 	private final transient Logger logger = Logger.getLogger(sourceClass);
-	private ArrayList<Job> listJob = new ArrayList<Job>();
+	private ArrayList<Job> listActiveJob = new ArrayList<Job>();
+	private ArrayList<Job> listIdleJob = new ArrayList<Job>();
+	private ArrayList<Job> listErrorJob = new ArrayList<Job>();
 
 	/**
 	 * 
@@ -148,16 +152,6 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 		return nodeProp.getNp_load_avg();
 	}
 
-	@Override
-	public void setStatus() {
-		// TODO Auto-generated method stub
-		StringBuilder sb = new StringBuilder();
-		sb.append(getName());
-
-		status = sb.toString();
-
-	}
-
 	public String getFormattedLoad() {
 		return decimalFormatter.format(getNp_load_avg());
 	}
@@ -169,25 +163,93 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 	private String getJobs() {
 		StringBuffer sb = new StringBuffer();
 
-		for (Job job : listJob) {
-			sb.append(job.getStatus() + "\n");
+		for (Job job : getListJobs()) {
+			sb.append(job.getJobName());
+			sb.append("-");
+			sb.append(job.getIdentifier());
 		}
 
 		return sb.toString();
 	}
 
-	public void displayJobs(DetailedInfoProp masterDiProp) {
-		tableDisplay(masterDiProp, getListJob(), "Active Jobs", TableBuilder.table_Job);
+	public void displayActiveJobs(DetailedInfoProp masterDiProp) {
+		tableDisplay(masterDiProp, getListActiveJob(), "Active Jobs", TableBuilder.table_Job);
 	}
 
-	@Override
-	public ArrayList<Job> getListJob() {
-		return listJob;
+	public void displayErrorJobs(DetailedInfoProp masterDiProp) {
+		tableDisplay(masterDiProp, getListErrorJob(), "Error Jobs", TableBuilder.table_Job);
+	}
+
+	public void displayIdleJobs(DetailedInfoProp masterDiProp) {
+		tableDisplay(masterDiProp, getListIdleJob(), "Idle Jobs", TableBuilder.table_Job);
+	}
+
+	public ArrayList<Job> getListJobs() {
+		ArrayList<Job> list = new ArrayList<Job>();
+		list.addAll(listActiveJob);
+		list.addAll(listIdleJob);
+		list.addAll(listErrorJob);
+
+		return list;
+	}
+
+	/**
+	 * @return the listActiveJob
+	 */
+	public ArrayList<Job> getListActiveJob() {
+		return listActiveJob;
+	}
+
+	/**
+	 * @param listActiveJob the listActiveJob to set
+	 */
+	public void setListActiveJob(ArrayList<Job> listActiveJob) {
+		this.listActiveJob = listActiveJob;
+	}
+
+	public void addListActiveJob(Job job) {
+		listActiveJob.add(job);
+	}
+
+	/**
+	 * @return the listIdleJob
+	 */
+	public ArrayList<Job> getListIdleJob() {
+		return listIdleJob;
+	}
+
+	/**
+	 * @param listIdleJob the listIdleJob to set
+	 */
+	public void setListIdleJob(ArrayList<Job> listIdleJob) {
+		this.listIdleJob = listIdleJob;
+	}
+
+	public void addListIdleJob(Job job) {
+		listIdleJob.add(job);
+	}
+
+	/**
+	 * @return the listErrorJob
+	 */
+	public ArrayList<Job> getListErrorJob() {
+		return listErrorJob;
+	}
+
+	/**
+	 * @param listErrorJob the listErrorJob to set
+	 */
+	public void setListErrorJob(ArrayList<Job> listErrorJob) {
+		this.listErrorJob = listErrorJob;
+	}
+
+	public void addListErrorJob(Job job) {
+		listErrorJob.add(job);
 	}
 
 	@Override
 	public int JobCount() {
-		return getListJob().size();
+		return getListJobs().size();
 	}
 
 	@Override
@@ -198,12 +260,29 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 			addState(HostState.Exclusive);
 			setAvailabilty();
 		}
-		listJob.add(job);
+
+		if (job.getState().equals(JobState.Error)) {
+
+			addListErrorJob(job);
+		} else {
+
+			addListActiveJob(job);
+		}
+
 	}
 
-	@Override
-	public void setListJob(ArrayList<Job> listJob) {
-		this.listJob = listJob;
+	public void processActiveListJob() {
+
+		Iterator<Job> it = getListActiveJob().iterator();
+
+		while (it.hasNext()) {
+
+			Job job = it.next();
+			if (job.getState().equals(JobState.Idle)) {
+				addListIdleJob(job);
+				it.remove();
+			}
+		}
 	}
 
 	@Override
@@ -327,9 +406,23 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 		masterDiProp.addDetailedInfoProp(memDiProp);
 
 		displayStateDescriptions(masterDiProp);
-		displayJobs(masterDiProp);
+		displayActiveJobs(masterDiProp);
+		displayIdleJobs(masterDiProp);
+		displayErrorJobs(masterDiProp);
 
 		return masterDiProp;
+	}
+
+	@Override
+	public String getToolTip() {
+		// TODO Auto-generated method stub
+		StringBuilder sb = new StringBuilder();
+		sb.append(" Available " + getUnitRes() + ": ");
+		sb.append(" ");
+		sb.append(getSlotTotal() - getSlotUnavailable());
+		sb.append(" Available Memory: ");
+		sb.append(decimalFormatter.format(getMemFreeNum()));
+		return sb.toString();
 	}
 
 }

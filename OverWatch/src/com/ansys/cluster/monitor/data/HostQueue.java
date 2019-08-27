@@ -4,6 +4,8 @@
 package com.ansys.cluster.monitor.data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -12,6 +14,7 @@ import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.HostState;
+import com.ansys.cluster.monitor.data.state.JobState;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 
 /**
@@ -69,7 +72,7 @@ public class HostQueue extends AnsQueueAbstract {
 			addMemory(host);
 
 			logger.finer("Processing for job list on host: " + host.getName());
-			addActiveJobs(host.getListJob());
+			addActiveJobs(host.getListActiveJob());
 		}
 
 		logger.exiting(sourceClass, "addHost");
@@ -120,12 +123,22 @@ public class HostQueue extends AnsQueueAbstract {
 		} else {
 			addCores(host);
 		}
-	
+
 		addMemory(host);
 	}
 
-	
-	
+	public void processActiveListJob() {
+		for (Iterator<Map.Entry<Integer, Job>> it = getActiveJobs().entrySet().iterator(); it.hasNext();) {
+
+			Map.Entry<Integer, Job> entry = it.next();
+			if (entry.getValue().getState().equals(JobState.Idle)) {
+				addIdleJobs(entry.getKey(), entry.getValue());
+				it.remove();
+
+			}
+		}
+	}
+
 	public void addCores(Host host) {
 
 		if (host.isNodeAvailable()) {
@@ -152,7 +165,7 @@ public class HostQueue extends AnsQueueAbstract {
 
 	public DetailedInfoProp getDetailedInfoProp() {
 		DetailedInfoProp mainDiProp = new DetailedInfoProp();
-		mainDiProp.setTitleMetric("Queue Name:");
+		mainDiProp.setTitleMetric("Queue Name: ");
 		mainDiProp.setTitleValue(getName());
 
 		DetailedInfoProp resourceDiProp = new DetailedInfoProp();
@@ -171,6 +184,7 @@ public class HostQueue extends AnsQueueAbstract {
 			resourceDiProp.addMetric("Reserved: ", getCoreReserved());
 		}
 
+		resourceDiProp.addMetric("Load: ", decimalFormatter.format(getNp_Load()));
 		mainDiProp.addDetailedInfoProp(resourceDiProp);
 
 		DetailedInfoProp memDiProp = new DetailedInfoProp();
@@ -181,16 +195,11 @@ public class HostQueue extends AnsQueueAbstract {
 
 		displayPendingJobs(mainDiProp);
 		displayActiveJobs(mainDiProp);
+		displayIdleJobs(mainDiProp);
 		displayUnavailableVisualHosts(mainDiProp);
 		displayUnavailableComputeHosts(mainDiProp);
 
 		return mainDiProp;
-	}
-
-	public String getStatus() {
-
-		String status = "";
-		return status;
 	}
 
 	public SortedMap<String, Host> getHosts() {
@@ -236,6 +245,30 @@ public class HostQueue extends AnsQueueAbstract {
 		}
 
 		return map;
+	}
+
+	@Override
+	public String getToolTip() {
+		// TODO Auto-generated method stub
+		StringBuilder sb = new StringBuilder();
+
+		if (isVisualNode()) {
+
+			sb.append(" Available Session(s): ");
+			sb.append(getSessionAvailable());
+			sb.append(" Available Nodes: ");
+			sb.append(getUnavailableVisualHostsSize());
+		} else {
+
+			sb.append(" Available Core(s): ");
+			sb.append(getCoreAvailable());
+			sb.append(" Available Nodes: ");
+			sb.append(getAvailableComputeHostsSize());
+		}
+
+		sb.append(" Available Memory: ");
+		sb.append(decimalFormatter.format(getAvailableMem()));
+		return sb.toString();
 	}
 
 }

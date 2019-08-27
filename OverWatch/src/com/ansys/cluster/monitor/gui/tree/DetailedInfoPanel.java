@@ -17,6 +17,7 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.labels.BubbleXYItemLabelGenerator;
 import org.jfree.chart.labels.PieSectionLabelGenerator;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.labels.StandardXYZToolTipGenerator;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
@@ -43,7 +44,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.text.DecimalFormat;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -175,6 +175,7 @@ public class DetailedInfoPanel extends JPanel {
 		JTextArea textArea = new JTextArea(content);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
+		textArea.setEditable(false);
 
 		JScrollPane areaScrollPane = new JScrollPane(textArea);
 		areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -184,13 +185,13 @@ public class DetailedInfoPanel extends JPanel {
 	}
 
 	protected JScrollPane createTable(String tableModleName, Object tableModel) {
-		
+
 		AbstractTableModel abstractTableModel = (AbstractTableModel) tableModel;
 		JTable table = TableBuilder.buildTable(tableModleName, abstractTableModel);
 
 		int column = table.getRowSorter().getSortKeys().get(0).getColumn();
 		table.addMouseListener(new TableMouseListener(table, column, tree));
-		
+
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		table.setBackground(Color.WHITE);
 
@@ -286,7 +287,7 @@ public class DetailedInfoPanel extends JPanel {
 
 		// Set range for X-Axis
 		XYPlot plot = chart.getXYPlot();
-		plot.setForegroundAlpha(0.65F);
+		plot.setForegroundAlpha(0.70F);
 
 		XYItemRenderer xyitemrenderer = plot.getRenderer();
 		bubbleChartDataPaint(xyitemrenderer, diProp);
@@ -294,18 +295,25 @@ public class DetailedInfoPanel extends JPanel {
 		NumberAxis numberYaxis = (NumberAxis) plot.getDomainAxis();
 		numberYaxis.setLowerMargin(.2);
 		numberYaxis.setUpperMargin(.4);
+		
+		
 
 		// Set range for Y-Axis
 		NumberAxis numberXaxis = (NumberAxis) plot.getRangeAxis();
 		numberXaxis.setLowerMargin(0.1);
 		numberXaxis.setUpperMargin(0.2);
+		numberXaxis.setRange(-400, 1600);
 
 		// Format label
-
 		XYBubbleRenderer renderer = (XYBubbleRenderer) plot.getRenderer();
 		BubbleXYItemLabelGenerator generator = new BubbleXYItemLabelGenerator("{3}", new DecimalFormat("0"),
 				new DecimalFormat("0"), new DecimalFormat("0"));
 
+		StandardXYZToolTipGenerator xyzTooltipGenerator = new StandardXYZToolTipGenerator(
+				"{0} Core:{3} Duration:{2}  Host Load:{1}", new DecimalFormat("0.00"), new DecimalFormat("0"),
+				new DecimalFormat("0"));
+
+		renderer.setDefaultToolTipGenerator(xyzTooltipGenerator);
 		renderer.setDefaultItemLabelGenerator(generator);
 		renderer.setDefaultItemLabelsVisible(true);
 		renderer.setDefaultOutlinePaint(Color.BLACK);

@@ -278,7 +278,7 @@ public class Exporter {
 
 	public Element createJobsElement(Host host) {
 
-		ArrayList<Job> lstJobs = host.getListJob();
+		ArrayList<Job> lstJobs = host.getListJobs();
 
 		Element jobsElem = new Element("Jobs");
 

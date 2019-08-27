@@ -8,15 +8,15 @@ public interface HostInterface {
 
 	double getLoad();
 
-	void setStatus();
-
-	ArrayList<Job> getListJob();
-
 	int JobCount();
 
 	void addJob(Job job);
 
-	void setListJob(ArrayList<Job> listJob);
+	public ArrayList<Job> getListActiveJob();
+
+	public ArrayList<Job> getListIdleJob();
+
+	public ArrayList<Job> getListErrorJob();
 
 	void addState(StateAbstract state);
 

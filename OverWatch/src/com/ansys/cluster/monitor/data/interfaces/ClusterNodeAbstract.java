@@ -37,7 +37,6 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	protected String name;
 	protected NodeProp nodeProp;
 	protected DecimalFormat decimalFormatter = new DecimalFormat(".##");
-	protected String status;
 	protected String clusterType;
 	protected boolean isNodeAvailable = true;
 	protected boolean visualNode = false;
@@ -93,7 +92,6 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	}
 
 	public StateAbstract getState() {
-
 		return store.firstEntry().getValue();
 	}
 
@@ -143,10 +141,6 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 
 	public void displayStateDescriptions(DetailedInfoProp masterDiProp) {
 		tableDisplay(masterDiProp, store, "States", TableBuilder.table_State);
-	}
-
-	public String getStatus() {
-		return status;
 	}
 
 	/**

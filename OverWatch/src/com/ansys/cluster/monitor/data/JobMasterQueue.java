@@ -336,5 +336,23 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 		setPendingSessionJobsCount(getPendingSessionJobsCount() + getPendingSessionJobsCount());
 
 	}
+	
+	public String getToolTip() {
+		// TODO Auto-generated method stub
+		StringBuilder sb = new StringBuilder(" Active Job(s): ");
+		sb.append(getActiveJobsCount());
+		sb.append(" Active Session(s): ");
+		sb.append(getActiveSessionJobsCount());
+		if(getPendingJobsCount()>0) {
+			sb.append(" Pending Job(s): ");
+			sb.append(getPendingJobsCount());
+		}
+		
+		if(getPendingSessionJobsCount()>0) {
+			sb.append(" Pending Session(s): ");
+			sb.append(getPendingSessionJobsCount());
+		}
+		return sb.toString();
+	}
 
 }
