@@ -5,6 +5,8 @@
 */
 package com.ansys.cluster.monitor.data;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -418,11 +420,11 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	}
 
 	public void addHostLoad(double hostLoad) {
-		
+
 		double avg = ((getHostLoad() * hostList.size() + hostLoad)) / (hostList.size() + 1);
-		
-		double value =Double.valueOf(decimalFormatter.format(avg));
-		
+
+		Double value = BigDecimal.valueOf(avg).setScale(2, RoundingMode.HALF_UP).doubleValue();
+
 		setHostLoad(value);
 	}
 
