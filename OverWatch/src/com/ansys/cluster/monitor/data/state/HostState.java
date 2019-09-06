@@ -30,6 +30,7 @@ public class HostState extends StateAbstract {
 	private static final String MaxedSlotUsedDesc = "The host is running with Maxed Slot(s) Utilized";
 	private static final String MaxedSlotReservedDesc = "The host is running with all slots reserved";
 	private static final String HighCpuLoadDesc = "The host is running with a high cpu load";
+	private static final String MinorCPUAllocationDesc = "The host is running with some Slot(s) Utilized.";
 	private static final String NoSLotsAllocatedDesc = "The host has noconfigured slots for usage";
 	private static final String ExclsiveDesc = "The host is running in exclusive running";
 
@@ -86,5 +87,7 @@ public class HostState extends StateAbstract {
 	public static final HostState Suspended = new HostState("Suspended", 200, SuspendedDesc, Color.YELLOW);
 
 	public static final HostState HighCpuLoad = new HostState("High Cpu Load", 100, HighCpuLoadDesc, Color.YELLOW);
+
+	public static final HostState MinorCPUAllocation = new HostState("Minor CPU Allocation", 50, MinorCPUAllocationDesc, Color.YELLOW);
 
 }

@@ -452,7 +452,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		jobDiProp.addMetric(getUnitRes() + ": ", getSlots());
 		jobDiProp.addMetric("Job Submission: ", getJobSubmissionTime());
 		jobDiProp.addMetric("Exclusive: ", isExclusive());
-		jobDiProp.addMetric("Duration: ", getDuration().toHours());
+		jobDiProp.addMetric("Duration (hrs.): ", getDuration().toHours());
 		masterDiProp.addDetailedInfoProp(jobDiProp);
 
 		DetailedInfoProp scaledDiProp = new DetailedInfoProp();

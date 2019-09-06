@@ -158,13 +158,13 @@ public class Cluster extends AnsQueueAbstract {
 		int total = availableComputeHost + unAvailableComputeHost + availableVisualHost + unAvailableVisualHost;
 
 		DetailedInfoProp jobDiProp = new DetailedInfoProp();
-		jobDiProp.setPanelName("Node(s)");
+		jobDiProp.setPanelName("Cluster Node(s)");
 		// Dark Green
 		jobDiProp.addChartData("Available Compute Host", availableComputeHost, new Color(0, 153, 0));
 		// Dark Red
-		jobDiProp.addChartData("Unavailable Visual Host", unAvailableVisualHost, new Color(204, 0, 0));
+		jobDiProp.addChartData("Unavailable Visual Host", unAvailableVisualHost, new Color(255, 51, 51));
 		// Light Red
-		jobDiProp.addChartData("Unavailable Compute Host", unAvailableComputeHost, new Color(255, 51, 51));
+		jobDiProp.addChartData("Unavailable Compute Host", unAvailableComputeHost, new Color(204, 0, 0));
 		// light Green
 		jobDiProp.addChartData("Available Visual Host", availableVisualHost, new Color(0, 255, 51));
 

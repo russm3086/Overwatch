@@ -13,6 +13,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.json.JSONException;
 
 import com.ansys.cluster.monitor.data.Cluster;
@@ -21,6 +22,7 @@ import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.gui.tree.ClusterTreeCellRenderer;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoFactory;
 import com.ansys.cluster.monitor.gui.tree.TreeBuilderMonitorThread;
+import com.ansys.cluster.monitor.main.Main;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 import com.russ.util.gui.tree.TreeStateProps;
 import com.russ.util.gui.tree.TreeUtil;
@@ -29,6 +31,7 @@ import com.russ.util.nio.ResourceLoader;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.EventObject;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
@@ -76,6 +79,7 @@ public class Console extends JFrame {
 
 		this.mainProps = mainProps;
 		this.setDefaultCloseOperation(Console.EXIT_ON_CLOSE);
+		this.addWindowListener(new SaveSettings());
 
 		ImageIcon img = new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Ansys_Overwatch));
 		setIconImage(img.getImage());
@@ -141,7 +145,8 @@ public class Console extends JFrame {
 		treeView.setPreferredSize(new Dimension(325, 200));
 		splitPane.setTopComponent(treeView);
 
-		scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		splitPane.setBottomComponent(scrollPane);
 
 		editorPane = new JEditorPane();
@@ -177,16 +182,8 @@ public class Console extends JFrame {
 
 		// Finishing frame
 		this.pack();
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = (int) (dim.getWidth() / mainProps.getFrameScreenRatio());
-		int height = (int) (dim.getHeight() / mainProps.getFrameScreenRatio());
 
-		logger.info("Console Width: " + width + " Height: " + height);
-		this.setSize(width, height);
-
-		int x = (int) (dim.getWidth() - this.getWidth()) / 2;
-		int y = (int) (dim.getHeight() - this.getHeight()) / 2;
-		this.setLocation(x, y);
+		getFrameSize();
 
 		this.setVisible(true);
 
@@ -200,6 +197,34 @@ public class Console extends JFrame {
 	 */
 	private void invokeLater(Runnable run) {
 		SwingUtilities.invokeLater(run);
+	}
+
+	private void getFrameSize() {
+
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		int height = (int) mainProps.getFrameHeight();
+		int width = (int) mainProps.getFrameWidth();
+
+		if (height == 0 || width == 0) {
+
+			width = (int) (dim.getWidth() / mainProps.getFrameScreenRatio());
+			height = (int) (dim.getHeight() / mainProps.getFrameScreenRatio());
+
+			logger.info("Console Width: " + width + " Height: " + height);
+
+		}
+
+		this.setSize(width, height);
+
+		int x = (int) (dim.getWidth() - this.getWidth()) / 2;
+		int y = (int) (dim.getHeight() - this.getHeight()) / 2;
+		this.setLocation(x, y);
+
+	}
+
+	private void setFrameSize() {
+		mainProps.setFrameHeight(this.getHeight());
+		mainProps.setFrameWidth(this.getWidth());
 	}
 
 	private void populateTree() {
@@ -238,7 +263,7 @@ public class Console extends JFrame {
 			scrollPane.setAutoscrolls(true);
 			JPanel panel = DetailedInfoFactory.createDetailedInfoPanel(clusterNode, tree);
 			scrollPane.getViewport().add(panel);
-			
+
 		} else {
 			editorPane.setText("Not Found");
 		}
@@ -413,6 +438,26 @@ public class Console extends JFrame {
 		public void actionPerformed(ActionEvent ae) {
 			invokeLater(this);
 		}
+	}
+
+	
+	
+	private class SaveSettings extends WindowAdapter {
+
+		@Override
+		public void windowClosing(WindowEvent e) {
+
+			setFrameSize();
+
+			try {
+				Main.saveSettings(mainProps);
+			} catch (IOException | URISyntaxException | ConfigurationException ex) {
+				// TODO Auto-generated catch block
+				logger.log(Level.FINER, "Issue saving settings", ex);
+			}
+
+		}
+
 	}
 
 }

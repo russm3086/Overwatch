@@ -184,7 +184,7 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 
 		JLabel lblNewLabel = new JLabel();
 
-		if (state.between(HostState.HighCpuLoad, HostState.SuspendedCalendar)) {
+		if (state.between(HostState.MinorCPUAllocation, HostState.SuspendedCalendar)) {
 
 			lblNewLabel.setToolTipText(state.getDescription() + "-" + node.getToolTip());
 			lblNewLabel.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_YellowLight_Small_Path)));

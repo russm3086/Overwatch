@@ -25,47 +25,45 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 	public SGE_MonitorProp(final Reader in) throws ConfigurationException, IOException {
 		super.read(in);
-		
+
 	}
-	
+
 	public SGE_MonitorProp(final Configuration c) {
 		super.append(c);
 	}
-	
+
 	/**
 	 * 
 	 */
 	public SGE_MonitorProp() {
 		// TODO Auto-generated constructor stub
 
-	    SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss z");  
-	    String strDate = formatter.format(new Date());  
+		SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss z");
+		String strDate = formatter.format(new Date());
 
-		
-		
 		PropertiesConfigurationLayout layout = getLayout();
 		setHeader("OverWatch " + strDate);
-		
+
 		setMonitorVersion(SGE_DataConst.app_version);
 		layout.setComment(SGE_MonitorPropConst.ansysVersion, "Designates the version of the settings");
 
-		
 		layout.setBlancLinesBefore(SGE_MonitorPropConst.logHandler, 2);
-		
+
 		// Specify the handlers to create in the root logger
 		setLogHandlers("java.util.logging.ConsoleHandler, java.util.logging.FileHandler");
-		layout.setComment(SGE_MonitorPropConst.logHandler, "Logging Settings\nSpecify the handlers to create in the root logger");
+		layout.setComment(SGE_MonitorPropConst.logHandler,
+				"Logging Settings\nSpecify the handlers to create in the root logger");
 
 		// Set the default logging level for the root logger
 		setLogDefaultLevel("INFO");
 		layout.setComment(SGE_MonitorPropConst.defaultLevel, "\nSet the default logging level for the root logger");
-		
 
 		// default file output
 		String tmpFilePath = SystemSettings.getTempDir();
 		setLogFileHandlerPattern(tmpFilePath + "/Ansys/OverWatch/logs/log%g.log");
 		setLogFileHandlerLimit("104857600");
-		layout.setComment(SGE_MonitorPropConst.logFileHandlerLimit, "\nThe maximum size of the file, in bytes. If this is 0, there is no limit.");
+		layout.setComment(SGE_MonitorPropConst.logFileHandlerLimit,
+				"\nThe maximum size of the file, in bytes. If this is 0, there is no limit.");
 		setLogFileHandlerCount("10");
 		setLogFileHandlerFormatter("java.util.logging.SimpleFormatter");
 		setLogFileHandlerAppend(true);
@@ -78,9 +76,12 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		// GUI
 		setOS_LookAndFeel(false);
 		layout.setBlancLinesBefore(SGE_MonitorPropConst.useOS_LookAndFeel, 2);
-		layout.setComment(SGE_MonitorPropConst.useOS_LookAndFeel, "GUI Settings\nSpecifies whether to use the OS Look and Feel.");
+		layout.setComment(SGE_MonitorPropConst.useOS_LookAndFeel,
+				"GUI Settings\nSpecifies whether to use the OS Look and Feel.");
 
 		setFrameScreenRatio(2);
+		setFrameHeight(0);
+		setFrameWidth(0);
 		setGuiTimer(true);
 		setGuiTimerDelay(5);
 		setGuiTimerDelayTimeUnit("minutes");
@@ -91,12 +92,12 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setDirEtc(homeFilePath + "/Ansys/OverWatch/etc");
 		layout.setBlancLinesBefore(SGE_MonitorPropConst.sgeMonitor_dir_etc, 2);
 		layout.setComment(SGE_MonitorPropConst.sgeMonitor_dir_etc, "Path Settings\nSpecifies the setting dir.");
-		
 
 		// Data
 		setClusterQueueOmissions("dcv e09n48");
 		layout.setBlancLinesBefore(SGE_MonitorPropConst.clusterQueueOmissions, 2);
-		layout.setComment(SGE_MonitorPropConst.clusterQueueOmissions, "Data Filteration\nSpecifies data manipulation settings.");
+		layout.setComment(SGE_MonitorPropConst.clusterQueueOmissions,
+				"Data Filteration\nSpecifies data manipulation settings.");
 		setClusterDataJobList(
 				"JAT_scaled_usage_list JB_env_list " + "JB_submission_command_line JAT_granted_resources_list "
 						+ "JB_job_args JAT_granted_destin_identifier_list");
@@ -117,8 +118,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		layout.setComment(SGE_MonitorPropConst.connectionRetries, "Cluster Connection settings\nRetries");
 		setClusterConnectionRetriesDelay(5);
 		setClusterConnectionRetriesDelayTimeUnit("Seconds");
-		
-		
+
 		setClusterConnectionRequestReadBuffer(131072);
 		layout.setBlancLinesBefore(SGE_MonitorPropConst.connectionReadBuffer, 2);
 		layout.setComment(SGE_MonitorPropConst.connectionReadBuffer, "connection settings");
@@ -128,11 +128,12 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setClusterConnectionRequestMethod("HTTP");
 		layout.setComment(SGE_MonitorPropConst.connectionRequestMethod, "\nConnection request method=HTTP, FILE, CMD");
 		setClusterConnectionRequestContentType("application/xml");
-		layout.setComment(SGE_MonitorPropConst.connectionContentType, "\napplication/xml application/json application/overwatch");
-		
-		
+		layout.setComment(SGE_MonitorPropConst.connectionContentType,
+				"\napplication/xml application/json application/overwatch");
+
 		setClusterIndex(0);
-		layout.setComment(SGE_MonitorPropConst.clusterIndex, "\nCluster Server information\nLast cluster configuration");
+		layout.setComment(SGE_MonitorPropConst.clusterIndex,
+				"\nCluster Server information\nLast cluster configuration");
 
 		setClusterName(0, "Otterfing");
 		setClusterConnectionDetailedJobsUrl(0, "http://ottsimportal3.ansys.com:7878/alljobdetails");
@@ -150,8 +151,10 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setClusterConnectionHostUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/details/xml");
 
 		setClusterConnectionShellCmd(0, "/bin/sh");
-		layout.setBlancLinesBefore(SGE_MonitorPropConst.clusterPrefix + 0 + SGE_MonitorPropConst.connectionShellCmdSuffix, 2);
-		layout.setComment(SGE_MonitorPropConst.clusterPrefix + 0 + SGE_MonitorPropConst.connectionShellCmdSuffix, "Cluster commandline settings");
+		layout.setBlancLinesBefore(
+				SGE_MonitorPropConst.clusterPrefix + 0 + SGE_MonitorPropConst.connectionShellCmdSuffix, 2);
+		layout.setComment(SGE_MonitorPropConst.clusterPrefix + 0 + SGE_MonitorPropConst.connectionShellCmdSuffix,
+				"Cluster commandline settings");
 
 		setClusterConnectionShellArgsCmd(0, "-c");
 		setClusterConnectionHostCmd(0, "qhost -q -xml");
@@ -160,7 +163,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 		// Job
 		setJobIdleThreshold(.05);
-		layout.setComment(SGE_MonitorPropConst.jobIdleThreshold,"\nThe settings that determines when a job is idle");
+		layout.setComment(SGE_MonitorPropConst.jobIdleThreshold, "\nThe settings that determines when a job is idle");
 	}
 
 	public void setMonitorVersion(String version) {
@@ -212,12 +215,12 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 	}
 
 	public String getClusterConnectionClusterUrl(int item) {
-		return getString(
-				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionClusterUrlSuffix);
+		return getString(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionClusterUrlSuffix);
 	}
 
 	public void setClusterConnectionClusterUrl(int item, String clusterUrl) {
-		setProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionClusterUrlSuffix, clusterUrl);
+		setProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionClusterUrlSuffix,
+				clusterUrl);
 	}
 
 	public String getClusterConnectionDetailedJobsUrl(int item) {
@@ -249,17 +252,16 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 	}
 
 	public String getClusterConnectionShellCmd(int item) {
-		return getString(
-				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellCmdSuffix);
+		return getString(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellCmdSuffix);
 	}
 
 	public void setClusterConnectionShellCmd(int item, String shellCmd) {
-		setProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellCmdSuffix, shellCmd);
+		setProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellCmdSuffix,
+				shellCmd);
 	}
 
 	public String getClusterConnectionShellArgCmd(int item) {
-		return getString(
-				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellArgsCmdSuffix);
+		return getString(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellArgsCmdSuffix);
 	}
 
 	public void setClusterConnectionShellArgsCmd(int item, String shellArgs) {
@@ -361,6 +363,22 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 	public void setGuiTimer(boolean timerOn) {
 		setProperty(SGE_MonitorPropConst.guiTimer, timerOn);
+	}
+
+	public void setFrameWidth(double width) {
+		setProperty(SGE_MonitorPropConst.guiFrameWidth, width);
+	}
+
+	public double getFrameWidth() {
+		return getDouble(SGE_MonitorPropConst.guiFrameWidth,0);
+	}
+
+	public void setFrameHeight(double height) {
+		setProperty(SGE_MonitorPropConst.guiFrameHeight, height);
+	}
+
+	public double getFrameHeight() {
+		return getDouble(SGE_MonitorPropConst.guiFrameHeight,0);
 	}
 
 	public void setFrameScreenRatio(int ratio) {

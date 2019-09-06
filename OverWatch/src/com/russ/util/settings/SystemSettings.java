@@ -20,11 +20,9 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-import org.apache.commons.configuration2.CombinedConfiguration;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.PropertiesConfigurationLayout;
 import org.apache.commons.configuration2.ex.ConfigurationException;
-import org.apache.commons.configuration2.tree.OverrideCombiner;
 
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 import com.ansys.cluster.monitor.settings.SGE_MonitorPropConst;
@@ -142,19 +140,10 @@ public class SystemSettings {
 
 		SGE_MonitorProp props = loadDefaultProps(filePath, SGE_MonitorPropConst.ansysVersion);
 
-		if (props != null) {
-
-			CombinedConfiguration combined = new CombinedConfiguration();
-			combined.setNodeCombiner(new OverrideCombiner());
-			combined.addConfiguration(props);
-			combined.addConfiguration(defaultProps);
-
-			SGE_MonitorProp finalFile = new SGE_MonitorProp(combined);
-	
-			mainProps = finalFile;
-
-		} else {
+		if (props == null) {
 			mainProps = defaultProps;
+		} else {
+			mainProps = props;
 		}
 
 		return mainProps;

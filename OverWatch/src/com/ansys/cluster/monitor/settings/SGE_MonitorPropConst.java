@@ -42,6 +42,10 @@ public final class SGE_MonitorPropConst {
 
 	public static final String sgeMonitor_dir_etc = "com.ansys.dir.etc";
 
+	public static final String guiFrameWidth = "com.ansys.cluster.monitor.GUI.frame.width";
+
+	public static final String guiFrameHeight = "com.ansys.cluster.monitor.GUI.frame.height";
+
 	public static final String useOS_LookAndFeel = "com.ansys.cluster.monitor.GUI.UseOS_LookAndFeel";
 
 	public static final String screenRatio = "com.ansys.cluster.monitor.GUI.frame.screenRatio";
