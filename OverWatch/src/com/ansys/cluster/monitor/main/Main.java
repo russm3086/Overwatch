@@ -62,7 +62,7 @@ public class Main {
 
 		String token = "\\.";
 
-		propsFilePath = "res/etc/settings.properties";
+		//propsFilePath = "res/etc/settings.properties";
 
 		try {
 			logger.info("****Started****");
