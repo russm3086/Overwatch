@@ -312,12 +312,6 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 		nodesDiProp.addMetric("Total Nodes: ", getTotalCount());
 		masterDiProp.addDetailedInfoProp(nodesDiProp);
 		
-		DetailedInfoProp funDiProp = new DetailedInfoProp();
-		funDiProp.setPanelName("FUN (Fully Unallocated Nodes)");
-		funDiProp.addMetric("F.U.N.: ", getUnavailableVisualHostsCount());
-		funDiProp.addMetric("F.U.N. Cores: ", getFullyUnallocatedComputeHostsCore());
-		masterDiProp.addDetailedInfoProp(funDiProp);
-
 		displayFullyUnallocatedNodes(masterDiProp, findFUN());
 		displayUnavailableVisualHosts(masterDiProp, findUnavailableVisualHosts());
 		displayUnavailableComputeHosts(masterDiProp, findUnavailableComputeHosts());
