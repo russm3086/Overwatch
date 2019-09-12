@@ -59,6 +59,11 @@ public class HostQueue extends AnsQueueAbstract {
 				if (!addUnavailbleHost(host, getUnavailableComputeHosts())) {
 
 					addAvailableComputeHosts(host.getName(), host);
+
+					if (host.getState().equals(HostState.Normal)) {
+						addFullyUnallocatedComputeHosts(host);
+						addCoreFUN(host.getM_Core());
+					}
 				}
 			}
 
@@ -192,12 +197,21 @@ public class HostQueue extends AnsQueueAbstract {
 		memDiProp.addMetric("Available Memory: ", decimalFormatter.format(getAvailableMem()));
 		memDiProp.addMetric("Total Memory: ", decimalFormatter.format(getTotalMem()));
 		mainDiProp.addDetailedInfoProp(memDiProp);
+		
+		DetailedInfoProp funDiProp = new DetailedInfoProp();
+		funDiProp.setPanelName("FUN (Fully Unallocated Nodes)");
+		funDiProp.addMetric("F.U.N.: ", getFullyUnallocatedComputeHostsSize());
+		funDiProp.addMetric("F.U.N. Cores: ", getCoreFUN());
+		mainDiProp.addDetailedInfoProp(funDiProp);
+
+		
 
 		displayPendingJobs(mainDiProp);
 		displayActiveJobs(mainDiProp);
 		displayIdleJobs(mainDiProp);
 		displayUnavailableVisualHosts(mainDiProp);
 		displayUnavailableComputeHosts(mainDiProp);
+		displayFullyUnallocatedNodes(mainDiProp);
 
 		return mainDiProp;
 	}

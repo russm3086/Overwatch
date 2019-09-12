@@ -83,7 +83,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setFrameHeight(0);
 		setFrameWidth(0);
 		setGuiTimer(true);
-		setGuiTimerDelay(5);
+		setGuiTimerDelay(1);
 		setGuiTimerDelayTimeUnit("minutes");
 		setGuiTreeExpansionLevel(3);
 

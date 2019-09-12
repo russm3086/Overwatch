@@ -111,6 +111,11 @@ public class Cluster extends AnsQueueAbstract {
 				SGE_DataConst.unitResCore.toLowerCase(), getHostMasterQueue().getCoreAvailable(),
 				getHostMasterQueue().getCoreUnavailable());
 
+		createAvailableChartPanel(masterDiProp, "F.U.N. Fully Unallocated Nodes",
+				"Total " + getHostMasterQueue().getCoreTotal() + " " + SGE_DataConst.unitResCore,
+				SGE_DataConst.unitResCore.toLowerCase(), getHostMasterQueue().getFullyUnallocatedComputeHostsCore(),
+				getHostMasterQueue().getCoreTotal() - getHostMasterQueue().getFullyUnallocatedComputeHostsCore());
+
 		createAvailableChartPanel(masterDiProp, SGE_DataConst.unitResSession,
 				"Total " + getHostMasterQueue().getSessionTotal() + " " + SGE_DataConst.unitResSession,
 				SGE_DataConst.unitResSession.toLowerCase(), getHostMasterQueue().getSessionAvailable(),
@@ -172,6 +177,10 @@ public class Cluster extends AnsQueueAbstract {
 		jobDiProp.setChartDataUnit("nodes");
 		jobDiProp.setDataTypePieChart();
 		masterDiProp.addDetailedInfoProp(jobDiProp);
+	}
+
+	private void displayFUNPie(DetailedInfoProp masterDiProp) {
+
 	}
 
 	private void dislayJobsBubble(DetailedInfoProp masterDiProp) {

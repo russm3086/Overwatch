@@ -124,7 +124,7 @@ public class ParamGUI extends JDialog {
 		JLabel refreshLabel = new JLabel("Refresh Rate (5 min. min): ");
 		refreshLabel.setDisplayedMnemonic('R');
 
-		SpinnerNumberModel model = new SpinnerNumberModel(5, 5, 900, 5);
+		SpinnerNumberModel model = new SpinnerNumberModel(1, 1, 900, 1);
 		refreshSpin = new JSpinner(model);
 		refreshLabel.setLabelFor(refreshSpin);
 		refreshSpin.setToolTipText("Interval between db refresh in sec");

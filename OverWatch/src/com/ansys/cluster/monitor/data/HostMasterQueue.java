@@ -3,6 +3,7 @@
  */
 package com.ansys.cluster.monitor.data;
 
+import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -28,6 +29,8 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 	private int unAvailableComputeHostsCount = 0;
 	private int availableVisualHostsCount = 0;
 	private int unAvailableVisualHostsCount = 0;
+	private int fullyUnallocatedComputeHostsCount = 0;
+	private int fullyUnallocatedComputeHostsCore = 0;
 
 	public HostMasterQueue(String name) {
 		super(name);
@@ -56,6 +59,8 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 
 			addAvailableComputeHostsCount(queue.getAvailableComputeHostsSize());
 			addUnavailableComputeHostsCount(queue.getUnavailableComputeHostsSize());
+			addFullyUnallocatedComputeHostsCount(queue.getFullyUnallocatedComputeHostsSize());
+			addFullyUnallocatedComputeHostsCore(queue.getFullyUnallocatedComputeHosts());
 		}
 
 		calculateMetrics(queue);
@@ -164,8 +169,53 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 		this.unAvailableVisualHostsCount = unAvailableVisualHostsCount;
 	}
 
+	public void addFullyUnallocatedComputeHostsCount(int count) {
+		setFullyUnallocatedComputeHostsCount(getFullyUnallocatedComputeHostsCount() + count);
+	}
+
+	/**
+	 * @return the fullyUnallocatedComputeHostsCount
+	 */
+	public int getFullyUnallocatedComputeHostsCount() {
+		return fullyUnallocatedComputeHostsCount;
+	}
+
 	public void addUnavailableVisualHostsCount(int unAvailableVisualHostsCount) {
 		setUnavailableVisualHostsCount(getUnavailableVisualHostsCount() + unAvailableVisualHostsCount);
+	}
+
+	/**
+	 * @param fullyUnallocatedComputeHostsCount the
+	 *                                          fullyUnallocatedComputeHostsCount to
+	 *                                          set
+	 */
+	public void setFullyUnallocatedComputeHostsCount(int fullyUnallocatedComputeHostsCount) {
+		this.fullyUnallocatedComputeHostsCount = fullyUnallocatedComputeHostsCount;
+	}
+
+	public void addFullyUnallocatedComputeHostsCore(ArrayList<Host> list) {
+		for (Host host :list) {
+			addFullyUnallocatedComputeHostsCore(host.getM_Core());
+		}
+	}
+
+	public void addFullyUnallocatedComputeHostsCore(int cores) {
+		setFullyUnallocatedComputeHostsCore(getFullyUnallocatedComputeHostsCore() + cores);
+	}
+
+	/**
+	 * @return the fullyUnallocatedComputeHostsCore
+	 */
+	public int getFullyUnallocatedComputeHostsCore() {
+		return fullyUnallocatedComputeHostsCore;
+	}
+
+	/**
+	 * @param fullyUnallocatedComputeHostsCore the fullyUnallocatedComputeHostsCore
+	 *                                         to set
+	 */
+	public void setFullyUnallocatedComputeHostsCore(int fullyUnallocatedComputeHostsCore) {
+		this.fullyUnallocatedComputeHostsCore = fullyUnallocatedComputeHostsCore;
 	}
 
 	public void calculateMetrics(HostQueue queue) {
@@ -212,6 +262,18 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 		return map;
 	}
 
+	public ArrayList<Host> findFUN(){
+		ArrayList<Host> list = new ArrayList<Host>();
+
+		for (Entry<String, HostQueue> entry : getHostQueues().entrySet()) {
+			list.addAll(entry.getValue().getFullyUnallocatedComputeHosts());
+		}
+		
+		return list;
+	}
+	
+	
+	
 	public DetailedInfoProp getDetailedInfoProp() {
 
 		DetailedInfoProp masterDiProp = new DetailedInfoProp();
@@ -242,14 +304,21 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 		masterDiProp.addDetailedInfoProp(memoryDiProp);
 
 		DetailedInfoProp nodesDiProp = new DetailedInfoProp();
-		nodesDiProp.setPanelName("Node(s");
+		nodesDiProp.setPanelName("Node(s)");
 		nodesDiProp.addMetric("Available Compute Nodes: ", getAvailableComputeHostsCount());
 		nodesDiProp.addMetric("Unavailable Compute Nodes: ", getUnavailableComputeHostsCount());
 		nodesDiProp.addMetric("Available Visual Nodes: ", getAvailableVisualHostsCount());
 		nodesDiProp.addMetric("Unavailable Visual Nodes: ", getUnavailableVisualHostsCount());
 		nodesDiProp.addMetric("Total Nodes: ", getTotalCount());
 		masterDiProp.addDetailedInfoProp(nodesDiProp);
+		
+		DetailedInfoProp funDiProp = new DetailedInfoProp();
+		funDiProp.setPanelName("FUN (Fully Unallocated Nodes)");
+		funDiProp.addMetric("F.U.N.: ", getUnavailableVisualHostsCount());
+		funDiProp.addMetric("F.U.N. Cores: ", getFullyUnallocatedComputeHostsCore());
+		masterDiProp.addDetailedInfoProp(funDiProp);
 
+		displayFullyUnallocatedNodes(masterDiProp, findFUN());
 		displayUnavailableVisualHosts(masterDiProp, findUnavailableVisualHosts());
 		displayUnavailableComputeHosts(masterDiProp, findUnavailableComputeHosts());
 

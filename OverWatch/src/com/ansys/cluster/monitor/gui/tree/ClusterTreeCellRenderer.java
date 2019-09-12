@@ -117,7 +117,7 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.WHITE);
 			// panel.setMaximumSize(new Dimension(235, 40));
-			panel.setPreferredSize(new Dimension(250, 40));
+			panel.setPreferredSize(new Dimension(235, 45));
 
 			JLabel lblNewLabel = new JLabel(queue.getName());
 			lblNewLabel.setPreferredSize(new Dimension(50, 25));

@@ -5,6 +5,7 @@
 */
 package com.ansys.cluster.monitor.data.interfaces;
 
+import java.util.ArrayList;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -57,12 +58,14 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 	private int coreTotal = 0;
 	private int coreAvailable = 0;
 	private int coreUnavailable = 0;
+	private int coreFUN = 0;
 
 	/**
 	 * 
 	 */
 	private String membersType;
 
+	private ArrayList<Host> fullyUnallocatedComputeHosts = new ArrayList<Host>();
 	private SortedMap<String, Host> availableComputeHosts = new TreeMap<String, Host>();
 	private SortedMap<String, Host> unAvailableComputeHosts = new TreeMap<String, Host>();
 
@@ -384,6 +387,14 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 		tableDisplay(mainDiProp, map, "Unavailable Compute host(s)", TableBuilder.table_Host);
 	}
 
+	public void displayFullyUnallocatedNodes(DetailedInfoProp mainDiProp) {
+		displayFullyUnallocatedNodes(mainDiProp, getFullyUnallocatedComputeHosts());
+	}
+
+	public void displayFullyUnallocatedNodes(DetailedInfoProp mainDiProp, ArrayList<Host> list) {
+		tableDisplay(mainDiProp, list, "F.U.N. ", TableBuilder.table_Host);
+	}
+
 	public void displayPendingJobs(DetailedInfoProp mainDiProp) {
 		displayPendingJobs(mainDiProp, getPendingJobs());
 	}
@@ -417,11 +428,11 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 	}
 
 	public void displayActiveSessionJobs(DetailedInfoProp mainDiProp) {
-		displayActiveSessionJobs(mainDiProp,getActiveSessionJobs());
+		displayActiveSessionJobs(mainDiProp, getActiveSessionJobs());
 	}
 
 	public void displayActiveSessionJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
-		tableDisplay(mainDiProp,map, "Active Sessions", TableBuilder.table_Job);
+		tableDisplay(mainDiProp, map, "Active Sessions", TableBuilder.table_Job);
 	}
 
 	public void displayErrorSessionJobs(DetailedInfoProp mainDiProp) {
@@ -440,7 +451,6 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 		tableDisplay(mainDiProp, map, "Idle Sessions", TableBuilder.table_Job);
 	}
 
-	
 	/**
 	 * ******** Map Data
 	 * 
@@ -510,6 +520,46 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 
 	public int getUnavailableVisualHostsSize() {
 		return getUnavailableVisualHosts().size();
+	}
+
+	public int getFullyUnallocatedComputeHostsSize() {
+		return fullyUnallocatedComputeHosts.size();
+	}
+
+	public void addFullyUnallocatedComputeHosts(Host host) {
+		fullyUnallocatedComputeHosts.add(host);
+	}
+
+	/**
+	 * @return the fullyUnallocatedComputeHosts
+	 */
+	public ArrayList<Host> getFullyUnallocatedComputeHosts() {
+		return fullyUnallocatedComputeHosts;
+	}
+
+	/**
+	 * @param fullyUnallocatedComputeHosts the fullyUnallocatedComputeHosts to set
+	 */
+	public void setFullyUnallocatedComputeHosts(ArrayList<Host> fullyUnallocatedComputeHosts) {
+		this.fullyUnallocatedComputeHosts = fullyUnallocatedComputeHosts;
+	}
+
+	public void addCoreFUN(int coreFun) {
+		setCoreFUN(getCoreFUN() + coreFun);
+	}
+
+	/**
+	 * @return the coreFUN
+	 */
+	public int getCoreFUN() {
+		return coreFUN;
+	}
+
+	/**
+	 * @param coreFUN the coreFUN to set
+	 */
+	public void setCoreFUN(int coreFUN) {
+		this.coreFUN = coreFUN;
 	}
 
 	/**
@@ -785,7 +835,6 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 
 	public abstract int size();
 
-	
 	@Override
 	public boolean containsKey(String node) {
 		// TODO Auto-generated method stub
