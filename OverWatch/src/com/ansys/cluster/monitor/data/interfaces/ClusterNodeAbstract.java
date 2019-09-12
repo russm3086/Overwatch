@@ -15,6 +15,7 @@ import javax.swing.table.AbstractTableModel;
 
 import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
+import com.ansys.cluster.monitor.gui.table.FUN_HostTableModel;
 import com.ansys.cluster.monitor.gui.table.HostTableModel;
 import com.ansys.cluster.monitor.gui.table.JobTableModel;
 import com.ansys.cluster.monitor.gui.table.MessageTableModel;
@@ -331,6 +332,10 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		case TableBuilder.table_Host:
 			HostTableModel hostTableModel = new HostTableModel(list);
 			return hostTableModel;
+
+		case TableBuilder.table_FUN:
+			FUN_HostTableModel funHostTableModel = new FUN_HostTableModel(list);
+			return funHostTableModel;
 
 		case TableBuilder.table_State:
 			StateTableModel stateTableModel = new StateTableModel(list);

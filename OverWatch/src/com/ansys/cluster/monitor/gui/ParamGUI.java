@@ -121,7 +121,7 @@ public class ParamGUI extends JDialog {
 		comboConn.setToolTipText("Select the type of db connection");
 		connLabel.setLabelFor(comboConn);
 
-		JLabel refreshLabel = new JLabel("Refresh Rate (5 min. min): ");
+		JLabel refreshLabel = new JLabel("Refresh Rate (1 min. min): ");
 		refreshLabel.setDisplayedMnemonic('R');
 
 		SpinnerNumberModel model = new SpinnerNumberModel(1, 1, 900, 1);

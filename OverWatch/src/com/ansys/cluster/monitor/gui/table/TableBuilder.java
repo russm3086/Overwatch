@@ -17,6 +17,7 @@ public class TableBuilder {
 	public static final String table_Host = "HOST_TABLE";
 	public static final String table_State = "HOST_STATE_TABLE";
 	public static final String table_JOB_MSG = "JOB_MSG_TABLE";
+	public static final String table_FUN = "FUN_TABLE";
 
 	public TableBuilder() {
 		// TODO Auto-generated constructor stub
@@ -35,6 +36,9 @@ public class TableBuilder {
 		case table_State:
 			jtable = buildTable(tableModel, 0, String.class);
 			break;
+
+		case table_FUN:
+			jtable = buildTable(tableModel, 0, String.class);
 
 		case table_JOB_MSG:
 			jtable = buildTable(tableModel, 0, Integer.class);
