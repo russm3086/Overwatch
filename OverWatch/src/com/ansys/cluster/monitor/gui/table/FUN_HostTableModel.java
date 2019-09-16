@@ -17,14 +17,12 @@ public class FUN_HostTableModel extends AbstractClusterNodeTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 2331629876169607226L;
-	private static String[] hostColumnNames = { "Name", "Load", "Core(s)", "Aval. Mem", "Aval. Res", 
-			"Queue" };
+	private static String[] hostColumnNames = { "Name", "Load", "Core(s)", "Aval. Mem", "Queue" };
 	private static final int COLUMN_NAME = 0;
 	private static final int COLUMN_LOAD = 1;
 	private static final int COLUMN_CORES = 2;
 	private static final int COLUMN_AVAL_MEM = 3;
-	private static final int COLUMN_AVAL_RES = 4;
-	private static final int COLUMN_QUEUE = 5;
+	private static final int COLUMN_QUEUE = 4;
 
 	/**
 	 * 
@@ -50,7 +48,6 @@ public class FUN_HostTableModel extends AbstractClusterNodeTableModel {
 		case COLUMN_NAME:
 		case COLUMN_LOAD:
 		case COLUMN_AVAL_MEM:
-		case COLUMN_AVAL_RES:
 		case COLUMN_QUEUE:
 			return String.class;
 		case COLUMN_CORES:
@@ -83,9 +80,6 @@ public class FUN_HostTableModel extends AbstractClusterNodeTableModel {
 			break;
 		case COLUMN_QUEUE:
 			returnValue = host.getQueueName();
-			break;
-		case COLUMN_AVAL_RES:
-			returnValue = host.getSlotTotal() - host.getSlotUnavailable();
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid column index");

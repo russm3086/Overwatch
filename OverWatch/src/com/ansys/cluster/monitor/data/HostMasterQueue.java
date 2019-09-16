@@ -29,7 +29,6 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 	private int unAvailableComputeHostsCount = 0;
 	private int availableVisualHostsCount = 0;
 	private int unAvailableVisualHostsCount = 0;
-	private int fullyUnallocatedComputeHostsCount = 0;
 	private int fullyUnallocatedComputeHostsCore = 0;
 
 	public HostMasterQueue(String name) {
@@ -59,7 +58,6 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 
 			addAvailableComputeHostsCount(queue.getAvailableComputeHostsSize());
 			addUnavailableComputeHostsCount(queue.getUnavailableComputeHostsSize());
-			addFullyUnallocatedComputeHostsCount(queue.getFullyUnallocatedComputeHostsSize());
 			addFullyUnallocatedComputeHostsCore(queue.getFullyUnallocatedComputeHosts());
 		}
 
@@ -169,29 +167,10 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 		this.unAvailableVisualHostsCount = unAvailableVisualHostsCount;
 	}
 
-	public void addFullyUnallocatedComputeHostsCount(int count) {
-		setFullyUnallocatedComputeHostsCount(getFullyUnallocatedComputeHostsCount() + count);
-	}
-
-	/**
-	 * @return the fullyUnallocatedComputeHostsCount
-	 */
-	public int getFullyUnallocatedComputeHostsCount() {
-		return fullyUnallocatedComputeHostsCount;
-	}
-
 	public void addUnavailableVisualHostsCount(int unAvailableVisualHostsCount) {
 		setUnavailableVisualHostsCount(getUnavailableVisualHostsCount() + unAvailableVisualHostsCount);
 	}
 
-	/**
-	 * @param fullyUnallocatedComputeHostsCount the
-	 *                                          fullyUnallocatedComputeHostsCount to
-	 *                                          set
-	 */
-	public void setFullyUnallocatedComputeHostsCount(int fullyUnallocatedComputeHostsCount) {
-		this.fullyUnallocatedComputeHostsCount = fullyUnallocatedComputeHostsCount;
-	}
 
 	public void addFullyUnallocatedComputeHostsCore(ArrayList<Host> list) {
 		for (Host host :list) {
@@ -287,6 +266,7 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 		coreDiProp.addMetric("Total: ", getCoreTotal());
 		coreDiProp.addMetric("Reserved: ", getCoreReserved());
 		coreDiProp.addMetric("Used: ", getCoreUsed());
+		coreDiProp.addMetric("F.U.N.Core(s): ", getFullyUnallocatedComputeHostsCore());
 		masterDiProp.addDetailedInfoProp(coreDiProp);
 
 		DetailedInfoProp sessionDiProp = new DetailedInfoProp();

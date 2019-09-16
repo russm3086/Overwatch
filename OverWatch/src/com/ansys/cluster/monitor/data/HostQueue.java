@@ -60,9 +60,9 @@ public class HostQueue extends AnsQueueAbstract {
 
 					addAvailableComputeHosts(host.getName(), host);
 
-					if (host.getState().equals(HostState.Normal)) {
+					if (host.getFUN_Cores() > 0) {
 						addFullyUnallocatedComputeHosts(host);
-						addCoreFUN(host.getM_Core());
+						addCoreFUN(host.getFUN_Cores());
 					}
 				}
 			}
@@ -187,6 +187,7 @@ public class HostQueue extends AnsQueueAbstract {
 			resourceDiProp.addMetric("Unavailable: ", getCoreUnavailable());
 			resourceDiProp.addMetric("Total: ", getCoreTotal());
 			resourceDiProp.addMetric("Reserved: ", getCoreReserved());
+			resourceDiProp.addMetric("F.U.N. Core(s):", getCoreFUN());
 		}
 
 		resourceDiProp.addMetric("Load: ", decimalFormatter.format(getNp_Load()));

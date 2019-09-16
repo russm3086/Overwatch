@@ -32,6 +32,7 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 	private ArrayList<Job> listActiveJob = new ArrayList<Job>();
 	private ArrayList<Job> listIdleJob = new ArrayList<Job>();
 	private ArrayList<Job> listErrorJob = new ArrayList<Job>();
+	private int FUN_Cores = 0;
 
 	/**
 	 * 
@@ -73,11 +74,13 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 			addState(HostState.NoSLotsAllocated);
 		}
 
-		setSlotUnavailable(nodeProp.getSlotUsed());
 		setAvailabilty();
+		checkFUN();
 	}
 
 	private void setAvailabilty() {
+
+		setSlotUnavailable(nodeProp.getSlotUsed());
 
 		StateAbstract state = getState();
 		if ((state.between(HostState.Suspended, HostState.MaxedSlotReserved))
@@ -85,6 +88,12 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 
 			setNodeAvailable(false);
 			setSlotUnavailable(nodeProp.getSlotTotal());
+		}
+	}
+
+	private void checkFUN() {
+		if (isNodeAvailable() == true && getState() != HostState.MinorCPUAllocation) {
+			setFUN_Cores(getM_Core());
 		}
 	}
 
@@ -354,6 +363,20 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 		return nodeProp.getM_Core();
 	}
 
+	/**
+	 * @return the fUN_Cores
+	 */
+	public int getFUN_Cores() {
+		return FUN_Cores;
+	}
+
+	/**
+	 * @param fUN_Cores the fUN_Cores to set
+	 */
+	public void setFUN_Cores(int fUN_Cores) {
+		FUN_Cores = fUN_Cores;
+	}
+
 	@Override
 	public double getNp_load_avg() {
 		return nodeProp.getNp_load_avg();
@@ -400,6 +423,10 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 		resourceDiProp.addMetric("Available: ", getSlotTotal() - getSlotUnavailable());
 		resourceDiProp.addMetric("Unavailable: ", getSlotUnavailable());
 		resourceDiProp.addMetric("Total: ", getSlotTotal());
+
+		if (isVisualNode() == false)
+			resourceDiProp.addMetric("F.U.N. Core(s): ", getFUN_Cores());
+
 		masterDiProp.addDetailedInfoProp(resourceDiProp);
 
 		DetailedInfoProp memDiProp = new DetailedInfoProp();

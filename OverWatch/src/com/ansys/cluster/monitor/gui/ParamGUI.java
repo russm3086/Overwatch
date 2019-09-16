@@ -85,13 +85,18 @@ public class ParamGUI extends JDialog {
 	 */
 	private JSpinner refreshSpin;
 
+	private Console console;
+
 	/**
 	 * Creates a modal or non-modal dialog with the specified title and the
 	 * specified owner frame.
 	 */
+
 	public ParamGUI(Frame owner, String title, boolean modal, SGE_MonitorProp mainProps) {
 		super(owner, title, modal);
 		this.mainProps = mainProps;
+
+		this.console = (Console) owner;
 
 		// Sets layout manager
 		getContentPane().setLayout(gridBag);
@@ -293,6 +298,7 @@ public class ParamGUI extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				saveData();
+				console.populateTree();
 				exit();
 			}
 		});
@@ -345,7 +351,8 @@ public class ParamGUI extends JDialog {
 
 	/**
 	 * Populates the properties file with data from all textfields in the UI.
-	 * @throws ConfigurationException 
+	 * 
+	 * @throws ConfigurationException
 	 */
 	private void saveData() {
 

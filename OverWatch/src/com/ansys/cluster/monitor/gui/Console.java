@@ -30,6 +30,7 @@ import com.russ.util.nio.ResourceLoader;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.EventObject;
@@ -80,6 +81,7 @@ public class Console extends JFrame {
 		this.mainProps = mainProps;
 		this.setDefaultCloseOperation(Console.EXIT_ON_CLOSE);
 		this.addWindowListener(new SaveSettings());
+		SetupKeyBinding();
 
 		ImageIcon img = new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Ansys_Overwatch));
 		setIconImage(img.getImage());
@@ -227,7 +229,7 @@ public class Console extends JFrame {
 		mainProps.setFrameWidth(this.getWidth());
 	}
 
-	private void populateTree() {
+	protected void populateTree() {
 
 		logger.info("Connecting to cluster ");
 
@@ -269,6 +271,18 @@ public class Console extends JFrame {
 		}
 	}
 
+	private void SetupKeyBinding() {
+		JPanel contentPane = (JPanel) this.getContentPane();
+		InputMap iMap = contentPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		ActionMap aMap = contentPane.getActionMap();
+
+		String keyAction = "REFRESH";
+		KeyStroke keyStroke = KeyStroke.getKeyStroke("F5");
+		iMap.put(keyStroke, keyAction);
+		aMap.put(keyAction, new AutoRefresh());
+
+	}
+
 	/**
 	 * Exits console
 	 */
@@ -278,7 +292,12 @@ public class Console extends JFrame {
 		}
 	}
 
-	private class AutoRefresh implements ActionListener, Runnable {
+	private class AutoRefresh extends AbstractAction implements ActionListener, Runnable {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 2469989292110815749L;
 
 		public AutoRefresh() {
 			// TODO Auto-generated constructor stub
@@ -309,7 +328,9 @@ public class Console extends JFrame {
 		 */
 		public void actionPerformed(ActionEvent ae) {
 			invokeLater(this);
+
 		}
+
 	}
 
 	private class NodeSelection implements TreeSelectionListener, Runnable {
@@ -440,8 +461,6 @@ public class Console extends JFrame {
 		}
 	}
 
-	
-	
 	private class SaveSettings extends WindowAdapter {
 
 		@Override
