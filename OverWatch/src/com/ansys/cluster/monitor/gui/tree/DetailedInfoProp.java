@@ -34,12 +34,15 @@ public class DetailedInfoProp extends AbstractProp {
 	private final static String key_Chart_yAxisLabel = "CHART_Y_AXIS_LABEL";
 	private final static String key_Chart_xAxisLabel = "CHART_X_AXIS_LABEL";
 	private final static String key_ChartDataSeriesData = "CHART_DATA_SERIES_DATA";
+	private final static String key_ChartDataColumnKey = "CHART_DATA_COLUMN_KEY";
+	private final static String key_ChartDataRowKey = "CHART_DATA_ROW_KEY";
 
 	public final static String const_DataTypeString = "STRING";
 	public final static String const_DataTypeTable = "TABLE";
 	public final static String const_DataTypeTextArea = "TEXT_AREA";
 	public final static String const_DataTypePieChart = "PIE_CHART";
 	public final static String const_DataTypeBubbleChart = "BUBBLE_CHART";
+	public final static String const_DataTypeBarChart = "BAR_CHART";
 
 	/**
 	 * 
@@ -89,6 +92,17 @@ public class DetailedInfoProp extends AbstractProp {
 		return (String) metricStore.get(key_ChartDataUnit);
 	}
 
+	public void addChartData(Number value, Comparable<?> rowKey, Comparable<?> columnKey) {
+		DetailedInfoProp chartData = new DetailedInfoProp();
+
+		chartData.addChartDataValue(value);
+		chartData.addChartRowKey(rowKey);
+		chartData.addChartColumnKey(columnKey);
+		
+		addDetailedInfoProp(chartData);
+
+	}
+
 	public void addChartData(Comparable<?> key, Number value, Paint paint) {
 
 		DetailedInfoProp chartData = new DetailedInfoProp();
@@ -105,7 +119,7 @@ public class DetailedInfoProp extends AbstractProp {
 	}
 
 	public void addSeries(Comparable<?> seriesKey, double[][] data, Paint paint) {
-		
+
 		DetailedInfoProp chartDataSeries = new DetailedInfoProp();
 		chartDataSeries.addChartDataKey(seriesKey);
 		chartDataSeries.addChartDataSeriesData(data);
@@ -113,15 +127,31 @@ public class DetailedInfoProp extends AbstractProp {
 
 		addDetailedInfoProp(chartDataSeries);
 	}
-	
+
+	public void addChartRowKey(Comparable<?> rowKey) {
+		metricStore.put(key_ChartDataRowKey, rowKey);
+	}
+
+	public Comparable<?> getChartRowKey() {
+		return (Comparable<?>) metricStore.get(key_ChartDataRowKey);
+	}
+
+	public void addChartColumnKey(Comparable<?> columnKey) {
+		metricStore.put(key_ChartDataColumnKey, columnKey);
+	}
+
+	public Comparable<?> getChartColumnKey() {
+		return (Comparable<?>) metricStore.get(key_ChartDataColumnKey);
+	}
+
 	public void addChartDataSeriesData(double[][] data) {
 		metricStore.put(key_ChartDataSeriesData, data);
 	}
-	
+
 	public double[][] getChartDataSeriesData() {
 		return (double[][]) metricStore.get(key_ChartDataSeriesData);
 	}
-	
+
 	public void addChartDataKey(Comparable<?> key) {
 		metricStore.put(key_ChartDataKey, key);
 	}
@@ -239,10 +269,15 @@ public class DetailedInfoProp extends AbstractProp {
 		setDataType(const_DataTypePieChart);
 	}
 
+	public void setDataTypeBarChart() {
+		setDataType(const_DataTypeBarChart);
+	}
+
+	
 	public void setDataTypeBubbleChart() {
 		setDataType(const_DataTypeBubbleChart);
 	}
-	
+
 	public boolean isDataTypeTable() {
 		return getDataType().equalsIgnoreCase(const_DataTypeTable);
 	}

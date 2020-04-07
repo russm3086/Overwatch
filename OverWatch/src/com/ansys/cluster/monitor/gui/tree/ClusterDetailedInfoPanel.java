@@ -61,7 +61,8 @@ public class ClusterDetailedInfoPanel extends DetailedInfoPanel {
 
 			DetailedInfoProp diProp = list.get(i);
 
-			if (diProp.getDataType().equalsIgnoreCase(DetailedInfoProp.const_DataTypePieChart)) {
+			if (diProp.getDataType().equalsIgnoreCase(DetailedInfoProp.const_DataTypePieChart)
+					|| diProp.getDataType().equalsIgnoreCase(DetailedInfoProp.const_DataTypeBarChart)) {
 				graphPanel.add(createPanel(diProp));
 
 				if (clusterGraphsPanel.getComponents().length == 0)

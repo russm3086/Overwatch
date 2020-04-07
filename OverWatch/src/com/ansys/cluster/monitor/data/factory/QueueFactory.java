@@ -197,6 +197,8 @@ public class QueueFactory {
 		list.add("dcv2017");
 		list.add("vnc");
 		list.add("dcv");
+		list.add("svnc");
+		list.add("vnc2");
 		if (list.contains(node.getQueueName().toLowerCase())) {
 			node.setVisualNode(true);
 		}

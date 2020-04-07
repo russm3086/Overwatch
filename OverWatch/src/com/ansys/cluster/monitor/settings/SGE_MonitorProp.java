@@ -146,9 +146,9 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setClusterConnectionHostUrl(1, "http://cdcsimportal1.ansys.com:5080/allhosts/xml");
 
 		setClusterName(2, "Pune");
-		setClusterConnectionDetailedJobsUrl(2, "http://punsimportal2.ansys.com:5080/allhosts/xml");
+		setClusterConnectionDetailedJobsUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/details/xml" );
 		setClusterConnectionSummaryJobsUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/xml");
-		setClusterConnectionHostUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/details/xml");
+		setClusterConnectionHostUrl(2, "http://punsimportal2.ansys.com:5080/allhosts/xml");
 
 		setClusterConnectionShellCmd(0, "/bin/sh");
 		layout.setBlancLinesBefore(

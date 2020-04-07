@@ -82,7 +82,6 @@ public class XMLParser extends ParserAbstract {
 		logger.entering(sourceClass, "processQueue");
 		String key = elem.getName();
 		String value = elem.getAttributeValue(SGE_DataConst.attribName);
-
 		if (!matchSettings(mainProps.getClusterQueueOmissions(), value)) {
 			nodeProp.putLog(key, value);
 
@@ -103,8 +102,15 @@ public class XMLParser extends ParserAbstract {
 		HashMap<Integer, Job> mapSumJobs = createSummaryJobs(payloadJobs.getDocObject());
 
 		logger.fine("Creating detailed job objects");
-		HashMap<Integer, NodeProp> mapDetailedNodeProps = createDetailedJobsProp(payLoadDetailedJobs.getDocObject(),
-				mainProps);
+		HashMap<Integer, NodeProp> mapDetailedNodeProps = new HashMap<Integer, NodeProp>();
+
+		try {
+			mapDetailedNodeProps = createDetailedJobsProp(payLoadDetailedJobs.getDocObject(), mainProps);
+
+		} catch (java.lang.NullPointerException e) {
+
+			logger.warning("Error caught: " + e.getStackTrace());
+		}
 
 		logger.fine("Merging detailed and summary job objects");
 		HashMap<Integer, Job> mapJobs = mergeSummaryDetailedJobs(mapSumJobs, mapDetailedNodeProps);
@@ -213,26 +219,26 @@ public class XMLParser extends ParserAbstract {
 		HashMap<Integer, NodeProp> hashMapProp = new HashMap<Integer, NodeProp>();
 
 		logger.finer("Parsing " + djobInfoElm);
-		List<Element> listElm = djobInfoElm.getChildren();
+		if (djobInfoElm != null) {
+			List<Element> listElm = djobInfoElm.getChildren();
 
-		for (Element elem : listElm) {
+			for (Element elem : listElm) {
 
-			NodeProp prop = createJobProp(elem);
+				NodeProp prop = createJobProp(elem);
 
-			logger.finer("Created detail job prop " + prop.getJobName());
+				logger.finer("Created detail job prop " + prop.getJobName());
 
-			prop.setJobIdleThreshold(mainProp.getJobIdleThreshold());
+				prop.setJobIdleThreshold(mainProp.getJobIdleThreshold());
 
-			hashMapProp.put(prop.getJobNumber(), prop);
+				hashMapProp.put(prop.getJobNumber(), prop);
+			}
 		}
-
 		logger.exiting(sourceClass, "createDetailedJobsProp");
 		return hashMapProp;
 	}
 
 	private ArrayList<JobMessage> createJobMessages(Element messagesElm) {
 		logger.entering(sourceClass, "createJobMessages", messagesElm);
-
 		ArrayList<JobMessage> listJobMsg = new ArrayList<JobMessage>();
 		Element element = messagesElm.getChild(SGE_DataConst.xml_Element);
 		Element subElement = element.getChild("SME_message_list");

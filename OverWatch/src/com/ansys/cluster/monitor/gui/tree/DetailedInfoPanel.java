@@ -13,17 +13,25 @@ import javax.swing.table.AbstractTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.labels.BubbleXYItemLabelGenerator;
 import org.jfree.chart.labels.PieSectionLabelGenerator;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.labels.StandardXYZToolTipGenerator;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.xy.XYBubbleRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.util.Rotation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.data.xy.DefaultXYZDataset;
@@ -164,6 +172,14 @@ public class DetailedInfoPanel extends JPanel {
 				panel.add(BorderLayout.CENTER, chartPanel);
 
 				break;
+
+			case DetailedInfoProp.const_DataTypeBarChart:
+
+				panel.setLayout(new BorderLayout());
+				ChartPanel barChartPanel = createBarChartPanel(diProp);
+				panel.add(BorderLayout.CENTER, barChartPanel);
+
+				break;
 			}
 
 		}
@@ -217,6 +233,80 @@ public class DetailedInfoPanel extends JPanel {
 		chartPanel.setBackground(Color.WHITE);
 
 		return chartPanel;
+	}
+
+	protected ChartPanel createBarChartPanel(DetailedInfoProp diProp) {
+
+		final JFreeChart chart = createBarChart(diProp);
+		final ChartPanel chartPanel = new ChartPanel(chart);
+		chartPanel.setPreferredSize(new java.awt.Dimension(320, 240));
+		chartPanel.setBackground(Color.WHITE);
+
+		return chartPanel;
+	}
+
+	protected CategoryDataset createChartDataset(DetailedInfoProp diProp) {
+
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+		for (DetailedInfoProp chartDataSet : diProp.getChartDataList()) {
+			dataset.addValue(chartDataSet.getChartDataValue(), chartDataSet.getChartRowKey(),
+					chartDataSet.getChartColumnKey());
+		}
+		return dataset;
+	}
+
+	protected JFreeChart createBarChart(DetailedInfoProp diProp) {
+
+		CategoryDataset dataset = createChartDataset(diProp);
+
+		
+		
+		final JFreeChart chart = ChartFactory.createBarChart(diProp.getChartDataTitle(), // chart title
+				"", // domain axis label
+				"", // range axis label
+				dataset, // data
+				PlotOrientation.VERTICAL, // orientation
+				false, // include legend
+				true, // tooltips?
+				false // URLs?
+		);
+
+		chart.getTitle().setFont(new Font(chart.getTitle().getFont().getName(), Font.PLAIN, 12));
+		
+		// set the background color for the chart...
+		chart.setBackgroundPaint(Color.white);
+
+		// get a reference to the plot for further customization...
+		final CategoryPlot plot = chart.getCategoryPlot();
+		plot.setBackgroundPaint(Color.WHITE);
+		plot.setDomainGridlinePaint(Color.black);
+		plot.setRangeGridlinePaint(Color.black);
+		BarRenderer barRenderer = (BarRenderer) plot.getRenderer();
+		Color color = new Color(0, 153, 0);;
+		barRenderer.setSeriesPaint(0, color);
+		barRenderer.setMaximumBarWidth(.2);
+		
+		
+		// set the range axis to display integers only...
+		final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+		rangeAxis.setUpperMargin(0.15);
+
+		// disable bar outlines...
+		final CategoryItemRenderer renderer = plot.getRenderer();
+		renderer.setSeriesItemLabelsVisible(0, Boolean.TRUE);
+
+		final CategoryAxis domainAxis = plot.getDomainAxis();
+		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+		
+		
+		renderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+
+		// OPTIONAL CUSTOMISATION COMPLETED.
+
+		return chart;
+
 	}
 
 	protected DefaultPieDataset createPieDataset(DetailedInfoProp diProp) {
@@ -295,8 +385,6 @@ public class DetailedInfoPanel extends JPanel {
 		NumberAxis numberYaxis = (NumberAxis) plot.getDomainAxis();
 		numberYaxis.setLowerMargin(.2);
 		numberYaxis.setUpperMargin(.4);
-		
-		
 
 		// Set range for Y-Axis
 		NumberAxis numberXaxis = (NumberAxis) plot.getRangeAxis();
