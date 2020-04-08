@@ -108,11 +108,13 @@ public class ClusterFactory {
 
 		logger.info("Creating Job Queues");
 		setStatusLabel("Creating Job Queues");
-		JobMasterQueue jobMasterQueue = QueueFactory.createJobMasterQueue(DetailedJobsmap);
+		JobMasterQueue jobMasterQueue = QueueFactory.createJobMasterQueue(DetailedJobsmap,
+				mainProps.getClusterQueueVisualRegex());
 
 		logger.info("Creating Host Queues");
 		setStatusLabel("Creating Host Queues");
-		HostMasterQueue hostMasterQueue = QueueFactory.createHostMasterQueue(hostMap);
+		HostMasterQueue hostMasterQueue = QueueFactory.createHostMasterQueue(hostMap,
+				mainProps.getClusterQueueVisualRegex());
 
 		logger.info("Assigning jobs to target queues");
 		JobQueueTargetQueue(jobMasterQueue, hostMasterQueue);

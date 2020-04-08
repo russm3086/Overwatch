@@ -95,6 +95,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 		// Data
 		setClusterQueueOmissions("dcv e09n48");
+		setClusterQueueVisualRegex(".*vnc.*|.*dcv.*");
 		layout.setBlancLinesBefore(SGE_MonitorPropConst.clusterQueueOmissions, 2);
 		layout.setComment(SGE_MonitorPropConst.clusterQueueOmissions,
 				"Data Filteration\nSpecifies data manipulation settings.");
@@ -146,7 +147,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setClusterConnectionHostUrl(1, "http://cdcsimportal1.ansys.com:5080/allhosts/xml");
 
 		setClusterName(2, "Pune");
-		setClusterConnectionDetailedJobsUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/details/xml" );
+		setClusterConnectionDetailedJobsUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/details/xml");
 		setClusterConnectionSummaryJobsUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/xml");
 		setClusterConnectionHostUrl(2, "http://punsimportal2.ansys.com:5080/allhosts/xml");
 
@@ -370,7 +371,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 	}
 
 	public double getFrameWidth() {
-		return getDouble(SGE_MonitorPropConst.guiFrameWidth,0);
+		return getDouble(SGE_MonitorPropConst.guiFrameWidth, 0);
 	}
 
 	public void setFrameHeight(double height) {
@@ -378,7 +379,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 	}
 
 	public double getFrameHeight() {
-		return getDouble(SGE_MonitorPropConst.guiFrameHeight,0);
+		return getDouble(SGE_MonitorPropConst.guiFrameHeight, 0);
 	}
 
 	public void setFrameScreenRatio(int ratio) {
@@ -535,6 +536,14 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		str = str.toUpperCase().trim();
 
 		return TimeUnit.valueOf(str);
+	}
+
+	public String getClusterQueueVisualRegex() {
+		return getString(SGE_MonitorPropConst.clusterQueueVisualRegex);
+	}
+
+	public void setClusterQueueVisualRegex(String regex) {
+		setProperty(SGE_MonitorPropConst.clusterQueueVisualRegex, regex);
 	}
 
 	public String getClusterQueueOmissions() {

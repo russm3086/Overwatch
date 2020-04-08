@@ -65,6 +65,8 @@ public final class SGE_MonitorPropConst {
 	public static final String clusterQueuePrefix = clusterDataPrefix + "queue.";
 
 	public static final String clusterQueueOmissions = clusterQueuePrefix + "omissions";
+	
+	public static final String clusterQueueVisualRegex = clusterQueuePrefix + "visual.regex";
 
 	public static final String clusterJobPrefix = clusterDataPrefix + "job.";
 

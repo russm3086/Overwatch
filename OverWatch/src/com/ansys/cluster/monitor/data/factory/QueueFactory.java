@@ -5,7 +5,6 @@
 */
 package com.ansys.cluster.monitor.data.factory;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.SortedMap;
 import java.util.Map.Entry;
@@ -116,14 +115,14 @@ public class QueueFactory {
 
 	}
 
-	public static JobMasterQueue createJobMasterQueue(HashMap<Integer, Job> map) {
+	public static JobMasterQueue createJobMasterQueue(HashMap<Integer, Job> map, String regex) {
 		JobMasterQueue masterQueue = new JobMasterQueue(SGE_DataConst.mqEntryJobs);
 
 		map.forEach((id, job) -> {
 
 			getQueue(job);
 			jobQueue(job);
-			detectVisualNode(job);
+			detectVisualNode(job, regex);
 
 			String queueName = job.getQueueName();
 
@@ -154,14 +153,14 @@ public class QueueFactory {
 		return masterQueue;
 	}
 
-	public static HostMasterQueue createHostMasterQueue(HashMap<String, Host> map) {
+	public static HostMasterQueue createHostMasterQueue(HashMap<String, Host> map, String regex) {
 		HostMasterQueue masterQueue = new HostMasterQueue(SGE_DataConst.mqEntryQueues);
 
 		map.forEach((id, node) -> {
 
 			getQueue(node);
 			// jobQueue(node);
-			detectVisualNode(node);
+			detectVisualNode(node, regex);
 
 			String queueName = node.getQueueName();
 
@@ -192,14 +191,8 @@ public class QueueFactory {
 		return masterQueue;
 	}
 
-	private static void detectVisualNode(ClusterNodeAbstract node) {
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("dcv2017");
-		list.add("vnc");
-		list.add("dcv");
-		list.add("svnc");
-		list.add("vnc2");
-		if (list.contains(node.getQueueName().toLowerCase())) {
+	private static void detectVisualNode(ClusterNodeAbstract node, String regex) {
+		if (node.getQueueName().matches(regex)) {
 			node.setVisualNode(true);
 		}
 	}
