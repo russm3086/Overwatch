@@ -34,7 +34,7 @@ import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.net.Connector;
 import com.ansys.cluster.monitor.net.DataCollector;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
-import com.russ.util.UnitCoversion;
+import com.russ.util.UnitConversion;
 
 /**
  * @author rmartine
@@ -105,7 +105,7 @@ public class Exporter {
 		fos.close();
 
 		logger.info("Saved serial file to " + strFile + " Bytes written: "
-				+ UnitCoversion.humanReadableByteCount(file.length(), true));
+				+ UnitConversion.humanReadableByteCount(file.length(), true));
 		logger.exiting(sourceClass, "exportSerial");
 	}
 

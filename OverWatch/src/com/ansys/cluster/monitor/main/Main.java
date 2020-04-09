@@ -46,8 +46,8 @@ public class Main {
 	/**
 	 * @param args
 	 * @throws IOException
-	 * @throws ConfigurationException 
-	 * @throws URISyntaxException 
+	 * @throws ConfigurationException
+	 * @throws URISyntaxException
 	 */
 	public static void main(String[] args) throws IOException, URISyntaxException, ConfigurationException {
 
@@ -62,7 +62,7 @@ public class Main {
 
 		String token = "\\.";
 
-		//propsFilePath = "res/etc/settings.properties";
+		// propsFilePath = "res/etc/settings.properties";
 
 		try {
 			logger.info("****Started****");
@@ -93,12 +93,6 @@ public class Main {
 
 				new Console(SGE_DataConst.app_name + " v. " + SGE_DataConst.app_version, mainProps);
 
-				/**
-				 * SwingUtilities.invokeLater(new Runnable() { public void run() { try { new
-				 * Console(SGE_DataConst.app_name + " v. " + SGE_DataConst.app_version,
-				 * mainProps); } catch (Exception e) {
-				 * Main.displayError(e.getLocalizedMessage(), Level.SEVERE); } } });
-				 */
 			} else {
 
 				if (!argsSetting.hasHelp()) {
@@ -146,7 +140,8 @@ public class Main {
 
 	}
 
-	public static SGE_MonitorProp getSystemSettings(SGE_MonitorProp mainProps, String token) throws URISyntaxException, ConfigurationException {
+	public static SGE_MonitorProp getSystemSettings(SGE_MonitorProp mainProps, String token)
+			throws URISyntaxException, ConfigurationException {
 
 		try {
 
@@ -167,11 +162,13 @@ public class Main {
 	}
 
 	public static SGE_MonitorProp loadDefaultProps(String propsFilePath, String minimalVersion, String propComments,
-			String token, SystemSettings systemSettings) throws IOException, URISyntaxException, ConfigurationException {
+			String token, SystemSettings systemSettings)
+			throws IOException, URISyntaxException, ConfigurationException {
 		logger.entering(sourceClass, "loadDefaultProps");
 
 		logger.fine("Loading system settings");
-		SGE_MonitorProp mainProps = (SGE_MonitorProp) systemSettings.loadDefaultProps(new SGE_MonitorProp(), propsFilePath);
+		SGE_MonitorProp mainProps = (SGE_MonitorProp) systemSettings.loadDefaultProps(new SGE_MonitorProp(),
+				propsFilePath);
 
 		if (!systemSettings.getMainPropertiesFileExist()) {
 
@@ -204,7 +201,8 @@ public class Main {
 
 	}
 
-	public static void saveSettings(SGE_MonitorProp mainProps) throws IOException, URISyntaxException, ConfigurationException {
+	public static void saveSettings(SGE_MonitorProp mainProps)
+			throws IOException, URISyntaxException, ConfigurationException {
 
 		systemSettings.savePropertyFile(mainProps, propsFilePath);
 

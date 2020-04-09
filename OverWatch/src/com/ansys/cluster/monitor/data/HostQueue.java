@@ -139,7 +139,6 @@ public class HostQueue extends AnsQueueAbstract {
 			if (entry.getValue().getState().equals(JobState.Idle)) {
 				addIdleJobs(entry.getKey(), entry.getValue());
 				it.remove();
-
 			}
 		}
 	}

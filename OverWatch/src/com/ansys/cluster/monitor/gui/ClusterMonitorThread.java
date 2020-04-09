@@ -81,7 +81,7 @@ public class ClusterMonitorThread {
 
 				String userName = System.getProperty("user.name");
 				QueueFactory.addMyJobs(cluster, userName);
-				
+
 				Console.setStatusLabel("Closed connection to cluster " + mainProps.getClusterName(index));
 				logger.info("Closed connection to cluster " + mainProps.getClusterName(index));
 				logger.finer("Added data to queue. Cluster: " + mainProps.getClusterName(index));
@@ -93,8 +93,6 @@ public class ClusterMonitorThread {
 				Console.setAlertStatusLabel("Problems retrieving cluster data");
 
 			}
-
 		}
-
 	}
 }

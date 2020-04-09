@@ -260,8 +260,6 @@ public class DetailedInfoPanel extends JPanel {
 
 		CategoryDataset dataset = createChartDataset(diProp);
 
-		
-		
 		final JFreeChart chart = ChartFactory.createBarChart(diProp.getChartDataTitle(), // chart title
 				"", // domain axis label
 				"", // range axis label
@@ -273,7 +271,7 @@ public class DetailedInfoPanel extends JPanel {
 		);
 
 		chart.getTitle().setFont(new Font(chart.getTitle().getFont().getName(), Font.PLAIN, 12));
-		
+
 		// set the background color for the chart...
 		chart.setBackgroundPaint(Color.white);
 
@@ -283,11 +281,13 @@ public class DetailedInfoPanel extends JPanel {
 		plot.setDomainGridlinePaint(Color.black);
 		plot.setRangeGridlinePaint(Color.black);
 		BarRenderer barRenderer = (BarRenderer) plot.getRenderer();
-		Color color = new Color(0, 153, 0);;
+		barRenderer.setShadowVisible(true);
+		Color color = new Color(0, 153, 0);
 		barRenderer.setSeriesPaint(0, color);
 		barRenderer.setMaximumBarWidth(.2);
-		
-		
+		// barRenderer.setDefaultToolTipGenerator(new
+		// StandardCategoryToolTipGenerator());
+
 		// set the range axis to display integers only...
 		final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
@@ -299,11 +299,8 @@ public class DetailedInfoPanel extends JPanel {
 
 		final CategoryAxis domainAxis = plot.getDomainAxis();
 		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
-		
-		
-		renderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
 
-		// OPTIONAL CUSTOMISATION COMPLETED.
+		renderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
 
 		return chart;
 
@@ -334,10 +331,13 @@ public class DetailedInfoPanel extends JPanel {
 		plot.setDirection(Rotation.CLOCKWISE);
 		plot.setForegroundAlpha(.6f);
 		plot.setNoDataMessage("No data to display");
-		plot.setMinimumArcAngleToDraw(.3);
+		plot.setMinimumArcAngleToDraw(1);
 		plot.setBackgroundPaint(Color.WHITE);
 		plot.setCircular(true);
+		//plot.setShadowGenerator(new DefaultShadowGenerator());
 		plot.setShadowPaint(Color.BLACK);
+		plot.setShadowXOffset(200);
+		plot.setShadowYOffset(200);
 
 		StringBuilder sb = new StringBuilder("{1} ");
 		sb.append(diProp.getChartDataUnit());

@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.Cluster;
 import com.ansys.cluster.monitor.data.factory.ClusterFactory;
-import com.russ.util.UnitCoversion;
+import com.russ.util.UnitConversion;
 
 import java.time.temporal.ChronoUnit;
 
@@ -103,8 +103,8 @@ public class HttpResponse {
 
 				if (read >= bufferLength * .85) {
 					logger.info("Reaching or reached buffer limited of "
-							+ UnitCoversion.humanReadableByteCount(bufferLength, false) + "\n\t read: "
-							+ UnitCoversion.humanReadableByteCount(read, false));
+							+ UnitConversion.humanReadableByteCount(bufferLength, false) + "\n\t read: "
+							+ UnitConversion.humanReadableByteCount(read, false));
 				}
 
 				if (logger.isLoggable(Level.FINEST)) {
@@ -115,7 +115,7 @@ public class HttpResponse {
 				if (ChronoUnit.SECONDS.between(now, LocalDateTime.now()) > 10) {
 
 					ClusterFactory.setStatusLabel(
-							getUrl() + " downloaded: " + UnitCoversion.humanReadableByteCount(os.size(), false));
+							getUrl() + " downloaded: " + UnitConversion.humanReadableByteCount(os.size(), false));
 					now = LocalDateTime.now();
 
 				}

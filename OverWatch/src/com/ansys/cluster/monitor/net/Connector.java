@@ -32,7 +32,7 @@ import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.net.http.HttpConnection;
 import com.ansys.cluster.monitor.net.http.HttpResponse;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
-import com.russ.util.UnitCoversion;
+import com.russ.util.UnitConversion;
 import com.russ.util.nio.ResourceLoader;
 
 import org.jdom2.Document;
@@ -150,7 +150,7 @@ public class Connector {
 
 		long estimatedTime = System.currentTimeMillis() - startTime;
 
-		logger.info("Data Size: " + UnitCoversion.humanReadableByteCount(sb.length(), false) + " Elapse Time: "
+		logger.info("Data Size: " + UnitConversion.humanReadableByteCount(sb.length(), false) + " Elapse Time: "
 				+ estimatedTime + " ms.");
 
 		if (process.exitValue() != 0) {

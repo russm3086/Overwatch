@@ -18,6 +18,7 @@ import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.ClusterState;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoFactory;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
+import com.russ.util.UnitConversion;
 
 /**
  * 
@@ -122,10 +123,14 @@ public class Cluster extends AnsQueueAbstract {
 
 		displayJobsPie(masterDiProp);
 
-		createAvailableChartPanel(masterDiProp, "Memory",
-				"Total " + decimalFormatter.format(getHostMasterQueue().getTotalMem()) + " MB", "mb",
-				getHostMasterQueue().getAvailableMem(),
-				getHostMasterQueue().getTotalMem() - getHostMasterQueue().getAvailableMem());
+		long totalMemory = (long) UnitConversion.round(getHostMasterQueue().getTotalMem(), 0);
+
+		long totalAvailMem = (long) UnitConversion.round(getHostMasterQueue().getAvailableMem(), 0);
+
+		long totalUsedMem = totalMemory - totalAvailMem;
+
+		createAvailableChartPanel(masterDiProp, "Memory", "Total " + totalMemory + " GB", "GB", totalAvailMem,
+				totalUsedMem);
 
 		displayNodesPie(masterDiProp);
 

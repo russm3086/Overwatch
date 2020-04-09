@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
-import com.russ.util.UnitCoversion;
+import com.russ.util.UnitConversion;
 
 /**
  * @author rmartine
@@ -56,7 +56,7 @@ public class HttpConnection {
 		long estimatedTime = System.currentTimeMillis() - startTime;
 
 		logger.info("Downloaded " + strUrl + "\t Download Size: "
-				+ UnitCoversion.humanReadableByteCount(response.getContentSize(), false) + " bytes\tElapse Time: "
+				+ UnitConversion.humanReadableByteCount(response.getContentSize(), false) + " bytes\tElapse Time: "
 				+ estimatedTime + " ms.");
 
 		con.disconnect();

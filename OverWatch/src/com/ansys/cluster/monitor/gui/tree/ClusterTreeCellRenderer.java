@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTree;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -68,7 +69,8 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 
 		this.selected = selected;
 		JLabel label = new JLabel();
-
+		label.setHorizontalAlignment(SwingConstants.LEFT);
+		
 		label.setBorder(getBorderSelect());
 		Object object = ((DefaultMutableTreeNode) value).getUserObject();
 
@@ -116,6 +118,7 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 		if (queue.getMembersType().equalsIgnoreCase(SGE_DataConst.clusterTypeHost)) {
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.WHITE);
+			
 			// panel.setMaximumSize(new Dimension(235, 40));
 			panel.setPreferredSize(new Dimension(235, 45));
 
