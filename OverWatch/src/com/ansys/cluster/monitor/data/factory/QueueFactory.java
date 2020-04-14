@@ -192,7 +192,7 @@ public class QueueFactory {
 	}
 
 	private static void detectVisualNode(ClusterNodeAbstract node, String regex) {
-		if (node.getQueueName().matches(regex)) {
+		if (regex != null && (node.getQueueName().matches(regex))) {
 			node.setVisualNode(true);
 		}
 	}
