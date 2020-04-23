@@ -62,7 +62,7 @@ public class Main {
 
 		String token = "\\.";
 
-		//propsFilePath = "res/etc/settings.orig.properties";
+		// propsFilePath = "res/etc/settings.orig.properties";
 
 		try {
 			logger.info("****Started****");
@@ -88,6 +88,7 @@ public class Main {
 				logger.info("**Loading log and program settings**");
 
 				if (mainProps.getOS_LookAndFeel()) {
+					logger.info("**Setting Look and Feel to " + UIManager.getSystemLookAndFeelClassName() + "**");
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				}
 

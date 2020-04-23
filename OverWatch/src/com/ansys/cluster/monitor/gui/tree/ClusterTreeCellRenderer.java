@@ -70,8 +70,9 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 		this.selected = selected;
 		JLabel label = new JLabel();
 		label.setHorizontalAlignment(SwingConstants.LEFT);
-		
+		label.setPreferredSize(new Dimension(50, 25));
 		label.setBorder(getBorderSelect());
+		
 		Object object = ((DefaultMutableTreeNode) value).getUserObject();
 
 		if (!(object instanceof String)) {
@@ -119,11 +120,10 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.WHITE);
 			
-			// panel.setMaximumSize(new Dimension(235, 40));
 			panel.setPreferredSize(new Dimension(235, 45));
 
 			JLabel lblNewLabel = new JLabel(queue.getName());
-			lblNewLabel.setPreferredSize(new Dimension(50, 25));
+			lblNewLabel.setPreferredSize(new Dimension(65, 25));
 
 			panel.add(lblNewLabel);
 

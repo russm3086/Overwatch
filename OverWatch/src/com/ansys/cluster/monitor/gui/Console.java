@@ -24,8 +24,6 @@ import com.ansys.cluster.monitor.gui.tree.DetailedInfoFactory;
 import com.ansys.cluster.monitor.gui.tree.TreeBuilderMonitorThread;
 import com.ansys.cluster.monitor.main.Main;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
-import com.russ.util.gui.tree.TreeStateProps;
-import com.russ.util.gui.tree.TreeUtil;
 import com.russ.util.nio.ResourceLoader;
 
 import java.awt.*;
@@ -236,16 +234,13 @@ public class Console extends JFrame {
 
 			tree.setRootVisible(true);
 
-			TreeUtil tu = new TreeUtil();
-			TreeStateProps tsProps = tu.saveTreeState(tree);
-
+	
 			ClusterMonitorThread clusterMonitor = new ClusterMonitorThread(mainProps, blockingQueue);
 			clusterMonitor.retrieveData();
 
-			// tree.getModel().addTreeModelListener(new ClusterTreeListener(tree));
-
 			TreeBuilderMonitorThread tbmt = new TreeBuilderMonitorThread(mainProps, blockingQueue, tree);
-			tbmt.buildTree(tsProps);
+
+			tbmt.buildTree();
 			tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
 		} catch (JSONException e) {

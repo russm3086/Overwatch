@@ -53,7 +53,7 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 		addState(HostState.parseCode(nodeProp.getState()), HostState.Normal);
 
 		if (nodeProp.getSlotTotal() > 0) {
-			if (nodeProp.getSlotUsed() == nodeProp.getSlotTotal()) {
+			if (nodeProp.getSlotUsed() >= nodeProp.getSlotTotal()) {
 				addState(HostState.MaxedSlotUsed);
 			}
 

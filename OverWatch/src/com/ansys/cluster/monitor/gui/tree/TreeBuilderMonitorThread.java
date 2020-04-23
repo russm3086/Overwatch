@@ -44,9 +44,8 @@ public class TreeBuilderMonitorThread {
 		this.tree = tree;
 	}
 
-	public void buildTree(TreeStateProps tsProps) {
+	public void buildTree() {
 
-		this.tsProps = tsProps;
 		int numFoundCluster = 0;
 		ExecutorService executor = Executors.newFixedThreadPool(1);
 		executor.execute(new TreeBuilderWorker(mainProps, numFoundCluster));
@@ -70,6 +69,8 @@ public class TreeBuilderMonitorThread {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
+			TreeUtil tu = new TreeUtil();
+
 			try {
 
 				while (numFoundCluster < 1) {
@@ -77,6 +78,7 @@ public class TreeBuilderMonitorThread {
 					if (!linkedQueue.isEmpty()) {
 						Cluster cluster = linkedQueue.poll();
 						Console.setStatusLabel("Creating tree for cluster " + cluster.getName());
+						tsProps = tu.saveTreeState(tree);
 						TreeBuilder treeBuilder = new TreeBuilder(tree);
 						treeBuilder.buildTree(cluster);
 						Console.setStatusLabel("Created tree for cluster " + cluster.getName());
@@ -97,7 +99,7 @@ public class TreeBuilderMonitorThread {
 
 				}
 
-				TreeUtil tu = new TreeUtil();
+				
 				if (tsProps.size() > 0) {
 
 					tu.applyTreeState(tree, tsProps);
