@@ -189,39 +189,39 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 
 		if (state.between(HostState.MinorCPUAllocation, HostState.SuspendedCalendar)) {
 
-			lblNewLabel.setToolTipText(state.getDescription() + "-" + node.getToolTip());
+			lblNewLabel.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
 			lblNewLabel.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_YellowLight_Small_Path)));
 		}
 
 		if (state.between(HostState.Unknown, HostState.Error)) {
 
-			lblNewLabel.setToolTipText(HostState.Error.getDescription() + "-" + node.getToolTip());
+			lblNewLabel.setToolTipText(HostState.Error.getDescription() + "\n\t" + node.getToolTip());
 			lblNewLabel.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Skull_and_Bones_Small_Path)));
 		}
 
 		if (state.equals(HostState.Normal)) {
-			lblNewLabel.setToolTipText(HostState.Normal.getDescription() + "-" + node.getToolTip());
+			lblNewLabel.setToolTipText(HostState.Normal.getDescription() + "\n\t" + node.getToolTip());
 			lblNewLabel.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_GreenLight_Small_Path)));
 
 		}
 
 		if (state.between(HostState.MaxedSlotUsed, HostState.AlarmThreshold)) {
 
-			lblNewLabel.setToolTipText(state.getDescription() + "-" + node.getToolTip());
+			lblNewLabel.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
 			lblNewLabel.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_RedLight_Small_Path)));
 
 		}
 
 		if (state.between(HostState.DisabledAuto, HostState.DisabledManually)) {
 
-			lblNewLabel.setToolTipText(state.getDescription() + "-" + node.getToolTip());
+			lblNewLabel.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
 			lblNewLabel.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Skull_and_Bones_Small_Path)));
 
 		}
 
 		if (state.equals(HostState.MaxedSlotReserved)) {
 
-			lblNewLabel.setToolTipText(HostState.MaxedSlotReserved.getDescription() + "-" + node.getToolTip());
+			lblNewLabel.setToolTipText(HostState.MaxedSlotReserved.getDescription() + "\n\t" + node.getToolTip());
 
 			Font font = lblNewLabel.getFont();
 			Hashtable<TextAttribute, Object> map = new Hashtable<TextAttribute, Object>();
@@ -230,6 +230,13 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 			lblNewLabel.setFont(font);
 			lblNewLabel.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_RedLight_Small_Path)));
 			lblNewLabel.setEnabled(false);
+		}
+		
+		
+		if (state.equals(HostState.OverProvisioned)) {
+
+			lblNewLabel.setToolTipText(HostState.OverProvisioned.getDescription() + "\n\t" + node.getToolTip());
+			lblNewLabel.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Radiation_Small_Path)));
 		}
 
 		lblNewLabel.setText(node.toString());
@@ -249,29 +256,29 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 		if (state.between(JobState.Restarted, JobState.RunningState)) {
 
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_GreenLight_Small_Path)));
-			label.setToolTipText(state.getDescription() + "-" + node.getToolTip());
+			label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
 		}
 
 		if (state.between(JobState.Deletion, JobState.SuspendedThreshold)) {
 
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_YellowLight_Small_Path)));
-			label.setToolTipText(state.getDescription() + "-" + node.getToolTip());
+			label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
 		}
 
 		if (state.equals(JobState.Zombie)) {
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Zombie_Small_Path)));
-			label.setToolTipText(state.getDescription() + "-" + node.getToolTip());
+			label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
 		}
 
 		if (state.equals(JobState.Idle)) {
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_BlueLight_Small_Path)));
-			label.setToolTipText(state.getDescription() + "-" + node.getToolTip());
+			label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
 		}
 
 		if (state.between(JobState.SuspendedThreshold, JobState.Unknown)) {
 
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Skull_and_Bones_Small_Path)));
-			label.setToolTipText(state.getDescription() + "-" + node.getToolTip());
+			label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
 		}
 
 		label.setText(node.getNodeProp().getJobOwner() + " - " + node.getNodeProp().getJobNumber());

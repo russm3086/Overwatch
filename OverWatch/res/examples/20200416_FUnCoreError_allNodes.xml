@@ -1,0 +1,4130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qhost xmlns:xsd="https://github.com/gridengine/gridengine/raw/master/source/dist/util/resources/schemas/qhost/qhost.xsd">
+ <host name="global">
+   <hostvalue name="arch_string">-</hostvalue>
+   <hostvalue name="num_proc">-</hostvalue>
+   <hostvalue name="m_socket">-</hostvalue>
+   <hostvalue name="m_core">-</hostvalue>
+   <hostvalue name="m_thread">-</hostvalue>
+   <hostvalue name="np_load_avg">-</hostvalue>
+   <hostvalue name="mem_total">-</hostvalue>
+   <hostvalue name="mem_used">-</hostvalue>
+   <hostvalue name="swap_total">-</hostvalue>
+   <hostvalue name="swap_used">-</hostvalue>
+ </host>
+ <host name="euc09gpu01.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.29</hostvalue>
+   <hostvalue name="mem_total">504.5G</hostvalue>
+   <hostvalue name="mem_used">18.4G</hostvalue>
+   <hostvalue name="swap_total">4.0G</hostvalue>
+   <hostvalue name="swap_used">-143.7G</hostvalue>
+ <queue name="euc09lm">
+   <queuevalue qname="euc09lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09lm" name="slots_used">28</queuevalue>
+   <queuevalue qname="euc09lm" name="slots">28</queuevalue>
+   <queuevalue qname="euc09lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09gpu02.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.11</hostvalue>
+   <hostvalue name="mem_total">504.5G</hostvalue>
+   <hostvalue name="mem_used">17.5G</hostvalue>
+   <hostvalue name="swap_total">4.0G</hostvalue>
+   <hostvalue name="swap_used">163.6M</hostvalue>
+ <queue name="euc09lm">
+   <queuevalue qname="euc09lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09lm" name="slots_used">28</queuevalue>
+   <queuevalue qname="euc09lm" name="slots">28</queuevalue>
+   <queuevalue qname="euc09lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09lm01.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">503.6G</hostvalue>
+   <hostvalue name="mem_used">4.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">57.3M</hostvalue>
+ <queue name="euc09lm">
+   <queuevalue qname="euc09lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09lm" name="slots_used">0</queuevalue>
+   <queuevalue qname="euc09lm" name="slots">28</queuevalue>
+   <queuevalue qname="euc09lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09lm02.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.51</hostvalue>
+   <hostvalue name="mem_total">503.6G</hostvalue>
+   <hostvalue name="mem_used">222.9G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">53.8M</hostvalue>
+ <queue name="euc09lm">
+   <queuevalue qname="euc09lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09lm" name="slots_used">28</queuevalue>
+   <queuevalue qname="euc09lm" name="slots">28</queuevalue>
+   <queuevalue qname="euc09lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09lm03.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.08</hostvalue>
+   <hostvalue name="mem_total">503.6G</hostvalue>
+   <hostvalue name="mem_used">18.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">71.0M</hostvalue>
+ <queue name="euc09lm">
+   <queuevalue qname="euc09lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09lm" name="slots_used">28</queuevalue>
+   <queuevalue qname="euc09lm" name="slots">28</queuevalue>
+   <queuevalue qname="euc09lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n01.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">2.7G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ </host>
+ <host name="euc09n02.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.05</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">51.3G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n03.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">8.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">0</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n04.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">5.7G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n05.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.05</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">57.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n06.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">15.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n07.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">2.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n08.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">8.3G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n09.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">3.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.3G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n10.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.05</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">29.7G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n11.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.03</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">6.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n12.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">6.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n13.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">1.02</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">15.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">90.6M</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n14.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.05</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">15.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">275.1M</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n15.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">2.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n16.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">2.04</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">8.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.5G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string">a</queuevalue>
+ </queue>
+ </host>
+ <host name="euc09n17.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">5.9G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n18.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">20.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n19.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.79</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">14.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n20.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">32.3G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">723.8M</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n21.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">4.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">4</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n22.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">8.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">0</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n23.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">8.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">0</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n24.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.05</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">42.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n25.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">7.9G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n26.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.05</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">16.7G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.0G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n27.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">17.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n28.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.05</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">35.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n29.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.05</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">31.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n30.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.05</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">36.9G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n31.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">5.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n32.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">6.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n33.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">13.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n34.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">11.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">0</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n35.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">4.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">260.1M</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">0</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n36.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">7.7G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.6G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n37.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">1.01</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">10.9G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.8G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n38.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">11.9G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n39.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">5.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.0G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n40.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">2.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">0</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n41.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.05</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">35.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">152.8M</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n42.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">10.9G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">0</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n43.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">2.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n44.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">4.9G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">0</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n45.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">2.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.5G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">0</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n46.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">28.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n47.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">8.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.3G</hostvalue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="euc09n48.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">12.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="e09n48">
+   <queuevalue qname="e09n48" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="e09n48" name="slots_used">0</queuevalue>
+   <queuevalue qname="e09n48" name="slots">20</queuevalue>
+   <queuevalue qname="e09n48" name="slots_resv">0</queuevalue>
+   <queuevalue qname="e09n48" name="state_string"/>
+ </queue>
+ <queue name="euc09">
+   <queuevalue qname="euc09" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="euc09" name="slots_used">20</queuevalue>
+   <queuevalue qname="euc09" name="slots">20</queuevalue>
+   <queuevalue qname="euc09" name="slots_resv">0</queuevalue>
+   <queuevalue qname="euc09" name="state_string"/>
+ </queue>
+ </host>
+ <host name="eurgs006.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">24</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">24</hostvalue>
+   <hostvalue name="m_thread">24</hostvalue>
+   <hostvalue name="np_load_avg">0.24</hostvalue>
+   <hostvalue name="mem_total">503.6G</hostvalue>
+   <hostvalue name="mem_used">204.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">30.4M</hostvalue>
+ <queue name="dcv2017">
+   <queuevalue qname="dcv2017" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="dcv2017" name="slots_used">13</queuevalue>
+   <queuevalue qname="dcv2017" name="slots">16</queuevalue>
+   <queuevalue qname="dcv2017" name="slots_resv">0</queuevalue>
+   <queuevalue qname="dcv2017" name="state_string"/>
+ </queue>
+ </host>
+ <host name="eurgs008.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">24</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">24</hostvalue>
+   <hostvalue name="m_thread">24</hostvalue>
+   <hostvalue name="np_load_avg">0.28</hostvalue>
+   <hostvalue name="mem_total">503.6G</hostvalue>
+   <hostvalue name="mem_used">54.3G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.2G</hostvalue>
+ <queue name="dcv2017">
+   <queuevalue qname="dcv2017" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="dcv2017" name="slots_used">7</queuevalue>
+   <queuevalue qname="dcv2017" name="slots">16</queuevalue>
+   <queuevalue qname="dcv2017" name="slots_resv">0</queuevalue>
+   <queuevalue qname="dcv2017" name="state_string"/>
+ </queue>
+ </host>
+ <host name="eurgs010.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">24</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">24</hostvalue>
+   <hostvalue name="m_thread">24</hostvalue>
+   <hostvalue name="np_load_avg">0.35</hostvalue>
+   <hostvalue name="mem_total">503.6G</hostvalue>
+   <hostvalue name="mem_used">76.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="dcv2017">
+   <queuevalue qname="dcv2017" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="dcv2017" name="slots_used">0</queuevalue>
+   <queuevalue qname="dcv2017" name="slots">16</queuevalue>
+   <queuevalue qname="dcv2017" name="slots_resv">0</queuevalue>
+   <queuevalue qname="dcv2017" name="state_string"/>
+ </queue>
+ </host>
+ <host name="eurgs012.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">20</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">20</hostvalue>
+   <hostvalue name="np_load_avg">0.33</hostvalue>
+   <hostvalue name="mem_total">377.7G</hostvalue>
+   <hostvalue name="mem_used">32.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="dcv2017">
+   <queuevalue qname="dcv2017" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="dcv2017" name="slots_used">11</queuevalue>
+   <queuevalue qname="dcv2017" name="slots">16</queuevalue>
+   <queuevalue qname="dcv2017" name="slots_resv">0</queuevalue>
+   <queuevalue qname="dcv2017" name="state_string"/>
+ </queue>
+ </host>
+ <host name="eurgs014.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">40</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">20</hostvalue>
+   <hostvalue name="m_thread">40</hostvalue>
+   <hostvalue name="np_load_avg">0.20</hostvalue>
+   <hostvalue name="mem_total">503.6G</hostvalue>
+   <hostvalue name="mem_used">210.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="dcv2017">
+   <queuevalue qname="dcv2017" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="dcv2017" name="slots_used">12</queuevalue>
+   <queuevalue qname="dcv2017" name="slots">16</queuevalue>
+   <queuevalue qname="dcv2017" name="slots_resv">0</queuevalue>
+   <queuevalue qname="dcv2017" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn001.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.6G</hostvalue>
+   <hostvalue name="mem_used">1.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">0.0</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">0</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string">d</queuevalue>
+ </queue>
+ </host>
+ <host name="ottc01sn002.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">41.6G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-75.7G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn003.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">24.6G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-738.1G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">16</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn004.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.97</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">28.7G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-153.8G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn005.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">3.6G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-266.4G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn006.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">37.0G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">583.1M</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn007.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">42.6G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn008.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">42.3G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-1001.6G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn009.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">42.1G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-162.8G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn010.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.99</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">35.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">200.1M</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn011.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.98</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">27.9G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-385.1G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn012.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">35.1G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-353.6G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn013.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">41.9G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-86.5G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn014.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">31.4G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-687.3G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn015.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">31.8G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">661.9M</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn016.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">31.5G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">444.8M</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn017.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.01</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">25.5G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-190.9G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn018.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">1.5G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-1445.2G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">20</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn019.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">1.5G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-4862.3G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">0</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn020.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.97</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">26.2G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-1987.4G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn021.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.99</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">27.5G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-37.4G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn022.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">37.0G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-417.8G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn023.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">31.4G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-877.9G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn024.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">26.1G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">24.1M</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn025.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.97</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">29.2G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-880.3G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn026.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.97</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">26.9G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-1479.0G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn027.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">42.0G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-1947.0G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn028.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.98</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">24.0G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-74.9G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn029.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">42.0G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-691.0G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn030.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">1.5G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-1819.0G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">0</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn031.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">1.4G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">7.2M</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">0</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn032.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.97</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">29.1G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-450.7G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn033.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.97</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">71.1G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-251.6G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn034.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">41.9G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-1039.8G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn035.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">26.0G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-566.9G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn036.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.97</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">24.2G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-274.7G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn037.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">41.4G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">4.3G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn038.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">31.4G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">1.1G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn039.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.97</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">30.3G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-178.4M</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn040.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.97</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">31.0G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-14121.4G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn041.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">41.9G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-451.3G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn042.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">31.4G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-2415.6G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn043.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">41.3G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">575.0M</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn044.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">7.1G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-403.8G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">20</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn045.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">1.5G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-64.3G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">0</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn046.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">37.6G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-209.6G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn047.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">41.6G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-1043.5G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc01sn048.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">28</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">28</hostvalue>
+   <hostvalue name="m_thread">28</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">125.9G</hostvalue>
+   <hostvalue name="mem_used">41.7G</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-896.2G</hostvalue>
+ <queue name="ottc01">
+   <queuevalue qname="ottc01" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc01" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots">28</queuevalue>
+   <queuevalue qname="ottc01" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc01" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm001.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.94</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">14.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.3G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm002.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.93</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">16.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.7G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm003.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.93</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">13.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.1G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm004.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.88</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">46.7G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm005.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.93</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">15.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm006.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">141.9G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.7G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm007.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.03</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">155.7G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm008.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.22</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">52.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.3G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm009.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.90</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">14.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.3G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm010.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.91</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">15.7G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm011.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.91</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">14.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.3G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm012.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.93</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">169.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm013.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.91</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">22.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm014.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">208.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm015.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.06</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">217.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02lm016.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.21</hostvalue>
+   <hostvalue name="mem_total">376.2G</hostvalue>
+   <hostvalue name="mem_used">110.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02lm">
+   <queuevalue qname="ottc02lm" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02lm" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02lm" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn001.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.93</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">39.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn002.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.75</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">16.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.7G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn003.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">3.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.1G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn004.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">18.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.7G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn005.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">2.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.4G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn006.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.92</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">15.3G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.5G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn007.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">13.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.8G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn008.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.57</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">11.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.8G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">18</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn009.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.99</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">30.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.8G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn010.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.72</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">126.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.6G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn011.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">2.9G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.4G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn012.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">6.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.7G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn013.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">2.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">187.0M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn014.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">32.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.9G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn015.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">16.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.3G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn016.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.01</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">6.3G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">346.8M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">8</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn017.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">31.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">205.5M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn018.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.05</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">24.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.7G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn019.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.05</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">10.7G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">162.4M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">28</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn020.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.92</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">15.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.6G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn021.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.04</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">70.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">550.3M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn022.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.05</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">17.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn023.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.08</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">23.7G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.7G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn024.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.18</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">22.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.0G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">8</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn025.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.93</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">13.7G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn026.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.92</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">13.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.7G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn027.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">11.9G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn028.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">11.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.1G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn029.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">184.3G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn030.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">17.3G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.4G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn031.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.01</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">18.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.9G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn032.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.08</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">77.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.6G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn033.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.08</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">16.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.9G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn034.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">17.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.5G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn035.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">16.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.3G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn036.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">3.3G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.7G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">0</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn037.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.04</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">17.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.5G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn038.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.05</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">25.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">496.2M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn039.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.02</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">16.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">129.7M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn040.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.96</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">25.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.5G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn041.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.01</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">17.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn042.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.92</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">12.7G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.7G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn043.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">17.7G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn044.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">12.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.6G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn045.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.74</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">27.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn046.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">15.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn047.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.76</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">18.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn048.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">13.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.2G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn049.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">6.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.2G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">8</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn050.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">19.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.1G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn051.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.98</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">11.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">90.6M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn052.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">10.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">70.0M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn053.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.06</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">17.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn054.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">34.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">67.3M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn055.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.94</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">13.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.1G</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn056.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.75</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">25.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">75.0M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn057.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">30.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">89.1M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn058.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.74</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">15.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">72.4M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn059.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.73</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">15.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">91.5M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc02sn060.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.99</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">10.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">542.1M</hostvalue>
+ <queue name="ottc02">
+   <queuevalue qname="ottc02" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottc02" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots">32</queuevalue>
+   <queuevalue qname="ottc02" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottc02" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottc0701.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">16</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">16</hostvalue>
+   <hostvalue name="m_thread">16</hostvalue>
+   <hostvalue name="np_load_avg">-</hostvalue>
+   <hostvalue name="mem_total">62.8G</hostvalue>
+   <hostvalue name="mem_used">-</hostvalue>
+   <hostvalue name="swap_total">64.0G</hostvalue>
+   <hostvalue name="swap_used">-</hostvalue>
+ </host>
+ <host name="ottc0702.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">16</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">16</hostvalue>
+   <hostvalue name="m_thread">16</hostvalue>
+   <hostvalue name="np_load_avg">-</hostvalue>
+   <hostvalue name="mem_total">62.8G</hostvalue>
+   <hostvalue name="mem_used">-</hostvalue>
+   <hostvalue name="swap_total">64.0G</hostvalue>
+   <hostvalue name="swap_used">-</hostvalue>
+ </host>
+ <host name="ottc0703.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">16</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">16</hostvalue>
+   <hostvalue name="m_thread">16</hostvalue>
+   <hostvalue name="np_load_avg">-</hostvalue>
+   <hostvalue name="mem_total">62.8G</hostvalue>
+   <hostvalue name="mem_used">-</hostvalue>
+   <hostvalue name="swap_total">64.0G</hostvalue>
+   <hostvalue name="swap_used">-</hostvalue>
+ </host>
+ <host name="ottc0704.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">16</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">16</hostvalue>
+   <hostvalue name="m_thread">16</hostvalue>
+   <hostvalue name="np_load_avg">-</hostvalue>
+   <hostvalue name="mem_total">62.8G</hostvalue>
+   <hostvalue name="mem_used">-</hostvalue>
+   <hostvalue name="swap_total">64.0G</hostvalue>
+   <hostvalue name="swap_used">-</hostvalue>
+ </host>
+ <host name="ottc0705.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">16</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">16</hostvalue>
+   <hostvalue name="m_thread">16</hostvalue>
+   <hostvalue name="np_load_avg">-</hostvalue>
+   <hostvalue name="mem_total">62.8G</hostvalue>
+   <hostvalue name="mem_used">-</hostvalue>
+   <hostvalue name="swap_total">64.0G</hostvalue>
+   <hostvalue name="swap_used">-</hostvalue>
+ </host>
+ <host name="ottc0706.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">16</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">16</hostvalue>
+   <hostvalue name="m_thread">16</hostvalue>
+   <hostvalue name="np_load_avg">-</hostvalue>
+   <hostvalue name="mem_total">62.8G</hostvalue>
+   <hostvalue name="mem_used">-</hostvalue>
+   <hostvalue name="swap_total">64.0G</hostvalue>
+   <hostvalue name="swap_used">-</hostvalue>
+ </host>
+ <host name="ottc0707.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">16</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">16</hostvalue>
+   <hostvalue name="m_thread">16</hostvalue>
+   <hostvalue name="np_load_avg">-</hostvalue>
+   <hostvalue name="mem_total">62.8G</hostvalue>
+   <hostvalue name="mem_used">-</hostvalue>
+   <hostvalue name="swap_total">64.0G</hostvalue>
+   <hostvalue name="swap_used">-</hostvalue>
+ </host>
+ <host name="ottc0708.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">16</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">16</hostvalue>
+   <hostvalue name="m_thread">16</hostvalue>
+   <hostvalue name="np_load_avg">-</hostvalue>
+   <hostvalue name="mem_total">62.8G</hostvalue>
+   <hostvalue name="mem_used">-</hostvalue>
+   <hostvalue name="swap_total">64.0G</hostvalue>
+   <hostvalue name="swap_used">-</hostvalue>
+ </host>
+ <host name="ottdevhpc01.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">141.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.0G</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc02.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.07</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">11.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.4G</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc03.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">140.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">102.9M</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc04.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">143.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.8G</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc05.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">138.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">343.4M</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc06.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">141.9G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc07.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">161.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc08.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">143.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc09.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.01</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">140.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">160.1M</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc10.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.01</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">168.9G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc11.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">156.3G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.8G</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc12.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">142.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc13.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">145.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc14.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.01</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">148.1G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.9G</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc15.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">9.7G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">292.7M</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottdevhpc16.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">32</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">32</hostvalue>
+   <hostvalue name="m_thread">32</hostvalue>
+   <hostvalue name="np_load_avg">1.01</hostvalue>
+   <hostvalue name="mem_total">187.2G</hostvalue>
+   <hostvalue name="mem_used">142.9G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.4G</hostvalue>
+ <queue name="ottdevhpc">
+   <queuevalue qname="ottdevhpc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_used">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots">32</queuevalue>
+   <queuevalue qname="ottdevhpc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="ottdevhpc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottsimportal1.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">16</hostvalue>
+   <hostvalue name="m_socket">8</hostvalue>
+   <hostvalue name="m_core">16</hostvalue>
+   <hostvalue name="m_thread">16</hostvalue>
+   <hostvalue name="np_load_avg">-</hostvalue>
+   <hostvalue name="mem_total">23.6G</hostvalue>
+   <hostvalue name="mem_used">-</hostvalue>
+   <hostvalue name="swap_total">2.0G</hostvalue>
+   <hostvalue name="swap_used">-</hostvalue>
+ </host>
+ <host name="ottugemaster.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">2</hostvalue>
+   <hostvalue name="m_socket">1</hostvalue>
+   <hostvalue name="m_core">2</hostvalue>
+   <hostvalue name="m_thread">2</hostvalue>
+   <hostvalue name="np_load_avg">-</hostvalue>
+   <hostvalue name="mem_total">3.7G</hostvalue>
+   <hostvalue name="mem_used">-</hostvalue>
+   <hostvalue name="swap_total">4.0G</hostvalue>
+   <hostvalue name="swap_used">-</hostvalue>
+ </host>
+ <host name="ottugersm.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">2</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">2</hostvalue>
+   <hostvalue name="m_thread">2</hostvalue>
+   <hostvalue name="np_load_avg">-</hostvalue>
+   <hostvalue name="mem_total">3.8G</hostvalue>
+   <hostvalue name="mem_used">-</hostvalue>
+   <hostvalue name="swap_total">8.0G</hostvalue>
+   <hostvalue name="swap_used">-</hostvalue>
+ </host>
+ <host name="ottugeshadow.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">2</hostvalue>
+   <hostvalue name="m_socket">1</hostvalue>
+   <hostvalue name="m_core">2</hostvalue>
+   <hostvalue name="m_thread">2</hostvalue>
+   <hostvalue name="np_load_avg">-</hostvalue>
+   <hostvalue name="mem_total">3.7G</hostvalue>
+   <hostvalue name="mem_used">-</hostvalue>
+   <hostvalue name="swap_total">4.0G</hostvalue>
+   <hostvalue name="swap_used">-</hostvalue>
+ </host>
+ <host name="ottvnc1.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">2</hostvalue>
+   <hostvalue name="m_socket">1</hostvalue>
+   <hostvalue name="m_core">2</hostvalue>
+   <hostvalue name="m_thread">2</hostvalue>
+   <hostvalue name="np_load_avg">0.23</hostvalue>
+   <hostvalue name="mem_total">15.5G</hostvalue>
+   <hostvalue name="mem_used">6.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.2G</hostvalue>
+ <queue name="vnc">
+   <queuevalue qname="vnc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="vnc" name="slots_used">7</queuevalue>
+   <queuevalue qname="vnc" name="slots">8</queuevalue>
+   <queuevalue qname="vnc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="vnc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottvnc10.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">4</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">4</hostvalue>
+   <hostvalue name="m_thread">4</hostvalue>
+   <hostvalue name="np_load_avg">0.41</hostvalue>
+   <hostvalue name="mem_total">7.6G</hostvalue>
+   <hostvalue name="mem_used">4.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.6G</hostvalue>
+ <queue name="vnc">
+   <queuevalue qname="vnc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="vnc" name="slots_used">9</queuevalue>
+   <queuevalue qname="vnc" name="slots">12</queuevalue>
+   <queuevalue qname="vnc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="vnc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottvnc11.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">4</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">4</hostvalue>
+   <hostvalue name="m_thread">4</hostvalue>
+   <hostvalue name="np_load_avg">0.18</hostvalue>
+   <hostvalue name="mem_total">7.6G</hostvalue>
+   <hostvalue name="mem_used">5.4G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.5G</hostvalue>
+ <queue name="vnc">
+   <queuevalue qname="vnc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="vnc" name="slots_used">12</queuevalue>
+   <queuevalue qname="vnc" name="slots">12</queuevalue>
+   <queuevalue qname="vnc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="vnc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottvnc12.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">4</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">4</hostvalue>
+   <hostvalue name="m_thread">4</hostvalue>
+   <hostvalue name="np_load_avg">0.46</hostvalue>
+   <hostvalue name="mem_total">7.6G</hostvalue>
+   <hostvalue name="mem_used">6.8G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.4G</hostvalue>
+ <queue name="vnc">
+   <queuevalue qname="vnc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="vnc" name="slots_used">8</queuevalue>
+   <queuevalue qname="vnc" name="slots">12</queuevalue>
+   <queuevalue qname="vnc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="vnc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottvnc13.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">4</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">4</hostvalue>
+   <hostvalue name="m_thread">4</hostvalue>
+   <hostvalue name="np_load_avg">0.00</hostvalue>
+   <hostvalue name="mem_total">7.6G</hostvalue>
+   <hostvalue name="mem_used">1.3G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">776.0K</hostvalue>
+ <queue name="svnc">
+   <queuevalue qname="svnc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="svnc" name="slots_used">0</queuevalue>
+   <queuevalue qname="svnc" name="slots">4</queuevalue>
+   <queuevalue qname="svnc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="svnc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottvnc2.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">2</hostvalue>
+   <hostvalue name="m_socket">1</hostvalue>
+   <hostvalue name="m_core">2</hostvalue>
+   <hostvalue name="m_thread">2</hostvalue>
+   <hostvalue name="np_load_avg">0.22</hostvalue>
+   <hostvalue name="mem_total">15.5G</hostvalue>
+   <hostvalue name="mem_used">3.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.2G</hostvalue>
+ <queue name="vnc">
+   <queuevalue qname="vnc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="vnc" name="slots_used">7</queuevalue>
+   <queuevalue qname="vnc" name="slots">8</queuevalue>
+   <queuevalue qname="vnc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="vnc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottvnc3.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">4</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">4</hostvalue>
+   <hostvalue name="m_thread">4</hostvalue>
+   <hostvalue name="np_load_avg">0.22</hostvalue>
+   <hostvalue name="mem_total">15.5G</hostvalue>
+   <hostvalue name="mem_used">10.0G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">1.9G</hostvalue>
+ <queue name="vnc">
+   <queuevalue qname="vnc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="vnc" name="slots_used">10</queuevalue>
+   <queuevalue qname="vnc" name="slots">12</queuevalue>
+   <queuevalue qname="vnc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="vnc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottvnc4.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">4</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">4</hostvalue>
+   <hostvalue name="m_thread">4</hostvalue>
+   <hostvalue name="np_load_avg">0.24</hostvalue>
+   <hostvalue name="mem_total">15.5G</hostvalue>
+   <hostvalue name="mem_used">7.5G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">2.2G</hostvalue>
+ <queue name="vnc">
+   <queuevalue qname="vnc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="vnc" name="slots_used">12</queuevalue>
+   <queuevalue qname="vnc" name="slots">12</queuevalue>
+   <queuevalue qname="vnc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="vnc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottvnc7.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">6</hostvalue>
+   <hostvalue name="m_socket">3</hostvalue>
+   <hostvalue name="m_core">6</hostvalue>
+   <hostvalue name="m_thread">6</hostvalue>
+   <hostvalue name="np_load_avg">0.09</hostvalue>
+   <hostvalue name="mem_total">15.5G</hostvalue>
+   <hostvalue name="mem_used">4.2G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.5G</hostvalue>
+ <queue name="vnc">
+   <queuevalue qname="vnc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="vnc" name="slots_used">12</queuevalue>
+   <queuevalue qname="vnc" name="slots">12</queuevalue>
+   <queuevalue qname="vnc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="vnc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottvnc8.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">6</hostvalue>
+   <hostvalue name="m_socket">3</hostvalue>
+   <hostvalue name="m_core">6</hostvalue>
+   <hostvalue name="m_thread">6</hostvalue>
+   <hostvalue name="np_load_avg">0.11</hostvalue>
+   <hostvalue name="mem_total">15.5G</hostvalue>
+   <hostvalue name="mem_used">12.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.3G</hostvalue>
+ <queue name="vnc">
+   <queuevalue qname="vnc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="vnc" name="slots_used">13</queuevalue>
+   <queuevalue qname="vnc" name="slots">12</queuevalue>
+   <queuevalue qname="vnc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="vnc" name="state_string"/>
+ </queue>
+ </host>
+ <host name="ottvnc9.ansys.com">
+   <hostvalue name="arch_string">lx-amd64</hostvalue>
+   <hostvalue name="num_proc">4</hostvalue>
+   <hostvalue name="m_socket">2</hostvalue>
+   <hostvalue name="m_core">4</hostvalue>
+   <hostvalue name="m_thread">4</hostvalue>
+   <hostvalue name="np_load_avg">0.24</hostvalue>
+   <hostvalue name="mem_total">7.6G</hostvalue>
+   <hostvalue name="mem_used">5.6G</hostvalue>
+   <hostvalue name="swap_total">3.9G</hostvalue>
+   <hostvalue name="swap_used">3.1G</hostvalue>
+ <queue name="vnc">
+   <queuevalue qname="vnc" name="qtype_string">BIP</queuevalue>
+   <queuevalue qname="vnc" name="slots_used">11</queuevalue>
+   <queuevalue qname="vnc" name="slots">12</queuevalue>
+   <queuevalue qname="vnc" name="slots_resv">0</queuevalue>
+   <queuevalue qname="vnc" name="state_string"/>
+ </queue>
+ </host>
+</qhost>

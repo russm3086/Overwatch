@@ -1,0 +1,1756 @@
+<?xml version='1.0'?>
+<job_info  xmlns:xsd="https://github.com/gridengine/gridengine/raw/master/source/dist/util/resources/schemas/qstat/qstat.xsd">
+  <queue_info>
+    <job_list state="running">
+      <JB_job_number>77205</JB_job_number>
+      <JAT_prio>0.75000</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>spatel</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-10T12:14:09.057</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>77302</JB_job_number>
+      <JAT_prio>0.73193</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>gprillwit</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-12T10:28:34.258</JAT_start_time>
+      <queue_name>dcv2017@eurgs006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>77440</JB_job_number>
+      <JAT_prio>0.72301</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>tlberg</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-13T09:18:53.054</JAT_start_time>
+      <queue_name>vnc@ottvnc2.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>77797</JB_job_number>
+      <JAT_prio>0.67619</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>abenhadj</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-18T09:08:52.059</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>77862</JB_job_number>
+      <JAT_prio>0.67375</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>iwoyna</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-18T15:24:07.060</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>77875</JB_job_number>
+      <JAT_prio>0.67347</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>aauckloo</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-18T16:07:07.062</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>77900</JB_job_number>
+      <JAT_prio>0.67244</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>paguado</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-18T18:44:58.062</JAT_start_time>
+      <queue_name>vnc@ottvnc1.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>77975</JB_job_number>
+      <JAT_prio>0.66538</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>aanderso</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-19T12:48:52.072</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>77987</JB_job_number>
+      <JAT_prio>0.66447</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>hndilima</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-19T15:09:12.059</JAT_start_time>
+      <queue_name>dcv2017@eurgs012.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>78259</JB_job_number>
+      <JAT_prio>0.62036</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>iverma</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-24T08:02:44.049</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>78289</JB_job_number>
+      <JAT_prio>0.61860</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>adimaria</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-24T12:32:52.056</JAT_start_time>
+      <queue_name>vnc@ottvnc1.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>78358</JB_job_number>
+      <JAT_prio>0.61613</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>fecastro</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-24T18:52:52.053</JAT_start_time>
+      <queue_name>vnc@ottvnc1.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>78375</JB_job_number>
+      <JAT_prio>0.60987</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>maroni</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-25T10:53:52.060</JAT_start_time>
+      <queue_name>vnc@ottvnc2.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>78425</JB_job_number>
+      <JAT_prio>0.60866</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>aradwan</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-25T13:58:56.053</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>78531</JB_job_number>
+      <JAT_prio>0.60060</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>dloricch</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-26T10:36:27.055</JAT_start_time>
+      <queue_name>dcv2017@eurgs010.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>78532</JB_job_number>
+      <JAT_prio>0.60060</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>dloricch</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-26T10:37:12.061</JAT_start_time>
+      <queue_name>vnc@ottvnc2.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>78544</JB_job_number>
+      <JAT_prio>0.60041</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>detwyman</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-26T11:05:42.251</JAT_start_time>
+      <queue_name>dcv2017@eurgs010.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>78547</JB_job_number>
+      <JAT_prio>0.60041</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>detwyman</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-26T11:07:27.077</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>79025</JB_job_number>
+      <JAT_prio>0.59984</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>kwielage</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-26T12:34:00.091</JAT_start_time>
+      <queue_name>dcv2017@eurgs010.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>79026</JB_job_number>
+      <JAT_prio>0.59983</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>afocho</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-26T12:35:15.205</JAT_start_time>
+      <queue_name>vnc@ottvnc2.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>79152</JB_job_number>
+      <JAT_prio>0.59075</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>pbacle</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-27T11:50:00.061</JAT_start_time>
+      <queue_name>vnc@ottvnc2.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>79331</JB_job_number>
+      <JAT_prio>0.57929</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>ishamill</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-06-28T17:10:11.304</JAT_start_time>
+      <queue_name>vnc@ottvnc1.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>79440</JB_job_number>
+      <JAT_prio>0.55275</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>cguenthe</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-01T13:05:17.056</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>79615</JB_job_number>
+      <JAT_prio>0.54348</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>hreese</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-02T12:49:02.055</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>79679</JB_job_number>
+      <JAT_prio>0.54216</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>dbessett</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-02T16:11:36.076</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>79688</JB_job_number>
+      <JAT_prio>0.54205</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>ddeltche</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-02T16:29:17.074</JAT_start_time>
+      <queue_name>dcv2017@eurgs012.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>79813</JB_job_number>
+      <JAT_prio>0.52538</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>shafid</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-04T11:08:06.058</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>79826</JB_job_number>
+      <JAT_prio>0.52434</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>ishamill</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-04T13:47:37.049</JAT_start_time>
+      <queue_name>dcv2017@eurgs008.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>79838</JB_job_number>
+      <JAT_prio>0.52400</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>dloerinc</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-04T14:41:07.057</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>79839</JB_job_number>
+      <JAT_prio>0.52400</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>dloerinc</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-04T14:41:22.057</JAT_start_time>
+      <queue_name>dcv2017@eurgs008.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>79994</JB_job_number>
+      <JAT_prio>0.51382</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>hreese</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-25T10:29:41.061</JAT_start_time>
+      <queue_name>dcv2017@eurgs012.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80012</JB_job_number>
+      <JAT_prio>0.51343</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>mbeliaev</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-05T17:43:37.026</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80058</JB_job_number>
+      <JAT_prio>0.49387</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>bbertola</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-07T19:48:03.022</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80075</JB_job_number>
+      <JAT_prio>0.48879</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>software</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-08T08:47:03.030</JAT_start_time>
+      <queue_name>dcv2017@eurgs010.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81848</JB_job_number>
+      <JAT_prio>0.48799</JAT_prio>
+      <JB_name>DLR_smooth</JB_name>
+      <JB_owner>iverma</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-24T09:32:10.542</JAT_start_time>
+      <queue_name>ottc01@ottc01sn014.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>192</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80164</JB_job_number>
+      <JAT_prio>0.48763</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>sacross</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-08T11:45:33.036</JAT_start_time>
+      <queue_name>vnc@ottvnc2.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80184</JB_job_number>
+      <JAT_prio>0.48702</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>ecarman</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-08T13:19:48.044</JAT_start_time>
+      <queue_name>vnc@ottvnc1.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80232</JB_job_number>
+      <JAT_prio>0.48572</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>amichel</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-08T16:39:48.052</JAT_start_time>
+      <queue_name>dcv2017@eurgs010.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80243</JB_job_number>
+      <JAT_prio>0.48542</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>mcourtoi</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-08T17:24:33.029</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80289</JB_job_number>
+      <JAT_prio>0.47898</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>psmirnov</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-09T09:54:03.027</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80305</JB_job_number>
+      <JAT_prio>0.47830</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>pshutche</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-09T11:37:48.031</JAT_start_time>
+      <queue_name>vnc@ottvnc1.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80410</JB_job_number>
+      <JAT_prio>0.47714</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>uschmidt</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-09T16:14:33.031</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80442</JB_job_number>
+      <JAT_prio>0.47650</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>mhaselow</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-09T16:16:03.042</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80479</JB_job_number>
+      <JAT_prio>0.46997</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>ddeltche</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-10T08:58:03.031</JAT_start_time>
+      <queue_name>vnc@ottvnc2.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80490</JB_job_number>
+      <JAT_prio>0.46961</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>ahueppe</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-10T09:53:33.029</JAT_start_time>
+      <queue_name>vnc@ottvnc2.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80563</JB_job_number>
+      <JAT_prio>0.46728</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>mwalters</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-10T15:50:29.028</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80628</JB_job_number>
+      <JAT_prio>0.45989</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>gmoula</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-11T10:46:15.032</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80890</JB_job_number>
+      <JAT_prio>0.45035</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>skpatang</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-12T11:10:45.033</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>80929</JB_job_number>
+      <JAT_prio>0.44948</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>jeinzing</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-12T13:24:07.031</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82011</JB_job_number>
+      <JAT_prio>0.42521</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>avalidi</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-30T23:24:22.640</JAT_start_time>
+      <queue_name>euc09@euc09n39.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>120</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81025</JB_job_number>
+      <JAT_prio>0.42311</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>mkainz</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-15T09:08:52.032</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81097</JB_job_number>
+      <JAT_prio>0.42011</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>jlavedri</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-15T16:35:23.024</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82948</JB_job_number>
+      <JAT_prio>0.41863</JAT_prio>
+      <JB_name>Honeywell</JB_name>
+      <JB_owner>bbertola</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T05:59:11.233</JAT_start_time>
+      <queue_name>ottc01@ottc01sn034.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>196</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81146</JB_job_number>
+      <JAT_prio>0.41122</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>oilina</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-16T15:20:08.032</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81148</JB_job_number>
+      <JAT_prio>0.41120</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>imdura</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-16T15:23:38.033</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81191</JB_job_number>
+      <JAT_prio>0.40303</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>wshang</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-17T12:17:23.032</JAT_start_time>
+      <queue_name>dcv2017@eurgs008.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81192</JB_job_number>
+      <JAT_prio>0.40302</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>wshang</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-17T12:18:38.026</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81210</JB_job_number>
+      <JAT_prio>0.40243</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>abenhadj</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-17T13:50:08.039</JAT_start_time>
+      <queue_name>dcv2017@eurgs008.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81275</JB_job_number>
+      <JAT_prio>0.39833</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>avalidi</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-18T00:18:53.025</JAT_start_time>
+      <queue_name>vnc@ottvnc1.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81293</JB_job_number>
+      <JAT_prio>0.39451</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>amoknach</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-18T10:05:43.023</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81298</JB_job_number>
+      <JAT_prio>0.39426</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>mcapella</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-18T10:43:58.034</JAT_start_time>
+      <queue_name>dcv2017@eurgs010.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81299</JB_job_number>
+      <JAT_prio>0.39426</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>mcapella</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-18T10:43:58.038</JAT_start_time>
+      <queue_name>vnc@ottvnc1.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81349</JB_job_number>
+      <JAT_prio>0.39163</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>mpowens</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-18T17:29:11.035</JAT_start_time>
+      <queue_name>vnc@ottvnc1.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81564</JB_job_number>
+      <JAT_prio>0.38748</JAT_prio>
+      <JB_name>cfx_SPSF</JB_name>
+      <JB_owner>scherhab</JB_owner>
+      <state>dr</state>
+      <JAT_start_time>2019-07-22T11:01:53.062</JAT_start_time>
+      <queue_name>euc09@euc09n01.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>40</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81405</JB_job_number>
+      <JAT_prio>0.38444</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>fmeslay</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-19T11:52:41.037</JAT_start_time>
+      <queue_name>vnc@ottvnc2.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82670</JB_job_number>
+      <JAT_prio>0.37280</JAT_prio>
+      <JB_name>DBNS-i5</JB_name>
+      <JB_owner>iverma</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-30T23:25:07.273</JAT_start_time>
+      <queue_name>euc09@euc09n18.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>120</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82088</JB_job_number>
+      <JAT_prio>0.37004</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>rreinelt</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-26T04:21:10.130</JAT_start_time>
+      <queue_name>ottc01@ottc01sn001.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>56</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82780</JB_job_number>
+      <JAT_prio>0.36994</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>avalidi</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-30T23:47:37.185</JAT_start_time>
+      <queue_name>ottc01@ottc01sn027.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>120</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82781</JB_job_number>
+      <JAT_prio>0.36994</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>avalidi</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-31T10:17:49.190</JAT_start_time>
+      <queue_name>ottc01@ottc01sn024.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>120</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81690</JB_job_number>
+      <JAT_prio>0.36226</JAT_prio>
+      <JB_name>Mechanical</JB_name>
+      <JB_owner>mmusto</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-23T11:48:32.039</JAT_start_time>
+      <queue_name>ottc01@ottc01sn013.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>20</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82186</JB_job_number>
+      <JAT_prio>0.36204</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>rmalk</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-26T14:06:13.223</JAT_start_time>
+      <queue_name>ottc01@ottc01sn028.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>56</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81610</JB_job_number>
+      <JAT_prio>0.35534</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>amoknach</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-22T14:21:07.030</JAT_start_time>
+      <queue_name>dcv2017@eurgs012.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81646</JB_job_number>
+      <JAT_prio>0.35413</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>slopez</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-22T17:26:28.032</JAT_start_time>
+      <queue_name>dcv2017@eurgs012.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81707</JB_job_number>
+      <JAT_prio>0.35260</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>rwoolhou</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-23T12:21:32.210</JAT_start_time>
+      <queue_name>euc09lm@euc09gpu01.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>16</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82083</JB_job_number>
+      <JAT_prio>0.34837</JAT_prio>
+      <JB_name>ansysedt</JB_name>
+      <JB_owner>ssayfana</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-26T03:02:55.313</JAT_start_time>
+      <queue_name>euc09lm@euc09lm02.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>28</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81682</JB_job_number>
+      <JAT_prio>0.34727</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>rwoolhou</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-23T11:01:02.034</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81715</JB_job_number>
+      <JAT_prio>0.34655</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>scherhab</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-23T12:51:32.033</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81728</JB_job_number>
+      <JAT_prio>0.34624</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>jread</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-23T13:38:02.030</JAT_start_time>
+      <queue_name>dcv2017@eurgs008.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81790</JB_job_number>
+      <JAT_prio>0.34513</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>aatkin</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-23T16:29:40.029</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81793</JB_job_number>
+      <JAT_prio>0.34505</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>ryeole</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-23T16:41:10.032</JAT_start_time>
+      <queue_name>vnc@ottvnc2.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81823</JB_job_number>
+      <JAT_prio>0.34395</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>ajamwal</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-23T19:30:40.033</JAT_start_time>
+      <queue_name>vnc@ottvnc2.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82461</JB_job_number>
+      <JAT_prio>0.34309</JAT_prio>
+      <JB_name>cfx_AT_trs1</JB_name>
+      <JB_owner>skpatang</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-29T16:51:53.499</JAT_start_time>
+      <queue_name>ottc01@ottc01sn011.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>70</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83087</JB_job_number>
+      <JAT_prio>0.34017</JAT_prio>
+      <JB_name>cfx_SPSF</JB_name>
+      <JB_owner>heickenb</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T12:00:07.139</JAT_start_time>
+      <queue_name>ottc01@ottc01sn006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>112</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81849</JB_job_number>
+      <JAT_prio>0.33829</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>nleibovi</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-24T09:59:25.030</JAT_start_time>
+      <queue_name>vnc@ottvnc1.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81850</JB_job_number>
+      <JAT_prio>0.33828</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>amzoughi</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-24T10:00:25.028</JAT_start_time>
+      <queue_name>dcv2017@eurgs012.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82267</JB_job_number>
+      <JAT_prio>0.33707</JAT_prio>
+      <JB_name>ansysedt</JB_name>
+      <JB_owner>nleibovi</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-26T20:03:53.159</JAT_start_time>
+      <queue_name>euc09lm@euc09lm03.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>28</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82419</JB_job_number>
+      <JAT_prio>0.33701</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>rkroeger</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-29T12:20:53.883</JAT_start_time>
+      <queue_name>euc09@euc09n37.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>60</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81900</JB_job_number>
+      <JAT_prio>0.33699</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>ssayfana</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-24T13:18:35.036</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81905</JB_job_number>
+      <JAT_prio>0.33678</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>rreinelt</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-24T13:51:42.035</JAT_start_time>
+      <queue_name>dcv2017@eurgs012.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81906</JB_job_number>
+      <JAT_prio>0.33678</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>rreinelt</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-24T13:51:57.028</JAT_start_time>
+      <queue_name>vnc@ottvnc1.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81959</JB_job_number>
+      <JAT_prio>0.33591</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>rmalk</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-24T16:04:30.027</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>81998</JB_job_number>
+      <JAT_prio>0.33327</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>sacross</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-24T22:52:56.031</JAT_start_time>
+      <queue_name>dcv2017@eurgs012.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82086</JB_job_number>
+      <JAT_prio>0.33267</JAT_prio>
+      <JB_name>ansysedt</JB_name>
+      <JB_owner>aauckloo</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-25T15:22:11.403</JAT_start_time>
+      <queue_name>ottc01@ottc01sn032.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>16</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82037</JB_job_number>
+      <JAT_prio>0.32875</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>reliu</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-25T10:27:11.028</JAT_start_time>
+      <queue_name>dcv2017@eurgs012.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82056</JB_job_number>
+      <JAT_prio>0.32854</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>plouat</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-25T10:57:11.026</JAT_start_time>
+      <queue_name>dcv2017@eurgs012.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82105</JB_job_number>
+      <JAT_prio>0.32681</JAT_prio>
+      <JB_name>INTERACTIVE</JB_name>
+      <JB_owner>skpatang</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-25T16:22:21.943</JAT_start_time>
+      <queue_name>euc09@euc09n22.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>2</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82120</JB_job_number>
+      <JAT_prio>0.32612</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>fmeslay</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-25T17:08:51.035</JAT_start_time>
+      <queue_name>dcv2017@eurgs012.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82584</JB_job_number>
+      <JAT_prio>0.32466</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>jlavedri</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-30T13:39:20.597</JAT_start_time>
+      <queue_name>ottc01@ottc01sn005.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>56</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82421</JB_job_number>
+      <JAT_prio>0.32133</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>rkroeger</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-29T12:21:08.185</JAT_start_time>
+      <queue_name>euc09@euc09n19.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>40</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82146</JB_job_number>
+      <JAT_prio>0.32001</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>lgoellni</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-26T08:47:32.037</JAT_start_time>
+      <queue_name>dcv2017@eurgs008.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82147</JB_job_number>
+      <JAT_prio>0.32000</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>lgoellni</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-26T08:48:47.032</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82160</JB_job_number>
+      <JAT_prio>0.31943</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>mcourtoi</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-26T10:15:17.032</JAT_start_time>
+      <queue_name>dcv2017@eurgs008.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82165</JB_job_number>
+      <JAT_prio>0.31930</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>aradwan</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-26T10:36:02.030</JAT_start_time>
+      <queue_name>dcv2017@eurgs008.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82171</JB_job_number>
+      <JAT_prio>0.31919</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>rkroeger</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-26T10:53:02.037</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82196</JB_job_number>
+      <JAT_prio>0.31854</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>dcaridi</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-26T12:33:11.031</JAT_start_time>
+      <queue_name>dcv2017@eurgs008.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82206</JB_job_number>
+      <JAT_prio>0.31788</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>lntibari</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-26T15:03:45.036</JAT_start_time>
+      <queue_name>vnc@ottvnc2.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82270</JB_job_number>
+      <JAT_prio>0.31411</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>lntibari</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-26T23:52:53.031</JAT_start_time>
+      <queue_name>dcv2017@eurgs008.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82507</JB_job_number>
+      <JAT_prio>0.30703</JAT_prio>
+      <JB_name>file9LOLqE</JB_name>
+      <JB_owner>odonadio</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-30T13:39:20.442</JAT_start_time>
+      <queue_name>ottc01@ottc01sn016.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>28</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82510</JB_job_number>
+      <JAT_prio>0.30426</JAT_prio>
+      <JB_name>r2Fl3r</JB_name>
+      <JB_owner>cluebon</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T11:29:52.412</JAT_start_time>
+      <queue_name>euc09lm@euc09gpu02.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>28</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83085</JB_job_number>
+      <JAT_prio>0.29970</JAT_prio>
+      <JB_name>sbes_hot</JB_name>
+      <JB_owner>sxia</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T11:39:22.186</JAT_start_time>
+      <queue_name>euc09@euc09n43.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>60</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82834</JB_job_number>
+      <JAT_prio>0.29328</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>rherrero</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-31T12:08:36.033</JAT_start_time>
+      <queue_name>ottc01@ottc01sn031.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>28</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82403</JB_job_number>
+      <JAT_prio>0.29132</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>mhaselow</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-29T10:13:23.026</JAT_start_time>
+      <queue_name>dcv2017@eurgs006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82410</JB_job_number>
+      <JAT_prio>0.29089</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>maroni</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-29T11:18:53.052</JAT_start_time>
+      <queue_name>dcv2017@eurgs006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82439</JB_job_number>
+      <JAT_prio>0.29012</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>heickenb</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-29T13:16:52.029</JAT_start_time>
+      <queue_name>dcv2017@eurgs006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82441</JB_job_number>
+      <JAT_prio>0.28993</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>pmueller</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-29T13:46:52.026</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82451</JB_job_number>
+      <JAT_prio>0.28941</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>bsanadgo</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-29T15:05:22.032</JAT_start_time>
+      <queue_name>vnc@ottvnc8.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82465</JB_job_number>
+      <JAT_prio>0.28855</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>sxia</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-29T17:18:08.034</JAT_start_time>
+      <queue_name>dcv2017@eurgs006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82587</JB_job_number>
+      <JAT_prio>0.28700</JAT_prio>
+      <JB_name>ansysedt</JB_name>
+      <JB_owner>afocho</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-30T12:15:20.033</JAT_start_time>
+      <queue_name>euc09lm@euc09lm01.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>16</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82550</JB_job_number>
+      <JAT_prio>0.28164</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>rmartine</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-30T10:59:05.032</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82590</JB_job_number>
+      <JAT_prio>0.28102</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>reliu</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-30T12:34:35.034</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82595</JB_job_number>
+      <JAT_prio>0.28058</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>wbauer</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-30T13:41:50.032</JAT_start_time>
+      <queue_name>dcv2017@eurgs006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82606</JB_job_number>
+      <JAT_prio>0.28053</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>wbauer</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-30T13:50:35.035</JAT_start_time>
+      <queue_name>vnc@ottvnc2.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82673</JB_job_number>
+      <JAT_prio>0.27937</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>hforkel</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-30T16:47:40.033</JAT_start_time>
+      <queue_name>vnc@ottvnc1.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82783</JB_job_number>
+      <JAT_prio>0.27625</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>jread</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-31T00:47:22.035</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83100</JB_job_number>
+      <JAT_prio>0.27369</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>pmueller</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T14:17:22.032</JAT_start_time>
+      <queue_name>ottc01@ottc01sn045.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>28</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83102</JB_job_number>
+      <JAT_prio>0.27366</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>pmueller</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T14:22:07.028</JAT_start_time>
+      <queue_name>ottc01@ottc01sn044.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>28</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83125</JB_job_number>
+      <JAT_prio>0.27235</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>reliu</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T17:43:11.037</JAT_start_time>
+      <queue_name>ottc01@ottc01sn023.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>28</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82823</JB_job_number>
+      <JAT_prio>0.27222</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>cguenthe</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-31T11:05:34.036</JAT_start_time>
+      <queue_name>dcv2017@eurgs006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82830</JB_job_number>
+      <JAT_prio>0.27183</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>rherrero</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-31T12:06:21.032</JAT_start_time>
+      <queue_name>vnc@ottvnc2.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82881</JB_job_number>
+      <JAT_prio>0.27024</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>odonadio</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-07-31T16:09:55.028</JAT_start_time>
+      <queue_name>dcv2017@eurgs006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83113</JB_job_number>
+      <JAT_prio>0.27012</JAT_prio>
+      <JB_name>sbes_fgm</JB_name>
+      <JB_owner>sxia</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T15:25:37.040</JAT_start_time>
+      <queue_name>ottc01@ottc01sn033.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>24</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83081</JB_job_number>
+      <JAT_prio>0.26853</JAT_prio>
+      <JB_name>ansysedt</JB_name>
+      <JB_owner>oilina</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T11:30:52.030</JAT_start_time>
+      <queue_name>euc09@euc09n14.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>20</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83097</JB_job_number>
+      <JAT_prio>0.26792</JAT_prio>
+      <JB_name>file1bUNpC</JB_name>
+      <JB_owner>slopez</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T13:04:22.032</JAT_start_time>
+      <queue_name>euc09@euc09n24.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>20</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82950</JB_job_number>
+      <JAT_prio>0.26382</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>hgrotjan</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-01T08:36:11.031</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82971</JB_job_number>
+      <JAT_prio>0.26298</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>pafonso</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-01T10:45:26.263</JAT_start_time>
+      <queue_name>dcv2017@eurgs006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82973</JB_job_number>
+      <JAT_prio>0.26278</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>heickenb</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-01T12:11:39.033</JAT_start_time>
+      <queue_name>vnc@ottvnc1.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82984</JB_job_number>
+      <JAT_prio>0.26243</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>fcalvano</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-01T12:09:09.030</JAT_start_time>
+      <queue_name>dcv2017@eurgs006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>82985</JB_job_number>
+      <JAT_prio>0.26240</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>psmirnov</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-01T12:14:39.033</JAT_start_time>
+      <queue_name>dcv2017@eurgs006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83057</JB_job_number>
+      <JAT_prio>0.25936</JAT_prio>
+      <JB_name>cfx_SPSF</JB_name>
+      <JB_owner>agantner</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T09:00:11.033</JAT_start_time>
+      <queue_name>ottc01@ottc01sn039.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>14</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83058</JB_job_number>
+      <JAT_prio>0.25936</JAT_prio>
+      <JB_name>cfx_SPSF</JB_name>
+      <JB_owner>agantner</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T09:00:26.030</JAT_start_time>
+      <queue_name>ottc01@ottc01sn003.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>14</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83076</JB_job_number>
+      <JAT_prio>0.25892</JAT_prio>
+      <JB_name>cfx_SPSF</JB_name>
+      <JB_owner>agantner</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T10:07:26.090</JAT_start_time>
+      <queue_name>ottc01@ottc01sn032.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>14</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83104</JB_job_number>
+      <JAT_prio>0.25718</JAT_prio>
+      <JB_name>cfx_SPSF</JB_name>
+      <JB_owner>agantner</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T14:34:37.036</JAT_start_time>
+      <queue_name>ottc01@ottc01sn007.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>14</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83074</JB_job_number>
+      <JAT_prio>0.25398</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>agantner</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T16:38:07.091</JAT_start_time>
+      <queue_name>vnc@ottvnc7.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83075</JB_job_number>
+      <JAT_prio>0.25397</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>agantner</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T09:48:56.032</JAT_start_time>
+      <queue_name>dcv2017@eurgs006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83077</JB_job_number>
+      <JAT_prio>0.25367</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>mpowens</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T10:34:11.029</JAT_start_time>
+      <queue_name>dcv2017@eurgs006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83118</JB_job_number>
+      <JAT_prio>0.25130</JAT_prio>
+      <JB_name>VNC Desktop</JB_name>
+      <JB_owner>lvoss</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T17:25:22.052</JAT_start_time>
+      <queue_name>vnc@ottvnc1.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="running">
+      <JB_job_number>83127</JB_job_number>
+      <JAT_prio>0.25000</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>yarrieta</JB_owner>
+      <state>r</state>
+      <JAT_start_time>2019-08-02T19:58:11.030</JAT_start_time>
+      <queue_name>dcv2017@eurgs006.ansys.com</queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+  </queue_info>
+  <job_info>
+    <job_list state="pending">
+      <JB_job_number>78545</JB_job_number>
+      <JAT_prio>0.60041</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>detwyman</JB_owner>
+      <state>qw</state>
+      <JB_submission_time>2019-06-26T11:05:38.406</JB_submission_time>
+      <queue_name></queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="pending">
+      <JB_job_number>82504</JB_job_number>
+      <JAT_prio>0.50578</JAT_prio>
+      <JB_name>cfx_SPSF</JB_name>
+      <JB_owner>mkainz</JB_owner>
+      <state>qw</state>
+      <JB_submission_time>2019-07-29T19:51:58.491</JB_submission_time>
+      <queue_name></queue_name>
+      <jclass_name></jclass_name>
+      <slots>280</slots>
+    </job_list>
+    <job_list state="pending">
+      <JB_job_number>82459</JB_job_number>
+      <JAT_prio>0.39794</JAT_prio>
+      <JB_name>fluent-t140</JB_name>
+      <JB_owner>maroni</JB_owner>
+      <state>qw</state>
+      <JB_submission_time>2019-07-29T16:05:29.895</JB_submission_time>
+      <queue_name></queue_name>
+      <jclass_name></jclass_name>
+      <slots>140</slots>
+    </job_list>
+    <job_list state="pending">
+      <JB_job_number>82779</JB_job_number>
+      <JAT_prio>0.37002</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>avalidi</JB_owner>
+      <state>qw</state>
+      <JB_submission_time>2019-07-30T23:35:02.789</JB_submission_time>
+      <queue_name></queue_name>
+      <jclass_name></jclass_name>
+      <slots>120</slots>
+    </job_list>
+    <job_list state="pending">
+      <JB_job_number>81611</JB_job_number>
+      <JAT_prio>0.35534</JAT_prio>
+      <JB_name>DCV Desktop</JB_name>
+      <JB_owner>amoknach</JB_owner>
+      <state>qw</state>
+      <JB_submission_time>2019-07-22T14:21:05.247</JB_submission_time>
+      <queue_name></queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="pending">
+      <JB_job_number>83101</JB_job_number>
+      <JAT_prio>0.33927</JAT_prio>
+      <JB_name>cfx_SPSF</JB_name>
+      <JB_owner>mkainz</JB_owner>
+      <state>qw</state>
+      <JB_submission_time>2019-08-02T14:17:56.582</JB_submission_time>
+      <queue_name></queue_name>
+      <jclass_name></jclass_name>
+      <slots>112</slots>
+    </job_list>
+    <job_list state="pending">
+      <JB_job_number>82509</JB_job_number>
+      <JAT_prio>0.30426</JAT_prio>
+      <JB_name>r1Fl3p</JB_name>
+      <JB_owner>cluebon</JB_owner>
+      <state>qw</state>
+      <JB_submission_time>2019-07-30T08:02:58.523</JB_submission_time>
+      <queue_name></queue_name>
+      <jclass_name></jclass_name>
+      <slots>28</slots>
+    </job_list>
+    <job_list state="pending">
+      <JB_job_number>81800</JB_job_number>
+      <JAT_prio>0.25094</JAT_prio>
+      <JB_name>tlaui11</JB_name>
+      <JB_owner>tlauinge</JB_owner>
+      <state>Eqw</state>
+      <JB_submission_time>2019-07-23T17:11:47.814</JB_submission_time>
+      <queue_name></queue_name>
+      <jclass_name></jclass_name>
+      <slots>2</slots>
+    </job_list>
+    <job_list state="pending">
+      <JB_job_number>81795</JB_job_number>
+      <JAT_prio>0.25030</JAT_prio>
+      <JB_name>min_test</JB_name>
+      <JB_owner>tlauinge</JB_owner>
+      <state>Eqw</state>
+      <JB_submission_time>2019-07-23T16:53:10.006</JB_submission_time>
+      <queue_name></queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="pending">
+      <JB_job_number>82477</JB_job_number>
+      <JAT_prio>0.25030</JAT_prio>
+      <JB_name>fluent</JB_name>
+      <JB_owner>pmueller</JB_owner>
+      <state>Eqw</state>
+      <JB_submission_time>2019-07-29T17:31:04.261</JB_submission_time>
+      <queue_name></queue_name>
+      <jclass_name></jclass_name>
+      <slots>2</slots>
+    </job_list>
+    <job_list state="pending">
+      <JB_job_number>81796</JB_job_number>
+      <JAT_prio>0.25027</JAT_prio>
+      <JB_name>tlaui</JB_name>
+      <JB_owner>tlauinge</JB_owner>
+      <state>Eqw</state>
+      <JB_submission_time>2019-07-23T16:58:14.538</JB_submission_time>
+      <queue_name></queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+    <job_list state="pending">
+      <JB_job_number>81797</JB_job_number>
+      <JAT_prio>0.25023</JAT_prio>
+      <JB_name>tlaui8</JB_name>
+      <JB_owner>tlauinge</JB_owner>
+      <state>Eqw</state>
+      <JB_submission_time>2019-07-23T17:04:39.203</JB_submission_time>
+      <queue_name></queue_name>
+      <jclass_name></jclass_name>
+      <slots>1</slots>
+    </job_list>
+  </job_info>
+</job_info>

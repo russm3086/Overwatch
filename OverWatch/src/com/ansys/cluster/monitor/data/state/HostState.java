@@ -27,6 +27,7 @@ public class HostState extends StateAbstract {
 	private static final String DisabledAutoDesc = "Automatically disabled";
 	private static final String ErrorDesc = "Error state";
 	private static final String NormalOperationDesc = "The host is running under normal operation";
+	private static final String OverProvisionedDesc = "The host is over provisioned (More task(s) have beed assigned than are reources available)";
 	private static final String MaxedSlotUsedDesc = "The host is running with Maxed Slot(s) Utilized";
 	private static final String MaxedSlotReservedDesc = "The host is running with all slots reserved";
 	private static final String HighCpuLoadDesc = "The host is running with a high cpu load";
@@ -65,6 +66,9 @@ public class HostState extends StateAbstract {
 	public static final HostState MaxedSlotReserved = new HostState("Maxed Slots Reserved", 1000, MaxedSlotReservedDesc,
 			Color.RED);
 
+	public static final HostState OverProvisioned = new HostState("Over Provisioned", 950, OverProvisionedDesc,
+			Color.RED);
+
 	public static final HostState Exclusive = new HostState("Exclusive Usage", 900, ExclsiveDesc, Color.RED);
 
 	public static final HostState NoSLotsAllocated = new HostState("No slots allocated", 800, NoSLotsAllocatedDesc,
@@ -88,6 +92,7 @@ public class HostState extends StateAbstract {
 
 	public static final HostState HighCpuLoad = new HostState("High Cpu Load", 100, HighCpuLoadDesc, Color.YELLOW);
 
-	public static final HostState MinorCPUAllocation = new HostState("Minor CPU Allocation", 50, MinorCPUAllocationDesc, Color.YELLOW);
+	public static final HostState MinorCPUAllocation = new HostState("Minor CPU Allocation", 50, MinorCPUAllocationDesc,
+			Color.YELLOW);
 
 }

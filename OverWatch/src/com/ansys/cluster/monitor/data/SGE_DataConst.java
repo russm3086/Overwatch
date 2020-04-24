@@ -7,7 +7,7 @@ public final class SGE_DataConst {
 	}
 
 	public static String app_name = "OverWatch";
-	public static String app_version = "1.4.6.0";
+	public static String app_version = "1.4.6.1";
 	public static String app_version_regex = "(\\d+\\.)+(\\d)";
 	
 	

@@ -53,7 +53,11 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 		addState(HostState.parseCode(nodeProp.getState()), HostState.Normal);
 
 		if (nodeProp.getSlotTotal() > 0) {
-			if (nodeProp.getSlotUsed() >= nodeProp.getSlotTotal()) {
+			if (nodeProp.getSlotUsed() > nodeProp.getSlotTotal()) {
+				addState(HostState.OverProvisioned);
+			}
+
+			if (nodeProp.getSlotUsed() == nodeProp.getSlotTotal()) {
 				addState(HostState.MaxedSlotUsed);
 			}
 
@@ -66,7 +70,7 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 			}
 		}
 
-		if (nodeProp.getNp_load_avg() >= 5) {
+		if (nodeProp.getNp_load_avg() >= 2) {
 			addState(HostState.HighCpuLoad);
 		}
 
@@ -83,11 +87,14 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 		setSlotUnavailable(nodeProp.getSlotUsed());
 
 		StateAbstract state = getState();
-		if ((state.between(HostState.Suspended, HostState.MaxedSlotReserved))
+		if ((state.between(HostState.Suspended, HostState.AlarmThreshold))
 				|| (state.between(HostState.Unknown, HostState.Error)) || (isExclusive())) {
 
 			setNodeAvailable(false);
-			setSlotUnavailable(nodeProp.getSlotTotal());
+
+			if (!state.equals(HostState.OverProvisioned)) {
+				setSlotUnavailable(nodeProp.getSlotTotal());
+			}
 		}
 	}
 
@@ -281,7 +288,6 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 
 			addListActiveJob(job);
 		}
-
 	}
 
 	public void processActiveListJob() {
