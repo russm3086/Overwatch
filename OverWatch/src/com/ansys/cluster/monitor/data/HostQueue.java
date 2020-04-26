@@ -198,6 +198,25 @@ public class HostQueue extends AnsQueueAbstract {
 		memDiProp.addMetric("Total Memory: ", decimalFormatter.format(getTotalMem()));
 		mainDiProp.addDetailedInfoProp(memDiProp);
 
+		DetailedInfoProp nodeDiProp = new DetailedInfoProp();
+
+		int unavailbleNode = 0;
+		int available = 0;
+
+		if (isVisualNode()) {
+
+			unavailbleNode = getUnavailableVisualHostsSize();
+			available = getAvailableVisualHostsSize();
+		} else {
+			unavailbleNode = getUnavailableComputeHostsSize();
+			available = getAvailableComputeHostsSize();
+		}
+		nodeDiProp.setPanelName("Nodes");
+		nodeDiProp.addMetric("Total Host: ", unavailbleNode + available);
+		nodeDiProp.addMetric("Total Unavailable Host: ", unavailbleNode);
+		nodeDiProp.addMetric("Total Available Host: ", available);
+		//mainDiProp.addDetailedInfoProp(nodeDiProp);
+
 		displayPendingJobs(mainDiProp);
 		displayActiveJobs(mainDiProp);
 		displayIdleJobs(mainDiProp);
