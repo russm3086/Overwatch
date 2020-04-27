@@ -400,7 +400,7 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 	}
 
 	public void displayPendingJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
-		tableDisplay(mainDiProp, map, "Pending Jobs", TableBuilder.table_Job);
+		tableDisplay(mainDiProp, map, "Pending Jobs", TableBuilder.table_Job_Pending);
 	}
 
 	public void displayActiveJobs(DetailedInfoProp mainDiProp) {
@@ -432,7 +432,7 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 	}
 
 	public void displayActiveSessionJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
-		tableDisplay(mainDiProp, map, "Active Sessions", TableBuilder.table_Job);
+		tableDisplay(mainDiProp, map, "Active Sessions", TableBuilder.table_Job_Visual);
 	}
 
 	public void displayErrorSessionJobs(DetailedInfoProp mainDiProp) {
@@ -440,7 +440,7 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 	}
 
 	public void displayErrorSessionJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
-		tableDisplay(mainDiProp, map, "Error Sessions", TableBuilder.table_Job);
+		tableDisplay(mainDiProp, map, "Error Sessions", TableBuilder.table_Job_Visual);
 	}
 
 	public void displayPendingSessionJobs(DetailedInfoProp mainDiProp) {
@@ -448,7 +448,7 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 	}
 
 	public void displayPendingSessionJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
-		tableDisplay(mainDiProp, map, "Idle Sessions", TableBuilder.table_Job);
+		tableDisplay(mainDiProp, map, "Idle Sessions", TableBuilder.table_Job_Visual);
 	}
 
 	/**

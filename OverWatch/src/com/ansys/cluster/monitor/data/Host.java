@@ -173,11 +173,11 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 	}
 
 	public String getFormattedLoad() {
-		return decimalFormatter.format(getNp_load_avg());
+		return numberFormmatter.format(getNp_load_avg());
 	}
 
 	public String getFormattedAvalMem() {
-		return decimalFormatter.format(getMemFreeNum());
+		return numberFormmatter.format(getMemFreeNum());
 	}
 
 	private String getJobs() {
@@ -346,7 +346,7 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 
 	@Override
 	public String getMemUsedNumStr() {
-		return decimalFormatter.format(getMemUsedNum());
+		return numberFormmatter.format(getMemUsedNum());
 	}
 
 	@Override
@@ -361,7 +361,7 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 
 	@Override
 	public String getMemFreeNumStr() {
-		return decimalFormatter.format(getMemFreeNum());
+		return numberFormmatter.format(getMemFreeNum());
 	}
 
 	@Override
@@ -421,7 +421,7 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 		DetailedInfoProp cpuDiProp = new DetailedInfoProp();
 		cpuDiProp.setPanelName("CPU");
 		cpuDiProp.addMetric("Host Core(s): ", getM_Core());
-		cpuDiProp.addMetric("Load: ", decimalFormatter.format(getNp_load_avg()));
+		cpuDiProp.addMetric("Load: ", numberFormmatter.format(getNp_load_avg()));
 		masterDiProp.addDetailedInfoProp(cpuDiProp);
 
 		DetailedInfoProp resourceDiProp = new DetailedInfoProp();
@@ -437,8 +437,8 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 
 		DetailedInfoProp memDiProp = new DetailedInfoProp();
 		memDiProp.setPanelName("Memory");
-		memDiProp.addMetric("Available: ", decimalFormatter.format(getMemFreeNum()));
-		memDiProp.addMetric("Used: ", decimalFormatter.format(getMemUsedNum()));
+		memDiProp.addMetric("Available: ", numberFormmatter.format(getMemFreeNum()));
+		memDiProp.addMetric("Used: ", numberFormmatter.format(getMemUsedNum()));
 		memDiProp.addMetric("Total: ", getMemTotal());
 		masterDiProp.addDetailedInfoProp(memDiProp);
 
@@ -458,7 +458,7 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 		sb.append(" ");
 		sb.append(getSlotTotal() - getSlotUnavailable());
 		sb.append(" Available Memory: ");
-		sb.append(decimalFormatter.format(getMemFreeNum()));
+		sb.append(numberFormmatter.format(getMemFreeNum()));
 		return sb.toString();
 	}
 

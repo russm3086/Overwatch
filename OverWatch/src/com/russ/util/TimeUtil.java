@@ -16,8 +16,11 @@ import java.time.temporal.TemporalUnit;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -172,7 +175,7 @@ public class TimeUtil {
 			}
 
 		}
-		
+
 		return result;
 
 	}
@@ -208,13 +211,11 @@ public class TimeUtil {
 
 	public static LocalDate DateToLocalDate(Date date) {
 		LocalDate current = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
 		return current;
 	}
 
 	public static LocalDate DateToCalendar(Calendar cal) {
 		LocalDate current = cal.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
 		return current;
 	}
 
@@ -222,7 +223,6 @@ public class TimeUtil {
 
 		Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		return date;
-
 	}
 
 	public static Calendar localDateToCalendar(LocalDate localDate) {
@@ -239,13 +239,79 @@ public class TimeUtil {
 		DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
 		String formattedDate = df.format(cal.getTime());
 		return formattedDate;
+	}
 
+	public static String formatDurationHHmmss(long elapseTime, String timeUnit) {
+
+		TimeUnit tu = TimeUnit.valueOf(timeUnit.toUpperCase());
+		return formatDurationHHmmss(elapseTime, tu);
+	}
+
+	public static String formatDurationHHmmss(long elapseTime, TimeUnit tu) {
+		LinkedHashMap<TimeUnit, Long> time = formatDuration(elapseTime, TimeUnit.MILLISECONDS);
+
+		StringBuilder sb = new StringBuilder();
+		for (Entry<TimeUnit, Long> entrySet : time.entrySet()) {
+
+			String format;
+			switch (entrySet.getKey()) {
+
+			case DAYS:
+				format = "Days: %02d ";
+				break;
+
+			case SECONDS:
+				format = "%02d.";
+				break;
+
+			case MILLISECONDS:
+				format = "%02d";
+				break;
+
+			default:
+
+				format = "%02d:";
+				break;
+			}
+
+			sb.append(String.format(format, entrySet.getValue()));
+		}
+
+		return sb.toString();
+	}
+
+	public static LinkedHashMap<TimeUnit, Long> formatDuration(long elapseTime, TimeUnit tu) {
+
+		LinkedHashMap<TimeUnit, Long> result = new LinkedHashMap<TimeUnit, Long>();
+
+		long duration = TimeUnit.MILLISECONDS.convert(elapseTime, tu);
+
+		long days = TimeUnit.MILLISECONDS.toDays(duration);
+		duration -= TimeUnit.DAYS.toMillis(days);
+		result.put(TimeUnit.DAYS, days);
+
+		long hours = TimeUnit.MILLISECONDS.toHours(duration);
+		duration -= TimeUnit.HOURS.toMillis(hours);
+		result.put(TimeUnit.HOURS, hours);
+
+		long minutes = TimeUnit.MILLISECONDS.toMinutes(duration);
+		duration -= TimeUnit.MINUTES.toMillis(minutes);
+		result.put(TimeUnit.MINUTES, minutes);
+
+		long seconds = TimeUnit.MILLISECONDS.toSeconds(duration);
+		duration -= TimeUnit.SECONDS.toMillis(seconds);
+		result.put(TimeUnit.SECONDS, seconds);
+
+		long milliseconds = TimeUnit.MILLISECONDS.toMillis(duration);
+		result.put(TimeUnit.MILLISECONDS, milliseconds);
+
+		return result;
 	}
 
 	public static ChronoUnit findChronoUnit(String timeUnits) {
 		final ChronoUnit unit;
 
-		switch (timeUnits) {
+		switch (timeUnits.toLowerCase()) {
 
 		case "sec":
 		case "secs": {
@@ -291,7 +357,5 @@ public class TimeUtil {
 
 		}
 		return unit;
-
 	}
-
 }

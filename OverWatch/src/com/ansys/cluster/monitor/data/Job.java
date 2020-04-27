@@ -7,11 +7,11 @@ package com.ansys.cluster.monitor.data;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.Clock;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
@@ -20,6 +20,8 @@ import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.JobState;
 import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
+import com.russ.util.TimeUtil;
+import com.russ.util.UnitConversion;
 
 /**
  * 
@@ -190,21 +192,32 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		}
 	}
 
+	/**
+	 * Not used
+	 */
 	@Override
 	public Duration getDuration() {
-
-		LocalDateTime startTime = LocalDateTime.now(Clock.systemDefaultZone());
+		LocalDateTime startTime = LocalDateTime.now();
 		if (getJobStartTime() != null) {
 			startTime = getJobStartTime();
-		}
-		if (getJobSubmissionTime() != null) {
+		} else if (getJobSubmissionTime() != null) {
 			startTime = getJobSubmissionTime();
 		}
 
-		LocalDateTime finishTime = LocalDateTime.now(Clock.systemDefaultZone());
-
+		LocalDateTime finishTime = LocalDateTime.now();
 		Duration duration = Duration.between(startTime, finishTime);
 
+		return duration;
+	}
+
+	public Duration getPendingTime() {
+
+		LocalDateTime startTime = getJobSubmissionTime();
+		LocalDateTime finishTime = LocalDateTime.now();
+		if (getJobStartTime() != null) {
+			finishTime = getJobStartTime();
+		}
+		Duration duration = Duration.between(startTime, finishTime);
 		return duration;
 	}
 
@@ -338,7 +351,11 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		return nodeProp.getJobIdleThreshold();
 	}
 
-	public double getCPU() {
+	public double getWallClockTime() {
+		return nodeProp.getDoubleProperty("wallclock");
+	}
+
+	public double getCPUTime() {
 		return nodeProp.getDoubleProperty("cpu");
 	}
 
@@ -354,7 +371,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		return nodeProp.getDoubleProperty("iow");
 	}
 
-	public double getIoOps() {
+	public double getIoops() {
 		return nodeProp.getDoubleProperty("ioops");
 	}
 
@@ -446,21 +463,51 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 		if (getStartHost() != null) {
 			jobDiProp.addMetric("Start Host: ", getStartHost());
-			jobDiProp.addMetric("Host Load: ", decimalFormatter.format(getHostLoad()));
+			jobDiProp.addMetric("Host Load: ", numberFormmatter.format(getHostLoad()));
 		}
 
 		jobDiProp.addMetric(getUnitRes() + ": ", getSlots());
-		jobDiProp.addMetric("Job Submission: ", getJobSubmissionTime());
+
 		jobDiProp.addMetric("Exclusive: ", isExclusive());
-		jobDiProp.addMetric("Duration (hrs.): ", getDuration().toHours());
+
 		masterDiProp.addDetailedInfoProp(jobDiProp);
 
-		DetailedInfoProp scaledDiProp = new DetailedInfoProp();
-		scaledDiProp.setPanelName("Scaled Usage");
-		scaledDiProp.addMetric("CPU: ", getCPU());
-		scaledDiProp.addMetric("Memory: ", getMem());
-		scaledDiProp.addMetric("IO: ", getIO());
-		masterDiProp.addDetailedInfoProp(scaledDiProp);
+		DetailedInfoProp jobExecDiProp = new DetailedInfoProp();
+		jobExecDiProp.setPanelName("Job Execution");
+		jobExecDiProp.addMetric("Submission: ", getJobSubmissionTime());
+
+		Duration duration = getPendingTime();
+		jobExecDiProp.addMetric("Pending Duration: ",
+				TimeUtil.formatDurationHHmmss(duration.toMillis(), TimeUnit.MILLISECONDS));
+
+		jobExecDiProp.addMetric("Start Date: ", getJobStartTime());
+
+		long wallClockTime = (long) (getWallClockTime() * 1000);
+		jobExecDiProp.addMetric("Duration: ",
+				TimeUtil.formatDurationHHmmss(wallClockTime, TimeUnit.MILLISECONDS));
+		masterDiProp.addDetailedInfoProp(jobExecDiProp);
+
+		DetailedInfoProp usageDiProp = new DetailedInfoProp();
+		usageDiProp.setPanelName("Usage");
+		usageDiProp.addMetric("Scaling Ratio: ", numberFormmatter.format(getCPUTime() / getWallClockTime()));
+
+		long cpuTime = (long) (getCPUTime() * 1000);
+		usageDiProp.addMetric("CPU Time: ", TimeUtil.formatDurationHHmmss(cpuTime, TimeUnit.MILLISECONDS));
+
+		long lngMemory = (long) (getMem() * 1000000000);
+		String strMemory = UnitConversion.humanReadableByteCount(lngMemory, false);
+		usageDiProp.addMetric("Memory: ", strMemory);
+
+		long lngIow = (long) (getIOW() * 1000);
+		usageDiProp.addMetric("IO Wait: ", TimeUtil.formatDurationHHmmss(lngIow, TimeUnit.MILLISECONDS));
+
+		long lngIO = (long) (getIO() * 1000000000);
+		String strIO = UnitConversion.humanReadableByteCount(lngIO, false);
+		usageDiProp.addMetric("IO: ", strIO);
+
+		usageDiProp.addMetric("ioops: ", numberFormmatter.format(getIoops()));
+
+		masterDiProp.addDetailedInfoProp(usageDiProp);
 
 		displayStateDescriptions(masterDiProp);
 		displayHosts(masterDiProp);

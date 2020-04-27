@@ -4,7 +4,7 @@
 package com.ansys.cluster.monitor.data.interfaces;
 
 import java.awt.Color;
-import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.SortedMap;
@@ -17,7 +17,9 @@ import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.gui.table.FUN_HostTableModel;
 import com.ansys.cluster.monitor.gui.table.HostTableModel;
+import com.ansys.cluster.monitor.gui.table.JobPendingTableModel;
 import com.ansys.cluster.monitor.gui.table.JobTableModel;
+import com.ansys.cluster.monitor.gui.table.JobVisualTableModel;
 import com.ansys.cluster.monitor.gui.table.MessageTableModel;
 import com.ansys.cluster.monitor.gui.table.StateTableModel;
 import com.ansys.cluster.monitor.gui.table.TableBuilder;
@@ -37,7 +39,8 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	protected boolean boExclusive = false;
 	protected String name;
 	protected NodeProp nodeProp;
-	protected DecimalFormat decimalFormatter = new DecimalFormat(".##");
+	// protected DecimalFormat decimalFormatter = new DecimalFormat(".##");
+	protected NumberFormat numberFormmatter = NumberFormat.getInstance();
 	protected String clusterType;
 	protected boolean isNodeAvailable = true;
 	protected boolean visualNode = false;
@@ -349,6 +352,14 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		case TableBuilder.table_Job:
 			JobTableModel jobTableModel = new JobTableModel(list);
 			return jobTableModel;
+
+		case TableBuilder.table_Job_Pending:
+			JobPendingTableModel jobPendingTableModel = new JobPendingTableModel(list);
+			return jobPendingTableModel;
+
+		case TableBuilder.table_Job_Visual:
+			JobVisualTableModel jobVisualTableModel = new JobVisualTableModel(list);
+			return jobVisualTableModel;
 
 		case TableBuilder.table_Host:
 			HostTableModel hostTableModel = new HostTableModel(list);

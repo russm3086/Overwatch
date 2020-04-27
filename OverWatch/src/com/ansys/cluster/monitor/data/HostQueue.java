@@ -189,13 +189,13 @@ public class HostQueue extends AnsQueueAbstract {
 			resourceDiProp.addMetric("F.U.N. Core(s):", getCoreFUN());
 		}
 
-		resourceDiProp.addMetric("Load: ", decimalFormatter.format(getNp_Load()));
+		resourceDiProp.addMetric("Load: ", numberFormmatter.format(getNp_Load()));
 		mainDiProp.addDetailedInfoProp(resourceDiProp);
 
 		DetailedInfoProp memDiProp = new DetailedInfoProp();
 		memDiProp.setPanelName("Memory");
-		memDiProp.addMetric("Available Memory: ", decimalFormatter.format(getAvailableMem()));
-		memDiProp.addMetric("Total Memory: ", decimalFormatter.format(getTotalMem()));
+		memDiProp.addMetric("Available Memory: ", numberFormmatter.format(getAvailableMem()));
+		memDiProp.addMetric("Total Memory: ", numberFormmatter.format(getTotalMem()));
 		mainDiProp.addDetailedInfoProp(memDiProp);
 
 		DetailedInfoProp nodeDiProp = new DetailedInfoProp();
@@ -292,7 +292,7 @@ public class HostQueue extends AnsQueueAbstract {
 		}
 
 		sb.append(" Available Memory: ");
-		sb.append(decimalFormatter.format(getAvailableMem()));
+		sb.append(numberFormmatter.format(getAvailableMem()));
 		return sb.toString();
 	}
 

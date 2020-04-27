@@ -279,8 +279,8 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 
 		DetailedInfoProp memoryDiProp = new DetailedInfoProp();
 		memoryDiProp.setPanelName("Memory");
-		memoryDiProp.addMetric("Available Memory: ", decimalFormatter.format(getAvailableMem()));
-		memoryDiProp.addMetric("Total Memory: ", decimalFormatter.format(getTotalMem()));
+		memoryDiProp.addMetric("Available Memory: ", numberFormmatter.format(getAvailableMem()));
+		memoryDiProp.addMetric("Total Memory: ", numberFormmatter.format(getTotalMem()));
 		masterDiProp.addDetailedInfoProp(memoryDiProp);
 
 		DetailedInfoProp nodesDiProp = new DetailedInfoProp();
