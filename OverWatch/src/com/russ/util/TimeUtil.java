@@ -16,15 +16,14 @@ import java.time.temporal.TemporalUnit;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map.Entry;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.commons.lang3.time.DurationFormatUtils;
 
 /**
  * @author rmartine
@@ -240,76 +239,12 @@ public class TimeUtil {
 		String formattedDate = df.format(cal.getTime());
 		return formattedDate;
 	}
-
-	public static String formatDurationHHmmSSsss(long elapseTime, String timeUnit) {
-
-		TimeUnit tu = TimeUnit.valueOf(timeUnit.toUpperCase());
-		return formatDurationHHmmSSsss(elapseTime, tu);
+	
+	
+	public static String formatDuration(long elapseTime, String format) {
+		return DurationFormatUtils.formatDuration(Math.abs(elapseTime), format);
 	}
 
-	public static String formatDurationHHmmSSsss(long elapseTime, TimeUnit tu) {
-		LinkedHashMap<TimeUnit, Long> time = formatDuration(elapseTime, TimeUnit.MILLISECONDS);
-		
-		StringBuilder sb = new StringBuilder();
-		for (Entry<TimeUnit, Long> entrySet : time.entrySet()) {
-
-			String format;
-			switch (entrySet.getKey()) {
-
-			case DAYS:
-				format = "Days: %02d ";
-				break;
-
-			case HOURS:
-				format = "%02d:";
-				break;
-
-			case SECONDS:
-				format = "%02d.";
-				break;
-
-			case MILLISECONDS:
-				format = "%03d";
-				break;
-
-			default:
-				format = "";
-				break;
-			}
-
-			sb.append(String.format(format, entrySet.getValue()));
-		}
-
-		return sb.toString();
-	}
-
-	public static LinkedHashMap<TimeUnit, Long> formatDuration(long elapseTime, TimeUnit tu) {
-
-		LinkedHashMap<TimeUnit, Long> result = new LinkedHashMap<TimeUnit, Long>();
-
-		long duration = TimeUnit.MILLISECONDS.convert(elapseTime, tu);
-
-		long days = TimeUnit.MILLISECONDS.toDays(duration);
-		duration -= TimeUnit.DAYS.toMillis(days);
-		result.put(TimeUnit.DAYS, days);
-
-		long hours = TimeUnit.MILLISECONDS.toHours(duration);
-		duration -= TimeUnit.HOURS.toMillis(hours);
-		result.put(TimeUnit.HOURS, hours);
-
-		long minutes = TimeUnit.MILLISECONDS.toMinutes(duration);
-		duration -= TimeUnit.MINUTES.toMillis(minutes);
-		result.put(TimeUnit.MINUTES, minutes);
-
-		long seconds = TimeUnit.MILLISECONDS.toSeconds(duration);
-		duration -= TimeUnit.SECONDS.toMillis(seconds);
-		result.put(TimeUnit.SECONDS, seconds);
-
-		long milliseconds = TimeUnit.MILLISECONDS.toMillis(duration);
-		result.put(TimeUnit.MILLISECONDS, milliseconds);
-
-		return result;
-	}
 
 	public static ChronoUnit findChronoUnit(String timeUnits) {
 		final ChronoUnit unit;

@@ -19,6 +19,7 @@ import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.gui.table.FUN_HostTableModel;
 import com.ansys.cluster.monitor.gui.table.HostTableModel;
+import com.ansys.cluster.monitor.gui.table.JobHostTableModel;
 import com.ansys.cluster.monitor.gui.table.JobPendingTableModel;
 import com.ansys.cluster.monitor.gui.table.JobTableModel;
 import com.ansys.cluster.monitor.gui.table.JobVisualTableModel;
@@ -44,7 +45,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	// protected DecimalFormat decimalFormatter = new DecimalFormat(".##");
 	protected NumberFormat numberFormmatter = NumberFormat.getInstance();
 	protected DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-	protected String durationFormat ="dd HH:mm";
+	protected String durationFormat ="dd 'Day(s)' HH:mm";
 	protected String clusterType;
 	protected boolean isNodeAvailable = true;
 	protected boolean visualNode = false;
@@ -353,6 +354,10 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 
 		switch (nodeType) {
 
+		case TableBuilder.table_Job_Host:
+			JobHostTableModel jobHostTableModel = new JobHostTableModel(list);
+			return jobHostTableModel;
+		
 		case TableBuilder.table_Job:
 			JobTableModel jobTableModel = new JobTableModel(list);
 			return jobTableModel;

@@ -437,9 +437,9 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 
 		DetailedInfoProp memDiProp = new DetailedInfoProp();
 		memDiProp.setPanelName("Memory");
-		memDiProp.addMetric("Available: ", numberFormmatter.format(getMemFreeNum()));
-		memDiProp.addMetric("Used: ", numberFormmatter.format(getMemUsedNum()));
 		memDiProp.addMetric("Total: ", getMemTotal());
+		memDiProp.addMetric("Used: ", numberFormmatter.format(getMemUsedNum()));
+		memDiProp.addMetric("Free: ", numberFormmatter.format(getMemFreeNum()));
 		masterDiProp.addDetailedInfoProp(memDiProp);
 
 		displayStateDescriptions(masterDiProp);

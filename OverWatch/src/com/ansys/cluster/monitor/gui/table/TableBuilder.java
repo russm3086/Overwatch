@@ -13,6 +13,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 public class TableBuilder {
+	public static final String table_Job_Host = "JOB_TABLE_HOST";
 	public static final String table_Job_Pending = "JOB_TABLE_PENDING";
 	public static final String table_Job_Visual = "JOB_TABLE_VISUAL";
 	public static final String table_Job = "JOB_TABLE";
@@ -29,6 +30,10 @@ public class TableBuilder {
 		JTable jtable = null;
 
 		switch (tableModleName) {
+
+		case table_Job_Host:
+			jtable = buildTable(tableModel, 1, String.class);
+			break;
 
 		case table_Job:
 		case table_Job_Pending:

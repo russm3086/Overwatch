@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
-import org.apache.commons.lang3.time.DurationFormatUtils;
 
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.JobInterface;
@@ -21,6 +20,7 @@ import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.JobState;
 import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
+import com.russ.util.TimeUtil;
 import com.russ.util.UnitConversion;
 
 /**
@@ -388,7 +388,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 	public double getEfficiency() {
 		double efficiency = 0;
-		if (getSlots() > 0) {
+		if (getList().size() > 0) {
 			int slotsPerNode = getSlots() / getList().size();
 			efficiency = (getCPUTime() / getWallClockTime()) / slotsPerNode * 100;
 		}
@@ -483,12 +483,13 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		jobExecDiProp.addMetric("Submission: ", dateTimeFormatter(getJobSubmissionTime()));
 
 		Duration duration = getPendingTime();
-		jobExecDiProp.addMetric("Pending Duration: Days ", DurationFormatUtils.formatDuration(duration.toMillis(), durationFormat));
+		jobExecDiProp.addMetric("Pending Duration: ",
+				TimeUtil.formatDuration(duration.toMillis(), durationFormat));
 
 		jobExecDiProp.addMetric("Start Date: ", dateTimeFormatter(getJobStartTime()));
 
 		long wallClockTime = (long) (getWallClockTime() * 1000);
-		jobExecDiProp.addMetric("Duration: Days ", DurationFormatUtils.formatDuration(wallClockTime, durationFormat));
+		jobExecDiProp.addMetric("Duration: ", TimeUtil.formatDuration(wallClockTime, durationFormat));
 		masterDiProp.addDetailedInfoProp(jobExecDiProp);
 
 		DetailedInfoProp usageDiProp = new DetailedInfoProp();
@@ -499,14 +500,14 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		// / getWallClockTime()));
 
 		long cpuTime = (long) (getCPUTime() * 1000);
-		usageDiProp.addMetric("CPU Time: Days ", DurationFormatUtils.formatDuration(cpuTime, durationFormat));
+		usageDiProp.addMetric("CPU Time: ", TimeUtil.formatDuration(cpuTime, durationFormat));
 
 		long lngMemory = (long) (getMem() * 1073741824);
 		String strMemory = UnitConversion.humanReadableByteCount(lngMemory, false);
 		usageDiProp.addMetric("Memory: ", strMemory);
 
 		long lngIow = (long) (getIOW() * 1000);
-		usageDiProp.addMetric("IO Wait: Days ", DurationFormatUtils.formatDuration(lngIow, durationFormat));
+		usageDiProp.addMetric("IO Wait: ", TimeUtil.formatDuration(lngIow, durationFormat));
 
 		long lngIO = (long) (getIO() * 1073741824);
 		String strIO = UnitConversion.humanReadableByteCount(lngIO, false);
@@ -526,7 +527,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	}
 
 	public void displayHosts(DetailedInfoProp masterDiProp) {
-		tableDisplay(masterDiProp, hostList, "Host(s)", TableBuilder.table_Host);
+		tableDisplay(masterDiProp, hostList, "Host(s)", TableBuilder.table_Job_Host);
 	}
 
 	public void displayMessages(DetailedInfoProp masterDiProp) {
