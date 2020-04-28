@@ -241,15 +241,15 @@ public class TimeUtil {
 		return formattedDate;
 	}
 
-	public static String formatDurationHHmmss(long elapseTime, String timeUnit) {
+	public static String formatDurationHHmmSSsss(long elapseTime, String timeUnit) {
 
 		TimeUnit tu = TimeUnit.valueOf(timeUnit.toUpperCase());
-		return formatDurationHHmmss(elapseTime, tu);
+		return formatDurationHHmmSSsss(elapseTime, tu);
 	}
 
-	public static String formatDurationHHmmss(long elapseTime, TimeUnit tu) {
+	public static String formatDurationHHmmSSsss(long elapseTime, TimeUnit tu) {
 		LinkedHashMap<TimeUnit, Long> time = formatDuration(elapseTime, TimeUnit.MILLISECONDS);
-
+		
 		StringBuilder sb = new StringBuilder();
 		for (Entry<TimeUnit, Long> entrySet : time.entrySet()) {
 
@@ -258,6 +258,10 @@ public class TimeUtil {
 
 			case DAYS:
 				format = "Days: %02d ";
+				break;
+
+			case HOURS:
+				format = "%02d:";
 				break;
 
 			case SECONDS:
@@ -269,8 +273,7 @@ public class TimeUtil {
 				break;
 
 			default:
-
-				format = "%02d:";
+				format = "";
 				break;
 			}
 

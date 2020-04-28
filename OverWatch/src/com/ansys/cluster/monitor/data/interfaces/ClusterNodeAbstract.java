@@ -5,6 +5,8 @@ package com.ansys.cluster.monitor.data.interfaces;
 
 import java.awt.Color;
 import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.SortedMap;
@@ -41,6 +43,8 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	protected NodeProp nodeProp;
 	// protected DecimalFormat decimalFormatter = new DecimalFormat(".##");
 	protected NumberFormat numberFormmatter = NumberFormat.getInstance();
+	protected DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+	protected String durationFormat ="dd HH:mm";
 	protected String clusterType;
 	protected boolean isNodeAvailable = true;
 	protected boolean visualNode = false;
@@ -382,6 +386,15 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 
 		}
 
+	}
+
+	public String dateTimeFormatter(Temporal temporal) {
+		String result = "";
+
+		if (temporal != null) {
+			result = dateFormatter.format(temporal);
+		}
+		return result;
 	}
 
 	/**

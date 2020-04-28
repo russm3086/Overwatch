@@ -11,8 +11,9 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map.Entry;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
+
+import org.apache.commons.lang3.time.DurationFormatUtils;
 
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.JobInterface;
@@ -20,7 +21,6 @@ import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.JobState;
 import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
-import com.russ.util.TimeUtil;
 import com.russ.util.UnitConversion;
 
 /**
@@ -90,7 +90,6 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 				NodeProp nodeProp = (NodeProp) object;
 				nodePropList.add(nodeProp);
 			}
-
 		}
 		return nodePropList;
 	}
@@ -387,6 +386,15 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		return nodeProp.getDoubleProperty("memvmm");
 	}
 
+	public double getEfficiency() {
+		double efficiency = 0;
+		if (getSlots() > 0) {
+			int slotsPerNode = getSlots() / getList().size();
+			efficiency = (getCPUTime() / getWallClockTime()) / slotsPerNode * 100;
+		}
+		return efficiency;
+	}
+
 	public ArrayList<NodeProp> getSubmissionCommandLine() {
 		ArrayList<NodeProp> JB_submission_command_line_list = retrieveNodePropList("JB_submission_command_line");
 
@@ -439,9 +447,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	public void addHostLoad(double hostLoad) {
 
 		double avg = ((getHostLoad() * hostList.size() + hostLoad)) / (hostList.size() + 1);
-
 		Double value = BigDecimal.valueOf(avg).setScale(2, RoundingMode.HALF_UP).doubleValue();
-
 		setHostLoad(value);
 	}
 
@@ -474,34 +480,35 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 		DetailedInfoProp jobExecDiProp = new DetailedInfoProp();
 		jobExecDiProp.setPanelName("Job Execution");
-		jobExecDiProp.addMetric("Submission: ", getJobSubmissionTime());
+		jobExecDiProp.addMetric("Submission: ", dateTimeFormatter(getJobSubmissionTime()));
 
 		Duration duration = getPendingTime();
-		jobExecDiProp.addMetric("Pending Duration: ",
-				TimeUtil.formatDurationHHmmss(duration.toMillis(), TimeUnit.MILLISECONDS));
+		jobExecDiProp.addMetric("Pending Duration: Days ", DurationFormatUtils.formatDuration(duration.toMillis(), durationFormat));
 
-		jobExecDiProp.addMetric("Start Date: ", getJobStartTime());
+		jobExecDiProp.addMetric("Start Date: ", dateTimeFormatter(getJobStartTime()));
 
 		long wallClockTime = (long) (getWallClockTime() * 1000);
-		jobExecDiProp.addMetric("Duration: ",
-				TimeUtil.formatDurationHHmmss(wallClockTime, TimeUnit.MILLISECONDS));
+		jobExecDiProp.addMetric("Duration: Days ", DurationFormatUtils.formatDuration(wallClockTime, durationFormat));
 		masterDiProp.addDetailedInfoProp(jobExecDiProp);
 
 		DetailedInfoProp usageDiProp = new DetailedInfoProp();
 		usageDiProp.setPanelName("Usage");
-		usageDiProp.addMetric("Scaling Ratio: ", numberFormmatter.format(getCPUTime() / getWallClockTime()));
+		String strEfficiency = String.format("%,.1f%%", getEfficiency());
+		usageDiProp.addMetric("Efficiency: ", strEfficiency);
+		// usageDiProp.addMetric("Scaling Ratio: ", numberFormmatter.format(getCPUTime()
+		// / getWallClockTime()));
 
 		long cpuTime = (long) (getCPUTime() * 1000);
-		usageDiProp.addMetric("CPU Time: ", TimeUtil.formatDurationHHmmss(cpuTime, TimeUnit.MILLISECONDS));
+		usageDiProp.addMetric("CPU Time: Days ", DurationFormatUtils.formatDuration(cpuTime, durationFormat));
 
-		long lngMemory = (long) (getMem() * 1000000000);
+		long lngMemory = (long) (getMem() * 1073741824);
 		String strMemory = UnitConversion.humanReadableByteCount(lngMemory, false);
 		usageDiProp.addMetric("Memory: ", strMemory);
 
 		long lngIow = (long) (getIOW() * 1000);
-		usageDiProp.addMetric("IO Wait: ", TimeUtil.formatDurationHHmmss(lngIow, TimeUnit.MILLISECONDS));
+		usageDiProp.addMetric("IO Wait: Days ", DurationFormatUtils.formatDuration(lngIow, durationFormat));
 
-		long lngIO = (long) (getIO() * 1000000000);
+		long lngIO = (long) (getIO() * 1073741824);
 		String strIO = UnitConversion.humanReadableByteCount(lngIO, false);
 		usageDiProp.addMetric("IO: ", strIO);
 
