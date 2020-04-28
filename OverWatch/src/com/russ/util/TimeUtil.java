@@ -265,7 +265,7 @@ public class TimeUtil {
 				break;
 
 			case MILLISECONDS:
-				format = "%02d";
+				format = "%03d";
 				break;
 
 			default:
