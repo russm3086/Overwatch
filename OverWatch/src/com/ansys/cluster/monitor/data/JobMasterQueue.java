@@ -29,6 +29,7 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 	private int activeSessionJobsCount = 0;
 	private int errorSessionJobsCount = 0;
 	private int pendingSessionJobsCount = 0;
+	private int idleSessionJobsCount = 0;
 
 	private SortedMap<String, JobsQueue> jobQueues = new TreeMap<String, JobsQueue>();
 
@@ -56,6 +57,8 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 			addErrorSessionJobsCount(queue.getErrorSessionJobsSize());
 			addActiveSessionJobsCount(queue.getActiveSessionJobsSize());
 			addPendingSessionJobsCount(queue.getPendingSessionJobsSize());
+			addIdleSessionJobsCount(queue.getIdleSessionJobsSize());
+			
 		} else {
 
 			addErrorJobsCount(queue.getErrorJobsSize());
@@ -130,6 +133,7 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 
 		displayActiveSessionJobs(masterDiProp, findActiveSessionJobs());
 		displayPendingSessionJobs(masterDiProp, findPendingSessionJobs());
+		displayIdleSessionJobs(masterDiProp, findIdleSessionJobs());
 		displayErrorSessionJobs(masterDiProp, findErrorSessionJobs());
 
 		return masterDiProp;
@@ -194,6 +198,15 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 
 		for (Entry<String, JobsQueue> entry : getJobQueues().entrySet()) {
 			map.putAll(entry.getValue().getErrorSessionJobs());
+		}
+		return map;
+	}
+
+	public SortedMap<Integer, Job> findIdleSessionJobs() {
+		SortedMap<Integer, Job> map = new TreeMap<Integer, Job>();
+
+		for (Entry<String, JobsQueue> entry : getJobQueues().entrySet()) {
+			map.putAll(entry.getValue().getIdleSessionJobs());
 		}
 		return map;
 	}
@@ -297,6 +310,10 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 		setErrorSessionJobsCount(getErrorSessionJobsCount() + errorSessionJobsCount);
 	}
 
+	public int getIdleSessionJobsCount() {
+		return idleSessionJobsCount;
+	}
+
 	/**
 	 * @return the pendingJobsCount
 	 */
@@ -325,6 +342,19 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 		return pendingSessionJobsCount;
 	}
 
+	/**
+	 * @param pendingSessionJobsCount the pendingSessionJobsCount to set
+	 */
+	public void setIdleSessionJobsCount(int idleSessionJobsCount) {
+		this.idleSessionJobsCount = idleSessionJobsCount;
+	}
+
+	public void addIdleSessionJobsCount(int idleSessionJobsCount) {
+		setIdleSessionJobsCount(getIdleSessionJobsCount() + getIdleSessionJobsCount());
+
+	}
+	
+	
 	/**
 	 * @param pendingSessionJobsCount the pendingSessionJobsCount to set
 	 */

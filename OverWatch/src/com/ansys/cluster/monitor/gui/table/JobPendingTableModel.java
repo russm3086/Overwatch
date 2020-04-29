@@ -5,7 +5,6 @@ package com.ansys.cluster.monitor.gui.table;
 
 import java.util.ArrayList;
 
-
 import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.data.JobsQueue;
 
@@ -18,7 +17,8 @@ public class JobPendingTableModel extends AbstractClusterNodeTableModel {
 		 * 
 		 */
 	private static final long serialVersionUID = 2331629876169607226L;
-	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "State", "Duration (hrs)", "Target Queue" };
+	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "State", "Duration (hrs)",
+			"Target Queue" };
 	private static final int COLUMN_NAME = 0;
 	private static final int COLUMN_ID = 1;
 	private static final int COLUMN_OWNER = 2;
@@ -39,25 +39,24 @@ public class JobPendingTableModel extends AbstractClusterNodeTableModel {
 	}
 
 	public JobPendingTableModel(ArrayList<?> list, int column) {
-		super(list, jobColumnNames,column);
+		super(list, jobColumnNames, column);
 	}
 
 	public JobPendingTableModel(ArrayList<?> list) {
 		super(list, jobColumnNames);
 	}
-	
+
 	public Class<?> getColumnClass(int column) {
 		switch (column) {
 		case COLUMN_NAME:
 		case COLUMN_OWNER:
 		case COLUMN_STATE:
 		case COLUMN_TARGET_QUEUE:
+		case COLUMN_DURATION:
 			return String.class;
 		case COLUMN_ID:
 		case COLUMN_CORES:
 			return Integer.class;
-		case COLUMN_DURATION:
-			return Long.class;
 		default:
 			throw new IllegalArgumentException("Invalid column: " + column);
 		}
@@ -87,7 +86,7 @@ public class JobPendingTableModel extends AbstractClusterNodeTableModel {
 			returnValue = job.getState();
 			break;
 		case COLUMN_DURATION:
-			returnValue = Long.valueOf(job.getDuration().toHours());
+			returnValue = durationOutput(job.getDuration());
 			break;
 		case COLUMN_TARGET_QUEUE:
 			returnValue = job.getTargetQueue();

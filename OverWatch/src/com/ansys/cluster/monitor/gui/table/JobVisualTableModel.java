@@ -52,12 +52,11 @@ public class JobVisualTableModel extends AbstractClusterNodeTableModel {
 		case COLUMN_OWNER:
 		case COLUMN_STATE:
 		case COLUMN_HOST:
+		case COLUMN_DURATION:
 			return String.class;
 		case COLUMN_ID:
 		case COLUMN_CORES:
 			return Integer.class;
-		case COLUMN_DURATION:
-			return Long.class;
 		default:
 			throw new IllegalArgumentException("Invalid column: " + column);
 		}
@@ -87,7 +86,7 @@ public class JobVisualTableModel extends AbstractClusterNodeTableModel {
 			returnValue = job.getState();
 			break;
 		case COLUMN_DURATION:
-			returnValue = Long.valueOf(job.getDuration().toHours());
+			returnValue = durationOutput(job.getDuration());
 			break;
 		case COLUMN_HOST:
 			returnValue = job.getStartHost();

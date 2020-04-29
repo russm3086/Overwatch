@@ -3,9 +3,12 @@
  */
 package com.ansys.cluster.monitor.gui.table;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
+
+import com.russ.util.TimeUtil;
 
 /**
  * @author rmartine
@@ -22,11 +25,11 @@ public abstract class AbstractClusterNodeTableModel extends AbstractTableModel {
 	protected ArrayList<?> valueList;
 	protected String[] columnNames;
 	private int columnCount = 0;
+	protected String durationFormat = "dd 'Day(s)' HH:mm";
 
 	/**
 	 * 
 	 */
-	
 
 	public AbstractClusterNodeTableModel(ArrayList<?> list, String[] columnNames) {
 		setValueList(list);
@@ -41,7 +44,7 @@ public abstract class AbstractClusterNodeTableModel extends AbstractTableModel {
 	}
 
 	public abstract Class<?> getColumnClass(int column);
-	
+
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
@@ -83,6 +86,10 @@ public abstract class AbstractClusterNodeTableModel extends AbstractTableModel {
 	 */
 	public void setColumnNames(String[] columnNames) {
 		this.columnNames = columnNames;
+	}
+
+	protected String durationOutput(Duration duration) {
+		return TimeUtil.formatDuration(duration.toMillis(), durationFormat);
 	}
 
 }

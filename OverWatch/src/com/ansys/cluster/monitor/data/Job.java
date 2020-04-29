@@ -10,9 +10,10 @@ import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
-
 
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.JobInterface;
@@ -37,7 +38,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	private static final long serialVersionUID = 3221740341615040025L;
 	private final String sourceClass = this.getClass().getName();
 	private final transient Logger logger = Logger.getLogger(sourceClass);
-	private ArrayList<Host> hostList = new ArrayList<Host>();
+	private Map<String, Host> hostMap = new HashMap<String, Host>();
 	private double hostLoad = 0.0;
 
 	/**
@@ -187,7 +188,6 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 			}
 
 			setResourceList(resourceList);
-
 		}
 	}
 
@@ -259,7 +259,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 	@Override
 	public ArrayList<Host> getList() {
-		return hostList;
+		return new ArrayList<Host>(hostMap.values());
 	}
 
 	@Override
@@ -274,7 +274,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 			}
 		}
 
-		this.hostList.add(host);
+		hostMap.put(host.getName(), host);
 	}
 
 	@Override
@@ -388,9 +388,14 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 	public double getEfficiency() {
 		double efficiency = 0;
-		if (getList().size() > 0) {
-			int slotsPerNode = getSlots() / getList().size();
-			efficiency = (getCPUTime() / getWallClockTime()) / slotsPerNode * 100;
+		Host startHost = hostMap.get(getStartHost());
+
+		if (startHost != null) {
+			int slots = startHost.getSlotUsed();
+
+			if (slots > 0) {
+				efficiency = getCPUTime() / getWallClockTime() / slots * 100;
+			}
 		}
 		return efficiency;
 	}
@@ -446,7 +451,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 	public void addHostLoad(double hostLoad) {
 
-		double avg = ((getHostLoad() * hostList.size() + hostLoad)) / (hostList.size() + 1);
+		double avg = ((getHostLoad() * hostMap.size() + hostLoad)) / (hostMap.size() + 1);
 		Double value = BigDecimal.valueOf(avg).setScale(2, RoundingMode.HALF_UP).doubleValue();
 		setHostLoad(value);
 	}
@@ -483,8 +488,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		jobExecDiProp.addMetric("Submission: ", dateTimeFormatter(getJobSubmissionTime()));
 
 		Duration duration = getPendingTime();
-		jobExecDiProp.addMetric("Pending Duration: ",
-				TimeUtil.formatDuration(duration.toMillis(), durationFormat));
+		jobExecDiProp.addMetric("Pending Duration: ", TimeUtil.formatDuration(duration.toMillis(), durationFormat));
 
 		jobExecDiProp.addMetric("Start Date: ", dateTimeFormatter(getJobStartTime()));
 
@@ -496,8 +500,6 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		usageDiProp.setPanelName("Usage");
 		String strEfficiency = String.format("%,.1f%%", getEfficiency());
 		usageDiProp.addMetric("Efficiency: ", strEfficiency);
-		// usageDiProp.addMetric("Scaling Ratio: ", numberFormmatter.format(getCPUTime()
-		// / getWallClockTime()));
 
 		long cpuTime = (long) (getCPUTime() * 1000);
 		usageDiProp.addMetric("CPU Time: ", TimeUtil.formatDuration(cpuTime, durationFormat));
@@ -527,7 +529,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	}
 
 	public void displayHosts(DetailedInfoProp masterDiProp) {
-		tableDisplay(masterDiProp, hostList, "Host(s)", TableBuilder.table_Job_Host);
+		tableDisplay(masterDiProp, getList(), "Host(s)", TableBuilder.table_Job_Host);
 	}
 
 	public void displayMessages(DetailedInfoProp masterDiProp) {

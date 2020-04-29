@@ -80,6 +80,7 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 	private SortedMap<Integer, Job> activeSessionJobs = new TreeMap<Integer, Job>();
 	private SortedMap<Integer, Job> pendingSessionJobs = new TreeMap<Integer, Job>();
 	private SortedMap<Integer, Job> errorSessionJobs = new TreeMap<Integer, Job>();
+	private SortedMap<Integer, Job> idleSessionJobs = new TreeMap<Integer, Job>();
 
 	public AnsQueueAbstract(ClusterNodeAbstract node) {
 		this(node.getQueueName(), node.getClusterType());
@@ -435,6 +436,14 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 		tableDisplay(mainDiProp, map, "Active Sessions", TableBuilder.table_Job_Visual);
 	}
 
+	public void displayIdleSessionJobs(DetailedInfoProp mainDiProp) {
+		displayIdleSessionJobs(mainDiProp, getIdleSessionJobs());
+	}
+
+	public void displayIdleSessionJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
+		tableDisplay(mainDiProp, map, "Idle Sessions", TableBuilder.table_Job_Visual);
+	}
+
 	public void displayErrorSessionJobs(DetailedInfoProp mainDiProp) {
 		displayErrorSessionJobs(mainDiProp, getErrorSessionJobs());
 	}
@@ -631,6 +640,30 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 		return getUnavailableComputeHosts().size();
 	}
 
+	/**
+	 * *******Idle SessionJob
+	 */
+
+	public void addIdleSessionJobs(Integer jobId, Job job) {
+		getIdleSessionJobs().put(jobId, job);
+	}
+
+	public void addIdleSessionJobsMap(SortedMap<Integer, Job> idleJobs) {
+		getIdleSessionJobs().putAll(idleJobs);
+	}
+
+	public SortedMap<Integer, Job> getIdleSessionJobs() {
+		return idleSessionJobs;
+	}
+
+	public void setIdleSessionJobs(SortedMap<Integer, Job> idleSessionJobs) {
+		this.idleSessionJobs = idleSessionJobs;
+	}
+
+	public int getIdleSessionJobsSize() {
+		return getIdleSessionJobs().size();
+	}
+	
 	/**
 	 * ********Error Session JObs
 	 */

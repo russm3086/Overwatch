@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.data.JobsQueue;
+import com.russ.util.UnitConversion;
 
 /**
  * @author rmartine
@@ -52,13 +53,13 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 		case COLUMN_NAME:
 		case COLUMN_OWNER:
 		case COLUMN_STATE:
+		case COLUMN_DURATION:
 			return String.class;
 		case COLUMN_LOAD:
 		case COLUMN_EFFICIENCY:
 			return Double.class;
 		case COLUMN_ID:
 		case COLUMN_CORES:
-		case COLUMN_DURATION:
 			return Integer.class;
 		default:
 			throw new IllegalArgumentException("Invalid column: " + column);
@@ -89,13 +90,13 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 			returnValue = job.getState();
 			break;
 		case COLUMN_DURATION:
-			returnValue = Long.valueOf(job.getDuration().toHours());
+			returnValue = durationOutput(job.getDuration());
 			break;
 		case COLUMN_LOAD:
 			returnValue = job.getHostLoad();
 			break;
 		case COLUMN_EFFICIENCY:
-			returnValue = job.getEfficiency();
+			returnValue = UnitConversion.round(job.getEfficiency(), 1);
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid column index");

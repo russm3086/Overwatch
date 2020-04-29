@@ -36,16 +36,6 @@ public class JobsQueue extends AnsQueueAbstract {
 		addJob(job);
 	}
 
-	public void checkForIdle() {
-
-		for (Entry<Integer, Job> entry : getActiveJobs().entrySet()) {
-
-			if (entry.getValue().hasState(JobState.Idle)) {
-				addIdleJobs(entry.getKey(), entry.getValue());
-			}
-		}
-	}
-
 	public void addJob(Job job) {
 		logger.entering(sourceClass, "addJob", job);
 
@@ -54,6 +44,9 @@ public class JobsQueue extends AnsQueueAbstract {
 			if (job.hasState(JobState.RunningState)) {
 
 				addActiveSessionJobs(job.getJobNumber(), job);
+			} else if (job.hasState(JobState.Idle)) {
+
+				addIdleSessionJobs(job.getJobNumber(), job);
 			} else if (job.getQueueName().equalsIgnoreCase(SGE_DataConst.job_PendingQueue)) {
 
 				addPendingSessionJobs(job.getJobNumber(), job);
@@ -122,6 +115,7 @@ public class JobsQueue extends AnsQueueAbstract {
 		displayActiveSessionJobs(masterDiProp);
 		displayPendingSessionJobs(masterDiProp);
 		displayErrorSessionJobs(masterDiProp);
+		displayIdleSessionJobs(masterDiProp);
 		displayUnavailableVisualHosts(masterDiProp);
 
 		return masterDiProp;
@@ -134,12 +128,12 @@ public class JobsQueue extends AnsQueueAbstract {
 		sb.append(getActiveJobsSize());
 		sb.append(" Active Session(s): ");
 		sb.append(getActiveSessionJobsSize());
-		if(getPendingJobsSize()>0) {
+		if (getPendingJobsSize() > 0) {
 			sb.append(" Pending Job(s): ");
 			sb.append(getPendingJobsSize());
 		}
-		
-		if(getPendingSessionJobsSize()>0) {
+
+		if (getPendingSessionJobsSize() > 0) {
 			sb.append(" Pending Session(s): ");
 			sb.append(getPendingSessionJobsSize());
 		}
