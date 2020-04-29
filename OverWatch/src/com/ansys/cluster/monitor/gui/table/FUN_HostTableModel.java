@@ -60,7 +60,6 @@ public class FUN_HostTableModel extends AbstractClusterNodeTableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
 
 		Host host = (Host) valueList.get(rowIndex);
 		Object returnValue = null;

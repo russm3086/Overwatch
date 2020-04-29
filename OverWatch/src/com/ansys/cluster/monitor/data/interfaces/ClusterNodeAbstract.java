@@ -45,7 +45,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	// protected DecimalFormat decimalFormatter = new DecimalFormat(".##");
 	protected NumberFormat numberFormmatter = NumberFormat.getInstance();
 	protected DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-	protected String durationFormat ="dd 'Day(s)' HH:mm";
+	protected String durationFormat = "dd 'Day(s)' HH:mm";
 	protected String clusterType;
 	protected boolean isNodeAvailable = true;
 	protected boolean visualNode = false;
@@ -357,7 +357,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		case TableBuilder.table_Job_Host:
 			JobHostTableModel jobHostTableModel = new JobHostTableModel(list);
 			return jobHostTableModel;
-		
+
 		case TableBuilder.table_Job:
 			JobTableModel jobTableModel = new JobTableModel(list);
 			return jobTableModel;
@@ -374,7 +374,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 			HostTableModel hostTableModel = new HostTableModel(list);
 			return hostTableModel;
 
-		case TableBuilder.table_FUN:
+		case TableBuilder.table_FUN_MQ:
 			FUN_HostTableModel funHostTableModel = new FUN_HostTableModel(list);
 			return funHostTableModel;
 

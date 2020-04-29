@@ -392,7 +392,7 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 	}
 
 	public void displayFullyUnallocatedNodes(DetailedInfoProp mainDiProp, ArrayList<Host> list) {
-		tableDisplay(mainDiProp, list, "F.U.N. ", TableBuilder.table_FUN);
+		tableDisplay(mainDiProp, list, "F.U.N. ", TableBuilder.table_FUN_MQ);
 	}
 
 	public void displayPendingJobs(DetailedInfoProp mainDiProp) {

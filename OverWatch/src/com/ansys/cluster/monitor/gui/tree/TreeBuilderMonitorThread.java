@@ -13,6 +13,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 
 import org.json.JSONException;
 
@@ -44,6 +47,23 @@ public class TreeBuilderMonitorThread {
 		this.tree = tree;
 	}
 
+	public boolean isNewCluster(Cluster newCluster, JTree current) {
+
+		boolean result = false;
+		DefaultTreeModel model = (DefaultTreeModel) current.getModel();
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+		TreeNode firstChild = null;
+
+		if (root.getChildCount() > 0) {
+
+			firstChild = root.getFirstChild();
+			String name = firstChild.toString();
+			result = !newCluster.getName().equalsIgnoreCase(name);
+		}
+
+		return result;
+	}
+
 	public void buildTree() {
 
 		int numFoundCluster = 0;
@@ -70,6 +90,7 @@ public class TreeBuilderMonitorThread {
 		public void run() {
 			// TODO Auto-generated method stub
 			TreeUtil tu = new TreeUtil();
+			boolean newCluster = false;
 
 			try {
 
@@ -78,6 +99,8 @@ public class TreeBuilderMonitorThread {
 					if (!linkedQueue.isEmpty()) {
 						Cluster cluster = linkedQueue.poll();
 						Console.setStatusLabel("Creating tree for cluster " + cluster.getName());
+
+						newCluster = isNewCluster(cluster, tree);
 						tsProps = tu.saveTreeState(tree);
 						TreeBuilder treeBuilder = new TreeBuilder(tree);
 						treeBuilder.buildTree(cluster);
@@ -99,11 +122,9 @@ public class TreeBuilderMonitorThread {
 
 				}
 
-				
-				if (tsProps.size() > 0) {
+				if (newCluster != true && tsProps.size() > 0) {
 
 					tu.applyTreeState(tree, tsProps);
-
 				} else {
 
 					tu.expandTreeToLevel(tree, mainProps.getGuiTreeExpansionLevel());

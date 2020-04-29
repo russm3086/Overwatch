@@ -5,7 +5,6 @@ package com.ansys.cluster.monitor.gui.table;
 
 import java.util.ArrayList;
 
-
 import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.data.JobsQueue;
 
@@ -18,7 +17,8 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 		 * 
 		 */
 	private static final long serialVersionUID = 2331629876169607226L;
-	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "State", "Duration (hrs)", "Load" };
+	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "State", "Duration (hrs)", "Load",
+			"Efficiency" };
 	private static final int COLUMN_NAME = 0;
 	private static final int COLUMN_ID = 1;
 	private static final int COLUMN_OWNER = 2;
@@ -26,6 +26,7 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 	private static final int COLUMN_STATE = 4;
 	private static final int COLUMN_DURATION = 5;
 	private static final int COLUMN_LOAD = 6;
+	private static final int COLUMN_EFFICIENCY = 7;
 
 	/**
 	 * 
@@ -39,13 +40,13 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 	}
 
 	public JobTableModel(ArrayList<?> list, int column) {
-		super(list, jobColumnNames,column);
+		super(list, jobColumnNames, column);
 	}
 
 	public JobTableModel(ArrayList<?> list) {
 		super(list, jobColumnNames);
 	}
-	
+
 	public Class<?> getColumnClass(int column) {
 		switch (column) {
 		case COLUMN_NAME:
@@ -53,6 +54,7 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 		case COLUMN_STATE:
 			return String.class;
 		case COLUMN_LOAD:
+		case COLUMN_EFFICIENCY:
 			return Double.class;
 		case COLUMN_ID:
 		case COLUMN_CORES:
@@ -91,6 +93,9 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 			break;
 		case COLUMN_LOAD:
 			returnValue = job.getHostLoad();
+			break;
+		case COLUMN_EFFICIENCY:
+			returnValue = job.getEfficiency();
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid column index");
