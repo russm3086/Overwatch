@@ -17,7 +17,7 @@ public class JobPendingTableModel extends AbstractClusterNodeTableModel {
 		 * 
 		 */
 	private static final long serialVersionUID = 2331629876169607226L;
-	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "State", "Duration (hrs)",
+	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "State", "Duration",
 			"Target Queue" };
 	private static final int COLUMN_NAME = 0;
 	private static final int COLUMN_ID = 1;

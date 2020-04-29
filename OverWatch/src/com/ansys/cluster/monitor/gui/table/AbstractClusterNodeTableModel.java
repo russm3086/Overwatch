@@ -25,7 +25,7 @@ public abstract class AbstractClusterNodeTableModel extends AbstractTableModel {
 	protected ArrayList<?> valueList;
 	protected String[] columnNames;
 	private int columnCount = 0;
-	protected String durationFormat = "dd 'Day(s)' HH:mm";
+	protected String durationFormat = "dd 'Day(s)' HH'h' mm'm'";
 
 	/**
 	 * 

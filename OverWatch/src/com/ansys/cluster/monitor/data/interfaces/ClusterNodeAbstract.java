@@ -45,7 +45,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	// protected DecimalFormat decimalFormatter = new DecimalFormat(".##");
 	protected NumberFormat numberFormmatter = NumberFormat.getInstance();
 	protected DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-	protected String durationFormat = "dd 'Day(s)' HH:mm";
+	protected String durationFormat = "dd 'Day(s)' HH'h' mm'm'";
 	protected String clusterType;
 	protected boolean isNodeAvailable = true;
 	protected boolean visualNode = false;
