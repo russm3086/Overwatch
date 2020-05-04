@@ -77,6 +77,8 @@ public class JSONParser extends ParserAbstract {
 		logger.entering(sourceClass, "createHost", jsonObject);
 
 		NodeProp nodeProp = new NodeProp();
+		nodeProp.setZoneID(mainProps.getClusterZoneId());
+
 		jsoParse(jsonObject, nodeProp);
 		parseQueue(jsonObject, nodeProp);
 		Host host = new Host(nodeProp);
@@ -288,6 +290,8 @@ public class JSONParser extends ParserAbstract {
 
 			prop.setJobIdleThreshold(mainProp.getJobIdleThreshold());
 
+			prop.setZoneID(mainProp.getClusterZoneId());
+
 			hashMapProp.put(prop.getJobNumber(), prop);
 		}
 
@@ -406,7 +410,7 @@ public class JSONParser extends ParserAbstract {
 		return listJobMsg;
 	}
 
-	private  JobMessage createJobMessage(JSONObject jsoMsg) {
+	private JobMessage createJobMessage(JSONObject jsoMsg) {
 		logger.entering(sourceClass, "JobMessage");
 		NodeProp prop = createMsgProp(jsoMsg);
 
@@ -475,5 +479,4 @@ public class JSONParser extends ParserAbstract {
 		return prop;
 	}
 
-	
 }

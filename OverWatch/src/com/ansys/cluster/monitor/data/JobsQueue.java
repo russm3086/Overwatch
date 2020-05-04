@@ -95,6 +95,7 @@ public class JobsQueue extends AnsQueueAbstract {
 		map.putAll(getActiveSessionJobs());
 		map.putAll(getPendingSessionJobs());
 		map.putAll(getErrorSessionJobs());
+		map.putAll(getIdleSessionJobs());
 
 		return map;
 	}

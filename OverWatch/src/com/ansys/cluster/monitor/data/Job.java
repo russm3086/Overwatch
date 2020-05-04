@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -196,26 +198,26 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	 */
 	@Override
 	public Duration getDuration() {
-		LocalDateTime startTime = LocalDateTime.now();
-		if (getJobStartTime() != null) {
-			startTime = getJobStartTime();
-		} else if (getJobSubmissionTime() != null) {
-			startTime = getJobSubmissionTime();
+		Duration duration = null;
+
+		if (getWallClockTime() > 0) {
+			duration = Duration.ofMillis((long) getWallClockTime());
+		} else {
+			duration = getPendingTime();
 		}
-
-		LocalDateTime finishTime = LocalDateTime.now();
-		Duration duration = Duration.between(startTime, finishTime);
-
 		return duration;
 	}
 
 	public Duration getPendingTime() {
 
-		LocalDateTime startTime = getJobSubmissionTime();
-		LocalDateTime finishTime = LocalDateTime.now();
-		if (getJobStartTime() != null) {
-			finishTime = getJobStartTime();
+		ZonedDateTime startTime = getJobSubmissionTime();
+
+		if (startTime == null) {
+
+			startTime = ZonedDateTime.of(LocalDateTime.now(), ZoneId.systemDefault());
 		}
+		
+		ZonedDateTime finishTime = ZonedDateTime.of(LocalDateTime.now(), ZoneId.systemDefault());
 		Duration duration = Duration.between(startTime, finishTime);
 		return duration;
 	}
@@ -327,13 +329,18 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	}
 
 	@Override
-	public LocalDateTime getJobStartTime() {
-		return nodeProp.getJobStartTime();
+	public ZonedDateTime getJobStartTime() {
+		if(nodeProp.getJobStartTime()==null)
+			return null;
+		return nodeProp.getJobStartTime().withZoneSameInstant(getZoneId());
 	}
 
 	@Override
-	public LocalDateTime getJobSubmissionTime() {
-		return nodeProp.getJobSubmissionTime();
+	public ZonedDateTime getJobSubmissionTime() {
+		if(nodeProp.getJobSubmissionTime()==null)
+			return null;
+		
+		return nodeProp.getJobSubmissionTime().withZoneSameInstant(getZoneId());
 	}
 
 	@Override
@@ -350,12 +357,19 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		return nodeProp.getJobIdleThreshold();
 	}
 
+	/**
+	 * in milliseconds
+	 * 
+	 * @return
+	 */
 	public double getWallClockTime() {
-		return nodeProp.getDoubleProperty("wallclock");
+		double result = nodeProp.getDoubleProperty("wallclock") * timeMultiple;
+		return result;
 	}
 
 	public double getCPUTime() {
-		return nodeProp.getDoubleProperty("cpu");
+		double result = nodeProp.getDoubleProperty("cpu") * timeMultiple;
+		return result;
 	}
 
 	public double getMem() {
@@ -367,7 +381,8 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	}
 
 	public double getIOW() {
-		return nodeProp.getDoubleProperty("iow");
+		double result = nodeProp.getDoubleProperty("iow") * timeMultiple;
+		return result;
 	}
 
 	public double getIoops() {
@@ -492,8 +507,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 		jobExecDiProp.addMetric("Start Date: ", dateTimeFormatter(getJobStartTime()));
 
-		long wallClockTime = (long) (getWallClockTime() * 1000);
-		jobExecDiProp.addMetric("Duration: ", TimeUtil.formatDuration(wallClockTime, durationFormat));
+		jobExecDiProp.addMetric("Duration: ", TimeUtil.formatDuration((long) getWallClockTime(), durationFormat));
 		masterDiProp.addDetailedInfoProp(jobExecDiProp);
 
 		DetailedInfoProp usageDiProp = new DetailedInfoProp();
@@ -501,15 +515,13 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		String strEfficiency = String.format("%,.1f%%", getEfficiency());
 		usageDiProp.addMetric("Efficiency: ", strEfficiency);
 
-		long cpuTime = (long) (getCPUTime() * 1000);
-		usageDiProp.addMetric("CPU Time: ", TimeUtil.formatDuration(cpuTime, durationFormat));
+		usageDiProp.addMetric("CPU Time: ", TimeUtil.formatDuration((long) getCPUTime(), durationFormat));
 
 		long lngMemory = (long) (getMem() * 1073741824);
 		String strMemory = UnitConversion.humanReadableByteCount(lngMemory, false);
 		usageDiProp.addMetric("Memory: ", strMemory);
 
-		long lngIow = (long) (getIOW() * 1000);
-		usageDiProp.addMetric("IO Wait: ", TimeUtil.formatDuration(lngIow, durationFormat));
+		usageDiProp.addMetric("IO Wait: ", TimeUtil.formatDuration((long) getIOW(), durationFormat));
 
 		long lngIO = (long) (getIO() * 1073741824);
 		String strIO = UnitConversion.humanReadableByteCount(lngIO, false);

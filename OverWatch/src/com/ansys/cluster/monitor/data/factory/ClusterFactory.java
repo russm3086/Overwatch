@@ -7,6 +7,7 @@ package com.ansys.cluster.monitor.data.factory;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -79,6 +80,9 @@ public class ClusterFactory {
 		logger.entering(sourceClass, "createCluster");
 		logger.info("Getting host data");
 
+		ZoneId zoneId = mainProps.getClusterZoneId(index);
+		mainProps.setClusterZoneId(zoneId);
+
 		setStatusLabel("Getting host data");
 		Payload payLoadHost = dc.getHostsData(index);
 
@@ -121,7 +125,7 @@ public class ClusterFactory {
 
 		logger.info("Creating Cluster object");
 		setStatusLabel("Creating Cluster object " + clusterName);
-		Cluster cluster = new Cluster(clusterName, hostMasterQueue, jobMasterQueue);
+		Cluster cluster = new Cluster(clusterName, hostMasterQueue, jobMasterQueue, zoneId);
 
 		logger.exiting(sourceClass, "createCluster", cluster);
 		return cluster;

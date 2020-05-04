@@ -7,7 +7,7 @@ public final class SGE_DataConst {
 	}
 
 	public static String app_name = "OverWatch";
-	public static String app_version = "1.4.6.9";
+	public static String app_version = "1.4.7.2";
 	public static String app_version_regex = "(\\d+\\.)+(\\d)";
 	
 	
@@ -196,6 +196,8 @@ public final class SGE_DataConst {
 	public static final String queueTarget = "queueTarget";
 	
 	public static final String attribName = "name";
+
+	public static final String zoneId = "zoneid";
 
 
 	/**

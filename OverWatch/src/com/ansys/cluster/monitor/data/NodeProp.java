@@ -3,7 +3,8 @@
  */
 package com.ansys.cluster.monitor.data;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -571,7 +572,7 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 	 * @see com.ansys.cluster.monitor.data.JobPropInterface#getJobStartTime()
 	 */
 	@Override
-	public LocalDateTime getJobStartTime() {
+	public ZonedDateTime getJobStartTime() {
 		return getDateProperty(SGE_DataConst.json_job_start_time);
 	}
 
@@ -581,7 +582,7 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 	 * @see com.ansys.cluster.monitor.data.JobPropInterface#getJobSubmissionTime()
 	 */
 	@Override
-	public LocalDateTime getJobSubmissionTime() {
+	public ZonedDateTime getJobSubmissionTime() {
 		// TODO Use Instant
 		return getDateProperty(SGE_DataConst.json_job_submission_time);
 	}
@@ -688,8 +689,8 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 		if (jobMsg != null) {
 
 			jobMsg.add(msg);
-		}else {
-			
+		} else {
+
 			ArrayList<JobMessage> list = new ArrayList<JobMessage>();
 			list.add(msg);
 			setJobMessages(list);
@@ -711,7 +712,7 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 
 	@Override
 	public double getJobIdleThreshold() {
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
 		return getDoubleProperty(SGE_DataConst.job_IdleThreshold);
 	}
 
@@ -731,6 +732,19 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 	public void setTargetQueue(String queue) {
 		// TODO Auto-generated method stub
 		putLog(SGE_DataConst.queueTarget, queue);
+	}
+
+	@Override
+	public ZoneId getZoneID() {
+		// TODO Auto-generated method stub
+		ZoneId zoneid = ZoneId.of(getLogProperty(SGE_DataConst.zoneId));
+		return zoneid;
+	}
+
+	@Override
+	public void setZoneID(ZoneId zoneId) {
+		// TODO Auto-generated method stub
+		putLog(SGE_DataConst.zoneId, zoneId.getId());
 	}
 
 }

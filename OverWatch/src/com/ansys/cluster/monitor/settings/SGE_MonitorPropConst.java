@@ -65,7 +65,7 @@ public final class SGE_MonitorPropConst {
 	public static final String clusterQueuePrefix = clusterDataPrefix + "queue.";
 
 	public static final String clusterQueueOmissions = clusterQueuePrefix + "omissions";
-	
+
 	public static final String clusterQueueVisualRegex = clusterQueuePrefix + "visual.regex";
 
 	public static final String clusterJobPrefix = clusterDataPrefix + "job.";
@@ -101,6 +101,8 @@ public final class SGE_MonitorPropConst {
 	public static final String clusterIndex = clusterPrefix + "index";
 
 	public static final String nameSuffix = ".name";
+
+	public static final String timeZoneId = ".timezoneid";
 
 	public static final String connectionClusterUrlSuffix = ".connection.cluster.URL";
 

@@ -1,12 +1,13 @@
 package com.ansys.cluster.monitor.data.interfaces;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 import com.ansys.cluster.monitor.data.JobMessage;
 
-public interface JobPropInterface extends Serializable{
+public interface JobPropInterface extends Serializable {
 
 	String getJobStateTranslated();
 
@@ -20,9 +21,9 @@ public interface JobPropInterface extends Serializable{
 
 	String getJobState();
 
-	LocalDateTime getJobStartTime();
+	ZonedDateTime getJobStartTime();
 
-	LocalDateTime getJobSubmissionTime();
+	ZonedDateTime getJobSubmissionTime();
 
 	public void setQueueName(String queueName);
 
@@ -39,25 +40,29 @@ public interface JobPropInterface extends Serializable{
 	String getStartHost();
 
 	void setStartHost(String start_Host);
-	
+
 	boolean isMyJob();
-	
+
 	void setMyJobTrue();
 
 	void setMyJobFalse();
-	
+
 	public void setJobMessages(ArrayList<JobMessage> list);
 
 	public ArrayList<JobMessage> getJobMessages();
-	
+
 	public void addJobMessage(JobMessage msg);
-	
+
 	public double getJobIdleThreshold();
-	
+
 	public void setJobIdleThreshold(double value);
-	
+
 	public String getTargetQueue();
-	
+
 	public void setTargetQueue(String queue);
+
+	public ZoneId getZoneID();
+
+	public void setZoneID(ZoneId zoneId);
 
 }

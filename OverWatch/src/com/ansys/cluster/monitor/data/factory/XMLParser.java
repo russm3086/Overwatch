@@ -46,6 +46,7 @@ public class XMLParser extends ParserAbstract {
 		for (Element elem : elmList) {
 			logger.finer("Processing host xml" + elem.getAttributeValue(SGE_DataConst.attribName));
 			NodeProp prop = createHostMap(elem);
+			prop.setZoneID(mainProps.getClusterZoneId());
 			Host host = new Host(prop);
 			logger.finer("Created host " + host.getName());
 			map.put(host.getName(), host);
@@ -129,6 +130,7 @@ public class XMLParser extends ParserAbstract {
 			for (Element subElem : elem.getChildren()) {
 				logger.finer("Creating job object " + subElem);
 				NodeProp prop = createJobProp(subElem);
+				prop.setZoneID(mainProps.getClusterZoneId());
 				Job job = new Job(prop);
 				logger.finer("Created job object " + job.getJobNumber());
 				map.put(job.getJobNumber(), job);

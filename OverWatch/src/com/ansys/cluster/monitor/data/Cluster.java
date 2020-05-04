@@ -9,6 +9,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.awt.Color;
 import java.awt.Paint;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
@@ -34,9 +35,11 @@ public class Cluster extends AnsQueueAbstract {
 
 	String name;
 
-	public Cluster(String clusterName, HostMasterQueue hostMasterQueue, JobMasterQueue jobMasterQueue) {
+	public Cluster(String clusterName, HostMasterQueue hostMasterQueue, JobMasterQueue jobMasterQueue, ZoneId zoneId) {
 		super();
 		logger.entering(sourceClass, "Constructor");
+
+		//setZoneId(zoneId);
 
 		setName(clusterName);
 

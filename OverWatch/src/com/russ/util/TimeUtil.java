@@ -9,6 +9,8 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
@@ -155,6 +157,22 @@ public class TimeUtil {
 
 	}
 
+	
+	public static ZonedDateTime getZonedDateTime(String strDate, String zoneId) {
+		return getZonedDateTime( strDate, ZoneId.of(zoneId));
+	}
+	
+	public static ZonedDateTime getZonedDateTime(String strDate) {
+		return getZonedDateTime(strDate, ZoneOffset.UTC);
+	}
+
+	
+	public static ZonedDateTime getZonedDateTime(String strDate, ZoneId zoneId) {
+		LocalDateTime localDateTime = getLocalDateTime(strDate);
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, zoneId);
+		return zonedDateTime;
+	}
+
 	public static LocalDateTime getLocalDateTime(String strDate) {
 		LocalDateTime result;
 		try {
@@ -170,19 +188,16 @@ public class TimeUtil {
 			} catch (NumberFormatException nfe) {
 
 				result = StringToEpoch(strDate);
-
 			}
-
 		}
 
 		return result;
-
 	}
 
 	public static LocalDateTime EpochToLocalDateTime(String epochTime) {
 
 		Long longValue = Long.valueOf(epochTime);
-		LocalDateTime date = LocalDateTime.ofInstant(Instant.ofEpochMilli(longValue), ZoneId.systemDefault());
+		LocalDateTime date = LocalDateTime.ofInstant(Instant.ofEpochMilli(longValue), ZoneId.of("GMT0"));
 		return date;
 	}
 
@@ -239,12 +254,10 @@ public class TimeUtil {
 		String formattedDate = df.format(cal.getTime());
 		return formattedDate;
 	}
-	
-	
+
 	public static String formatDuration(long elapseTime, String format) {
 		return DurationFormatUtils.formatDuration(Math.abs(elapseTime), format);
 	}
-
 
 	public static ChronoUnit findChronoUnit(String timeUnits) {
 		final ChronoUnit unit;

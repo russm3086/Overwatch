@@ -1,7 +1,7 @@
 package com.ansys.cluster.monitor.data.interfaces;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 import com.ansys.cluster.monitor.data.Host;
@@ -36,9 +36,17 @@ public interface JobInterface {
 
 	double getJobPriority();
 
-	LocalDateTime getJobStartTime();
+	/**
+	 * Start time (64bit GMT unix time stamp in milliseconds).
+	 * @return
+	 */
+	ZonedDateTime getJobStartTime();
 
-	LocalDateTime getJobSubmissionTime();
+	/**
+	 * Submission time (64bit GMT unix time stamp in milliseconds).
+	 * @return
+	 */
+	ZonedDateTime getJobSubmissionTime();
 
 	String getIdentifier();
 

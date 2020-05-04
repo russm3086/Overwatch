@@ -1,6 +1,7 @@
 package com.ansys.cluster.monitor.data.interfaces;
 
 import java.io.Serializable;
+import java.time.ZoneId;
 
 public interface HostPropInterface extends Serializable{
 
@@ -198,6 +199,9 @@ public interface HostPropInterface extends Serializable{
 
 	public String getQueueName();
 
+	public ZoneId getZoneID();
+
+	public void setZoneID(ZoneId zoneId);
 
 
 }

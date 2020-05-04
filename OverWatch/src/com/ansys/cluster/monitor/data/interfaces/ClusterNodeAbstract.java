@@ -5,6 +5,7 @@ package com.ansys.cluster.monitor.data.interfaces;
 
 import java.awt.Color;
 import java.text.NumberFormat;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	protected int slotUnavailable = 0;
 	protected String unitRes = SGE_DataConst.unitResCore;
 	protected String strDetailedInfoPanel = DetailedInfoFactory.DetailedInfoPanel;
+	protected double timeMultiple = 1000;
 
 	protected ClusterNodeAbstract() {
 
@@ -249,6 +251,14 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	 */
 	public void setUnitRes(String unitRes) {
 		this.unitRes = unitRes;
+	}
+
+	public ZoneId getZoneId() {
+		return nodeProp.getZoneID();
+	}
+
+	public void setZoneId(ZoneId zoneId) {
+		nodeProp.setZoneID(zoneId);
 	}
 
 	public String toString() {

@@ -6,6 +6,7 @@ package com.ansys.cluster.monitor.settings;
 import java.io.IOException;
 import java.io.Reader;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -137,16 +138,19 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 				"\nCluster Server information\nLast cluster configuration");
 
 		setClusterName(0, "Otterfing");
+		setClusterZoneIdStr(0, "Europe/Berlin");
 		setClusterConnectionDetailedJobsUrl(0, "http://ottsimportal3.ansys.com:7878/alljobdetails");
 		setClusterConnectionSummaryJobsUrl(0, "http://ottsimportal3.ansys.com:7878/alljobs");
 		setClusterConnectionHostUrl(0, "http://ottsimportal3.ansys.com:7878/allnodes");
 
 		setClusterName(1, "CDC");
+		setClusterZoneIdStr(1, "America/New_York");
 		setClusterConnectionDetailedJobsUrl(1, "http://cdcsimportal1.ansys.com:5080/alljobs/details/xml");
 		setClusterConnectionSummaryJobsUrl(1, "http://cdcsimportal1.ansys.com:5080/alljobs/xml");
 		setClusterConnectionHostUrl(1, "http://cdcsimportal1.ansys.com:5080/allhosts/xml");
 
 		setClusterName(2, "Pune");
+		setClusterZoneIdStr(2, "Europe/Berlin");
 		setClusterConnectionDetailedJobsUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/details/xml");
 		setClusterConnectionSummaryJobsUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/xml");
 		setClusterConnectionHostUrl(2, "http://punsimportal2.ansys.com:5080/allhosts/xml");
@@ -312,6 +316,33 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 	public void setClusterName(int item, String name) {
 		setProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.nameSuffix, name);
+	}
+
+	public String getClusterZoneIdStr(int item) {
+		return getString(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.timeZoneId, "GMT0");
+	}
+
+	public void setClusterZoneIdStr(int item, String timezone) {
+		setProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.timeZoneId, timezone);
+	}
+
+	public ZoneId getClusterZoneId(int item) {
+		ZoneId zoneId = ZoneId.of(getClusterZoneIdStr(item));
+		return zoneId;
+	}
+
+	public void setClusterZoneId(int item, ZoneId zoneId) {
+		setClusterZoneIdStr(item, zoneId.getId());
+	}
+
+	public ZoneId getClusterZoneId() {
+		String id = getString(SGE_MonitorPropConst.clusterPrefix +  SGE_MonitorPropConst.timeZoneId, "GMT0");
+		ZoneId zoneId = ZoneId.of(id);
+		return zoneId;
+	}
+
+	public void setClusterZoneId(ZoneId zoneId) {
+		setProperty(SGE_MonitorPropConst.clusterPrefix +  SGE_MonitorPropConst.timeZoneId, zoneId);
 	}
 
 	public int getClusterIndex() {

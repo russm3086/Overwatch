@@ -5,7 +5,7 @@
 */
 package com.russ.util;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -160,24 +160,23 @@ public abstract class AbstractProp extends Properties {
 
 	}
 
-	public synchronized LocalDateTime getDateProperty(String key) {
+	public synchronized ZonedDateTime getDateProperty(String key) {
 
-		LocalDateTime dateTime = null;
+		ZonedDateTime dateTime = null;
 
 		try {
-			dateTime = TimeUtil.getLocalDateTime(getLogProperty(key));
+			dateTime = TimeUtil.getZonedDateTime(getLogProperty(key));
 		} catch (java.lang.NullPointerException e) {
 
 			transLog(Level.FINEST, key + " is null");
-
 		}
 
 		return dateTime;
 	}
 
-	public synchronized Object setDateProperty(String key, LocalDateTime value) {
+	public synchronized Object setDateProperty(String key, ZonedDateTime value) {
 
-		Object obj = putLog(key, value.toString());
+		Object obj = putLog(key, value);
 		return obj;
 	}
 
@@ -202,8 +201,8 @@ public abstract class AbstractProp extends Properties {
 
 		ArrayList<?> value = getArrayList(key);
 		transLog(Level.FINEST, "Getting  key: " + key + " with value: " + value);
-		Object[] object= value.toArray();
-		
+		Object[] object = value.toArray();
+
 		return object;
 	}
 
