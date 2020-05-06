@@ -32,7 +32,7 @@ public class TableBuilder {
 		switch (tableModleName) {
 
 		case table_Job_Host:
-			jtable = buildTable(tableModel, 1, String.class);
+			jtable = buildTable(tableModel, 0, String.class);
 			break;
 
 		case table_Job:

@@ -121,7 +121,7 @@ public class TreeUtil {
 
 		TreeNode treeNode = (TreeNode) path.getLastPathComponent();
 		Object object = ((DefaultMutableTreeNode) treeNode).getUserObject();
-		logger.fine("Traversing " + object);
+		logger.finer("Traversing " + object);
 
 		if (!(object instanceof String)) {
 
@@ -172,7 +172,7 @@ public class TreeUtil {
 		logger.finest("Searching metadata\n" + source);
 		Matcher matcher = pattern.matcher(source);
 		if (matcher.find()) {
-			logger.finest("Found: " + matcher.toString());
+			logger.fine("Found: " + matcher.toString());
 			result = matcher;
 		} else {
 

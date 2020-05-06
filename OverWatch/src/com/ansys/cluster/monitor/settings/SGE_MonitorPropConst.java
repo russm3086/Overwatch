@@ -40,6 +40,8 @@ public final class SGE_MonitorPropConst {
 
 	public static final String logAnsysLevel = "com.ansys.level";
 
+	public static final String logRussLevel = "com.russ.level";
+
 	public static final String sgeMonitor_dir_etc = "com.ansys.dir.etc";
 
 	public static final String guiFrameWidth = "com.ansys.cluster.monitor.GUI.frame.width";

@@ -72,7 +72,8 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setLogConsoleHandlerLevel("FINEST");
 
 		setLogAnsysLevel("INFO");
-		layout.setComment(SGE_MonitorPropConst.logAnsysLevel, "\nSet the default logging level for the ansys logger");
+		setLogRussLevel("INFO");
+		layout.setComment(SGE_MonitorPropConst.logAnsysLevel, "\nSet the default logging level");
 
 		// GUI
 		setOS_LookAndFeel(false);
@@ -84,7 +85,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setFrameHeight(0);
 		setFrameWidth(0);
 		setGuiTimer(true);
-		setGuiTimerDelay(1);
+		setGuiTimerDelay(5);
 		setGuiTimerDelayTimeUnit("minutes");
 		setGuiTreeExpansionLevel(3);
 
@@ -150,7 +151,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setClusterConnectionHostUrl(1, "http://cdcsimportal1.ansys.com:5080/allhosts/xml");
 
 		setClusterName(2, "Pune");
-		setClusterZoneIdStr(2, "Europe/Berlin");
+		setClusterZoneIdStr(2, "Asia/Colombo");
 		setClusterConnectionDetailedJobsUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/details/xml");
 		setClusterConnectionSummaryJobsUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/xml");
 		setClusterConnectionHostUrl(2, "http://punsimportal2.ansys.com:5080/allhosts/xml");
@@ -515,6 +516,14 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 	public void setLogAnsysLevel(String level) {
 		setProperty(SGE_MonitorPropConst.logAnsysLevel, level);
+	}
+
+	public String getLogRussLevel() {
+		return getString(SGE_MonitorPropConst.logRussLevel);
+	}
+
+	public void setLogRussLevel(String level) {
+		setProperty(SGE_MonitorPropConst.logRussLevel, level);
 	}
 
 	public String getDirEtc() {

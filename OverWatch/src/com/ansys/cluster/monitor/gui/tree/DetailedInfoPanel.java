@@ -4,7 +4,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JTree;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -141,10 +143,12 @@ public class DetailedInfoPanel extends JPanel {
 
 			case DetailedInfoProp.const_DataTypeString:
 
-				JLabel label = new JLabel(createDisplay(entry.getKey(), entry.getValue()));
+				JTextField label = new JTextField(createDisplay(entry.getKey(), entry.getValue()));
 				label.setFont(label.getFont().deriveFont(10));
 				Color lightBlue = new Color(0, 0, 182, 155);
 				Border ovalBorder = new OvalBorder(10, 10, lightBlue, Color.BLUE);
+				label.setEditable(false);
+				label.setBackground(UIManager.getColor("TextField.activeBackground"));
 				label.setBorder(ovalBorder);
 				panel.add(label);
 				break;
