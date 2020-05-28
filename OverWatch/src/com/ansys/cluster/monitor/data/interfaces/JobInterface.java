@@ -53,5 +53,7 @@ public interface JobInterface {
 	String getJobState();
 
 	NodeProp getJB_hard_queue_list();
+	
+	public int getNumExecHosts();
 
 }

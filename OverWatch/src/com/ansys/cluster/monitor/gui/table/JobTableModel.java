@@ -18,16 +18,17 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 		 * 
 		 */
 	private static final long serialVersionUID = 2331629876169607226L;
-	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "State", "Duration", "Load",
-			"Efficiency" };
+	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "Num. of Exec. Host", "State",
+			"Duration", "Load", "Efficiency" };
 	private static final int COLUMN_NAME = 0;
 	private static final int COLUMN_ID = 1;
 	private static final int COLUMN_OWNER = 2;
 	private static final int COLUMN_CORES = 3;
-	private static final int COLUMN_STATE = 4;
-	private static final int COLUMN_DURATION = 5;
-	private static final int COLUMN_LOAD = 6;
-	private static final int COLUMN_EFFICIENCY = 7;
+	private static final int COLUMN_EXEC_HOSTS = 4;
+	private static final int COLUMN_STATE = 5;
+	private static final int COLUMN_DURATION = 6;
+	private static final int COLUMN_LOAD = 7;
+	private static final int COLUMN_EFFICIENCY = 8;
 
 	/**
 	 * 
@@ -60,6 +61,7 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 			return Double.class;
 		case COLUMN_ID:
 		case COLUMN_CORES:
+		case COLUMN_EXEC_HOSTS:
 			return Integer.class;
 		default:
 			throw new IllegalArgumentException("Invalid column: " + column);
@@ -85,6 +87,9 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 			break;
 		case COLUMN_CORES:
 			returnValue = Integer.valueOf((job.getSlots()));
+			break;
+		case COLUMN_EXEC_HOSTS:
+			returnValue = Integer.valueOf((job.getNumExecHosts()));
 			break;
 		case COLUMN_STATE:
 			returnValue = job.getState();

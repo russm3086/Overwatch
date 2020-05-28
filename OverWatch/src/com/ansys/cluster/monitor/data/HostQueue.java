@@ -187,6 +187,7 @@ public class HostQueue extends AnsQueueAbstract {
 			resourceDiProp.addMetric("Total: ", getCoreTotal());
 			resourceDiProp.addMetric("Reserved: ", getCoreReserved());
 			resourceDiProp.addMetric("F.U.N. Core(s):", getCoreFUN());
+			resourceDiProp.addMetric("Core(s) / Node: ", getCoreTotal()/size());
 		}
 
 		resourceDiProp.addMetric("Load: ", numberFormmatter.format(getNp_Load()));

@@ -449,6 +449,10 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 	}
 
+	public int getNumExecHosts() {
+		return hostMap.size();
+	}
+	
 	@Override
 	public String getJobState() {
 		return nodeProp.getJobState();
