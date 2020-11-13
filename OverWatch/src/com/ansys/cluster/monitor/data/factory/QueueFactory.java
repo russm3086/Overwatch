@@ -6,11 +6,8 @@
 package com.ansys.cluster.monitor.data.factory;
 
 import java.util.HashMap;
-import java.util.SortedMap;
-import java.util.Map.Entry;
 import java.util.logging.Logger;
 
-import com.ansys.cluster.monitor.data.Cluster;
 import com.ansys.cluster.monitor.data.Host;
 import com.ansys.cluster.monitor.data.HostMasterQueue;
 import com.ansys.cluster.monitor.data.HostQueue;
@@ -195,50 +192,6 @@ public class QueueFactory {
 		if (regex != null && (node.getQueueName().matches(regex))) {
 			node.setVisualNode(true);
 		}
-	}
-
-	public static void addMyJobs(Cluster cluster, String userName) {
-		logger.entering(sourceClass, "addMyJobs");
-		if (userName != null && userName != "") {
-
-			JobsQueue myJobQueue = new JobsQueue(SGE_DataConst.myJob);
-			JobMasterQueue jobMasterQueue = cluster.getJobMasterQueue();
-
-			SortedMap<String, JobsQueue> jobsQueuesMap = jobMasterQueue.getJobQueues();
-			for (Entry<String, JobsQueue> entry : jobsQueuesMap.entrySet()) {
-				logger.finer("Expecting Job queue " + entry.getKey());
-
-				JobsQueue queue = entry.getValue();
-				for (Entry<Integer, Job> entryJob : queue.getAllmaps().entrySet()) {
-
-					Job job = entryJob.getValue();
-
-					if (myJobs(job, userName)) {
-
-						myJobQueue.addJob(job);
-					}
-				}
-			}
-
-			if (myJobQueue.size() > 0) {
-				jobMasterQueue.addQueue(myJobQueue);
-			}
-		}
-
-		logger.entering(userName, "addMyJobs");
-	}
-
-	public static boolean myJobs(Job job, String userName) {
-		logger.entering(sourceClass, "myJobs", job);
-		boolean result = false;
-		if (job != null) {
-			String jobOwner = job.getJobOwner();
-			if (jobOwner != null && jobOwner.equalsIgnoreCase(userName)) {
-				result = true;
-			}
-		}
-		logger.exiting(sourceClass, "myJobs", result);
-		return result;
 	}
 
 }

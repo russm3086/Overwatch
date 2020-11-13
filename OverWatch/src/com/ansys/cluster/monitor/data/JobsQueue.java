@@ -124,19 +124,35 @@ public class JobsQueue extends AnsQueueAbstract {
 	@Override
 	public String getToolTip() {
 		// TODO Auto-generated method stub
-		StringBuilder sb = new StringBuilder(" Active Job(s): ");
+		StringBuilder sb = new StringBuilder("<html>");
+
+		sb.append("Active Job(s): ");
 		sb.append(getActiveJobsSize());
-		sb.append(" Active Session(s): ");
-		sb.append(getActiveSessionJobsSize());
+
 		if (getPendingJobsSize() > 0) {
-			sb.append(" Pending Job(s): ");
+			sb.append("<BR>Pending Job(s): ");
 			sb.append(getPendingJobsSize());
 		}
 
+		if (getIdleJobsSize() > 0) {
+			sb.append("<BR>Idle Job(s): ");
+			sb.append(getIdleJobsSize());
+		}
+
+		sb.append("<BR>Active Session(s): ");
+		sb.append(getActiveSessionJobsSize());
+
 		if (getPendingSessionJobsSize() > 0) {
-			sb.append(" Pending Session(s): ");
+			sb.append("<BR>Pending Session(s): ");
 			sb.append(getPendingSessionJobsSize());
 		}
+
+		if (getIdleSessionJobsSize() > 0) {
+			sb.append("<BR>Idle Session(s): ");
+			sb.append(getIdleSessionJobsSize());
+		}
+
+		sb.append("</html>");
 		return sb.toString();
 	}
 

@@ -60,6 +60,13 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 	private int coreUnavailable = 0;
 	private int coreFUN = 0;
 
+	private String quotaName;
+	private String qutoaUserName;
+	private String quotaResource;
+	private String quotaQueue;
+	private int quotaLimit;
+	private int quotaUsage;
+
 	/**
 	 * 
 	 */
@@ -663,7 +670,7 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 	public int getIdleSessionJobsSize() {
 		return getIdleSessionJobs().size();
 	}
-	
+
 	/**
 	 * ********Error Session JObs
 	 */
@@ -864,6 +871,90 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 
 	public int getActiveJobsSize() {
 		return getActiveJobs().size();
+	}
+
+	/**
+	 * @return the quotaName
+	 */
+	public String getQuotaName() {
+		return quotaName;
+	}
+
+	/**
+	 * @param quotaName the quotaName to set
+	 */
+	public void setQuotaName(String quotaName) {
+		this.quotaName = quotaName;
+	}
+
+	/**
+	 * @return the qutoaUserName
+	 */
+	public String getQutoaUserName() {
+		return qutoaUserName;
+	}
+
+	/**
+	 * @param qutoaUserName the qutoaUserName to set
+	 */
+	public void setQutoaUserName(String qutoaUserName) {
+		this.qutoaUserName = qutoaUserName;
+	}
+
+	/**
+	 * @return the quotaResource
+	 */
+	public String getQuotaResource() {
+		return quotaResource;
+	}
+
+	/**
+	 * @param quotaResource the quotaResource to set
+	 */
+	public void setQuotaResource(String quotaResource) {
+		this.quotaResource = quotaResource;
+	}
+
+	/**
+	 * @return the quotaQueue
+	 */
+	public String getQuotaQueue() {
+		return quotaQueue;
+	}
+
+	/**
+	 * @param quotaQueue the quotaQueue to set
+	 */
+	public void setQuotaQueue(String quotaQueue) {
+		this.quotaQueue = quotaQueue;
+	}
+
+	/**
+	 * @return the quotaLimit
+	 */
+	public int getQuotaLimit() {
+		return quotaLimit;
+	}
+
+	/**
+	 * @param quotaLimit the quotaLimit to set
+	 */
+	public void setQuotaLimit(int quotaLimit) {
+		this.quotaLimit = quotaLimit;
+	}
+
+	/**
+	 * @return the quotaUsage
+	 */
+	public int getQuotaUsage() {
+		return quotaUsage;
+	}
+
+	/**
+	 * @param quotaUsage the quotaUsage to set
+	 */
+	public void setQuotaUsage(int quotaUsage) {
+		this.quotaUsage = quotaUsage;
 	}
 
 	public abstract int size();

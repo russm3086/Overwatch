@@ -7,10 +7,10 @@ public final class SGE_DataConst {
 	}
 
 	public static String app_name = "OverWatch";
-	public static String app_version = "1.4.7.6";
+	public static String app_version = "1.4.9.0";
 	public static String app_version_regex = "(\\d+\\.)+(\\d)";
-	
-	
+	public static float app_font_max_scaling = 50;
+
 	/**
 	 * The name attribute of the elements
 	 */
@@ -73,13 +73,13 @@ public final class SGE_DataConst {
 	public final static String json_events = "Events";
 
 	public final static String json_grl = "grl";
-	
-	public final static String[] json_sub_array = {json_element, json_task_id_range, json_events, json_grl};
+
+	public final static String[] json_sub_array = { json_element, json_task_id_range, json_events, json_grl };
 
 	public final static String json_object = "JSONObject";
 
 	public final static String json_array = "JSONArray";
-	
+
 	public final static String json_message = "messages";
 
 	public final static String json_message_list = "SME_message_list";
@@ -112,20 +112,19 @@ public final class SGE_DataConst {
 	public final static String json_job_jclass_name = "jclass_name";
 
 	public final static String json_job_start_host = "start_host";
-	
+
 	public final static String msg = "messages";
-	
+
 	public final static String msg_msg_number = "MES_message_number";
 
 	public final static String msg_msg = "MES_message";
-	
+
 	public final static String msg_job_list = "MES_job_number_list";
-	
+
 	public final static String xml_Element = json_element;
-	
+
 	public final static String djob_info = json_djob_info;
 
-	
 	/**
 	 * NodeProp - Property Keys
 	 */
@@ -166,7 +165,7 @@ public final class SGE_DataConst {
 	public final static String noNameHostQueue = "LIMBO";
 
 	public final static String noNameJobQueue = "PENDING";
-	
+
 	public final static String job_ntq = "NonexisitngTargetQueue";
 
 	public final static String queueType = json_qtype_string;
@@ -186,19 +185,18 @@ public final class SGE_DataConst {
 	public final static String job_PendingQueue = "PENDING";
 
 	public final static String job_MyJob = "Job_MyJob";
-	
-	public final static String myJob = "My Job";
+
+	public final static String myJobs = "Jobs";
 
 	public final static String job_Messages = "Job_Messages";
-	
+
 	public static final String job_IdleThreshold = "com.ansys.monitor.job.idle.threshold";
-	
+
 	public static final String queueTarget = "queueTarget";
-	
+
 	public static final String attribName = "name";
 
 	public static final String zoneId = "zoneid";
-
 
 	/**
 	 * 
@@ -206,6 +204,8 @@ public final class SGE_DataConst {
 	public final static String mqEntryQueues = "QUEUE(S)";
 
 	public final static String mqEntryJobs = "JOB(S)";
+
+	public final static String mqEntryMyJobs = "MY JOB(S)";
 
 	/**
 	 * SGE commands
@@ -239,18 +239,21 @@ public final class SGE_DataConst {
 	public final static String clusterTypeQueue = "QUEUE";
 	public final static String clusterTypeHost = "HOST";
 	public final static String clusterTypeJob = "JOB";
-	
+	public final static String clusterTypeQuota = "QUOTA";
+	public final static String clusterTypeMix = "MIX";
+
 	public final static String connTypeHttp = "HTTP";
 	public final static String connTypeFile = "FILE";
 	public final static String connTypeCMD = "CMD";
-	
+
 	public final static String unitResCore = "Core(s)";
 	public final static String unitResSession = "Session(s)";
-	
-	//Panel Name
+
+	// Panel Name
 	public final static String panelTitleJob = "Job(s)";
 	public final static String panelTitleVisualNode = "Visual Node(s)";
-	
+	public final static String panelTitleQuotasUsage = "Quota(s) Usage";
+	public final static String panelTitleOverallQuotasUsage = "Overall Quota Usage";
 	
 
 }

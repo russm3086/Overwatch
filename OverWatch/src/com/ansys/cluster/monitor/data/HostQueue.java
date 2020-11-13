@@ -187,7 +187,7 @@ public class HostQueue extends AnsQueueAbstract {
 			resourceDiProp.addMetric("Total: ", getCoreTotal());
 			resourceDiProp.addMetric("Reserved: ", getCoreReserved());
 			resourceDiProp.addMetric("F.U.N. Core(s):", getCoreFUN());
-			resourceDiProp.addMetric("Core(s) / Node: ", getCoreTotal()/size());
+			resourceDiProp.addMetric("Core(s) / Node: ", getCoreTotal() / size());
 		}
 
 		resourceDiProp.addMetric("Load: ", numberFormmatter.format(getNp_Load()));
@@ -216,7 +216,7 @@ public class HostQueue extends AnsQueueAbstract {
 		nodeDiProp.addMetric("Total Host: ", unavailbleNode + available);
 		nodeDiProp.addMetric("Total Unavailable Host: ", unavailbleNode);
 		nodeDiProp.addMetric("Total Available Host: ", available);
-		//mainDiProp.addDetailedInfoProp(nodeDiProp);
+		// mainDiProp.addDetailedInfoProp(nodeDiProp);
 
 		displayPendingJobs(mainDiProp);
 		displayActiveJobs(mainDiProp);
@@ -275,25 +275,17 @@ public class HostQueue extends AnsQueueAbstract {
 
 	@Override
 	public String getToolTip() {
-		// TODO Auto-generated method stub
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder("<html>");
 
 		if (isVisualNode()) {
 
-			sb.append(" Available Session(s): ");
+			sb.append("Available Session(s): ");
 			sb.append(getSessionAvailable());
-			sb.append(" Available Nodes: ");
-			sb.append(getUnavailableVisualHostsSize());
 		} else {
 
-			sb.append(" Available Core(s): ");
-			sb.append(getCoreAvailable());
-			sb.append(" Available Nodes: ");
-			sb.append(getAvailableComputeHostsSize());
+			sb.append("F.U.N. Core(s): ");
+			sb.append(getCoreFUN());
 		}
-
-		sb.append(" Available Memory: ");
-		sb.append(numberFormmatter.format(getAvailableMem()));
 		return sb.toString();
 	}
 

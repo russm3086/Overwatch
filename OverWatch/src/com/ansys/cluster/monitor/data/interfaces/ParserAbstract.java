@@ -28,15 +28,16 @@ public abstract class ParserAbstract {
 	 */
 	private String sourceClass = this.getClass().getName();
 	private transient Logger logger = Logger.getLogger(sourceClass);
-	protected Payload payloadHosts;
+	protected Payload payload;
 	protected SGE_MonitorProp mainProps;
 	protected Payload payloadJobs;
 	protected Payload payLoadDetailedJobs;
 
-	public ParserAbstract(Payload payloadHosts, SGE_MonitorProp mainProps) {
-		setPayloadHosts(payloadHosts);
+	public ParserAbstract(Payload payLoad, SGE_MonitorProp mainProps) {
+		setPayload(payLoad);
 		setMainProps(mainProps);
 	}
+
 
 	public ParserAbstract(Payload payloadJobs, Payload payLoadDetailedJobs, SGE_MonitorProp mainProps) {
 		setPayLoadDetailedJobs(payLoadDetailedJobs);
@@ -48,12 +49,12 @@ public abstract class ParserAbstract {
 
 	public abstract HashMap<Integer, Job> createJobsMap();
 
-	public Payload getPayloadHosts() {
-		return payloadHosts;
+	public Payload getPayload() {
+		return payload;
 	}
 
-	public void setPayloadHosts(Payload payloadHosts) {
-		this.payloadHosts = payloadHosts;
+	public void setPayload(Payload payload) {
+		this.payload = payload;
 	}
 
 	public Payload getPayloadJobs() {

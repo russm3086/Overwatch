@@ -135,13 +135,14 @@ public class Console extends JFrame {
 		tree.addTreeSelectionListener(new NodeSelection());
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.putClientProperty("JTree.lineStyle", "Angled");
+		tree.setRowHeight(0);
 
 		ToolTipManager.sharedInstance().registerComponent(tree);
 
 		JScrollPane treeView = new JScrollPane(tree);
 
-		treeView.setMinimumSize(new Dimension(300, 200));
-		treeView.setPreferredSize(new Dimension(325, 200));
+		treeView.setMinimumSize(new Dimension(325, 200));
+		treeView.setPreferredSize(new Dimension(350, 200));
 		splitPane.setTopComponent(treeView);
 
 		scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -204,21 +205,25 @@ public class Console extends JFrame {
 		int height = (int) mainProps.getFrameHeight();
 		int width = (int) mainProps.getFrameWidth();
 
-		if (height == 0 || width == 0) {
+		if (height > dim.getHeight() || width > dim.getWidth()) {
 
-			width = (int) (dim.getWidth() / mainProps.getFrameScreenRatio());
-			height = (int) (dim.getHeight() / mainProps.getFrameScreenRatio());
+			setExtendedState(MAXIMIZED_BOTH);
+		} else {
+			
+			if (height == 0 || width == 0) {
 
-			logger.info("Console Width: " + width + " Height: " + height);
+				width = (int) (dim.getWidth() / mainProps.getFrameScreenRatio());
+				height = (int) (dim.getHeight() / mainProps.getFrameScreenRatio());
 
+				logger.info("Console Width: " + width + " Height: " + height);
+			}
+
+			this.setSize(width, height);
+
+			int x = (int) (dim.getWidth() - this.getWidth()) / 2;
+			int y = (int) (dim.getHeight() - this.getHeight()) / 2;
+			this.setLocation(x, y);
 		}
-
-		this.setSize(width, height);
-
-		int x = (int) (dim.getWidth() - this.getWidth()) / 2;
-		int y = (int) (dim.getHeight() - this.getHeight()) / 2;
-		this.setLocation(x, y);
-
 	}
 
 	private void setFrameSize() {
@@ -234,7 +239,6 @@ public class Console extends JFrame {
 
 			tree.setRootVisible(true);
 
-	
 			ClusterMonitorThread clusterMonitor = new ClusterMonitorThread(mainProps, blockingQueue);
 			clusterMonitor.retrieveData();
 

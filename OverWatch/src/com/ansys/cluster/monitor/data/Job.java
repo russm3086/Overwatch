@@ -218,9 +218,9 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		}
 
 		ZonedDateTime finishTime = getJobStartTime();
-		
+
 		if (finishTime == null) {
-			
+
 			finishTime = ZonedDateTime.of(LocalDateTime.now(), ZoneId.systemDefault());
 		}
 		Duration duration = Duration.between(startTime, finishTime);
@@ -452,7 +452,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	public int getNumExecHosts() {
 		return hostMap.size();
 	}
-	
+
 	@Override
 	public String getJobState() {
 		return nodeProp.getJobState();
@@ -490,8 +490,8 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		jobDiProp.setPanelName("Job Info");
 		jobDiProp.addMetric("Owner: ", getJobOwner());
 		jobDiProp.addMetric("Job #: ", getJobNumber());
-		//jobDiProp.addMetric("Job Priority: ", getJobPriority());
-		//jobDiProp.addMetric("Job Status Code: ", getJobState());
+		// jobDiProp.addMetric("Job Priority: ", getJobPriority());
+		// jobDiProp.addMetric("Job Status Code: ", getJobState());
 
 		if (getTargetQueue() != null)
 			jobDiProp.addMetric("Target Queue: ", getTargetQueue());
@@ -517,16 +517,17 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		jobExecDiProp.addMetric("Start Date: ", dateTimeFormatter(getJobStartTime()));
 
 		jobExecDiProp.addMetric("Duration: ", TimeUtil.formatDuration((long) getWallClockTime(), durationFormat));
-		//jobExecDiProp.addMetric("Duration Raw: ", (long) getWallClockTime());
+		// jobExecDiProp.addMetric("Duration Raw: ", (long) getWallClockTime());
 		masterDiProp.addDetailedInfoProp(jobExecDiProp);
 
+		// Usage
 		DetailedInfoProp usageDiProp = new DetailedInfoProp();
 		usageDiProp.setPanelName("Usage");
 		String strEfficiency = String.format("%,.1f%%", getEfficiency());
 		usageDiProp.addMetric("Efficiency: ", strEfficiency);
 
 		usageDiProp.addMetric("CPU Time: ", TimeUtil.formatDuration((long) getCPUTime(), durationFormat));
-		//usageDiProp.addMetric("CPU Time Raw: ", (long)getCPUTime());
+		// usageDiProp.addMetric("CPU Time Raw: ", (long)getCPUTime());
 
 		long lngMemory = (long) (getMem() * 1073741824);
 		String strMemory = UnitConversion.humanReadableByteCount(lngMemory, false);
@@ -537,10 +538,16 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		long lngIO = (long) (getIO() * 1073741824);
 		String strIO = UnitConversion.humanReadableByteCount(lngIO, false);
 		usageDiProp.addMetric("IO: ", strIO);
-
 		usageDiProp.addMetric("ioops: ", numberFormmatter.format(getIoops()));
-
 		masterDiProp.addDetailedInfoProp(usageDiProp);
+
+		// QIM_Message
+		if (nodeProp.getQIM_Msg() != null) {
+			DetailedInfoProp qimDiProp = new DetailedInfoProp();
+			qimDiProp.setPanelName("QIM_Message");
+			qimDiProp.addMetric("Message: ", nodeProp.getQIM_Msg());
+			masterDiProp.addDetailedInfoProp(qimDiProp);
+		}
 
 		displayStateDescriptions(masterDiProp);
 		displayHosts(masterDiProp);
@@ -569,13 +576,15 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 
 	@Override
 	public String getToolTip() {
-		StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder("<html>");
 		sb.append(" Duration: ");
 		sb.append(getDuration().toHours());
-		sb.append(" ");
+		sb.append(" hrs.");
+		sb.append("<BR>");
 		sb.append(getUnitRes());
 		sb.append(": ");
 		sb.append(getSlots());
+		sb.append("</html>");
 		return sb.toString();
 	}
 

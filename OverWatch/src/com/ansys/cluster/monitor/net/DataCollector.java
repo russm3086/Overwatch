@@ -68,6 +68,16 @@ public class DataCollector {
 		return connectors(mainProps.getClusterConnectionHostUrl(item));
 	}
 
+	public Payload getQuotaData(int item) throws JSONException, IOException, URISyntaxException, JDOMException,
+			InterruptedException, TransformerException, ClassNotFoundException {
+
+		if (mainProps.getClusterConnectionRequestMethod().equalsIgnoreCase(SGE_DataConst.connTypeCMD)) {
+
+			return connectors(mainProps.getClusterConnectionQuotaCmd(item));
+		}
+		return connectors(mainProps.getClusterConnectionQuotaUrl(item));
+	}
+
 	public Payload getJobsData(int item) throws JSONException, IOException, URISyntaxException, JDOMException,
 			InterruptedException, TransformerException, ClassNotFoundException {
 		if (mainProps.getClusterConnectionRequestMethod().equalsIgnoreCase(SGE_DataConst.connTypeCMD)) {

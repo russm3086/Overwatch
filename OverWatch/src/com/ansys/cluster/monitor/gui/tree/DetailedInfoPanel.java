@@ -31,6 +31,7 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.xy.XYBubbleRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.util.DefaultShadowGenerator;
 import org.jfree.chart.util.Rotation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -56,12 +57,12 @@ import java.awt.Font;
 import java.text.DecimalFormat;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 
 public class DetailedInfoPanel extends JPanel {
 
 	protected DetailedInfoProp masterDiProp;
 	protected JTree tree;
+	protected Font titleBorderFont;
 	/**
 	 * 
 	 */
@@ -77,6 +78,7 @@ public class DetailedInfoPanel extends JPanel {
 		this.tree = tree;
 
 		setBackground(Color.WHITE);
+		titleBorderFont= UIManager.getDefaults().getFont("TitledBorder.font");
 
 	}
 
@@ -101,13 +103,19 @@ public class DetailedInfoPanel extends JPanel {
 
 	protected void createTitle(String metric, String value) {
 
-		JLabel label = new JLabel();
 		StringBuilder sb = new StringBuilder(metric);
 		sb.append(value);
-		label.setText(sb.toString());
-		label.setFont(new Font(Font.SERIF, Font.BOLD, 20));
-		label.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		add(label);
+
+		JTextField field = new JTextField();
+		field.setEditable(false); // as before
+		field.setBackground(null);
+		field.setBorder(null); // remove the border
+		field.setFont(new Font(Font.SERIF, Font.BOLD, 20));
+		field.setAlignmentX(Component.CENTER_ALIGNMENT);
+		field.setMaximumSize(new Dimension(300, 20));
+		field.setText(sb.toString());
+
+		add(field);
 
 	}
 
@@ -184,6 +192,7 @@ public class DetailedInfoPanel extends JPanel {
 				panel.add(BorderLayout.CENTER, barChartPanel);
 
 				break;
+
 			}
 
 		}
@@ -233,7 +242,7 @@ public class DetailedInfoPanel extends JPanel {
 
 		final JFreeChart chart = createPieChart(diProp);
 		final ChartPanel chartPanel = new ChartPanel(chart);
-		chartPanel.setPreferredSize(new java.awt.Dimension(320, 240));
+		chartPanel.setPreferredSize(new java.awt.Dimension(320, 180));
 		chartPanel.setBackground(Color.WHITE);
 
 		return chartPanel;
@@ -243,7 +252,7 @@ public class DetailedInfoPanel extends JPanel {
 
 		final JFreeChart chart = createBarChart(diProp);
 		final ChartPanel chartPanel = new ChartPanel(chart);
-		chartPanel.setPreferredSize(new java.awt.Dimension(320, 240));
+		chartPanel.setPreferredSize(new java.awt.Dimension(320, 180));
 		chartPanel.setBackground(Color.WHITE);
 
 		return chartPanel;
@@ -268,13 +277,13 @@ public class DetailedInfoPanel extends JPanel {
 				"", // domain axis label
 				"", // range axis label
 				dataset, // data
-				PlotOrientation.VERTICAL, // orientation
+				diProp.getPlotOrientation(), // orientation
 				false, // include legend
 				true, // tooltips?
 				false // URLs?
 		);
 
-		chart.getTitle().setFont(new Font(chart.getTitle().getFont().getName(), Font.PLAIN, 12));
+		chart.getTitle().setFont(titleBorderFont.deriveFont(Font.BOLD));
 
 		// set the background color for the chart...
 		chart.setBackgroundPaint(Color.white);
@@ -327,8 +336,11 @@ public class DetailedInfoPanel extends JPanel {
 
 		final JFreeChart chart = ChartFactory.createPieChart3D(diProp.getChartDataTitle(), pieDataset, true, true,
 				false);
-		chart.getTitle().setFont(new Font(chart.getTitle().getFont().getName(), Font.PLAIN, 12));
+		
+		chart.getTitle().setFont(titleBorderFont.deriveFont(Font.BOLD));
 
+		
+		
 		final PiePlot3D plot = (PiePlot3D) chart.getPlot();
 		plot.setStartAngle(180);
 		plot.setDepthFactor(.10);
@@ -338,11 +350,10 @@ public class DetailedInfoPanel extends JPanel {
 		plot.setMinimumArcAngleToDraw(1);
 		plot.setBackgroundPaint(Color.WHITE);
 		plot.setCircular(true);
-		//plot.setShadowGenerator(new DefaultShadowGenerator());
-		plot.setShadowPaint(Color.BLACK);
-		plot.setShadowXOffset(200);
-		plot.setShadowYOffset(200);
+		plot.setDarkerSides(true);
 
+		//plot.setShadowGenerator(new DefaultShadowGenerator(10, Color.BLACK, .25f, 1, -Math.PI /16));
+		
 		StringBuilder sb = new StringBuilder("{1} ");
 		sb.append(diProp.getChartDataUnit());
 		sb.append(" ({2})");
@@ -351,7 +362,6 @@ public class DetailedInfoPanel extends JPanel {
 				new DecimalFormat("0%"));
 
 		plot.setLabelGenerator(gen);
-		plot.setDarkerSides(true);
 
 		setSectionPaint(plot, diProp);
 
@@ -378,7 +388,7 @@ public class DetailedInfoPanel extends JPanel {
 
 		JFreeChart chart = ChartFactory.createBubbleChart(diProp.getChartDataTitle(), diProp.get_xAxisLabel(),
 				diProp.get_yAxisLabel(), dataSet, PlotOrientation.HORIZONTAL, true, true, false);
-
+		
 		// Set range for X-Axis
 		XYPlot plot = chart.getXYPlot();
 		plot.setForegroundAlpha(0.70F);

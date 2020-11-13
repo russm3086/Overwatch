@@ -1,0 +1,1223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qquota_result xmlns="https://github.com/gridengine/gridengine/raw/master/source/dist/util/resources/schemas/qquota/qquota.xsd">
+ <qquota_rule name="ottdevhpc_slot_limit/1">
+   <users>jcao</users>
+   <queues>ottdevhpc</queues>
+   <limit resource="slots" limit="512" value="32"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>wbauer</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>mgrosse</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>fmeslay</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>aradwan</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>laudonne</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>maroni</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>spatel</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>yarrieta</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>mpowens</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>tdanning</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>abenhadj</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>vmsharma</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>aykumar</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>agantner</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>psmirnov</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>dmateych</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>hreese</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>dcaridi</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>chuwu</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>plouat</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>heickenb</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>reliu</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>mhaselow</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="dcv2017_slot_limit/1">
+   <users>mdturrel</users>
+   <queues>dcv2017</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>jvique</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>rreinelt</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>amoknach</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>rjkosari</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>mwalters</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>mbeliaev</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>dfugazza</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>fecastro</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>tlberg</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>mcourtoi</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>aanderso</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>tpstelma</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>abkumar</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>aauckloo</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>pnakod</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>amzoughi</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>tjadhav</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>wshang</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>vaggarwa</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>kgeorgie</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>smauro</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>fburgare</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>abenhadj</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>gmoula</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>lramos</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>uschmidt</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>pshutche</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>ishamill</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>skpatang</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>amasud</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>tpatil</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>snallamo</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>plouat</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>chvnaik</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>kmenter</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>mgrosse</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>fmontana</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>lgeronzi</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>fcalvano</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>iverma</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>dloerinc</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>psteffen</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>cpicoron</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>akvarnst</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>mocchial</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>lntibari</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>pssharke</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>nmladeno</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>hgrotjan</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>sshivank</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>rwoolhou</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>reliu</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>mpowens</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>vlitun</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>kshen</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>mkainz</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>pmueller</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>dcrawfor</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>bsanadgo</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>lgoellni</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>smandapa</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>vikumar</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>dtarazon</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>shafid</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>rwinstan</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>rmartine</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>sshrivas</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>paguado</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>aatkin</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>laudonne</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>detwyman</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>vmsharma</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>tbertonc</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>heickenb</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>ecarman</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>wenchen</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>dbessett</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>sacross</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>pafonso</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>aradwan</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>mmakwana</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>rfernand</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>tbaumhei</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>arydin</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>jpglanvi</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>maroni</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>sxia</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>jfeher</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>scherhab</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>hzhou</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>lvoss</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>imdura</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>tdanning</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>akwells</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>psmirnov</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>pbacle</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>ddeltche</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>jcao</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>yarrieta</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>fmeslay</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>jdepont</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>mazhar</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>rmalk</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>rcorpa</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>episkula</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>rbingle</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>oilina</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>hrashid</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>hforkel</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>mhaselow</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>agantner</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>spatel</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>hreese</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>aravanta</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>dcaridi</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>chuwu</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>aalici</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>iwoyna</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="vnc_slot_limit/1">
+   <users>kkimiabe</users>
+   <queues>vnc</queues>
+   <limit resource="slots" limit="1" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>scherhab</users>
+   <limit resource="slots" limit="402" value="21"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>reliu</users>
+   <limit resource="slots" limit="402" value="2"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>tdanning</users>
+   <limit resource="slots" limit="402" value="2"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>mpowens</users>
+   <limit resource="slots" limit="402" value="10"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>jvique</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>rreinelt</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>agantner</users>
+   <limit resource="slots" limit="402" value="66"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>amoknach</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>rjkosari</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>mwalters</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>ddeltche</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>mbeliaev</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>dfugazza</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>fecastro</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>tlberg</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>mcourtoi</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>aanderso</users>
+   <limit resource="slots" limit="402" value="33"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>tpstelma</users>
+   <limit resource="slots" limit="402" value="97"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>abkumar</users>
+   <limit resource="slots" limit="402" value="257"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>aauckloo</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>pnakod</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>amzoughi</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>tjadhav</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>wshang</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>vaggarwa</users>
+   <limit resource="slots" limit="402" value="169"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>kgeorgie</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>smauro</users>
+   <limit resource="slots" limit="402" value="385"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>fburgare</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>heickenb</users>
+   <limit resource="slots" limit="402" value="98"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>abenhadj</users>
+   <limit resource="slots" limit="402" value="162"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>gmoula</users>
+   <limit resource="slots" limit="402" value="57"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>kmenter</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>lramos</users>
+   <limit resource="slots" limit="402" value="321"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>uschmidt</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>pshutche</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>ishamill</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>skpatang</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>amasud</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>tpatil</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>snallamo</users>
+   <limit resource="slots" limit="402" value="225"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>plouat</users>
+   <limit resource="slots" limit="402" value="46"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>chvnaik</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>aradwan</users>
+   <limit resource="slots" limit="402" value="2"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>mgrosse</users>
+   <limit resource="slots" limit="402" value="2"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>psmirnov</users>
+   <limit resource="slots" limit="402" value="322"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>fmontana</users>
+   <limit resource="slots" limit="402" value="65"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>maroni</users>
+   <limit resource="slots" limit="402" value="322"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>lgeronzi</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>hgrotjan</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>fcalvano</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>iverma</users>
+   <limit resource="slots" limit="402" value="385"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>dloerinc</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>psteffen</users>
+   <limit resource="slots" limit="402" value="61"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>cpicoron</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>akvarnst</users>
+   <limit resource="slots" limit="402" value="385"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>aykumar</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>cluebon</users>
+   <limit resource="slots" limit="402" value="56"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>mocchial</users>
+   <limit resource="slots" limit="402" value="129"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>lntibari</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>pssharke</users>
+   <limit resource="slots" limit="402" value="2"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>nmladeno</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>sshivank</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>rwoolhou</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>vlitun</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>kshen</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>mkainz</users>
+   <limit resource="slots" limit="402" value="129"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>pmueller</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>dcrawfor</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>bsanadgo</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>lgoellni</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>smandapa</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>vikumar</users>
+   <limit resource="slots" limit="402" value="193"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>paguado</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>jcao</users>
+   <limit resource="slots" limit="402" value="33"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>rmartine</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>dtarazon</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>shafid</users>
+   <limit resource="slots" limit="402" value="129"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>rwinstan</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>sshrivas</users>
+   <limit resource="slots" limit="402" value="321"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>laudonne</users>
+   <limit resource="slots" limit="402" value="82"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>aatkin</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>detwyman</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>vmsharma</users>
+   <limit resource="slots" limit="402" value="2"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>tbertonc</users>
+   <limit resource="slots" limit="402" value="29"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>ecarman</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>wenchen</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>dbessett</users>
+   <limit resource="slots" limit="402" value="385"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>rmalk</users>
+   <limit resource="slots" limit="402" value="101"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>sacross</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>pafonso</users>
+   <limit resource="slots" limit="402" value="201"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>spatel</users>
+   <limit resource="slots" limit="402" value="58"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>mmakwana</users>
+   <limit resource="slots" limit="402" value="33"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>rfernand</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>lvoss</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>tbaumhei</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>arydin</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>jpglanvi</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>sxia</users>
+   <limit resource="slots" limit="402" value="81"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>jfeher</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>hzhou</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>imdura</users>
+   <limit resource="slots" limit="402" value="29"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>akwells</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>pbacle</users>
+   <limit resource="slots" limit="402" value="5"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>wbauer</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>yarrieta</users>
+   <limit resource="slots" limit="402" value="86"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>fmeslay</users>
+   <limit resource="slots" limit="402" value="2"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>jdepont</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>mazhar</users>
+   <limit resource="slots" limit="402" value="213"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>rcorpa</users>
+   <limit resource="slots" limit="402" value="29"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>episkula</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>rbingle</users>
+   <limit resource="slots" limit="402" value="49"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>oilina</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>hrashid</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>hforkel</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>dmateych</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>mhaselow</users>
+   <limit resource="slots" limit="402" value="2"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>hreese</users>
+   <limit resource="slots" limit="402" value="114"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>aravanta</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>dcaridi</users>
+   <limit resource="slots" limit="402" value="114"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>chuwu</users>
+   <limit resource="slots" limit="402" value="2"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>aalici</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>tlauinge</users>
+   <limit resource="slots" limit="402" value="10"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>iwoyna</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>kkimiabe</users>
+   <limit resource="slots" limit="402" value="33"/>
+ </qquota_rule>
+ <qquota_rule name="overall_slot_limit/1">
+   <users>mdturrel</users>
+   <limit resource="slots" limit="402" value="1"/>
+ </qquota_rule>
+</qquota_result>

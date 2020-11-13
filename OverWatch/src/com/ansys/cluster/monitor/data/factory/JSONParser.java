@@ -54,7 +54,7 @@ public class JSONParser extends ParserAbstract {
 		logger.entering(sourceClass, "createHostsMap");
 		HashMap<String, Host> map = new HashMap<String, Host>();
 
-		JSONObject jsonObject = payloadHosts.getJsoObject();
+		JSONObject jsonObject = payload.getJsoObject();
 		JSONObject jsonQhost = (JSONObject) jsonObject.get(SGE_DataConst.json_qhost);
 		JSONArray jsonHosts = (JSONArray) jsonQhost.get(SGE_DataConst.json_host_name);
 

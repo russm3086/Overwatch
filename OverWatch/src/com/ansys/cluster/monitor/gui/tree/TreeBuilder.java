@@ -124,9 +124,9 @@ public class TreeBuilder {
 
 		for (Entry<String, AnsQueueAbstract> queue : queues.entrySet()) {
 			logger.finer("Creating Queue branch " + queue.getValue());
-			
+
 			nodeBranch = new DefaultMutableTreeNode(queue.getValue());
-			createNode(model, nodeBranch,  queue.getValue());
+			createNode(model, nodeBranch, queue.getValue());
 			model.insertNodeInto(nodeBranch, nodeQueue, nodeQueue.getChildCount());
 			logger.finer("Created Queue branch " + queue.getValue());
 		}
@@ -139,11 +139,17 @@ public class TreeBuilder {
 		DefaultMutableTreeNode nodeChild = null;
 
 		SortedMap<Object, ClusterNodeAbstract> nodes = queue.getNodes();
-		for (Entry<Object, ClusterNodeAbstract> node : nodes.entrySet()) {
 
-			logger.finer("Creating leaf " + node.getKey());
-			nodeChild = new DefaultMutableTreeNode(node.getValue());
-			model.insertNodeInto(nodeChild, nodeBranch, nodeBranch.getChildCount());
+		if (nodes != null) {
+			for (Entry<Object, ClusterNodeAbstract> node : nodes.entrySet()) {
+
+				logger.finer("Creating leaf " + node.getKey());
+				nodeChild = new DefaultMutableTreeNode(node.getValue());
+				model.insertNodeInto(nodeChild, nodeBranch, nodeBranch.getChildCount());
+			}
+		}else {
+			
+			logger.finer("No nodes are found");
 		}
 
 		logger.exiting(sourceClass, "createNode");

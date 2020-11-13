@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
@@ -26,6 +27,7 @@ import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.data.JobMasterQueue;
 import com.ansys.cluster.monitor.data.JobsQueue;
 import com.ansys.cluster.monitor.data.NodeProp;
+import com.ansys.cluster.monitor.data.Quota;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.gui.Console;
 import com.ansys.cluster.monitor.net.DataCollector;
@@ -94,6 +96,14 @@ public class ClusterFactory {
 		setStatusLabel("Getting detailed job data");
 		Payload payLoadoDetailedJob = dc.getDetailedJobsData(index);
 
+		logger.info("Getting quota data");
+		setStatusLabel("Getting quota data");
+		Payload payLoadQuota = dc.getQuotaData(index);
+
+		logger.info("Creating quota objects");
+		setStatusLabel("Creating quota objects");
+		HashMap<String, List<Quota>> quotaMap = QuotaFactory.createQuotaMap(payLoadQuota, mainProps);
+
 		logger.info("Creating job objects");
 		setStatusLabel("Creating job objects");
 		HashMap<Integer, Job> DetailedJobsmap = JobFactory.createJobsMap(payLoadJob, payLoadoDetailedJob, mainProps);
@@ -125,7 +135,7 @@ public class ClusterFactory {
 
 		logger.info("Creating Cluster object");
 		setStatusLabel("Creating Cluster object " + clusterName);
-		Cluster cluster = new Cluster(clusterName, hostMasterQueue, jobMasterQueue, zoneId);
+		Cluster cluster = new Cluster(clusterName, hostMasterQueue, jobMasterQueue, quotaMap, zoneId);
 
 		logger.exiting(sourceClass, "createCluster", cluster);
 		return cluster;

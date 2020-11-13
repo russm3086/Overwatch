@@ -117,13 +117,13 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 
 		DetailedInfoProp jobSumDiProp = new DetailedInfoProp();
 		jobSumDiProp.setPanelName("Job Summary");
-		jobSumDiProp.addMetric("Active Jobs count: ", getActiveJobsCount());
-		jobSumDiProp.addMetric("Pending Jobs count: ", getPendingJobsCount());
-		jobSumDiProp.addMetric("Error Jobs count: ", getErrorJobsCount());
-		jobSumDiProp.addMetric("Idle Jobs count: ", getIdleJobsCount());
-		jobSumDiProp.addMetric("Active Session count: ", getActiveSessionJobsCount());
-		jobSumDiProp.addMetric("Pending Session count: ", getPendingSessionJobsCount());
-		jobSumDiProp.addMetric("Error Session count: ", getErrorSessionJobsCount());
+		jobSumDiProp.addMetric("Active Jobs: ", getActiveJobsCount());
+		jobSumDiProp.addMetric("Pending Jobs: ", getPendingJobsCount());
+		jobSumDiProp.addMetric("Error Jobs: ", getErrorJobsCount());
+		jobSumDiProp.addMetric("Idle Jobs: ", getIdleJobsCount());
+		jobSumDiProp.addMetric("Active Session: ", getActiveSessionJobsCount());
+		jobSumDiProp.addMetric("Pending Session: ", getPendingSessionJobsCount());
+		jobSumDiProp.addMetric("Error Session: ", getErrorSessionJobsCount());
 		masterDiProp.addDetailedInfoProp(jobSumDiProp);
 
 		displayActiveJobs(masterDiProp, findActiveJobs());
@@ -211,6 +211,21 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 		return map;
 	}
 
+	public int getIdleCores() {
+		int core = 0;
+		SortedMap<Integer, Job> mapIdleJobs = findIdleJobs();
+		SortedMap<Integer, Job> mapIdleSession = findIdleSessionJobs();
+		
+		mapIdleJobs.putAll(mapIdleSession);
+		
+		for (Entry<Integer, Job> entry : mapIdleJobs.entrySet()) {
+			
+			core += entry.getValue().getSlots();
+		}
+		return core;
+	}
+	
+	
 	/**
 	 * @return the errorJobsCount
 	 */

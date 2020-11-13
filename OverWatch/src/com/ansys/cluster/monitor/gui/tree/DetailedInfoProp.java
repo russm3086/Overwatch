@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Properties;
 
+import org.jfree.chart.plot.PlotOrientation;
+
 import com.russ.util.AbstractProp;
 
 /**
@@ -36,6 +38,7 @@ public class DetailedInfoProp extends AbstractProp {
 	private final static String key_ChartDataSeriesData = "CHART_DATA_SERIES_DATA";
 	private final static String key_ChartDataColumnKey = "CHART_DATA_COLUMN_KEY";
 	private final static String key_ChartDataRowKey = "CHART_DATA_ROW_KEY";
+	private final static String key_PlotOrientation = "PLOT_ORIENTATION";
 
 	public final static String const_DataTypeString = "STRING";
 	public final static String const_DataTypeTable = "TABLE";
@@ -50,6 +53,7 @@ public class DetailedInfoProp extends AbstractProp {
 	public DetailedInfoProp() {
 		// TODO Auto-generated constructor stub
 		setDataType(const_DataTypeString);
+		setPlotOrientation(PlotOrientation.VERTICAL);
 	}
 
 	/**
@@ -92,13 +96,23 @@ public class DetailedInfoProp extends AbstractProp {
 		return (String) metricStore.get(key_ChartDataUnit);
 	}
 
+	public void addChartData(Comparable<?> key, Number value) {
+
+		DetailedInfoProp chartData = new DetailedInfoProp();
+
+		chartData.addChartDataKey(key);
+		chartData.addChartDataValue(value);
+
+		addDetailedInfoProp(chartData);
+	}
+
 	public void addChartData(Number value, Comparable<?> rowKey, Comparable<?> columnKey) {
 		DetailedInfoProp chartData = new DetailedInfoProp();
 
 		chartData.addChartDataValue(value);
 		chartData.addChartRowKey(rowKey);
 		chartData.addChartColumnKey(columnKey);
-		
+
 		addDetailedInfoProp(chartData);
 
 	}
@@ -273,9 +287,16 @@ public class DetailedInfoProp extends AbstractProp {
 		setDataType(const_DataTypeBarChart);
 	}
 
-	
 	public void setDataTypeBubbleChart() {
 		setDataType(const_DataTypeBubbleChart);
+	}
+
+	public void setPlotOrientation(PlotOrientation po) {
+		putLog(key_PlotOrientation, po);
+	}
+
+	public PlotOrientation getPlotOrientation() {
+		return (PlotOrientation) get(key_PlotOrientation);
 	}
 
 	public boolean isDataTypeTable() {

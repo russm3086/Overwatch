@@ -5,13 +5,18 @@
 */
 package com.ansys.cluster.monitor.main;
 
+import java.awt.Font;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
+import javax.swing.UIDefaults;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.FontUIResource;
 
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
@@ -62,7 +67,7 @@ public class Main {
 
 		String token = "\\.";
 
-		//propsFilePath = "res/etc/settings.orig.properties";
+		// propsFilePath = "res/etc/settings.orig.properties";
 
 		try {
 			logger.info("****Started****");
@@ -86,6 +91,8 @@ public class Main {
 				fileStruc.FileStructureCheck();
 
 				logger.info("**Loading log and program settings**");
+
+				fontScaling(mainProps.getGuiFontScaling());
 
 				if (mainProps.getOS_LookAndFeel()) {
 					logger.info("**Setting Look and Feel to " + UIManager.getSystemLookAndFeelClassName() + "**");
@@ -138,7 +145,6 @@ public class Main {
 
 			logger.log(Level.SEVERE, "Severe Error", e);
 		}
-
 	}
 
 	public static SGE_MonitorProp getSystemSettings(SGE_MonitorProp mainProps, String token)
@@ -223,6 +229,49 @@ public class Main {
 
 		if (Level.WARNING.equals(level)) {
 			JOptionPane.showMessageDialog(null, errMsg, Level.WARNING.getLocalizedName(), JOptionPane.ERROR_MESSAGE);
+		}
+
+	}
+
+	public static void fontScaling(double scaleAdj) throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException, UnsupportedLookAndFeelException {
+
+		if (scaleAdj < -SGE_DataConst.app_font_max_scaling) {
+
+			scaleAdj = -SGE_DataConst.app_font_max_scaling;
+		} else if (scaleAdj > SGE_DataConst.app_font_max_scaling) {
+
+			scaleAdj = SGE_DataConst.app_font_max_scaling;
+		}
+
+		float adjustment = (float) (.001f * scaleAdj);
+		float scale = 1.f + adjustment;
+
+		logger.finer("The font scaling set to " + scale);
+
+		UIManager.LookAndFeelInfo looks[] = UIManager.getInstalledLookAndFeels();
+
+		for (UIManager.LookAndFeelInfo info : looks) {
+
+			UIManager.setLookAndFeel(info.getClassName());
+
+			UIDefaults defaults = UIManager.getDefaults();
+			Enumeration<?> newKeys = defaults.keys();
+
+			while (newKeys.hasMoreElements()) {
+				Object obj = newKeys.nextElement();
+				Object current = UIManager.get(obj);
+				if (current instanceof FontUIResource) {
+					FontUIResource resource = (FontUIResource) current;
+					defaults.put(obj, new FontUIResource(resource.deriveFont(resource.getSize2D() * scale)));
+					logger.finest(String.format("%50s : %s\n", obj, UIManager.get(obj)));
+
+				} else if (current instanceof Font) {
+					Font resource = (Font) current;
+					defaults.put(obj, resource.deriveFont(resource.getSize2D() * scale));
+					logger.finest(String.format("%50s : %s\n", obj, UIManager.get(obj)));
+				}
+			}
 		}
 
 	}

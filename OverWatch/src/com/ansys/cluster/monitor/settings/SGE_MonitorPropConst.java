@@ -60,6 +60,8 @@ public final class SGE_MonitorPropConst {
 
 	public static final String guiTreeExpansionLevel = "com.ansys.cluster.monitor.GUI.tree.autoexpansion";
 
+	public static final String guiFontScaling = "com.ansys.cluster.monitor.GUI.font.scaling";
+
 	public static final String clusterPrefix = "com.ansys.cluster.monitor.cluster.";
 
 	public static final String clusterDataPrefix = clusterPrefix + "data.";
@@ -112,6 +114,8 @@ public final class SGE_MonitorPropConst {
 
 	public static final String connectionHostUrlSuffix = ".connection.hosts.URL";
 
+	public static final String connectionQuotaUrlSuffix = ".connection.quota.URL";
+
 	public static final String connectionSummaryJobsUrlSuffix = ".connection.summaryJobs.URL";
 
 	public static final String connectionDetailedJobsUrlSuffix = ".connection.detailedJobs.URL";
@@ -121,6 +125,8 @@ public final class SGE_MonitorPropConst {
 	public static final String connectionShellArgsCmdSuffix = ".connection.shell.args.CMD";
 
 	public static final String connectionHostCmdSuffix = ".connection.hosts.CMD";
+
+	public static final String connectionQuotaCmdSuffix = ".connection.quota.CMD";
 
 	public static final String connectionSummaryJobsCmdSuffix = ".connection.summaryJobs.CMD";
 

@@ -88,6 +88,9 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setGuiTimerDelay(5);
 		setGuiTimerDelayTimeUnit("minutes");
 		setGuiTreeExpansionLevel(3);
+		setGuiFontScaling(0);
+		layout.setComment(SGE_MonitorPropConst.guiFontScaling, "\nThe font scaling setting to change font sizes -"
+				+ SGE_DataConst.app_font_max_scaling + " to " + SGE_DataConst.app_font_max_scaling);
 
 		// Paths
 		String homeFilePath = SystemSettings.getUserHome();
@@ -143,6 +146,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setClusterConnectionDetailedJobsUrl(0, "http://ottsimportal3.ansys.com:7878/alljobdetails");
 		setClusterConnectionSummaryJobsUrl(0, "http://ottsimportal3.ansys.com:7878/alljobs");
 		setClusterConnectionHostUrl(0, "http://ottsimportal3.ansys.com:7878/allnodes");
+		setClusterConnectionQuotaUrl(0, "http://ottsingularityl.ansys.com:7878/allquota");
 
 		setClusterName(1, "CDC");
 		setClusterZoneIdStr(1, "America/New_York");
@@ -257,6 +261,15 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionHostUrlSuffix, hostUrl);
 	}
 
+	public String getClusterConnectionQuotaUrl(int item) {
+		return getString(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionQuotaUrlSuffix);
+	}
+
+	public void setClusterConnectionQuotaUrl(int item, String quotaUrl) {
+		setProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionQuotaUrlSuffix,
+				quotaUrl);
+	}
+
 	public String getClusterConnectionShellCmd(int item) {
 		return getString(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionShellCmdSuffix);
 	}
@@ -281,6 +294,14 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 	public void setClusterConnectionHostCmd(int item, String hostCmd) {
 		setProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionHostCmdSuffix, hostCmd);
+	}
+
+	public String getClusterConnectionQuotaCmd(int item) {
+		return getString(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionQuotaCmdSuffix);
+	}
+
+	public void setClusterConnectionQuotaCmd(int item, String hostCmd) {
+		setProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionQuotaCmdSuffix, hostCmd);
 	}
 
 	public String getClusterConnectionSummaryJobsCmd(int item) {
@@ -337,13 +358,13 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 	}
 
 	public ZoneId getClusterZoneId() {
-		String id = getString(SGE_MonitorPropConst.clusterPrefix +  SGE_MonitorPropConst.timeZoneId, "GMT0");
+		String id = getString(SGE_MonitorPropConst.clusterPrefix + SGE_MonitorPropConst.timeZoneId, "GMT0");
 		ZoneId zoneId = ZoneId.of(id);
 		return zoneId;
 	}
 
 	public void setClusterZoneId(ZoneId zoneId) {
-		setProperty(SGE_MonitorPropConst.clusterPrefix +  SGE_MonitorPropConst.timeZoneId, zoneId);
+		setProperty(SGE_MonitorPropConst.clusterPrefix + SGE_MonitorPropConst.timeZoneId, zoneId);
 	}
 
 	public int getClusterIndex() {
@@ -428,6 +449,14 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 	public boolean getOS_LookAndFeel() {
 		return getBoolean(SGE_MonitorPropConst.useOS_LookAndFeel, false);
+	}
+
+	public void setGuiFontScaling(float scale) {
+		setProperty(SGE_MonitorPropConst.guiFontScaling, scale);
+	}
+
+	public float getGuiFontScaling() {
+		return getFloat(SGE_MonitorPropConst.guiFontScaling);
 	}
 
 	public String getLogHandlers() {

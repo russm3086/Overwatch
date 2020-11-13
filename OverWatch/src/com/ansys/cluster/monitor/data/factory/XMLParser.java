@@ -16,6 +16,7 @@ import com.ansys.cluster.monitor.data.Host;
 import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.data.JobMessage;
 import com.ansys.cluster.monitor.data.NodeProp;
+import com.ansys.cluster.monitor.data.Quota;
 import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.data.interfaces.ParserAbstract;
 import com.ansys.cluster.monitor.net.Payload;
@@ -37,10 +38,78 @@ public class XMLParser extends ParserAbstract {
 		super(payloadJobs, payLoadDetailedJobs, mainProps);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	public HashMap<String, List<Quota>> createQuotaMap() {
+		logger.entering(sourceClass, "createQuotaMap");
+		HashMap<String, List<Quota>> map = new HashMap<String, List<Quota>>();
+
+		Element root = payload.getDocObject().getRootElement();
+
+		logger.finer("Processing element " + root.getName());
+		List<Element> elmList = root.getChildren();
+
+		for (Element elem : elmList) {
+			logger.finer("Processing element " + elem.getName());
+			logger.finer("Creating Quota object " + elem.getName());
+
+			Quota quota = createQuota(elem);
+
+			if (map.containsKey(quota.getUser())) {
+
+				logger.finer("Adding " + quota.getQuotaName() + " to user " + quota.getUser());
+				map.get(quota.getUser()).add(quota);
+			} else {
+
+				logger.finer("Creating a new map element " + quota.getQuotaName() + " to user " + quota.getUser());
+				ArrayList<Quota> list = new ArrayList<Quota>();
+				list.add(quota);
+				map.put(quota.getUser(), list);
+			}
+		}
+
+		logger.exiting(sourceClass, "createQuotaMap");
+		return map;
+	}
+
+	public Quota createQuota(Element elem) {
+		logger.entering(sourceClass, "createQuota");
+		Quota quota = new Quota();
+		quota.setQuotaName(elem.getAttributeValue("name"));
+
+		List<Element> subElmList = elem.getChildren();
+		for (Element subElem : subElmList) {
+
+			switch (subElem.getName()) {
+
+			case "limit":
+
+				quota.setResource(subElem.getAttribute("resource").getValue());
+				quota.setLimit(Integer.parseInt(subElem.getAttribute("limit").getValue()));
+				quota.setUsage(Integer.parseInt(subElem.getAttribute("value").getValue()));
+
+				break;
+
+			case "users":
+				quota.setUser(subElem.getText());
+				break;
+
+			case "queues":
+				quota.setQueues(subElem.getText());
+				break;
+			}
+		}
+		
+		logger.exiting(sourceClass, "createQuota");
+		return quota;
+	}
+
 	public HashMap<String, Host> createHostsMap() {
 		logger.entering(sourceClass, "createHostMap");
 		HashMap<String, Host> map = new HashMap<String, Host>();
-		Element root = payloadHosts.getDocObject().getRootElement();
+		Element root = payload.getDocObject().getRootElement();
 		List<Element> elmList = root.getChildren();
 
 		for (Element elem : elmList) {

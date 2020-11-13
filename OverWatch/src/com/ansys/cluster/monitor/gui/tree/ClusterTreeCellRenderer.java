@@ -70,9 +70,9 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 		this.selected = selected;
 		JLabel label = new JLabel();
 		label.setHorizontalAlignment(SwingConstants.LEFT);
-		label.setPreferredSize(new Dimension(50, 25));
+		label.setPreferredSize(new Dimension(200, 25));
 		label.setBorder(getBorderSelect());
-		
+
 		Object object = ((DefaultMutableTreeNode) value).getUserObject();
 
 		if (!(object instanceof String)) {
@@ -93,6 +93,7 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 					return hostStateProcessing(state, node);
 
 				case SGE_DataConst.clusterTypeQueue:
+				case SGE_DataConst.clusterTypeQuota:
 					return queueStateProcessing(state, node);
 
 				}
@@ -116,19 +117,20 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 		AnsQueueAbstract queue = (AnsQueueAbstract) node;
 		Component component = null;
 
-		if (queue.getMembersType().equalsIgnoreCase(SGE_DataConst.clusterTypeHost)) {
+		if (queue.getMembersType().equalsIgnoreCase(SGE_DataConst.clusterTypeHost)||queue.getMembersType().equalsIgnoreCase(SGE_DataConst.clusterTypeQuota)) {
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.WHITE);
 			
-			panel.setPreferredSize(new Dimension(235, 45));
+			panel.setPreferredSize(new Dimension(285, 50));
+			//panel.setSize(new Dimension(235, 180));
 
 			JLabel lblNewLabel = new JLabel(queue.getName());
-			lblNewLabel.setPreferredSize(new Dimension(65, 25));
+			lblNewLabel.setPreferredSize(new Dimension(85, 30));
 
 			panel.add(lblNewLabel);
 
 			JProgressBar progressBar = new JProgressBar();
-			progressBar.setPreferredSize(new Dimension(150, 30));
+			progressBar.setPreferredSize(new Dimension(180, 40));
 
 			int resAvailable;
 			int resTotal;
@@ -140,12 +142,17 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 				resTotal = queue.getSessionTotal();
 				resUnavailable = queue.getSessionUnavailable();
 
-			} else {
-
+			} else if (queue.getMembersType().equalsIgnoreCase(SGE_DataConst.clusterTypeQuota)){
+				
+				resAvailable = queue.getQuotaLimit() - queue.getQuotaUsage();
+				resTotal = queue.getQuotaLimit();
+				resUnavailable = queue.getQuotaUsage();
+			}
+				else {
+			
 				resAvailable = queue.getCoreAvailable();
 				resTotal = queue.getCoreTotal();
 				resUnavailable = queue.getCoreUnavailable();
-
 			}
 
 			panel.setToolTipText(resAvailable + " of " + resTotal + " " + queue.getUnitRes() + " are available.");
@@ -158,6 +165,8 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 			progressBar.setMaximum(resTotal);
 			progressBar.setValue(resUnavailable);
 
+
+			progressBar.setBorderPainted(true);
 			progressBar.setString(resAvailable + " of " + resTotal + " " + queue.getUnitRes());
 			progressBar.setStringPainted(true);
 			panel.add(progressBar);
@@ -175,6 +184,7 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 			}
 
 			JLabel lblNewLabel = new JLabel(text);
+			lblNewLabel.setPreferredSize(new Dimension(125, 15));
 			lblNewLabel.setToolTipText(queue.getToolTip());
 			lblNewLabel.setBorder(getBorderSelect());
 			component = lblNewLabel;
@@ -231,8 +241,7 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 			lblNewLabel.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_RedLight_Small_Path)));
 			lblNewLabel.setEnabled(false);
 		}
-		
-		
+
 		if (state.equals(HostState.OverProvisioned)) {
 
 			lblNewLabel.setToolTipText(HostState.OverProvisioned.getDescription() + "\n\t" + node.getToolTip());
@@ -256,37 +265,53 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 		if (state.between(JobState.Restarted, JobState.RunningState)) {
 
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_GreenLight_Small_Path)));
-			label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
+			//setToolTipState(label, state.getName(), node.getToolTip());
 		}
 
 		if (state.between(JobState.Deletion, JobState.SuspendedThreshold)) {
 
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_YellowLight_Small_Path)));
-			label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
+			//label.setToolTipText("<html>"+ state.getDescription() + "<BR>" + node.getToolTip()+"</html>");
+			
 		}
 
 		if (state.equals(JobState.Zombie)) {
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Zombie_Small_Path)));
-			label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
+			//label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
 		}
 
 		if (state.equals(JobState.Idle)) {
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_BlueLight_Small_Path)));
-			label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
+			//label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
 		}
 
 		if (state.between(JobState.SuspendedThreshold, JobState.Unknown)) {
 
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Skull_and_Bones_Small_Path)));
-			label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
+			//label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
 		}
 
+		
+		setToolTipState(label, state.getName(), node.getToolTip());
 		label.setText(node.getNodeProp().getJobOwner() + " - " + node.getNodeProp().getJobNumber());
 
 		return label;
 
 	}
 
+	
+	private void setToolTipState(JLabel label, String state, String toolTip) {
+		StringBuffer sb = new StringBuffer("<html>");
+		sb.append("State: ");
+		sb.append(state);
+		sb.append("<BR>");
+		sb.append(toolTip);
+		sb.append("</html>");
+		
+		label.setToolTipText(sb.toString());
+		
+	}
+	
 	private Border getBorderSelect() {
 		Border border;
 		if (selected) {

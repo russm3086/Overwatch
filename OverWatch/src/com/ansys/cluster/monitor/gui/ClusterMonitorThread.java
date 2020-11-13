@@ -3,6 +3,7 @@
  */
 package com.ansys.cluster.monitor.gui;
 
+import java.util.SortedMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -10,8 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.Cluster;
+import com.ansys.cluster.monitor.data.MyJobs;
 import com.ansys.cluster.monitor.data.factory.ClusterFactory;
 import com.ansys.cluster.monitor.data.factory.QueueFactory;
+import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.net.Connector;
 import com.ansys.cluster.monitor.net.DataCollector;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
@@ -80,7 +83,10 @@ public class ClusterMonitorThread {
 						false);
 
 				String userName = System.getProperty("user.name");
-				QueueFactory.addMyJobs(cluster, userName);
+				MyJobs myJobs = new MyJobs(cluster, "cluebon");				
+				cluster.setMyJobMasterQueue(myJobs);
+
+				//QueueFactory.addMyJobs(cluster, userName);
 
 				Console.setStatusLabel("Closed connection to cluster " + mainProps.getClusterName(index));
 				logger.info("Closed connection to cluster " + mainProps.getClusterName(index));

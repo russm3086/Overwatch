@@ -11,6 +11,8 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.time.ZoneId;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
@@ -31,18 +33,21 @@ public class Cluster extends AnsQueueAbstract {
 	private final transient Logger logger = Logger.getLogger(sourceClass);
 	private static final long serialVersionUID = -3265482837785245141L;
 
+	private HashMap<String, List<Quota>> quotaMap;
 	private SortedMap<String, MasterQueue> masterQueue = new TreeMap<String, MasterQueue>(Collections.reverseOrder());
 
 	String name;
 
-	public Cluster(String clusterName, HostMasterQueue hostMasterQueue, JobMasterQueue jobMasterQueue, ZoneId zoneId) {
+	public Cluster(String clusterName, HostMasterQueue hostMasterQueue, JobMasterQueue jobMasterQueue,
+			HashMap<String, List<Quota>> quotaMap, ZoneId zoneId) {
 		super();
 		logger.entering(sourceClass, "Constructor");
 
-		//setZoneId(zoneId);
+		// setZoneId(zoneId);
 
 		setName(clusterName);
 
+		setQuotaMap(quotaMap);
 		setDetailedInfoPanel(DetailedInfoFactory.ClusterDetailedInfoPanel);
 
 		setJobMasterQueue(jobMasterQueue);
@@ -57,6 +62,20 @@ public class Cluster extends AnsQueueAbstract {
 
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * @return the quotaMap
+	 */
+	public HashMap<String, List<Quota>> getQuotaMap() {
+		return quotaMap;
+	}
+
+	/**
+	 * @param quotaMap the quotaMap to set
+	 */
+	public void setQuotaMap(HashMap<String, List<Quota>> quotaMap) {
+		this.quotaMap = quotaMap;
 	}
 
 	public void setName(String name) {
@@ -99,6 +118,13 @@ public class Cluster extends AnsQueueAbstract {
 		masterQueue.put(SGE_DataConst.mqEntryJobs, jobMasterQueue);
 	}
 
+	/**
+	 * @param jobMasterQueue the jobMasterQueue to set
+	 */
+	public void setMyJobMasterQueue(MyJobs myJobs) {
+		masterQueue.put(SGE_DataConst.mqEntryMyJobs, myJobs);
+	}
+
 	public SortedMap<String, MasterQueue> getMasterQueue() {
 		return masterQueue;
 	}
@@ -113,7 +139,8 @@ public class Cluster extends AnsQueueAbstract {
 		createAvailableChartPanel(masterDiProp, SGE_DataConst.unitResCore,
 				"Total " + getHostMasterQueue().getCoreTotal() + " " + SGE_DataConst.unitResCore,
 				SGE_DataConst.unitResCore.toLowerCase(), getHostMasterQueue().getCoreAvailable(),
-				getHostMasterQueue().getCoreUnavailable());
+				getHostMasterQueue().getCoreUnavailable() - getJobMasterQueue().getIdleCores(),
+				getJobMasterQueue().getIdleCores());
 
 		createAvailableBarChartPanel(masterDiProp, "F.U.N. Fully Unallocated Nodes",
 				"Total " + getHostMasterQueue().getFullyUnallocatedComputeHostsCore() + " " + SGE_DataConst.unitResCore,

@@ -296,6 +296,21 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	}
 
 	protected void createAvailableChartPanel(DetailedInfoProp masterDiProp, String panelName, String title, String unit,
+			Number numAvail, Number numUnavail, Number numIdle) {
+
+		DetailedInfoProp diProp = new DetailedInfoProp();
+		diProp.setPanelName(panelName);
+		diProp.setChartDataTitle(title);
+		diProp.setChartDataUnit(unit);
+		diProp.setDataTypePieChart();
+		diProp.addChartData("Available", numAvail, new Color(0, 153, 0));
+		diProp.addChartData("Unavailable", numUnavail, new Color(204, 0, 0));
+		diProp.addChartData("Idle", numIdle, new Color(0, 0, 255));
+
+		masterDiProp.addDetailedInfoProp(diProp);
+	}
+
+	protected void createAvailableChartPanel(DetailedInfoProp masterDiProp, String panelName, String title, String unit,
 			Number numAvail, Number numUnavail) {
 
 		DetailedInfoProp diProp = new DetailedInfoProp();
@@ -323,8 +338,8 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 			if (!entry.getValue().isVisualNode() && entry.getValue().getCoreFUN() > 0) {
 				int funCores = entry.getValue().getCoreFUN();
 				String queue = entry.getKey();
-				diProp.addChartData(funCores, "F.U.N. Cores", queue);
-			}
+				diProp.addChartData(funCores, "FUN", queue);
+				}
 		}
 
 		masterDiProp.addDetailedInfoProp(diProp);

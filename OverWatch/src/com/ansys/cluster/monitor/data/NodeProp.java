@@ -747,4 +747,19 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 		putLog(SGE_DataConst.zoneId, zoneId.getId());
 	}
 
+	public String getQIM_Msg() {
+
+		String result = null;
+		NodeProp jbJaNP = (NodeProp)getLog("JB_ja_tasks");
+		
+		if(jbJaNP!=null) {
+			NodeProp jatMsgNP = (NodeProp) jbJaNP.getLog("JAT_message_list");
+
+			if(jatMsgNP!= null) {
+				result = jatMsgNP.getLogProperty("QIM_message");
+				}
+		}
+		
+		return result;
+	}
 }
