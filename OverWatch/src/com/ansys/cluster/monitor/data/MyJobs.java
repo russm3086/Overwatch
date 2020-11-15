@@ -3,16 +3,15 @@
  */
 package com.ansys.cluster.monitor.data;
 
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.LinkedList;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
-import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.state.AnsQueueState;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoFactory;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
@@ -29,7 +28,7 @@ public class MyJobs extends JobMasterQueue {
 	private final String sourceClass = this.getClass().getName();
 	private final Logger logger = Logger.getLogger(sourceClass);
 	private SortedMap<String, AnsQueueAbstract> myJobsQueue = new TreeMap<String, AnsQueueAbstract>();
-	private List<Quota> listQuota = null;
+	private LinkedList<Quota> listQuota = null;
 
 	public MyJobs(Cluster cluster, String userName) {
 		super("My Jobs");
@@ -47,6 +46,7 @@ public class MyJobs extends JobMasterQueue {
 
 		myJobsQueue.put("Jobs", jobQueue);
 		listQuota = cluster.getQuotaMap().get(userName);
+		Collections.reverse(listQuota);
 
 	}
 
@@ -169,10 +169,12 @@ public class MyJobs extends JobMasterQueue {
 
 		for (Quota quota : listQuota) {
 
-			// diProp.addChartData(quota.getLimit(), quota.getUsage(),
-			// quota.getQuotaName());
+			String queueName = quota.getQuotaName().substring(0, quota.getQuotaName().indexOf("_"));
+			queueName.toLowerCase();
+			queueName = queueName.substring(0, 1).toUpperCase() + queueName.substring(1);
+			
 			int[] data = { quota.getLimit() - quota.getUsage(), quota.getUsage(), quota.getLimit() };
-			diProp.addSeries(quota.getQuotaName(), data, quota.getResource(), quota.getQuotaName() + " Avaiable Quota");
+			diProp.addSeries(queueName, data, quota.getResource(), (quota.getLimit() - quota.getUsage()) + " Available");
 		}
 
 		diProp.setDataTypeProgressBarChart();

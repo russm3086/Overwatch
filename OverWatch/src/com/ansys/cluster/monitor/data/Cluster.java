@@ -12,7 +12,7 @@ import java.awt.Paint;
 import java.time.ZoneId;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
@@ -33,13 +33,13 @@ public class Cluster extends AnsQueueAbstract {
 	private final transient Logger logger = Logger.getLogger(sourceClass);
 	private static final long serialVersionUID = -3265482837785245141L;
 
-	private HashMap<String, List<Quota>> quotaMap;
+	private HashMap<String, LinkedList<Quota>> quotaMap;
 	private SortedMap<String, MasterQueue> masterQueue = new TreeMap<String, MasterQueue>(Collections.reverseOrder());
 
 	String name;
 
 	public Cluster(String clusterName, HostMasterQueue hostMasterQueue, JobMasterQueue jobMasterQueue,
-			HashMap<String, List<Quota>> quotaMap, ZoneId zoneId) {
+			HashMap<String, LinkedList<Quota>> quotaMap2, ZoneId zoneId) {
 		super();
 		logger.entering(sourceClass, "Constructor");
 
@@ -47,7 +47,7 @@ public class Cluster extends AnsQueueAbstract {
 
 		setName(clusterName);
 
-		setQuotaMap(quotaMap);
+		setQuotaMap(quotaMap2);
 		setDetailedInfoPanel(DetailedInfoFactory.ClusterDetailedInfoPanel);
 
 		setJobMasterQueue(jobMasterQueue);
@@ -67,15 +67,15 @@ public class Cluster extends AnsQueueAbstract {
 	/**
 	 * @return the quotaMap
 	 */
-	public HashMap<String, List<Quota>> getQuotaMap() {
+	public HashMap<String, LinkedList<Quota>> getQuotaMap() {
 		return quotaMap;
 	}
 
 	/**
-	 * @param quotaMap the quotaMap to set
+	 * @param quotaMap2 the quotaMap to set
 	 */
-	public void setQuotaMap(HashMap<String, List<Quota>> quotaMap) {
-		this.quotaMap = quotaMap;
+	public void setQuotaMap(HashMap<String, LinkedList<Quota>> quotaMap2) {
+		this.quotaMap = quotaMap2;
 	}
 
 	public void setName(String name) {

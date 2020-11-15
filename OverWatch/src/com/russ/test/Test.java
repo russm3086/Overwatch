@@ -7,9 +7,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
@@ -27,7 +24,6 @@ import javax.swing.plaf.FontUIResource;
 
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 import com.ansys.cluster.monitor.gui.tree.ProgressBar;
-import com.russ.util.TimeUtil;
 import com.russ.util.WrapLayout;
 
 /**
@@ -35,6 +31,10 @@ import com.russ.util.WrapLayout;
  *
  */
 public class Test extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -711208082799454016L;
 	ProgressBar mb1;
 	ProgressBar mb2;
 	ProgressBar mb3;

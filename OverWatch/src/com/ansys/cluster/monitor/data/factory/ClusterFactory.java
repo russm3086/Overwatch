@@ -10,7 +10,7 @@ import java.net.URISyntaxException;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
@@ -102,7 +102,7 @@ public class ClusterFactory {
 
 		logger.info("Creating quota objects");
 		setStatusLabel("Creating quota objects");
-		HashMap<String, List<Quota>> quotaMap = QuotaFactory.createQuotaMap(payLoadQuota, mainProps);
+		HashMap<String, LinkedList<Quota>> quotaMap = QuotaFactory.createQuotaMap(payLoadQuota, mainProps);
 
 		logger.info("Creating job objects");
 		setStatusLabel("Creating job objects");

@@ -5,7 +5,6 @@ package com.ansys.cluster.monitor.gui.tree;
 
 import java.io.IOException;
 import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;

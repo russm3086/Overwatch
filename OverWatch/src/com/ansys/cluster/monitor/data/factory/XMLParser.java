@@ -6,6 +6,7 @@ package com.ansys.cluster.monitor.data.factory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -42,9 +43,9 @@ public class XMLParser extends ParserAbstract {
 	 * 
 	 * @return
 	 */
-	public HashMap<String, List<Quota>> createQuotaMap() {
+	public HashMap<String, LinkedList<Quota>> createQuotaMap() {
 		logger.entering(sourceClass, "createQuotaMap");
-		HashMap<String, List<Quota>> map = new HashMap<String, List<Quota>>();
+		HashMap<String, LinkedList<Quota>> map = new HashMap<String, LinkedList<Quota>>();
 
 		Element root = payload.getDocObject().getRootElement();
 
@@ -64,7 +65,7 @@ public class XMLParser extends ParserAbstract {
 			} else {
 
 				logger.finer("Creating a new map element " + quota.getQuotaName() + " to user " + quota.getUser());
-				ArrayList<Quota> list = new ArrayList<Quota>();
+				LinkedList<Quota> list = new LinkedList<Quota>();
 				list.add(quota);
 				map.put(quota.getUser(), list);
 			}

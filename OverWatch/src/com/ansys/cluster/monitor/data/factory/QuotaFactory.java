@@ -4,7 +4,7 @@
 package com.ansys.cluster.monitor.data.factory;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.Quota;
@@ -34,10 +34,10 @@ public class QuotaFactory {
 	private QuotaFactory() {
 	}
 
-	public static HashMap<String, List<Quota>> createQuotaMap(Payload payload, SGE_MonitorProp mainProps) {
+	public static HashMap<String, LinkedList<Quota>> createQuotaMap(Payload payload, SGE_MonitorProp mainProps) {
 		logger.entering(sourceClass, "createQuotaMap");
 
-		HashMap<String, List<Quota>> map = null;
+		HashMap<String, LinkedList<Quota>> map = null;
 		switch (payload.getPayloadType()) {
 		case SGE_ConnectConst.xmlType:
 			XMLParser xmlParser = new XMLParser(payload, mainProps);

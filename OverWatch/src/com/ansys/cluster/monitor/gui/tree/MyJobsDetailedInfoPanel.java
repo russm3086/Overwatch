@@ -5,6 +5,8 @@ package com.ansys.cluster.monitor.gui.tree;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -33,6 +35,76 @@ public class MyJobsDetailedInfoPanel extends DetailedInfoPanel {
 	}
 
 	protected void createDetailInfoPage(DetailedInfoProp masterDiProp) {
+		ArrayList<DetailedInfoProp> list = masterDiProp.getDetailedInfoPropList();
+
+		DetailedInfoProp diProp = list.get(list.size() - 1);
+
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		createTitle(masterDiProp.getTitleMetric(), masterDiProp.getTitleValue());
+
+
+		JPanel mainPanel = new JPanel();
+
+		mainPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 1;
+		c.weighty = 2;
+		//c.gridwidth = 2;
+		//c.gridheight = 5;
+		
+		
+		JPanel summaryPanel = new JPanel();
+		summaryPanel.setBackground(this.getBackground());
+		summaryPanel.setLayout(new BoxLayout(summaryPanel, BoxLayout.Y_AXIS));
+		
+		
+		
+		JPanel progressBarPanel = createPanel(list.get(list.size() - 1));
+		//progressBarPanel.setMaximumSize(new Dimension(400,225));
+		
+		summaryPanel.add(progressBarPanel);
+		summaryPanel.add(createPanel(list.get(0)));
+
+		mainPanel.add(summaryPanel, c);
+
+		c.gridx = 2;
+		c.weightx = 4;
+		//c.gridwidth = 3;
+		
+		mainPanel.add(createPanel(list.get(list.size() - 2)), c);
+
+		JPanel tablePanel = new JPanel();
+
+		tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
+
+		for (int i = 1; i < list.size() - 2; i++) {
+
+			diProp = list.get(i);
+			tablePanel.add(createPanel(diProp));
+		}
+
+		c.gridy = 5;
+		c.gridx = 0;
+		c.gridwidth = 5;
+		c.weightx = 5;
+		c.weighty = 5;
+
+		
+		//c.gridwidth = 5;
+		//c.gridheight = GridBagConstraints.REMAINDER;
+
+
+		mainPanel.add(tablePanel, c);
+
+		add(mainPanel);
+
+	}
+
+	protected void createDetailInfoPage1(DetailedInfoProp masterDiProp) {
 
 		ArrayList<DetailedInfoProp> list = masterDiProp.getDetailedInfoPropList();
 

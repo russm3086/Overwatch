@@ -99,7 +99,7 @@ public class Main {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				}
 
-				new Console(SGE_DataConst.app_name + " v. " + SGE_DataConst.app_version, mainProps);
+				new Console(SGE_DataConst.app_name + " v. " + SGE_DataConst.app_version + " Beta", mainProps);
 
 			} else {
 
