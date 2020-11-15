@@ -31,7 +31,6 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.xy.XYBubbleRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.chart.util.DefaultShadowGenerator;
 import org.jfree.chart.util.Rotation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -54,6 +53,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.text.DecimalFormat;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -78,7 +78,7 @@ public class DetailedInfoPanel extends JPanel {
 		this.tree = tree;
 
 		setBackground(Color.WHITE);
-		titleBorderFont= UIManager.getDefaults().getFont("TitledBorder.font");
+		titleBorderFont = UIManager.getDefaults().getFont("TitledBorder.font");
 
 	}
 
@@ -193,10 +193,15 @@ public class DetailedInfoPanel extends JPanel {
 
 				break;
 
-			}
+			case DetailedInfoProp.const_DataTypeProgressBarChart:
 
+				panel.setLayout(new BorderLayout());
+				JPanel progressBar = createProgressBarChart(diProp);
+				panel.add(BorderLayout.CENTER, progressBar);
+			}
 		}
 		return panel;
+
 	}
 
 	protected JScrollPane createTextArea(String content) {
@@ -336,11 +341,9 @@ public class DetailedInfoPanel extends JPanel {
 
 		final JFreeChart chart = ChartFactory.createPieChart3D(diProp.getChartDataTitle(), pieDataset, true, true,
 				false);
-		
+
 		chart.getTitle().setFont(titleBorderFont.deriveFont(Font.BOLD));
 
-		
-		
 		final PiePlot3D plot = (PiePlot3D) chart.getPlot();
 		plot.setStartAngle(180);
 		plot.setDepthFactor(.10);
@@ -352,8 +355,9 @@ public class DetailedInfoPanel extends JPanel {
 		plot.setCircular(true);
 		plot.setDarkerSides(true);
 
-		//plot.setShadowGenerator(new DefaultShadowGenerator(10, Color.BLACK, .25f, 1, -Math.PI /16));
-		
+		// plot.setShadowGenerator(new DefaultShadowGenerator(10, Color.BLACK, .25f, 1,
+		// -Math.PI /16));
+
 		StringBuilder sb = new StringBuilder("{1} ");
 		sb.append(diProp.getChartDataUnit());
 		sb.append(" ({2})");
@@ -388,7 +392,7 @@ public class DetailedInfoPanel extends JPanel {
 
 		JFreeChart chart = ChartFactory.createBubbleChart(diProp.getChartDataTitle(), diProp.get_xAxisLabel(),
 				diProp.get_yAxisLabel(), dataSet, PlotOrientation.HORIZONTAL, true, true, false);
-		
+
 		// Set range for X-Axis
 		XYPlot plot = chart.getXYPlot();
 		plot.setForegroundAlpha(0.70F);
@@ -432,6 +436,30 @@ public class DetailedInfoPanel extends JPanel {
 		}
 
 		return xyzDataset;
+	}
+
+	protected JPanel createProgressBarChart(DetailedInfoProp diProp) {
+
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setBorder(BorderFactory.createLineBorder(Color.black));
+		
+		panel.setPreferredSize(new java.awt.Dimension(320, 180));
+		
+		ArrayList<DetailedInfoProp> list = diProp.getDetailedInfoPropList();
+
+		panel.setLayout(new GridLayout(list.size(), 1, 10, 10));
+
+		for (DetailedInfoProp diPropChart : list) {
+
+			int[] data = diPropChart.getProgressBarData();
+
+			ProgressBar progressBar = new ProgressBar(diPropChart.getProgressBarLabel(), data[0], data[1], data[2],
+					diPropChart.getProgressBarUnits(), diPropChart.getProgressBarToolTips());
+			panel.add(progressBar);
+		}
+
+		return panel;
 	}
 
 	protected void bubbleChartDataPaint(XYItemRenderer xyitemrenderer, DetailedInfoProp diProp) {

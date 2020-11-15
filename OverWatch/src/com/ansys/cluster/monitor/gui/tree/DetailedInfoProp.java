@@ -39,6 +39,10 @@ public class DetailedInfoProp extends AbstractProp {
 	private final static String key_ChartDataColumnKey = "CHART_DATA_COLUMN_KEY";
 	private final static String key_ChartDataRowKey = "CHART_DATA_ROW_KEY";
 	private final static String key_PlotOrientation = "PLOT_ORIENTATION";
+	private final static String key_ProgressBarLbl = "PROGRESS_BAR_LBL";
+	private final static String key_ProgressBarData = "PROGRESS_BAR_DATA";
+	private final static String key_ProgressBarUnit = "PROGRESS_BAR_UNIT";
+	private final static String key_ProgressBarToolTips = "PROGRESS_BAR_TOOL_TIPS";
 
 	public final static String const_DataTypeString = "STRING";
 	public final static String const_DataTypeTable = "TABLE";
@@ -46,6 +50,7 @@ public class DetailedInfoProp extends AbstractProp {
 	public final static String const_DataTypePieChart = "PIE_CHART";
 	public final static String const_DataTypeBubbleChart = "BUBBLE_CHART";
 	public final static String const_DataTypeBarChart = "BAR_CHART";
+	public final static String const_DataTypeProgressBarChart = "PROGRESS_BAR_CHART";
 
 	/**
 	 * 
@@ -132,6 +137,17 @@ public class DetailedInfoProp extends AbstractProp {
 		return getDetailedInfoPropList();
 	}
 
+	public void addSeries(String seriesName, int[] data, String units, String toolTips) {
+
+		DetailedInfoProp chartDataSeries = new DetailedInfoProp();
+		chartDataSeries.setProgressBarLabel(seriesName);
+		chartDataSeries.setProgressBarData(data);
+		chartDataSeries.setProgressBarUnits(units);
+		chartDataSeries.setProgressBarToolTips(toolTips);
+
+		addDetailedInfoProp(chartDataSeries);
+	}
+
 	public void addSeries(Comparable<?> seriesKey, double[][] data, Paint paint) {
 
 		DetailedInfoProp chartDataSeries = new DetailedInfoProp();
@@ -140,6 +156,38 @@ public class DetailedInfoProp extends AbstractProp {
 		chartDataSeries.addChartDataPaint(paint);
 
 		addDetailedInfoProp(chartDataSeries);
+	}
+
+	public void setProgressBarToolTips(String toolTips) {
+		metricStore.put(key_ProgressBarToolTips, toolTips);
+	}
+
+	public String getProgressBarToolTips() {
+		return (String) metricStore.get(key_ProgressBarToolTips);
+	}
+
+	public void setProgressBarUnits(String units) {
+		metricStore.put(key_ProgressBarUnit, units);
+	}
+
+	public String getProgressBarUnits() {
+		return (String) metricStore.get(key_ProgressBarUnit);
+	}
+
+	public void setProgressBarLabel(String label) {
+		metricStore.put(key_ProgressBarLbl, label);
+	}
+
+	public String getProgressBarLabel() {
+		return (String) metricStore.get(key_ProgressBarLbl);
+	}
+
+	public void setProgressBarData(int[] data) {
+		metricStore.put(key_ProgressBarData, data);
+	}
+
+	public int[] getProgressBarData() {
+		return (int[]) metricStore.get(key_ProgressBarData);
 	}
 
 	public void addChartRowKey(Comparable<?> rowKey) {
@@ -289,6 +337,10 @@ public class DetailedInfoProp extends AbstractProp {
 
 	public void setDataTypeBubbleChart() {
 		setDataType(const_DataTypeBubbleChart);
+	}
+
+	public void setDataTypeProgressBarChart() {
+		setDataType(const_DataTypeProgressBarChart);
 	}
 
 	public void setPlotOrientation(PlotOrientation po) {

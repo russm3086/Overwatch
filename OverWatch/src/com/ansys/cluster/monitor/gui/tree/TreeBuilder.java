@@ -5,6 +5,10 @@ package com.ansys.cluster.monitor.gui.tree;
 
 import java.io.IOException;
 import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
@@ -120,7 +124,8 @@ public class TreeBuilder {
 		logger.entering(sourceClass, "createNodes", nodeQueue);
 		DefaultMutableTreeNode nodeBranch = null;
 
-		SortedMap<String, AnsQueueAbstract> queues = masterQueue.getQueues();
+		sortMasterQueue(masterQueue);
+		LinkedHashMap<String, AnsQueueAbstract> queues = sortMasterQueue(masterQueue);
 
 		for (Entry<String, AnsQueueAbstract> queue : queues.entrySet()) {
 			logger.finer("Creating Queue branch " + queue.getValue());
@@ -132,6 +137,38 @@ public class TreeBuilder {
 		}
 
 		logger.exiting(sourceClass, "createNodes");
+	}
+
+	/**
+	 * Groups the nodes into compute and visual
+	 * @param masterQueue
+	 * @return
+	 */
+	private LinkedHashMap<String, AnsQueueAbstract> sortMasterQueue(MasterQueue masterQueue) {
+		logger.entering(sourceClass, "sortMasterQueue", masterQueue);
+
+		LinkedHashMap<String, AnsQueueAbstract> visQueues = new LinkedHashMap<String, AnsQueueAbstract>();
+
+		LinkedHashMap<String, AnsQueueAbstract> sortedQueue = new LinkedHashMap<String, AnsQueueAbstract>();
+
+		SortedMap<String, AnsQueueAbstract> queues = masterQueue.getQueues();
+
+		sortedQueue.putAll(queues);
+
+		for (Iterator<Map.Entry<String, AnsQueueAbstract>> it = sortedQueue.entrySet().iterator(); it.hasNext();) {
+
+			Map.Entry<String, AnsQueueAbstract> entry = it.next();
+			if (entry.getValue().isVisualNode() == true) {
+				
+				it.remove();
+				visQueues.put(entry.getKey(), entry.getValue());
+			}
+		}
+
+		sortedQueue.putAll(visQueues);
+		logger.exiting(sourceClass, "sortMasterQueue");
+
+		return sortedQueue;
 	}
 
 	private void createNode(DefaultTreeModel model, DefaultMutableTreeNode nodeBranch, AnsQueueAbstract queue) {
@@ -147,8 +184,8 @@ public class TreeBuilder {
 				nodeChild = new DefaultMutableTreeNode(node.getValue());
 				model.insertNodeInto(nodeChild, nodeBranch, nodeBranch.getChildCount());
 			}
-		}else {
-			
+		} else {
+
 			logger.finer("No nodes are found");
 		}
 

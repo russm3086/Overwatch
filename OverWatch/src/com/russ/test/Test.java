@@ -3,14 +3,17 @@
  */
 package com.russ.test;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,18 +21,23 @@ import javax.swing.JProgressBar;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.plaf.FontUIResource;
 
+import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
+import com.ansys.cluster.monitor.gui.tree.ProgressBar;
 import com.russ.util.TimeUtil;
+import com.russ.util.WrapLayout;
 
 /**
  * @author rmartine
  *
  */
 public class Test extends JFrame {
-	MeteredBar mb1;
-	MeteredBar mb2;
-	MeteredBar mb3;
+	ProgressBar mb1;
+	ProgressBar mb2;
+	ProgressBar mb3;
 	JProgressBar jb;
 	int i = 0, num = 0;
 
@@ -44,32 +52,65 @@ public class Test extends JFrame {
 			UnsupportedLookAndFeelException {
 		testing(0);
 
-		mb1 = new MeteredBar("Overall", 302, 100, 402, "core(s)", "Avaiable Quota");
-		mb2 = new MeteredBar("VNC", 0, 1, 1, "session(s)", "Avaiable Quota");
-		mb3 = new MeteredBar("DCV", 1, 0, 1, "session(s)", "Avaiable Quota");
+		DetailedInfoProp qutoaSumDiProp = new DetailedInfoProp();
+		qutoaSumDiProp.setPanelName("Quota Summary");
+
+		int[] data1 = { 302, 100, 402 };
+		qutoaSumDiProp.addSeries("Overall", data1, "core(s)", "All Avaiable Quota");
+
+		int[] data2 = { 0, 1, 1 };
+		qutoaSumDiProp.addSeries("vnc", data2, "core(s)", "All Avaiable Quota");
+
+		int[] data3 = { 1, 0, 1 };
+		qutoaSumDiProp.addSeries("dcv", data3, "core(s)", "All Avaiable Quota");
+
+		mb1 = new ProgressBar("Overall", 302, 100, 402, "core(s)", "Avaiable Quota");
+		mb2 = new ProgressBar("VNC", 0, 1, 1, "session(s)", "Avaiable Quota");
+		mb3 = new ProgressBar("DCV", 1, 0, 1, "session(s)", "Avaiable Quota");
+
+		JPanel panel = createProgressBarChart(qutoaSumDiProp);
+
+		add(panel);
 
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
-
-		add(mb1);
-		add(mb2);
-		add(mb3);
 
 		// setLayout(null);
 
 		// setSize(250, 150);
-		setPreferredSize(new Dimension(300, 200));
+		setPreferredSize(new Dimension(350, 250));
 
 	}
 
-	public void iterate() {
-		while (i <= 2000) {
-			jb.setValue(i);
-			i = i + 20;
-			try {
-				Thread.sleep(150);
-			} catch (Exception e) {
-			}
+	protected JPanel createProgressBarChart(DetailedInfoProp diProp) {
+
+		JPanel panel = getPanel(diProp.getPanelName());
+
+		ArrayList<DetailedInfoProp> list = diProp.getDetailedInfoPropList();
+
+		for (DetailedInfoProp diPropChart : list) {
+
+			int[] data = diPropChart.getProgressBarData();
+
+			ProgressBar progressBar = new ProgressBar(diPropChart.getProgressBarLabel(), data[0], data[1], data[2],
+					diPropChart.getProgressBarUnits(), diPropChart.getProgressBarToolTips());
+			panel.add(progressBar);
 		}
+
+		return panel;
+	}
+
+	protected JPanel getPanel(String strTitle) {
+
+		JPanel panel = new JPanel();
+		panel.setMinimumSize(new Dimension(600, 100));
+		panel.setLayout(new WrapLayout(FlowLayout.LEADING));
+
+		LineBorder roundedLineBorder = new LineBorder(Color.blue, 1, true);
+		TitledBorder title = BorderFactory.createTitledBorder(roundedLineBorder, strTitle);
+		panel.setBorder(title);
+		panel.setBackground(Color.WHITE);
+		return panel;
+
 	}
 
 	public void testing(int scaleAdj) throws ClassNotFoundException, InstantiationException, IllegalAccessException,

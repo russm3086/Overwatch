@@ -80,10 +80,8 @@ public class ClusterMonitorThread {
 						false);
 
 				String userName = System.getProperty("user.name");
-				MyJobs myJobs = new MyJobs(cluster, "cluebon");				
+				MyJobs myJobs = new MyJobs(cluster, "bsanadgo");				
 				cluster.setMyJobMasterQueue(myJobs);
-
-				//QueueFactory.addMyJobs(cluster, userName);
 
 				Console.setStatusLabel("Closed connection to cluster " + mainProps.getClusterName(index));
 				logger.info("Closed connection to cluster " + mainProps.getClusterName(index));

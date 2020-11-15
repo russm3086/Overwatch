@@ -3,13 +3,13 @@
  */
 package com.ansys.cluster.monitor.data;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
-
-import org.jfree.chart.plot.PlotOrientation;
 
 import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
@@ -39,9 +39,9 @@ public class MyJobs extends JobMasterQueue {
 		addState(AnsQueueState.Normal);
 
 		setDetailedInfoPanel(DetailedInfoFactory.MyJobsDetailedInfoPanel);
-		
+
 		JobsQueue jobQueue = loadJobQueue(cluster.getJobMasterQueue(), userName);
-		
+
 		addQueue(jobQueue);
 		processQueues();
 
@@ -121,30 +121,39 @@ public class MyJobs extends JobMasterQueue {
 	}
 
 	public DetailedInfoProp getDetailedInfoProp() {
-		
-		DetailedInfoProp masterDiProp=super.getDetailedInfoProp();
-		
-		masterDiProp.setTitleMetric("");
+
+		DetailedInfoProp masterDiProp = super.getDetailedInfoProp();
+
+		masterDiProp.setTitleMetric("Queue Name:");
 		masterDiProp.setTitleValue(getName());
 
 		displayJobsPie(masterDiProp);
-		createQuotaBarChartPanel( masterDiProp);
+		createQuotaBarChartPanel(masterDiProp);
 		return masterDiProp;
 
 	}
 
 	private void displayJobsPie(DetailedInfoProp masterDiProp) {
 		DetailedInfoProp jobDiProp = new DetailedInfoProp();
-		jobDiProp.setPanelName(SGE_DataConst.panelTitleOverallQuotasUsage);
+		jobDiProp.setPanelName(SGE_DataConst.panelTitleComputeQuotasUsage);
 		int total = 0;
 		JobsQueue myJobQueue = (JobsQueue) myJobsQueue.get("Jobs");
 
-		for (Entry<Object, ClusterNodeAbstract> entry : myJobQueue.getNodes().entrySet()) {
+		HashMap<Integer, Job> jobsMap = new HashMap<Integer, Job>();
+
+		jobsMap.putAll(myJobQueue.getActiveJobs());
+		jobsMap.putAll(myJobQueue.getIdleJobs());
+
+		for (Entry<Integer, Job> entry : jobsMap.entrySet()) {
 
 			Job job = (Job) entry.getValue();
-			total += job.getSlots();
-			jobDiProp.addChartData(job.getJobName(), job.getSlots());
 
+			total += job.getSlots();
+			StringBuffer sb = new StringBuffer();
+			sb.append(entry.getKey());
+			sb.append("-");
+			sb.append(job.getJobName());
+			jobDiProp.addChartData(sb.toString(), job.getSlots());
 		}
 
 		jobDiProp.setChartDataTitle("Total: " + total + " " + SGE_DataConst.unitResCore.toLowerCase());
@@ -152,22 +161,23 @@ public class MyJobs extends JobMasterQueue {
 		jobDiProp.setDataTypePieChart();
 		masterDiProp.addDetailedInfoProp(jobDiProp);
 	}
-	
+
 	protected void createQuotaBarChartPanel(DetailedInfoProp masterDiProp) {
 
 		DetailedInfoProp diProp = new DetailedInfoProp();
-		diProp.setPanelName("Quota(s)");
-		diProp.setChartDataTitle("Title");
-		diProp.setChartDataUnit("cores");
-		diProp.setDataTypeBarChart();
-		diProp.setPlotOrientation(PlotOrientation.HORIZONTAL);
+		diProp.setPanelName("Quota Summary");
 
-		for ( Quota quota : listQuota) {
-				diProp.addChartData(quota.getLimit(), quota.getUsage(), quota.getQuotaName());
+		for (Quota quota : listQuota) {
+
+			// diProp.addChartData(quota.getLimit(), quota.getUsage(),
+			// quota.getQuotaName());
+			int[] data = { quota.getLimit() - quota.getUsage(), quota.getUsage(), quota.getLimit() };
+			diProp.addSeries(quota.getQuotaName(), data, quota.getResource(), quota.getQuotaName() + " Avaiable Quota");
 		}
 
+		diProp.setDataTypeProgressBarChart();
+		diProp.setChartDataTitle("");
 		masterDiProp.addDetailedInfoProp(diProp);
 	}
-
 
 }

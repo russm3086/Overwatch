@@ -254,6 +254,7 @@ public final class SGE_DataConst {
 	public final static String panelTitleVisualNode = "Visual Node(s)";
 	public final static String panelTitleQuotasUsage = "Quota(s) Usage";
 	public final static String panelTitleOverallQuotasUsage = "Overall Quota Usage";
+	public final static String panelTitleComputeQuotasUsage = "Compute Quota Usage";
 	
 
 }
