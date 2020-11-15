@@ -23,6 +23,7 @@ import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.JobState;
 import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
+import com.ansys.cluster.monitor.main.SGE_DataConst;
 import com.russ.util.TimeUtil;
 import com.russ.util.UnitConversion;
 

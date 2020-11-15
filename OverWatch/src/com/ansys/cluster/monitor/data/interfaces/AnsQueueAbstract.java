@@ -11,10 +11,10 @@ import java.util.TreeMap;
 
 import com.ansys.cluster.monitor.data.Host;
 import com.ansys.cluster.monitor.data.Job;
-import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.data.state.AnsQueueState;
 import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
+import com.ansys.cluster.monitor.main.SGE_DataConst;
 
 /**
  * 

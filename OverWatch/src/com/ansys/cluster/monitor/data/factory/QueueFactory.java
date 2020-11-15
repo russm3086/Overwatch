@@ -15,8 +15,8 @@ import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.data.JobMasterQueue;
 import com.ansys.cluster.monitor.data.JobsQueue;
 import com.ansys.cluster.monitor.data.NodeProp;
-import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
+import com.ansys.cluster.monitor.main.SGE_DataConst;
 
 /**
  * 

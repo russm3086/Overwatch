@@ -17,7 +17,6 @@ import java.util.Map.Entry;
 import javax.swing.table.AbstractTableModel;
 
 import com.ansys.cluster.monitor.data.NodeProp;
-import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.gui.table.FUN_HostTableModel;
 import com.ansys.cluster.monitor.gui.table.HostTableModel;
 import com.ansys.cluster.monitor.gui.table.JobHostTableModel;
@@ -29,6 +28,7 @@ import com.ansys.cluster.monitor.gui.table.StateTableModel;
 import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoFactory;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
+import com.ansys.cluster.monitor.main.SGE_DataConst;
 
 /**
  * @author rmartine

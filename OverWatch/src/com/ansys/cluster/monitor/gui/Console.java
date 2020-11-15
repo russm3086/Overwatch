@@ -24,6 +24,7 @@ import com.ansys.cluster.monitor.gui.tree.DetailedInfoFactory;
 import com.ansys.cluster.monitor.gui.tree.TreeBuilderMonitorThread;
 import com.ansys.cluster.monitor.main.Main;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
+import com.russ.util.gui.DisplayTool;
 import com.russ.util.nio.ResourceLoader;
 
 import java.awt.*;
@@ -201,27 +202,32 @@ public class Console extends JFrame {
 
 	private void getFrameSize() {
 
+		DisplayTool displayTool = new DisplayTool();
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		int height = (int) mainProps.getFrameHeight();
-		int width = (int) mainProps.getFrameWidth();
+		int height = mainProps.getFrameHeight();
+		int width = mainProps.getFrameWidth();
+		boolean displayExist = displayTool.deviceExist(this.getGraphicsConfiguration().getDevice().getIDstring());
 
-		if (height > dim.getHeight() || width > dim.getWidth()) {
+		int y = mainProps.getFrameY();
+		int x = mainProps.getFrameX();
+
+		if ((height > dim.getHeight() || width > dim.getWidth()) && !displayExist) {
 
 			setExtendedState(MAXIMIZED_BOTH);
 		} else {
-			
+
 			if (height == 0 || width == 0) {
 
 				width = (int) (dim.getWidth() / mainProps.getFrameScreenRatio());
 				height = (int) (dim.getHeight() / mainProps.getFrameScreenRatio());
 
 				logger.info("Console Width: " + width + " Height: " + height);
+				x = (int) (dim.getWidth() - this.getWidth()) / 2;
+				y = (int) (dim.getHeight() - this.getHeight()) / 2;
 			}
 
 			this.setSize(width, height);
 
-			int x = (int) (dim.getWidth() - this.getWidth()) / 2;
-			int y = (int) (dim.getHeight() - this.getHeight()) / 2;
 			this.setLocation(x, y);
 		}
 	}
@@ -229,6 +235,12 @@ public class Console extends JFrame {
 	private void setFrameSize() {
 		mainProps.setFrameHeight(this.getHeight());
 		mainProps.setFrameWidth(this.getWidth());
+	}
+
+	private void setFrameLocation() {
+		mainProps.setFrameY(this.getY());
+		mainProps.setFrameX(this.getX());
+		mainProps.setGuiDeviceId(this.getGraphicsConfiguration().getDevice().getIDstring());
 	}
 
 	protected void populateTree() {
@@ -465,6 +477,7 @@ public class Console extends JFrame {
 		public void windowClosing(WindowEvent e) {
 
 			setFrameSize();
+			setFrameLocation();
 
 			try {
 				Main.saveSettings(mainProps);

@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.interfaces.HostPropInterface;
 import com.ansys.cluster.monitor.data.interfaces.JobPropInterface;
+import com.ansys.cluster.monitor.main.SGE_DataConst;
 import com.russ.util.AbstractProp;
 
 /**

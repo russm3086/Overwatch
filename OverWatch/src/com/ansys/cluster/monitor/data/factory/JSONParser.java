@@ -17,8 +17,8 @@ import com.ansys.cluster.monitor.data.Host;
 import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.data.JobMessage;
 import com.ansys.cluster.monitor.data.NodeProp;
-import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.data.interfaces.ParserAbstract;
+import com.ansys.cluster.monitor.main.SGE_DataConst;
 import com.ansys.cluster.monitor.net.Payload;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 

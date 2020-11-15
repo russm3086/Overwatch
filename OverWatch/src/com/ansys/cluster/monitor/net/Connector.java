@@ -28,7 +28,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import com.ansys.cluster.monitor.data.Cluster;
-import com.ansys.cluster.monitor.data.SGE_DataConst;
+import com.ansys.cluster.monitor.main.SGE_DataConst;
 import com.ansys.cluster.monitor.net.http.HttpConnection;
 import com.ansys.cluster.monitor.net.http.HttpResponse;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;

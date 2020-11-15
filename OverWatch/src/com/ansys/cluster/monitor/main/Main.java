@@ -20,7 +20,6 @@ import javax.swing.plaf.FontUIResource;
 
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
-import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.data.factory.Exporter;
 import com.ansys.cluster.monitor.gui.Console;
 import com.ansys.cluster.monitor.settings.MonitorArgsSettings;
@@ -63,7 +62,7 @@ public class Main {
 
 		propComments = SGE_DataConst.app_name + " v. " + SGE_DataConst.app_version;
 
-		propsFilePath = SystemSettings.getUserHome() + "/" + ClusterMonitorConst.DefaultPropertiesPath;
+		propsFilePath = SystemSettings.getUserHome() + "/" + SGE_DataConst.DefaultPropertiesPath;
 
 		String token = "\\.";
 

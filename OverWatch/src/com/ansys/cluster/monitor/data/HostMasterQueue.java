@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
+import com.ansys.cluster.monitor.main.SGE_DataConst;
 
 /**
  * @author rmartine

@@ -25,13 +25,13 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 
-import com.ansys.cluster.monitor.data.SGE_DataConst;
 import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.HostState;
 import com.ansys.cluster.monitor.data.state.JobState;
 import com.ansys.cluster.monitor.gui.GUI_Const;
+import com.ansys.cluster.monitor.main.SGE_DataConst;
 import com.russ.util.nio.ResourceLoader;
 
 /**

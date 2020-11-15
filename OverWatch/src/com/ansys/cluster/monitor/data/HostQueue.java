@@ -16,6 +16,7 @@ import com.ansys.cluster.monitor.data.interfaces.StateAbstract;
 import com.ansys.cluster.monitor.data.state.HostState;
 import com.ansys.cluster.monitor.data.state.JobState;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
+import com.ansys.cluster.monitor.main.SGE_DataConst;
 
 /**
  * @author rmartine

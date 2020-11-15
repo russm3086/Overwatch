@@ -7,9 +7,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Enumeration;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -39,6 +42,7 @@ public class Test extends JFrame {
 	ProgressBar mb2;
 	ProgressBar mb3;
 	JProgressBar jb;
+	GraphicsConfiguration config;
 	int i = 0, num = 0;
 
 	/**
@@ -51,6 +55,7 @@ public class Test extends JFrame {
 	public Test() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
 			UnsupportedLookAndFeelException {
 		testing(0);
+		this.addWindowListener(new SaveSettings());
 
 		DetailedInfoProp qutoaSumDiProp = new DetailedInfoProp();
 		qutoaSumDiProp.setPanelName("Quota Summary");
@@ -143,15 +148,35 @@ public class Test extends JFrame {
 				}
 			}
 		}
-
 	}
+
 
 	public static void main(String[] args) throws InterruptedException, ClassNotFoundException, InstantiationException,
 			IllegalAccessException, UnsupportedLookAndFeelException {
+
 		Test t = new Test();
 		t.pack();
 		t.setVisible(true);
-		// t.iterate();
+		GraphicsDevice device = t.getGraphicsConfiguration().getDevice();
+		
+		System.out.println(device.getIDstring());
+		System.out.println(t.getLocationOnScreen());
+
+	}
+
+	private class SaveSettings extends WindowAdapter {
+
+		@Override
+		public void windowClosing(WindowEvent e) {
+			GraphicsDevice device = getGraphicsConfiguration().getDevice();
+			
+			System.out.println(device.getIDstring());
+			System.out.println(getLocationOnScreen());
+			
+			
+			
+		}
+
 	}
 
 }

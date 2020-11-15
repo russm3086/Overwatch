@@ -14,7 +14,7 @@ import javax.xml.transform.TransformerException;
 import org.jdom2.JDOMException;
 import org.json.JSONException;
 
-import com.ansys.cluster.monitor.data.SGE_DataConst;
+import com.ansys.cluster.monitor.main.SGE_DataConst;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 
 /**

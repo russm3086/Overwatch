@@ -15,7 +15,7 @@ import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.PropertiesConfigurationLayout;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
-import com.ansys.cluster.monitor.data.SGE_DataConst;
+import com.ansys.cluster.monitor.main.SGE_DataConst;
 import com.russ.util.settings.SystemSettings;
 
 /**
@@ -84,6 +84,9 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setFrameScreenRatio(2);
 		setFrameHeight(0);
 		setFrameWidth(0);
+		setFrameY(0);
+		setFrameX(0);
+		setGuiDeviceId("");
 		setGuiTimer(true);
 		setGuiTimerDelay(5);
 		setGuiTimerDelayTimeUnit("minutes");
@@ -419,28 +422,52 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setProperty(SGE_MonitorPropConst.guiTimer, timerOn);
 	}
 
-	public void setFrameWidth(double width) {
+	public void setGuiDeviceId(String deviceId) {
+		setProperty(SGE_MonitorPropConst.guiDeviceId, deviceId);
+	}
+
+	public String getGuiDeviceId() {
+		return getString(SGE_MonitorPropConst.guiDeviceId);
+	}
+
+	public void setFrameX(int width) {
+		setProperty(SGE_MonitorPropConst.guiFrameX, width);
+	}
+
+	public int getFrameX() {
+		return getInt(SGE_MonitorPropConst.guiFrameX, 0);
+	}
+
+	public void setFrameY(int height) {
+		setProperty(SGE_MonitorPropConst.guiFrameY, height);
+	}
+
+	public int getFrameY() {
+		return getInt(SGE_MonitorPropConst.guiFrameY, 0);
+	}
+
+	public void setFrameWidth(int width) {
 		setProperty(SGE_MonitorPropConst.guiFrameWidth, width);
 	}
 
-	public double getFrameWidth() {
-		return getDouble(SGE_MonitorPropConst.guiFrameWidth, 0);
+	public int getFrameWidth() {
+		return (int) getDouble(SGE_MonitorPropConst.guiFrameWidth, 0);
 	}
 
-	public void setFrameHeight(double height) {
+	public void setFrameHeight(int height) {
 		setProperty(SGE_MonitorPropConst.guiFrameHeight, height);
 	}
 
-	public double getFrameHeight() {
-		return getDouble(SGE_MonitorPropConst.guiFrameHeight, 0);
+	public int getFrameHeight() {
+		return (int) getDouble(SGE_MonitorPropConst.guiFrameHeight, 0);
 	}
 
-	public void setFrameScreenRatio(int ratio) {
+	public void setFrameScreenRatio(float ratio) {
 		setProperty(SGE_MonitorPropConst.screenRatio, ratio);
 	}
 
-	public int getFrameScreenRatio() {
-		return getInt(SGE_MonitorPropConst.screenRatio);
+	public float getFrameScreenRatio() {
+		return getFloat(SGE_MonitorPropConst.screenRatio);
 	}
 
 	public void setOS_LookAndFeel(boolean lookAndFeel) {
