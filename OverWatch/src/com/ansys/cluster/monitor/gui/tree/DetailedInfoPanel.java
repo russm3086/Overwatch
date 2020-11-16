@@ -195,7 +195,7 @@ public class DetailedInfoPanel extends JPanel {
 
 			case DetailedInfoProp.const_DataTypeProgressBarChart:
 
-				//panel.setLayout(new BorderLayout());
+				// panel.setLayout(new BorderLayout());
 				JPanel progressBar = createProgressBarChart(diProp);
 				panel.add(BorderLayout.CENTER, progressBar);
 			}
@@ -300,8 +300,15 @@ public class DetailedInfoPanel extends JPanel {
 		plot.setRangeGridlinePaint(Color.black);
 		BarRenderer barRenderer = (BarRenderer) plot.getRenderer();
 		barRenderer.setShadowVisible(true);
-		Color color = new Color(0, 153, 0);
-		barRenderer.setSeriesPaint(0, color);
+
+		if (diProp.getChartDataPaint() == null) {
+
+			barRenderer.setSeriesPaint(0, new Color(0, 153, 0));
+		} else {
+
+			barRenderer.setSeriesPaint(0, diProp.getChartDataPaint());
+		}
+
 		barRenderer.setMaximumBarWidth(.2);
 		// barRenderer.setDefaultToolTipGenerator(new
 		// StandardCategoryToolTipGenerator());
@@ -441,10 +448,10 @@ public class DetailedInfoPanel extends JPanel {
 	protected JPanel createProgressBarChart(DetailedInfoProp diProp) {
 
 		JPanel panel = new JPanel();
-		panel.setBackground(this.getBackground());		
-		JPanel ProgessBarPanel= createProgressBar(diProp);
+		panel.setBackground(this.getBackground());
+		JPanel ProgessBarPanel = createProgressBar(diProp);
 		panel.add(ProgessBarPanel);
-		
+
 		return panel;
 	}
 
@@ -453,14 +460,12 @@ public class DetailedInfoPanel extends JPanel {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setBorder(BorderFactory.createLineBorder(Color.black));
-		
+
 		panel.setPreferredSize(new Dimension(320, 180));
-		
+
 		ArrayList<DetailedInfoProp> list = diProp.getDetailedInfoPropList();
 
 		panel.setLayout(new GridLayout(list.size(), 1, 10, 10));
-		
-		
 
 		for (DetailedInfoProp diPropChart : list) {
 
@@ -473,8 +478,7 @@ public class DetailedInfoPanel extends JPanel {
 
 		return panel;
 	}
-	
-	
+
 	protected void bubbleChartDataPaint(XYItemRenderer xyitemrenderer, DetailedInfoProp diProp) {
 
 		int i = 0;

@@ -339,7 +339,29 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 				int funCores = entry.getValue().getCoreFUN();
 				String queue = entry.getKey();
 				diProp.addChartData(funCores, "FUN", queue);
-				}
+			}
+		}
+
+		masterDiProp.addDetailedInfoProp(diProp);
+	}
+
+	protected void createPendingBarChartPanel(DetailedInfoProp masterDiProp, String panelName, String title,
+			String unit, SortedMap<String, AnsQueueAbstract> queueMaps) {
+
+		DetailedInfoProp diProp = new DetailedInfoProp();
+		diProp.setPanelName(panelName);
+		diProp.setChartDataTitle(title);
+		diProp.setChartDataUnit(unit);
+		diProp.setDataTypeBarChart();
+		diProp.addChartDataPaint(new Color(224, 213, 0));
+
+		for (Entry<String, AnsQueueAbstract> entry : queueMaps.entrySet()) {
+
+			if (!entry.getValue().isVisualNode() && entry.getValue().getPendingJobsSize() > 0) {
+				int pendingJobs = entry.getValue().getPendingJobsSize();
+				String queueName = entry.getKey();
+				diProp.addChartData(pendingJobs, "Pending", queueName);
+			}
 		}
 
 		masterDiProp.addDetailedInfoProp(diProp);

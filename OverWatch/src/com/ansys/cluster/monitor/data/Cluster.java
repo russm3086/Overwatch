@@ -154,14 +154,23 @@ public class Cluster extends AnsQueueAbstract {
 
 		displayJobsPie(masterDiProp);
 
-		long totalMemory = (long) UnitConversion.round(getHostMasterQueue().getTotalMem(), 0);
+		/**
+		 * long totalMemory = (long)
+		 * UnitConversion.round(getHostMasterQueue().getTotalMem(), 0);
+		 * 
+		 * long totalAvailMem = (long)
+		 * UnitConversion.round(getHostMasterQueue().getAvailableMem(), 0);
+		 * 
+		 * 
+		 * long totalUsedMem = totalMemory - totalAvailMem;
+		 * 
+		 * createAvailableChartPanel(masterDiProp, "Memory", "Total " + totalMemory + "
+		 * GB", "GB", totalAvailMem, totalUsedMem);
+		 */
 
-		long totalAvailMem = (long) UnitConversion.round(getHostMasterQueue().getAvailableMem(), 0);
-
-		long totalUsedMem = totalMemory - totalAvailMem;
-
-		createAvailableChartPanel(masterDiProp, "Memory", "Total " + totalMemory + " GB", "GB", totalAvailMem,
-				totalUsedMem);
+		createPendingBarChartPanel(masterDiProp, "Pending Jobs",
+				"Total " + getHostMasterQueue().getPendingJobsSize() + " Job(s)" ,
+				SGE_DataConst.unitResCore.toLowerCase(), getHostMasterQueue().getQueues());
 
 		displayNodesPie(masterDiProp);
 

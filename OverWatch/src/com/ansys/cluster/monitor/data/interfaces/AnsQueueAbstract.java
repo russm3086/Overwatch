@@ -827,8 +827,8 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 		getPendingJobs().putAll(map);
 	}
 
-	public void setPendingJobss(SortedMap<Integer, Job> map) {
-		this.idleJobs = map;
+	public void setPendingJobs(SortedMap<Integer, Job> map) {
+		this.pendingJobs = map;
 	}
 
 	/**

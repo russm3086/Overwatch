@@ -7,7 +7,7 @@ public final class SGE_DataConst {
 	}
 
 	public static String app_name = "OverWatch";
-	public static String app_version = "1.4.9.3";
+	public static String app_version = "1.4.9.4";
 	public static String app_version_regex = "(\\d+\\.)+(\\d)";
 	public static float app_font_max_scaling = 50;
 	public static String DefaultPropertiesPath = "/Ansys/OverWatch/etc/settings.properties";
