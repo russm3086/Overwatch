@@ -3,7 +3,6 @@
  */
 package com.ansys.cluster.monitor.data.factory;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
@@ -34,14 +33,15 @@ public class QuotaFactory {
 	private QuotaFactory() {
 	}
 
-	public static HashMap<String, LinkedList<Quota>> createQuotaMap(Payload payload, SGE_MonitorProp mainProps) {
+	public static LinkedList<Quota> createQuotaList(Payload payload, SGE_MonitorProp mainProps, String userName) {
 		logger.entering(sourceClass, "createQuotaMap");
 
-		HashMap<String, LinkedList<Quota>> map = null;
+		
+		LinkedList<Quota> list = new LinkedList<Quota>();
 		switch (payload.getPayloadType()) {
 		case SGE_ConnectConst.xmlType:
 			XMLParser xmlParser = new XMLParser(payload, mainProps);
-			map = xmlParser.createQuotaMap();
+			list = xmlParser.createQuotaMap(userName);
 			break;
 
 		// case SGE_ConnectConst.jsonType:
@@ -52,6 +52,6 @@ public class QuotaFactory {
 		}
 		logger.exiting(sourceClass, "createHostMap");
 
-		return map;
+		return list;
 	}
 }

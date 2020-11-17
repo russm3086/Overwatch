@@ -46,6 +46,10 @@ public class Payload implements Serializable{
 		setPayloadType(SGE_ConnectConst.clusterType);
 	}
 	
+	public Payload() {
+		setPayloadType(SGE_ConnectConst.emptyType);
+	}
+	
 	/**
 	 * @return the jsoObject
 	 */

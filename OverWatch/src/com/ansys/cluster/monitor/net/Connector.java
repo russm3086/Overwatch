@@ -321,34 +321,41 @@ public class Connector {
 
 	public Payload connect(String url) throws IOException, JDOMException, TransformerException, ClassNotFoundException {
 		Payload payload = null;
-		int retries = mainProps.getClusterConnectionRetries();
-		for (int i = 1; i < retries + 1; i++) {
-			try {
 
-				HttpResponse response = connectHttp(url, mainProps);
-				logger.info("Download of " + url + " completed");
-				payload = createPayload(response);
-				break;
-			} catch (IOException e) {
-				logger.warning("Failed to connect to " + url + " \n Attempt " + i + " of " + retries);
+		if (url == null) {
+
+			payload = new Payload();
+		} else {
+
+			int retries = mainProps.getClusterConnectionRetries();
+			for (int i = 1; i < retries + 1; i++) {
+				try {
+
+					HttpResponse response = connectHttp(url, mainProps);
+					logger.info("Download of " + url + " completed");
+					payload = createPayload(response);
+					break;
+				} catch (IOException e) {
+					logger.warning("Failed to connect to " + url + " \n Attempt " + i + " of " + retries);
+				}
+
+				long delay = TimeUnit.MILLISECONDS.convert(mainProps.getClusterConnectionRetriesDelay(),
+						mainProps.getClusterConnectionRetriesDelayTimeUnitTU());
+
+				try {
+					Thread.sleep(delay);
+				} catch (InterruptedException e) {
+					logger.log(Level.FINER, "Error sleeping for connectiond", e);
+
+					break;
+				}
 			}
 
-			long delay = TimeUnit.MILLISECONDS.convert(mainProps.getClusterConnectionRetriesDelay(),
-					mainProps.getClusterConnectionRetriesDelayTimeUnitTU());
-
-			try {
-				Thread.sleep(delay);
-			} catch (InterruptedException e) {
-				logger.log(Level.FINER, "Error sleeping for connectiond", e);
-
-				break;
+			if (payload == null) {
+				payload = new Payload();
+				logger.severe("******Failed to connect to " + url + "***********");
 			}
-		}
-
-		if (payload == null) {
-			throw new java.io.IOException("Error connecting to " + url);
 		}
 		return payload;
 	}
-
 }

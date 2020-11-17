@@ -19,6 +19,12 @@ public class Quota implements Serializable {
 	private int usage;
 
 	public Quota() {
+		this.quotaName = "none";
+		this.user = "no user";
+		this.resource = "no units";
+		this.queues = "no queue";
+		this.limit = 0;
+		this.usage = 0;
 
 	}
 

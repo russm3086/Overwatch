@@ -20,15 +20,15 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 	private static final long serialVersionUID = 2331629876169607226L;
 	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "Num. of Exec. Host", "State",
 			"Duration", "Load", "Efficiency" };
-	private static final int COLUMN_NAME = 0;
-	private static final int COLUMN_ID = 1;
-	private static final int COLUMN_OWNER = 2;
-	private static final int COLUMN_CORES = 3;
-	private static final int COLUMN_EXEC_HOSTS = 4;
-	private static final int COLUMN_STATE = 5;
-	private static final int COLUMN_DURATION = 6;
-	private static final int COLUMN_LOAD = 7;
-	private static final int COLUMN_EFFICIENCY = 8;
+	protected static final int COLUMN_NAME = 0;
+	protected static final int COLUMN_ID = 1;
+	protected static final int COLUMN_OWNER = 2;
+	protected static final int COLUMN_CORES = 3;
+	protected static final int COLUMN_EXEC_HOSTS = 4;
+	protected static final int COLUMN_STATE = 5;
+	protected static final int COLUMN_DURATION = 6;
+	protected static final int COLUMN_LOAD = 7;
+	protected static final int COLUMN_EFFICIENCY = 8;
 
 	/**
 	 * 

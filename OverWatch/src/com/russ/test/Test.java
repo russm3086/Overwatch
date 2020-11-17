@@ -3,30 +3,45 @@
  */
 package com.russ.test;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.plaf.FontUIResource;
 
+import com.ansys.cluster.monitor.gui.Console;
+import com.ansys.cluster.monitor.gui.FontScaling;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 import com.ansys.cluster.monitor.gui.tree.ProgressBar;
+import com.ansys.cluster.monitor.main.SGE_DataConst;
+import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 import com.russ.util.WrapLayout;
 
 /**
@@ -38,11 +53,12 @@ public class Test extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -711208082799454016L;
-	ProgressBar mb1;
-	ProgressBar mb2;
-	ProgressBar mb3;
-	JProgressBar jb;
-	GraphicsConfiguration config;
+	private FontScaling gui;
+	protected SGE_MonitorProp mainProps = new SGE_MonitorProp();
+	private JTextField selectedField;
+	private JLabel testLabel;
+	private float defaultFontSize;
+
 	int i = 0, num = 0;
 
 	/**
@@ -54,35 +70,144 @@ public class Test extends JFrame {
 	 */
 	public Test() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
 			UnsupportedLookAndFeelException {
-		testing(0);
-		this.addWindowListener(new SaveSettings());
 
-		DetailedInfoProp qutoaSumDiProp = new DetailedInfoProp();
-		qutoaSumDiProp.setPanelName("Quota Summary");
+		setLayout(new BorderLayout());
 
-		int[] data1 = { 302, 100, 402 };
-		qutoaSumDiProp.addSeries("Overall", data1, "core(s)", "All Avaiable Quota");
+		defaultFontSize = UIManager.getFont("TextField.font").getSize2D();
+		
+		// Setting up Menu Bar
+		JMenuBar menuBar = new JMenuBar();
 
-		int[] data2 = { 0, 1, 1 };
-		qutoaSumDiProp.addSeries("vnc", data2, "core(s)", "All Avaiable Quota");
+		JMenu settingsMenu = new JMenu("Settings");
 
-		int[] data3 = { 1, 0, 1 };
-		qutoaSumDiProp.addSeries("dcv", data3, "core(s)", "All Avaiable Quota");
+		JMenuItem settingsMenuItem = new JMenuItem("Font Scaling");
+		settingsMenuItem.addActionListener(new Settings());
+		settingsMenuItem.setMnemonic(KeyEvent.VK_C);
+		settingsMenuItem.setToolTipText("Allow cluster settings to be Change and Saved");
+		settingsMenu.add(settingsMenuItem);
 
-		mb1 = new ProgressBar("Overall", 302, 100, 402, "core(s)", "Avaiable Quota");
-		mb2 = new ProgressBar("VNC", 0, 1, 1, "session(s)", "Avaiable Quota");
-		mb3 = new ProgressBar("DCV", 1, 0, 1, "session(s)", "Avaiable Quota");
+		menuBar.add(settingsMenu);
+		this.setJMenuBar(menuBar);
 
-		JPanel panel = createProgressBarChart(qutoaSumDiProp);
+		JLabel connLabel = new JLabel("Font Scaling: ");
 
-		add(panel);
+		int scaling = (int) mainProps.getGuiFontScaling();
 
-		setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
+		int scalingMaxValue = (int) SGE_DataConst.app_font_max_scaling;
 
-		// setLayout(null);
+		int scalingMinValue = -1 * (int) SGE_DataConst.app_font_max_scaling;
+
+		JLabel refreshLabel = new JLabel("Scaling range " + scalingMinValue + " to " + scalingMaxValue);
+
+		JSlider slider = new JSlider(JSlider.HORIZONTAL, scalingMinValue, scalingMaxValue, scaling);
+
+		slider.addChangeListener(new SliderChange());
+
+		// slider.setPreferredSize(new Dimension (300,50));
+
+		JLabel selectedLabel = new JLabel("Selected Value:");
+		selectedField = new JTextField(3);
+		selectedField.setText(String.valueOf(scaling));
+
+		refreshLabel.setLabelFor(slider);
+		selectedLabel.setLabelFor(selectedField);
+
+		JPanel selectedPanel = new JPanel();
+		selectedPanel.setLayout(new FlowLayout());
+		selectedPanel.add(selectedLabel);
+		selectedPanel.add(selectedField);
+
+		JPanel sliderPanel = new JPanel();
+		sliderPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		sliderPanel.add(refreshLabel);
+		sliderPanel.add(slider);
+
+		testLabel = new JLabel("TEST");
+		testLabel.setFont(testLabel.getFont().deriveFont(defaultFontSize));
+		
+		add(sliderPanel, BorderLayout.NORTH);
+		add(selectedPanel, BorderLayout.SOUTH);
+		add(testLabel, BorderLayout.CENTER);
+
+		slider.setMinorTickSpacing(5);
+		slider.setMajorTickSpacing(10);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
 
 		// setSize(250, 150);
 		setPreferredSize(new Dimension(350, 250));
+
+	}
+
+	private class Settings implements ActionListener, Runnable {
+
+		/**
+		 * Instanstiate a gui that allows the user to change settings.
+		 */
+		public void run() {
+			gui = new FontScaling(Console.getFrames()[0], "Settings", true, mainProps);
+
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			int x = (int) (dim.getWidth() - gui.getWidth()) / 2;
+			int y = (int) (dim.getHeight() - gui.getHeight()) / 2;
+
+			gui.setLocation(x, y);
+			gui.setVisible(true);
+			gui = null;
+
+		}
+
+		/**
+		 * Enables the object to run in the <code>SwingUtilities.invokeLater</code>
+		 * method
+		 */
+		public void actionPerformed(ActionEvent ae) {
+			invokeLater(this);
+		}
+	}
+
+	/**
+	 * Enables events to run on seperate thread so not to interfere with the GUI
+	 * functions
+	 */
+	private void invokeLater(Runnable run) {
+		SwingUtilities.invokeLater(run);
+	}
+
+	private class SliderChange implements ChangeListener {
+
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			// TODO Auto-generated method stub
+
+			JSlider slider = (JSlider) e.getSource();
+
+			// Get the selection value of JSlider
+			selectedField.setText(String.valueOf(slider.getValue()));
+
+			UIDefaults defaults = UIManager.getDefaults();
+
+			try {
+				testing(slider.getValue());
+
+				float scaleValue = (float) (1 + (slider.getValue() * .01));
+
+				float newSize = (float) (defaultFontSize * scaleValue);
+
+				Font font = testLabel.getFont().deriveFont(newSize);
+				testLabel.setFont(font);
+
+				System.out.println(slider.getValue());
+				System.out.println(scaleValue);
+				System.out.println(font.getSize2D());
+
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+					| UnsupportedLookAndFeelException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+		}
 
 	}
 
@@ -150,7 +275,6 @@ public class Test extends JFrame {
 		}
 	}
 
-
 	public static void main(String[] args) throws InterruptedException, ClassNotFoundException, InstantiationException,
 			IllegalAccessException, UnsupportedLookAndFeelException {
 
@@ -158,7 +282,7 @@ public class Test extends JFrame {
 		t.pack();
 		t.setVisible(true);
 		GraphicsDevice device = t.getGraphicsConfiguration().getDevice();
-		
+
 		System.out.println(device.getIDstring());
 		System.out.println(t.getLocationOnScreen());
 
@@ -169,12 +293,10 @@ public class Test extends JFrame {
 		@Override
 		public void windowClosing(WindowEvent e) {
 			GraphicsDevice device = getGraphicsConfiguration().getDevice();
-			
+
 			System.out.println(device.getIDstring());
 			System.out.println(getLocationOnScreen());
-			
-			
-			
+
 		}
 
 	}

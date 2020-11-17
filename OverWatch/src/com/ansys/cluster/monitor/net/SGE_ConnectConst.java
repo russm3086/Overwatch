@@ -21,9 +21,9 @@ public final class SGE_ConnectConst {
 
 	public static final String xmlType = "XML";
 	public static final String jsonType = "JSON";
-	public static final String clusterType ="CLUSTER";
-	public static final String overwatchType ="OVERWATCH";
+	public static final String clusterType = "CLUSTER";
+	public static final String overwatchType = "OVERWATCH";
 	public static final String unknownType = "UNKNOWN";
-	
-	
+	public static final String emptyType = "EMPTY";
+
 }

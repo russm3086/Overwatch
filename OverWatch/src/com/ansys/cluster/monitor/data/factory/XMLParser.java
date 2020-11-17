@@ -39,6 +39,19 @@ public class XMLParser extends ParserAbstract {
 		super(payloadJobs, payLoadDetailedJobs, mainProps);
 	}
 
+	public LinkedList<Quota> createQuotaMap(String userName) {
+		logger.entering(sourceClass, "createQuotaMap");
+
+		HashMap<String, LinkedList<Quota>> quotaMap = createQuotaMap();
+		LinkedList<Quota> list = quotaMap.get(userName);
+
+		if (list == null)
+			list = new LinkedList<Quota>();
+
+		logger.exiting(sourceClass, "createQuotaMap");
+		return list;
+	}
+
 	/**
 	 * 
 	 * @return
@@ -102,7 +115,7 @@ public class XMLParser extends ParserAbstract {
 				break;
 			}
 		}
-		
+
 		logger.exiting(sourceClass, "createQuota");
 		return quota;
 	}

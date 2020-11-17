@@ -119,6 +119,8 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 				+ "JB_override_tickets JB_ar JB_ja_task_concurrency JB_ja_task_concurrency_all "
 				+ "JB_binding JB_is_binary JB_no_shell JB_is_array JB_is_immediate "
 				+ "JB_mbind JB_preemption JB_supplementary_group_list JB_env_list");
+		
+		setUsernameOverride(" ");
 
 		// Connections
 		// Retries
@@ -146,22 +148,23 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 		setClusterName(0, "Otterfing");
 		setClusterZoneIdStr(0, "Europe/Berlin");
-		setClusterConnectionDetailedJobsUrl(0, "http://ottsimportal3.ansys.com:7878/alljobdetails");
-		setClusterConnectionSummaryJobsUrl(0, "http://ottsimportal3.ansys.com:7878/alljobs");
-		setClusterConnectionHostUrl(0, "http://ottsimportal3.ansys.com:7878/allnodes");
+		setClusterConnectionDetailedJobsUrl(0, "http://ottsingularityl.ansys.com:7878/alljobdetails");
+		setClusterConnectionSummaryJobsUrl(0, "http://ottsingularityl.ansys.com:7878/alljobs");
+		setClusterConnectionHostUrl(0, "http://ottsingularityl.ansys.com:7878/allnodes");
 		setClusterConnectionQuotaUrl(0, "http://ottsingularityl.ansys.com:7878/allquota");
 
 		setClusterName(1, "CDC");
 		setClusterZoneIdStr(1, "America/New_York");
-		setClusterConnectionDetailedJobsUrl(1, "http://cdcsimportal1.ansys.com:5080/alljobs/details/xml");
-		setClusterConnectionSummaryJobsUrl(1, "http://cdcsimportal1.ansys.com:5080/alljobs/xml");
-		setClusterConnectionHostUrl(1, "http://cdcsimportal1.ansys.com:5080/allhosts/xml");
+		setClusterConnectionDetailedJobsUrl(1, "http://cdcsimportal1.ansys.com:7878/alljobdetails");
+		setClusterConnectionSummaryJobsUrl(1, "http://cdcsimportal1.ansys.com:7878/alljobs");
+		setClusterConnectionHostUrl(1, "http://cdcsimportal1.ansys.com:7878/allnodes");
 
 		setClusterName(2, "Pune");
 		setClusterZoneIdStr(2, "Asia/Colombo");
-		setClusterConnectionDetailedJobsUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/details/xml");
-		setClusterConnectionSummaryJobsUrl(2, "http://punsimportal2.ansys.com:5080/alljobs/xml");
-		setClusterConnectionHostUrl(2, "http://punsimportal2.ansys.com:5080/allhosts/xml");
+		setClusterConnectionDetailedJobsUrl(2, "http://punsimportal2.ansys.com:7878/alljobdetails");
+		setClusterConnectionSummaryJobsUrl(2, "http://punsimportal2.ansys.com:7878/alljobs");
+		setClusterConnectionHostUrl(2, "http://punsimportal2.ansys.com:7878/allnodes");
+		setClusterConnectionQuotaUrl(2, "http://punsimportal2.ansys.com:7878/allquota");
 
 		setClusterConnectionShellCmd(0, "/bin/sh");
 		layout.setBlancLinesBefore(
@@ -666,4 +669,12 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setProperty(SGE_MonitorPropConst.clusterJobDetailOmissions, tags);
 	}
 
+	public void setUsernameOverride(String userName) {
+		setProperty(SGE_MonitorPropConst.clusterMyJobQueueUserOverride, userName);
+	}
+	public String getUsernameOverride() {
+		return getString(SGE_MonitorPropConst.clusterMyJobQueueUserOverride);
+	}
+	
+	
 }

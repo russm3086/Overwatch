@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.Cluster;
-import com.ansys.cluster.monitor.data.MyJobs;
+import com.ansys.cluster.monitor.data.MyJobsMasterQueue;
 import com.ansys.cluster.monitor.data.factory.ClusterFactory;
 import com.ansys.cluster.monitor.net.Connector;
 import com.ansys.cluster.monitor.net.DataCollector;
@@ -76,12 +76,10 @@ public class ClusterMonitorThread {
 				logger.info("Connecting to cluster " + mainProps.getClusterName(index));
 				Console.setStatusLabel("Connecting to cluster " + mainProps.getClusterName(index));
 
-				Cluster cluster = ClusterFactory.createCluster(dc, mainProps.getClusterName(index), index, mainProps,
-						false);
-
 				String userName = System.getProperty("user.name");
-				MyJobs myJobs = new MyJobs(cluster, userName);				
-				cluster.setMyJobMasterQueue(myJobs);
+
+				Cluster cluster = ClusterFactory.createCluster(dc, mainProps.getClusterName(index), index, mainProps,
+						false, userName);
 
 				Console.setStatusLabel("Closed connection to cluster " + mainProps.getClusterName(index));
 				logger.info("Closed connection to cluster " + mainProps.getClusterName(index));

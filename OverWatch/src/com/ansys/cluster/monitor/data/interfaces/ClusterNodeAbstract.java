@@ -19,6 +19,7 @@ import javax.swing.table.AbstractTableModel;
 import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.gui.table.FUN_HostTableModel;
 import com.ansys.cluster.monitor.gui.table.HostTableModel;
+import com.ansys.cluster.monitor.gui.table.JobDetailTableModel;
 import com.ansys.cluster.monitor.gui.table.JobHostTableModel;
 import com.ansys.cluster.monitor.gui.table.JobPendingTableModel;
 import com.ansys.cluster.monitor.gui.table.JobTableModel;
@@ -357,7 +358,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 
 		for (Entry<String, AnsQueueAbstract> entry : queueMaps.entrySet()) {
 
-			if (!entry.getValue().isVisualNode() && entry.getValue().getPendingJobsSize() > 0) {
+			if (entry.getValue().getPendingJobsSize() > 0) {
 				int pendingJobs = entry.getValue().getPendingJobsSize();
 				String queueName = entry.getKey();
 				diProp.addChartData(pendingJobs, "Pending", queueName);
@@ -408,6 +409,10 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		case TableBuilder.table_Job:
 			JobTableModel jobTableModel = new JobTableModel(list);
 			return jobTableModel;
+
+		case TableBuilder.table_Job_Detail:
+			JobDetailTableModel jobDetailTableModel = new JobDetailTableModel(list);
+			return jobDetailTableModel;
 
 		case TableBuilder.table_Job_Pending:
 			JobPendingTableModel jobPendingTableModel = new JobPendingTableModel(list);

@@ -26,6 +26,7 @@ import com.ansys.cluster.monitor.data.HostQueue;
 import com.ansys.cluster.monitor.data.Job;
 import com.ansys.cluster.monitor.data.JobMasterQueue;
 import com.ansys.cluster.monitor.data.JobsQueue;
+import com.ansys.cluster.monitor.data.MyJobsMasterQueue;
 import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.data.Quota;
 import com.ansys.cluster.monitor.gui.Console;
@@ -59,8 +60,8 @@ public class ClusterFactory {
 	}
 
 	public static Cluster createCluster(DataCollector dc, String clusterName, int index, SGE_MonitorProp mainProps,
-			boolean consoleMode) throws ClassNotFoundException, IOException, JSONException, URISyntaxException,
-			JDOMException, InterruptedException, TransformerException {
+			boolean consoleMode, String userName) throws ClassNotFoundException, IOException, JSONException,
+			URISyntaxException, JDOMException, InterruptedException, TransformerException {
 
 		// TODO props setting of serialized object
 		Cluster cluster = null;
@@ -70,20 +71,23 @@ public class ClusterFactory {
 			cluster = payload.getClusterObject();
 		} else {
 
-			cluster = createStringCluster(dc, clusterName, index, mainProps, consoleMode);
+			cluster = createStringCluster(dc, clusterName, index, mainProps, consoleMode, userName);
 		}
 		return cluster;
 	}
 
 	public static Cluster createStringCluster(DataCollector dc, String clusterName, int index,
-			SGE_MonitorProp mainProps, boolean consoleMode) throws JSONException, IOException, URISyntaxException,
-			JDOMException, InterruptedException, TransformerException, ClassNotFoundException {
+			SGE_MonitorProp mainProps, boolean consoleMode, String userName) throws JSONException, IOException,
+			URISyntaxException, JDOMException, InterruptedException, TransformerException, ClassNotFoundException {
 		ClusterFactory.consoleMode = consoleMode;
 		logger.entering(sourceClass, "createCluster");
 		logger.info("Getting host data");
 
 		ZoneId zoneId = mainProps.getClusterZoneId(index);
 		mainProps.setClusterZoneId(zoneId);
+		
+		if (mainProps.getUsernameOverride() != null && !mainProps.getUsernameOverride().isBlank())
+			userName = mainProps.getUsernameOverride();
 
 		setStatusLabel("Getting host data");
 		Payload payLoadHost = dc.getHostsData(index);
@@ -102,7 +106,7 @@ public class ClusterFactory {
 
 		logger.info("Creating quota objects");
 		setStatusLabel("Creating quota objects");
-		HashMap<String, LinkedList<Quota>> quotaMap = QuotaFactory.createQuotaMap(payLoadQuota, mainProps);
+		LinkedList<Quota> quotaList = QuotaFactory.createQuotaList(payLoadQuota, mainProps, userName);
 
 		logger.info("Creating job objects");
 		setStatusLabel("Creating job objects");
@@ -130,12 +134,16 @@ public class ClusterFactory {
 		HostMasterQueue hostMasterQueue = QueueFactory.createHostMasterQueue(hostMap,
 				mainProps.getClusterQueueVisualRegex());
 
+		logger.info("Creating MyJob Queues");
+		setStatusLabel("Creating MyJob Queues");
+		MyJobsMasterQueue myJobsMasterQueue = new MyJobsMasterQueue(quotaList, jobMasterQueue, userName);
+
 		logger.info("Assigning jobs to target queues");
 		JobQueueTargetQueue(jobMasterQueue, hostMasterQueue);
 
 		logger.info("Creating Cluster object");
 		setStatusLabel("Creating Cluster object " + clusterName);
-		Cluster cluster = new Cluster(clusterName, hostMasterQueue, jobMasterQueue, quotaMap, zoneId);
+		Cluster cluster = new Cluster(clusterName, hostMasterQueue, jobMasterQueue, myJobsMasterQueue, zoneId);
 
 		logger.exiting(sourceClass, "createCluster", cluster);
 		return cluster;

@@ -419,6 +419,11 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 		tableDisplay(mainDiProp, map, "Active Jobs", TableBuilder.table_Job);
 	}
 
+	
+	public void displayDetailJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map, String title) {
+		tableDisplay(mainDiProp, map, title, TableBuilder.table_Job_Detail);
+	}
+
 	public void displayErrorJobs(DetailedInfoProp mainDiProp) {
 		displayErrorJobs(mainDiProp, getErrorJobs());
 	}

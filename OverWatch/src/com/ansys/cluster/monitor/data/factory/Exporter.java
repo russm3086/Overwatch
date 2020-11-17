@@ -84,7 +84,8 @@ public class Exporter {
 		int index = mainProps.getClusterIndex();
 
 		logger.info("Creating cluster object");
-		Cluster cluster = ClusterFactory.createCluster(dc, mainProps.getClusterName(index), index, mainProps, false);
+		Cluster cluster = ClusterFactory.createCluster(dc, mainProps.getClusterName(index), index, mainProps, false,
+				null);
 
 		logger.exiting(sourceClass, "getCluster", cluster);
 		return cluster;

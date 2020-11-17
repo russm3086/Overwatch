@@ -16,6 +16,7 @@ public class TableBuilder {
 	public static final String table_Job_Host = "JOB_TABLE_HOST";
 	public static final String table_Job_Pending = "JOB_TABLE_PENDING";
 	public static final String table_Job_Visual = "JOB_TABLE_VISUAL";
+	public static final String table_Job_Detail = "JOB_DETAIL_TABLE";
 	public static final String table_Job = "JOB_TABLE";
 	public static final String table_Host = "HOST_TABLE";
 	public static final String table_State = "HOST_STATE_TABLE";
@@ -38,6 +39,7 @@ public class TableBuilder {
 		case table_Job:
 		case table_Job_Pending:
 		case table_Job_Visual:
+		case table_Job_Detail:
 			jtable = buildTable(tableModel, 1, Integer.class);
 			break;
 

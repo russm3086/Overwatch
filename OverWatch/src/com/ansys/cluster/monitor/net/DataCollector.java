@@ -55,6 +55,7 @@ public class DataCollector {
 	private Payload connectors(String strUrl) throws JSONException, IOException, URISyntaxException, JDOMException,
 			InterruptedException, TransformerException, ClassNotFoundException {
 		logger.finer("Connecting to " + strUrl);
+		
 		return connector.getPayload(strUrl);
 	}
 

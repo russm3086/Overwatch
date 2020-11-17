@@ -11,8 +11,6 @@ import java.awt.Color;
 import java.awt.Paint;
 import java.time.ZoneId;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
@@ -22,7 +20,6 @@ import com.ansys.cluster.monitor.data.state.ClusterState;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoFactory;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 import com.ansys.cluster.monitor.main.SGE_DataConst;
-import com.russ.util.UnitConversion;
 
 /**
  * 
@@ -34,13 +31,12 @@ public class Cluster extends AnsQueueAbstract {
 	private final transient Logger logger = Logger.getLogger(sourceClass);
 	private static final long serialVersionUID = -3265482837785245141L;
 
-	private HashMap<String, LinkedList<Quota>> quotaMap;
 	private SortedMap<String, MasterQueue> masterQueue = new TreeMap<String, MasterQueue>(Collections.reverseOrder());
 
 	String name;
 
-	public Cluster(String clusterName, HostMasterQueue hostMasterQueue, JobMasterQueue jobMasterQueue,
-			HashMap<String, LinkedList<Quota>> quotaMap2, ZoneId zoneId) {
+	public Cluster(String clusterName, HostMasterQueue hostMasterQueue, JobMasterQueue jobMasterQueue, MyJobsMasterQueue myJobs,
+			ZoneId zoneId) {
 		super();
 		logger.entering(sourceClass, "Constructor");
 
@@ -48,9 +44,9 @@ public class Cluster extends AnsQueueAbstract {
 
 		setName(clusterName);
 
-		setQuotaMap(quotaMap2);
 		setDetailedInfoPanel(DetailedInfoFactory.ClusterDetailedInfoPanel);
 
+		setMyJobMasterQueue(myJobs);
 		setJobMasterQueue(jobMasterQueue);
 		setHostMasterQueue(hostMasterQueue);
 
@@ -63,20 +59,6 @@ public class Cluster extends AnsQueueAbstract {
 
 	public String getName() {
 		return name;
-	}
-
-	/**
-	 * @return the quotaMap
-	 */
-	public HashMap<String, LinkedList<Quota>> getQuotaMap() {
-		return quotaMap;
-	}
-
-	/**
-	 * @param quotaMap2 the quotaMap to set
-	 */
-	public void setQuotaMap(HashMap<String, LinkedList<Quota>> quotaMap2) {
-		this.quotaMap = quotaMap2;
 	}
 
 	public void setName(String name) {
@@ -122,7 +104,7 @@ public class Cluster extends AnsQueueAbstract {
 	/**
 	 * @param jobMasterQueue the jobMasterQueue to set
 	 */
-	public void setMyJobMasterQueue(MyJobs myJobs) {
+	public void setMyJobMasterQueue(MyJobsMasterQueue myJobs) {
 		masterQueue.put(SGE_DataConst.mqEntryMyJobs, myJobs);
 	}
 
@@ -169,7 +151,7 @@ public class Cluster extends AnsQueueAbstract {
 		 */
 
 		createPendingBarChartPanel(masterDiProp, "Pending Jobs",
-				"Total " + getHostMasterQueue().getPendingJobsSize() + " Job(s)" ,
+				"Total " + getHostMasterQueue().getPendingJobsSize() + " Job(s)",
 				SGE_DataConst.unitResCore.toLowerCase(), getHostMasterQueue().getQueues());
 
 		displayNodesPie(masterDiProp);

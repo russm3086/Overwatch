@@ -59,7 +59,7 @@ public class ParamGUI extends JDialog {
 	private SGE_MonitorProp mainProps = null;
 
 	/**
-	 * The combonation box that allows for the setting of local or remote connection
+	 * The combination box that allows for the setting of local or remote connection
 	 * to the database
 	 */
 	private JComboBox<String> comboConn;
@@ -87,6 +87,13 @@ public class ParamGUI extends JDialog {
 
 	private Console console;
 
+	
+	/**
+	 * The textbox that contains the name of the quota url feed
+	 */
+	private JTextField quotaUrlTxt;
+
+	
 	/**
 	 * Creates a modal or non-modal dialog with the specified title and the
 	 * specified owner frame.
@@ -109,7 +116,8 @@ public class ParamGUI extends JDialog {
 
 		make();
 
-		this.setSize(420, 320);
+		this.setSize(420, 350);
+		//this.setSize(600, 350);
 
 	}
 
@@ -207,10 +215,18 @@ public class ParamGUI extends JDialog {
 		jobsDetailUrlLbl.setLabelFor(jobsDetailUrlTxt);
 		jobsDetailUrlTxt.setToolTipText("The URL for the detail jobs data.");
 
-		c.gridx = 0;
-		c.gridy = 6;
-		c.anchor = GridBagConstraints.WEST;
+		JLabel quotaUrlLbl = new JLabel("Qutoa URL: ");
+		quotaUrlLbl.setDisplayedMnemonic('Q');
+		quotaUrlTxt = new JTextField(25);
+		quotaUrlTxt.setEditable(false);
+		quotaUrlLbl.setLabelFor(quotaUrlTxt);
+		quotaUrlTxt.setToolTipText("The URL for the quota data.");
+		
+		//c.gridx = 0;
+		//c.gridy = 6;
+		//c.anchor = GridBagConstraints.WEST;
 
+		//Host Url settings
 		c.gridy = 7;
 		c.gridx = 0;
 		c.anchor = GridBagConstraints.EAST;
@@ -223,6 +239,7 @@ public class ParamGUI extends JDialog {
 		gridBag.setConstraints(hostUrlTxt, c);
 		this.getContentPane().add(hostUrlTxt);
 
+		//Jobs Url settings
 		c.gridy = 8;
 		gridBag.setConstraints(jobsUrlTxt, c);
 		this.getContentPane().add(jobsUrlTxt);
@@ -233,6 +250,7 @@ public class ParamGUI extends JDialog {
 		gridBag.setConstraints(jobsUrlLbl, c);
 		this.getContentPane().add(jobsUrlLbl);
 
+		//JobsDetail Url settings
 		c.gridx = 0;
 		c.gridy = 9;
 		gridBag.setConstraints(jobsDetailUrlLbl, c);
@@ -243,6 +261,20 @@ public class ParamGUI extends JDialog {
 		c.anchor = GridBagConstraints.WEST;
 		gridBag.setConstraints(jobsDetailUrlTxt, c);
 		this.getContentPane().add(jobsDetailUrlTxt);
+
+		//Quota Url settings
+		c.gridx = 0;
+		c.gridy = 10;
+		c.gridwidth = 1;
+		c.anchor = GridBagConstraints.EAST;
+		gridBag.setConstraints(quotaUrlLbl, c);
+		this.getContentPane().add(quotaUrlLbl);
+
+		c.gridx = 1;
+		c.gridwidth = 2;
+		c.anchor = GridBagConstraints.WEST;
+		gridBag.setConstraints(quotaUrlTxt, c);
+		this.getContentPane().add(quotaUrlTxt);
 
 		// Remote Buttons
 		JButton okButton = new JButton("OK");
@@ -260,7 +292,7 @@ public class ParamGUI extends JDialog {
 		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy = 11;
-		c.ipady = 10;
+		c.ipady = 11;
 		c.insets = new Insets(10, 0, 0, 0);
 		c.anchor = GridBagConstraints.CENTER;
 		gridBag.setConstraints(okButton, c);
@@ -288,7 +320,9 @@ public class ParamGUI extends JDialog {
 
 				jobsDetailUrlTxt.setText(mainProps.getClusterConnectionDetailedJobsUrl(index));
 				jobsDetailUrlTxt.setCaretPosition(0);
-
+				
+				quotaUrlTxt.setText(mainProps.getClusterConnectionQuotaUrl(index));
+				quotaUrlTxt.setCaretPosition(0);
 			}
 		});
 
