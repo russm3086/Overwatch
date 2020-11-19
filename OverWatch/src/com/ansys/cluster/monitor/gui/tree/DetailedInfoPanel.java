@@ -46,9 +46,16 @@ import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.Chart3DPanel;
 import com.orsoncharts.data.PieDataset3D;
 import com.orsoncharts.data.StandardPieDataset3D;
+import com.orsoncharts.data.xyz.XYZSeries;
+import com.orsoncharts.data.xyz.XYZSeriesCollection;
+import com.orsoncharts.graphics3d.Dimension3D;
 import com.orsoncharts.graphics3d.ViewPoint3D;
+import com.orsoncharts.graphics3d.swing.DisplayPanel3D;
 import com.orsoncharts.label.StandardPieLabelGenerator;
+import com.orsoncharts.label.StandardXYZLabelGenerator;
 import com.orsoncharts.plot.StandardColorSource;
+import com.orsoncharts.plot.XYZPlot;
+import com.orsoncharts.renderer.xyz.ScatterXYZRenderer;
 import com.orsoncharts.style.ChartStyles;
 import com.orsoncharts.util.Anchor2D;
 import com.russ.util.OvalBorder;
@@ -58,6 +65,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -212,9 +220,18 @@ public class DetailedInfoPanel extends JPanel {
 
 				break;
 
+			case DetailedInfoProp.const_DataTypeScatterPlotChart:
+
+				panel.setLayout(new BorderLayout());
+				Chart3DPanel scatterPlotPanel = createScatterPlotPanel(diProp);
+				DisplayPanel3D panel3D = new DisplayPanel3D(scatterPlotPanel);
+				panel.add(BorderLayout.CENTER, panel3D);
+
+				break;
+
 			case DetailedInfoProp.const_DataTypeProgressBarChart:
 
-				// panel.setLayout(new BorderLayout());
+				panel.setLayout(new BorderLayout());
 				JPanel progressBar = createProgressBarChart(diProp);
 				panel.add(BorderLayout.CENTER, progressBar);
 			}
@@ -399,6 +416,58 @@ public class DetailedInfoPanel extends JPanel {
 
 	}
 
+	protected Chart3DPanel createScatterPlotPanel(DetailedInfoProp diProp) {
+		Chart3D chart = createScatterPlot(diProp);
+		Chart3DPanel chartPanel = new Chart3DPanel(chart);
+
+		return chartPanel;
+	}
+
+	protected com.orsoncharts.data.xyz.XYZDataset<String> createXYZDataset(DetailedInfoProp diProp) {
+		XYZSeriesCollection<String> dataset = new XYZSeriesCollection<String>();
+
+		for (DetailedInfoProp dataSet : diProp.getChartDataList()) {
+
+			XYZSeries<String> series = new XYZSeries<String>((String) dataSet.getChartDataKey());
+
+			double[][] data = dataSet.getChartDataSeriesData();
+
+			for (int row = 0; row < data[0].length; row++) {
+
+				double load = data[0][row];
+				double duration = data[1][row];
+				double cores = data[2][row];
+				series.add(duration, load, cores);
+			}
+			dataset.add(series);
+		}
+
+		return dataset;
+	}
+
+	protected Chart3D createScatterPlot(DetailedInfoProp diProp) {
+
+		com.orsoncharts.data.xyz.XYZDataset<String> dataset = createXYZDataset(diProp);
+		Chart3D chart = Chart3DFactory.createScatterChart("", "", dataset, "Duration", "Load", "Core(s)");
+		chart.setViewPoint(ViewPoint3D.createAboveLeftViewPoint(15));
+
+		XYZPlot plot = (XYZPlot) chart.getPlot();
+		plot.setDimensions(new Dimension3D(10.0, 4.0, 4.0));
+		plot.setLegendLabelGenerator(new StandardXYZLabelGenerator(StandardXYZLabelGenerator.COUNT_TEMPLATE));
+		BasicStroke stroke = new BasicStroke(10, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.1F);
+		plot.setGridlineStrokeX(stroke);
+		plot.getXAxis().setLabelFont(titleBorderFont.deriveFont(titleBorderFont.getSize2D() + 10));
+		plot.getYAxis().setLabelFont(titleBorderFont.deriveFont(titleBorderFont.getSize2D() + 10));
+		plot.getZAxis().setLabelFont(titleBorderFont.deriveFont(titleBorderFont.getSize2D() + 10));
+		plot.setGridlinesVisibleZ(true);
+
+		ScatterXYZRenderer renderer = (ScatterXYZRenderer) plot.getRenderer();
+		renderer.setSize(0.5);
+		renderer.setColors(getColors(diProp));
+
+		return chart;
+	}
+
 	protected PieDataset3D<String> create3dDataset(DetailedInfoProp diProp) {
 
 		StandardPieDataset3D<String> dataSet3d = new StandardPieDataset3D<String>();
@@ -414,9 +483,7 @@ public class DetailedInfoPanel extends JPanel {
 
 		final Chart3D chart = createPie3dChart(diProp);
 		final Chart3DPanel chartPanel = new Chart3DPanel(chart);
-		// chartPanel.setPreferredSize(new java.awt.Dimension(320, 180));
 		chartPanel.setMargin(0.15);
-
 		chartPanel.setBackground(Color.WHITE);
 
 		return chartPanel;
@@ -566,6 +633,18 @@ public class DetailedInfoPanel extends JPanel {
 			plot.setSectionPaint(dataSet.getChartDataKey(), dataSet.getChartDataPaint());
 		}
 
+	}
+
+	protected Color[] getColors(DetailedInfoProp diProp) {
+
+		ArrayList<Color> colorList = new ArrayList<Color>();
+
+		for (DetailedInfoProp dataSet : diProp.getChartDataList()) {
+
+			colorList.add(dataSet.getChartDataColor());
+		}
+
+		return colorList.toArray(new Color[0]);
 	}
 
 	protected void setSectionColor(com.orsoncharts.plot.PiePlot3D plot, DetailedInfoProp diProp) {

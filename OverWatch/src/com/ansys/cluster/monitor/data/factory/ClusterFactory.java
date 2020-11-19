@@ -81,13 +81,17 @@ public class ClusterFactory {
 			URISyntaxException, JDOMException, InterruptedException, TransformerException, ClassNotFoundException {
 		ClusterFactory.consoleMode = consoleMode;
 		logger.entering(sourceClass, "createCluster");
-		logger.info("Getting host data");
+		logger.info("Getting environment data");
 
 		ZoneId zoneId = mainProps.getClusterZoneId(index);
+		logger.info("Setting TimeZone to " + zoneId);
+
 		mainProps.setClusterZoneId(zoneId);
-		
-		if (mainProps.getUsernameOverride() != null && !mainProps.getUsernameOverride().isBlank())
+
+		if (mainProps.getUsernameOverride() != null && (mainProps.getUsernameOverride().trim().length() != 0))
 			userName = mainProps.getUsernameOverride();
+
+		logger.info("Current user: " + userName);
 
 		setStatusLabel("Getting host data");
 		Payload payLoadHost = dc.getHostsData(index);

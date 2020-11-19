@@ -8,7 +8,6 @@ package com.ansys.cluster.monitor.data;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.awt.Color;
-import java.awt.Paint;
 import java.time.ZoneId;
 import java.util.Collections;
 import java.util.Map.Entry;
@@ -35,8 +34,8 @@ public class Cluster extends AnsQueueAbstract {
 
 	String name;
 
-	public Cluster(String clusterName, HostMasterQueue hostMasterQueue, JobMasterQueue jobMasterQueue, MyJobsMasterQueue myJobs,
-			ZoneId zoneId) {
+	public Cluster(String clusterName, HostMasterQueue hostMasterQueue, JobMasterQueue jobMasterQueue,
+			MyJobsMasterQueue myJobs, ZoneId zoneId) {
 		super();
 		logger.entering(sourceClass, "Constructor");
 
@@ -214,7 +213,7 @@ public class Cluster extends AnsQueueAbstract {
 		generateSeries(mapActiveJob, jobDiProp, "Active", new Color(0, 153, 0, 100));
 		generateSeries(mapIdleJob, jobDiProp, "Idle", new Color(0, 0, 255, 130));
 
-		jobDiProp.setDataTypeBubbleChart();
+		jobDiProp.setDataTypeScatterPlotChart();
 		jobDiProp.get_xAxisLabel("Host Load");
 		jobDiProp.get_yAxisLabel("Durations Hours");
 
@@ -222,7 +221,7 @@ public class Cluster extends AnsQueueAbstract {
 	}
 
 	private void generateSeries(SortedMap<Integer, Job> map, DetailedInfoProp jobDiProp, String seriesName,
-			Paint paint) {
+			Color paint) {
 
 		double[] xArray = new double[map.size()];
 		double[] yArray = new double[map.size()];
@@ -267,6 +266,5 @@ public class Cluster extends AnsQueueAbstract {
 		sb.append(getHostMasterQueue().getCoreAvailable());
 		return sb.toString();
 	}
-
 
 }

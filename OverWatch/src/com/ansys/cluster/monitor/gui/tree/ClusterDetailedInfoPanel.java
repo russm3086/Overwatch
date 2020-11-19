@@ -61,22 +61,26 @@ public class ClusterDetailedInfoPanel extends DetailedInfoPanel {
 
 			DetailedInfoProp diProp = list.get(i);
 
-			if (diProp.getDataType().equalsIgnoreCase(DetailedInfoProp.const_DataTypePieChart)
-					|| diProp.getDataType().equalsIgnoreCase(DetailedInfoProp.const_DataTypeBarChart)) {
-				graphPanel.add(createPanel(diProp));
+			switch (diProp.getDataType()) {
 
+			case DetailedInfoProp.const_DataTypePieChart:
+			case DetailedInfoProp.const_DataTypeBarChart:
+				
+				graphPanel.add(createPanel(diProp));
+				
 				if (clusterGraphsPanel.getComponents().length == 0)
 					clusterGraphsPanel.add(graphPanel);
+				break;
 
-			} else if (diProp.getDataType().equalsIgnoreCase(DetailedInfoProp.const_DataTypeBubbleChart)) {
+			case DetailedInfoProp.const_DataTypeBubbleChart:
+			case DetailedInfoProp.const_DataTypeScatterPlotChart:
 
 				bubblePanel.add(createPanel(diProp));
 
 				if (clusterBubblePanel.getComponents().length == 0)
 					clusterBubblePanel.add(bubblePanel);
-
-			} else {
-
+				break;
+			default:
 				tablePanel.add(createPanel(diProp));
 
 				if (clusterTablesPanel.getComponents().length == 0)

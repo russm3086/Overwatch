@@ -41,11 +41,12 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 	}
 
 	public void addQueue(JobsQueue queue) {
-
+		logger.finest("Adding " + queue + " to " + getName());
 		jobQueues.put(queue.getQueueName(), queue);
 	}
 
 	public void processQueues() {
+		logger.finest("");
 		for (Entry<String, JobsQueue> entry : jobQueues.entrySet()) {
 			processQueue(entry.getValue());
 		}

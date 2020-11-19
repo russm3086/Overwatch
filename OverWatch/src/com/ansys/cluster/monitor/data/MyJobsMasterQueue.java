@@ -33,6 +33,8 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 	public MyJobsMasterQueue(LinkedList<Quota> quotaList, JobMasterQueue jobMasterQueue, String userName) {
 		super("My Jobs");
 
+		logger.entering(sourceClass, "MyJobsMasterQueue");
+
 		logger.finest("Reversing quota list order");
 		Collections.reverse(quotaList);
 		listQuota = quotaList;
@@ -46,6 +48,7 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 		loadJobQueue(jobMasterQueue, userName);
 		processQueues();
 
+		logger.exiting(sourceClass, "MyJobsMasterQueue");
 	}
 
 	private void loadJobQueue(JobMasterQueue jobMasterQueue, String userName) {

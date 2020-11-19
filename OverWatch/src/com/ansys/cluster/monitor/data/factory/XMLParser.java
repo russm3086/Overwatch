@@ -60,24 +60,24 @@ public class XMLParser extends ParserAbstract {
 		logger.entering(sourceClass, "createQuotaMap");
 		HashMap<String, LinkedList<Quota>> map = new HashMap<String, LinkedList<Quota>>();
 
+		logger.fine("Parsing Quota stream");
 		Element root = payload.getDocObject().getRootElement();
 
 		logger.finer("Processing element " + root.getName());
 		List<Element> elmList = root.getChildren();
 
 		for (Element elem : elmList) {
-			logger.finer("Processing element " + elem.getName());
 			logger.finer("Creating Quota object " + elem.getName());
 
 			Quota quota = createQuota(elem);
 
 			if (map.containsKey(quota.getUser())) {
 
-				logger.finer("Adding " + quota.getQuotaName() + " to user " + quota.getUser());
+				logger.finest("Adding " + quota.getQuotaName() + " to user " + quota.getUser());
 				map.get(quota.getUser()).add(quota);
 			} else {
 
-				logger.finer("Creating a new map element " + quota.getQuotaName() + " to user " + quota.getUser());
+				logger.finest("Creating a new map element " + quota.getQuotaName() + " to user " + quota.getUser());
 				LinkedList<Quota> list = new LinkedList<Quota>();
 				list.add(quota);
 				map.put(quota.getUser(), list);
@@ -88,6 +88,11 @@ public class XMLParser extends ParserAbstract {
 		return map;
 	}
 
+	/**
+	 * 
+	 * @param elem
+	 * @return
+	 */
 	public Quota createQuota(Element elem) {
 		logger.entering(sourceClass, "createQuota");
 		Quota quota = new Quota();

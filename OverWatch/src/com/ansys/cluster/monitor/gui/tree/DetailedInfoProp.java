@@ -41,7 +41,7 @@ public class DetailedInfoProp extends AbstractProp {
 	private final static String key_ChartDataColumnKey = "CHART_DATA_COLUMN_KEY";
 	private final static String key_ChartDataRowKey = "CHART_DATA_ROW_KEY";
 	private final static String key_ChartSectionColorsBool = "CHART_SECTION_COLORS_KEY_BOOL";
-	
+
 	private final static String key_PlotOrientation = "PLOT_ORIENTATION";
 	private final static String key_ProgressBarLbl = "PROGRESS_BAR_LBL";
 	private final static String key_ProgressBarData = "PROGRESS_BAR_DATA";
@@ -55,6 +55,7 @@ public class DetailedInfoProp extends AbstractProp {
 	public final static String const_DataTypeBubbleChart = "BUBBLE_CHART";
 	public final static String const_DataTypeBarChart = "BAR_CHART";
 	public final static String const_DataTypeProgressBarChart = "PROGRESS_BAR_CHART";
+	public final static String const_DataTypeScatterPlotChart = "SCATTER_PLOT_CHART";
 
 	/**
 	 * 
@@ -138,7 +139,6 @@ public class DetailedInfoProp extends AbstractProp {
 		addDetailedInfoProp(chartData);
 	}
 
-	
 	public void addChartData(Comparable<?> key, Number value, Color color) {
 
 		DetailedInfoProp chartData = new DetailedInfoProp();
@@ -150,8 +150,6 @@ public class DetailedInfoProp extends AbstractProp {
 		addDetailedInfoProp(chartData);
 	}
 
-
-	
 	public ArrayList<DetailedInfoProp> getChartDataList() {
 		return getDetailedInfoPropList();
 	}
@@ -163,6 +161,16 @@ public class DetailedInfoProp extends AbstractProp {
 		chartDataSeries.setProgressBarData(data);
 		chartDataSeries.setProgressBarUnits(units);
 		chartDataSeries.setProgressBarToolTips(toolTips);
+
+		addDetailedInfoProp(chartDataSeries);
+	}
+
+	public void addSeries(Comparable<?> seriesKey, double[][] data, Color color) {
+
+		DetailedInfoProp chartDataSeries = new DetailedInfoProp();
+		chartDataSeries.addChartDataKey(seriesKey);
+		chartDataSeries.addChartDataSeriesData(data);
+		chartDataSeries.addChartDataColor(color);
 
 		addDetailedInfoProp(chartDataSeries);
 	}
@@ -180,15 +188,15 @@ public class DetailedInfoProp extends AbstractProp {
 	public void setSectionColorTrue() {
 		setBoolProperty(key_ChartSectionColorsBool, true);
 	}
-	
+
 	public void setSectionColorFalse() {
 		setBoolProperty(key_ChartSectionColorsBool, false);
 	}
-	
+
 	public boolean usingSectionColor() {
 		return (boolean) getBoolProperty(key_ChartSectionColorsBool);
 	}
-	
+
 	public void setProgressBarToolTips(String toolTips) {
 		metricStore.put(key_ProgressBarToolTips, toolTips);
 	}
@@ -372,6 +380,10 @@ public class DetailedInfoProp extends AbstractProp {
 
 	public void setDataTypeBarChart() {
 		setDataType(const_DataTypeBarChart);
+	}
+
+	public void setDataTypeScatterPlotChart() {
+		setDataType(const_DataTypeScatterPlotChart);
 	}
 
 	public void setDataTypeBubbleChart() {
