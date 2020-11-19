@@ -20,14 +20,13 @@ public class JobDetailTableModel extends JobTableModel {
 	 */
 	private static final long serialVersionUID = -7109959638697421888L;
 	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "Num. of Exec. Host", "Start Host",
-			"Queue", "State", "Duration", "Load", "Efficiency" };
+			"Queue", "Duration", "Load", "Efficiency" };
 
 	protected static final int COLUMN_START_HOST = 5;
 	protected static final int COLUMN_QUEUE = 6;
-	protected static final int COLUMN_STATE = 7;
-	protected static final int COLUMN_DURATION = 8;
-	protected static final int COLUMN_LOAD = 9;
-	protected static final int COLUMN_EFFICIENCY = 10;
+	protected static final int COLUMN_DURATION = 7;
+	protected static final int COLUMN_LOAD = 8;
+	protected static final int COLUMN_EFFICIENCY = 9;
 
 	/**
 	 * @param queue
@@ -69,7 +68,6 @@ public class JobDetailTableModel extends JobTableModel {
 		switch (column) {
 		case COLUMN_NAME:
 		case COLUMN_OWNER:
-		case COLUMN_STATE:
 		case COLUMN_DURATION:
 		case COLUMN_START_HOST:
 		case COLUMN_QUEUE:
@@ -114,9 +112,6 @@ public class JobDetailTableModel extends JobTableModel {
 			break;
 		case COLUMN_QUEUE:
 			returnValue = job.getQueueName();
-			break;
-		case COLUMN_STATE:
-			returnValue = job.getState();
 			break;
 		case COLUMN_DURATION:
 			returnValue = durationOutput(job.getDuration());

@@ -7,11 +7,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
-import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
 import com.ansys.cluster.monitor.data.state.AnsQueueState;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoFactory;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
@@ -28,35 +26,30 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 	private static final long serialVersionUID = 9204394829856870587L;
 	private final String sourceClass = this.getClass().getName();
 	private final Logger logger = Logger.getLogger(sourceClass);
-	private SortedMap<String, AnsQueueAbstract> myJobsQueue = new TreeMap<String, AnsQueueAbstract>();
+	// private SortedMap<String, AnsQueueAbstract> myJobsQueue = new TreeMap<String,
+	// AnsQueueAbstract>();
 	private LinkedList<Quota> listQuota = null;
 
 	public MyJobsMasterQueue(LinkedList<Quota> quotaList, JobMasterQueue jobMasterQueue, String userName) {
 		super("My Jobs");
-		
+
 		logger.finest("Reversing quota list order");
 		Collections.reverse(quotaList);
-		listQuota=quotaList;
-		
-		
+		listQuota = quotaList;
+
 		setClusterType(SGE_DataConst.clusterTypeQueue);
 		setMembersType(SGE_DataConst.clusterTypeMix);
 		addState(AnsQueueState.Normal);
 
 		setDetailedInfoPanel(DetailedInfoFactory.MyJobsDetailedInfoPanel);
 
-		JobsQueue jobQueue = loadJobQueue(jobMasterQueue, userName);
-
-		addQueue(jobQueue);
+		loadJobQueue(jobMasterQueue, userName);
 		processQueues();
-
-		myJobsQueue.put("Jobs", jobQueue);
 
 	}
 
-	private JobsQueue loadJobQueue(JobMasterQueue jobMasterQueue, String userName) {
+	private void loadJobQueue(JobMasterQueue jobMasterQueue, String userName) {
 		logger.entering(sourceClass, "loadJobQueue");
-		JobsQueue myJobQueue = new JobsQueue(SGE_DataConst.myJobs);
 
 		SortedMap<String, JobsQueue> jobsQueuesMap = jobMasterQueue.getJobQueues();
 		for (Entry<String, JobsQueue> entry : jobsQueuesMap.entrySet()) {
@@ -68,16 +61,29 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 				Job job = entryJob.getValue();
 
 				if (myJobs(job, userName)) {
-					
+
 					logger.finest("Found user's job " + job.getJobNumber());
-					myJobQueue.addJob(job);
+
+					JobsQueue myQueue = getQueue(job.getQueueName());
+
+					if (myQueue != null) {
+
+						myQueue.addJob(job);
+					} else {
+
+						myQueue = new JobsQueue(job);
+
+						logger.finer("Created queue " + myQueue + " added node " + job);
+						addQueue(myQueue);
+					}
+
 				}
 			}
 		}
 
 		logger.exiting(sourceClass, "loadJobQueue");
 
-		return myJobQueue;
+		// return myJobQueue;
 	}
 
 	public boolean myJobs(Job job, String userName) {
@@ -104,16 +110,13 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 	}
 
 	@Override
-	public SortedMap<String, AnsQueueAbstract> getQueues() {
-		return myJobsQueue;
-	}
-
-	@Override
 	public String getToolTip() {
 		// TODO Auto-generated method stub
+
+		String tip = super.getToolTip();
 		Quota quota = getOverallQuota();
-		StringBuilder sb = new StringBuilder("my Job(s): ");
-		sb.append("\n Running " + myJobsQueue.size() + " job(s)");
+		StringBuilder sb = new StringBuilder("My Job(s): ");
+		sb.append("\n" + tip);
 
 		if (quota != null) {
 			sb.append("\n Quota " + quota.getUsage() + " of " + quota.getLimit());
@@ -122,39 +125,9 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 		return sb.toString();
 	}
 
-	@Override
-	public int size() {
-		// TODO Auto-generated method stub
-		return myJobsQueue.size();
-	}
-
 	public DetailedInfoProp getDetailedInfoProp() {
 
-		DetailedInfoProp masterDiProp = new DetailedInfoProp();
-		masterDiProp.setTitleMetric("Queue Name: ");
-		masterDiProp.setTitleValue(getName());
-
-		DetailedInfoProp jobSumDiProp = new DetailedInfoProp();
-		jobSumDiProp.setPanelName("Job Summary");
-		jobSumDiProp.addMetric("Active Jobs: ", getActiveJobsCount());
-		jobSumDiProp.addMetric("Pending Jobs: ", getPendingJobsCount());
-		jobSumDiProp.addMetric("Error Jobs: ", getErrorJobsCount());
-		jobSumDiProp.addMetric("Idle Jobs: ", getIdleJobsCount());
-		jobSumDiProp.addMetric("Active Session: ", getActiveSessionJobsCount());
-		jobSumDiProp.addMetric("Pending Session: ", getPendingSessionJobsCount());
-		jobSumDiProp.addMetric("Error Session: ", getErrorSessionJobsCount());
-		masterDiProp.addDetailedInfoProp(jobSumDiProp);
-
-		displayDetailJobs(masterDiProp, findActiveJobs(), "Active Jobs");
-		// displayActiveJobs(masterDiProp, findActiveJobs());
-		displayPendingJobs(masterDiProp, findPendingJobs());
-		displayErrorJobs(masterDiProp, findErrorJobs());
-		displayIdleJobs(masterDiProp, findIdleJobs());
-
-		displayActiveSessionJobs(masterDiProp, findActiveSessionJobs());
-		displayPendingSessionJobs(masterDiProp, findPendingSessionJobs());
-		displayIdleSessionJobs(masterDiProp, findIdleSessionJobs());
-		displayErrorSessionJobs(masterDiProp, findErrorSessionJobs());
+		DetailedInfoProp masterDiProp = super.getDetailedInfoProp();
 
 		displayJobsPie(masterDiProp);
 		createQuotaBarChartPanel(masterDiProp);
@@ -166,12 +139,11 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 		DetailedInfoProp jobDiProp = new DetailedInfoProp();
 		jobDiProp.setPanelName(SGE_DataConst.panelTitleComputeQuotasUsage);
 		int total = 0;
-		JobsQueue myJobQueue = (JobsQueue) myJobsQueue.get("Jobs");
 
 		HashMap<Integer, Job> jobsMap = new HashMap<Integer, Job>();
 
-		jobsMap.putAll(myJobQueue.getActiveJobs());
-		jobsMap.putAll(myJobQueue.getIdleJobs());
+		jobsMap.putAll(findActiveJobs());
+		jobsMap.putAll(findIdleJobs());
 
 		for (Entry<Integer, Job> entry : jobsMap.entrySet()) {
 
@@ -188,6 +160,7 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 		jobDiProp.setChartDataTitle("Total: " + total + " " + SGE_DataConst.unitResCore.toLowerCase());
 		jobDiProp.setChartDataUnit(SGE_DataConst.unitResCore.toLowerCase());
 		jobDiProp.setDataTypePieChart();
+		jobDiProp.setSectionColorFalse();
 		masterDiProp.addDetailedInfoProp(jobDiProp);
 	}
 
@@ -201,8 +174,20 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 			String queueName = quota.getQuotaName().substring(0, quota.getQuotaName().indexOf("_"));
 			queueName.toLowerCase();
 			queueName = queueName.substring(0, 1).toUpperCase() + queueName.substring(1);
+			
+			StringBuffer sb = new StringBuffer("Name: ");
+			sb.append(quota.getQuotaName());
+			sb.append(" Limit: ");
+			sb.append(quota.getLimit());
+			sb.append(" Usage: ");
+			sb.append(quota.getUsage());
+			sb.append(" Resource: ");
+			sb.append(quota.getResource());
+			
+			logger.info(sb.toString());
 
 			int[] data = { quota.getLimit() - quota.getUsage(), quota.getUsage(), quota.getLimit() };
+			
 			diProp.addSeries(queueName, data, quota.getResource(),
 					(quota.getLimit() - quota.getUsage()) + " Available");
 		}

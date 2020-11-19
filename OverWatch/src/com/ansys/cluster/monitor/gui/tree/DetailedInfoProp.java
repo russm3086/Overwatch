@@ -3,6 +3,7 @@
  */
 package com.ansys.cluster.monitor.gui.tree;
 
+import java.awt.Color;
 import java.awt.Paint;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -31,6 +32,7 @@ public class DetailedInfoProp extends AbstractProp {
 	private final static String key_ChartDataKey = "CHART_DATA_KEY";
 	private final static String key_ChartDataValue = "CHART_DATA_VALUE";
 	private final static String key_ChartDataPaint = "CHART_DATA_PAINT";
+	private final static String key_ChartDataColor = "CHART_DATA_COLOR";
 	private final static String key_ChartDataTitle = "CHART_DATA_TITLE";
 	private final static String key_ChartDataUnit = "CHART_DATA_UNIT";
 	private final static String key_Chart_yAxisLabel = "CHART_Y_AXIS_LABEL";
@@ -38,6 +40,8 @@ public class DetailedInfoProp extends AbstractProp {
 	private final static String key_ChartDataSeriesData = "CHART_DATA_SERIES_DATA";
 	private final static String key_ChartDataColumnKey = "CHART_DATA_COLUMN_KEY";
 	private final static String key_ChartDataRowKey = "CHART_DATA_ROW_KEY";
+	private final static String key_ChartSectionColorsBool = "CHART_SECTION_COLORS_KEY_BOOL";
+	
 	private final static String key_PlotOrientation = "PLOT_ORIENTATION";
 	private final static String key_ProgressBarLbl = "PROGRESS_BAR_LBL";
 	private final static String key_ProgressBarData = "PROGRESS_BAR_DATA";
@@ -59,6 +63,7 @@ public class DetailedInfoProp extends AbstractProp {
 		// TODO Auto-generated constructor stub
 		setDataType(const_DataTypeString);
 		setPlotOrientation(PlotOrientation.VERTICAL);
+		setSectionColorTrue();
 	}
 
 	/**
@@ -133,6 +138,20 @@ public class DetailedInfoProp extends AbstractProp {
 		addDetailedInfoProp(chartData);
 	}
 
+	
+	public void addChartData(Comparable<?> key, Number value, Color color) {
+
+		DetailedInfoProp chartData = new DetailedInfoProp();
+
+		chartData.addChartDataKey(key);
+		chartData.addChartDataValue(value);
+		chartData.addChartDataColor(color);
+
+		addDetailedInfoProp(chartData);
+	}
+
+
+	
 	public ArrayList<DetailedInfoProp> getChartDataList() {
 		return getDetailedInfoPropList();
 	}
@@ -158,6 +177,18 @@ public class DetailedInfoProp extends AbstractProp {
 		addDetailedInfoProp(chartDataSeries);
 	}
 
+	public void setSectionColorTrue() {
+		setBoolProperty(key_ChartSectionColorsBool, true);
+	}
+	
+	public void setSectionColorFalse() {
+		setBoolProperty(key_ChartSectionColorsBool, false);
+	}
+	
+	public boolean usingSectionColor() {
+		return (boolean) getBoolProperty(key_ChartSectionColorsBool);
+	}
+	
 	public void setProgressBarToolTips(String toolTips) {
 		metricStore.put(key_ProgressBarToolTips, toolTips);
 	}
@@ -228,6 +259,14 @@ public class DetailedInfoProp extends AbstractProp {
 
 	public Paint getChartDataPaint() {
 		return (Paint) metricStore.get(key_ChartDataPaint);
+	}
+
+	public void addChartDataColor(Color color) {
+		metricStore.put(key_ChartDataColor, color);
+	}
+
+	public Color getChartDataColor() {
+		return (Color) metricStore.get(key_ChartDataColor);
 	}
 
 	public void addChartDataValue(Number value) {

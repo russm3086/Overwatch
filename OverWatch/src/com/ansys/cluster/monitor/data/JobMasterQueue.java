@@ -127,10 +127,10 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 		jobSumDiProp.addMetric("Error Session: ", getErrorSessionJobsCount());
 		masterDiProp.addDetailedInfoProp(jobSumDiProp);
 
-		displayActiveJobs(masterDiProp, findActiveJobs());
+		displayDetailActiveJobs(masterDiProp, findActiveJobs());
 		displayPendingJobs(masterDiProp, findPendingJobs());
 		displayErrorJobs(masterDiProp, findErrorJobs());
-		displayIdleJobs(masterDiProp, findIdleJobs());
+		displayDetailIdleJobs(masterDiProp, findIdleJobs());
 
 		displayActiveSessionJobs(masterDiProp, findActiveSessionJobs());
 		displayPendingSessionJobs(masterDiProp, findPendingSessionJobs());

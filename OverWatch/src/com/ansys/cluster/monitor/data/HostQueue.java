@@ -286,8 +286,14 @@ public class HostQueue extends AnsQueueAbstract {
 
 			sb.append("F.U.N. Core(s): ");
 			sb.append(getCoreFUN());
+			
+			sb.append("<BR>Pending Jobs:");
+			sb.append(getPendingJobsSize());
 		}
+		
+		sb.append("</html>");
 		return sb.toString();
 	}
+
 
 }

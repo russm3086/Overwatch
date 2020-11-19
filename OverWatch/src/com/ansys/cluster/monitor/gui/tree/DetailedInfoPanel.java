@@ -41,12 +41,23 @@ import org.jfree.data.xy.XYZDataset;
 
 import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.table.TableMouseListener;
+import com.orsoncharts.Chart3D;
+import com.orsoncharts.Chart3DFactory;
+import com.orsoncharts.Chart3DPanel;
+import com.orsoncharts.data.PieDataset3D;
+import com.orsoncharts.data.StandardPieDataset3D;
+import com.orsoncharts.graphics3d.ViewPoint3D;
+import com.orsoncharts.label.StandardPieLabelGenerator;
+import com.orsoncharts.plot.StandardColorSource;
+import com.orsoncharts.style.ChartStyles;
+import com.orsoncharts.util.Anchor2D;
 import com.russ.util.OvalBorder;
 import com.russ.util.WrapLayout;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -169,11 +180,19 @@ public class DetailedInfoPanel extends JPanel {
 
 				break;
 
-			case DetailedInfoProp.const_DataTypePieChart:
+			case "OldChart":
 
 				panel.setLayout(new BorderLayout());
 				ChartPanel chartPanelContainer = createPieChartPanel(diProp);
 				panel.add(BorderLayout.CENTER, chartPanelContainer);
+
+				break;
+
+			case DetailedInfoProp.const_DataTypePieChart:
+
+				panel.setLayout(new BorderLayout());
+				Chart3DPanel chart3dPanel = createPie3dChartPanel(diProp);
+				panel.add(BorderLayout.CENTER, chart3dPanel);
 
 				break;
 
@@ -380,6 +399,58 @@ public class DetailedInfoPanel extends JPanel {
 
 	}
 
+	protected PieDataset3D<String> create3dDataset(DetailedInfoProp diProp) {
+
+		StandardPieDataset3D<String> dataSet3d = new StandardPieDataset3D<String>();
+
+		for (DetailedInfoProp dataSet : diProp.getChartDataList()) {
+			dataSet3d.add((String) dataSet.getChartDataKey(), dataSet.getChartDataValue());
+		}
+
+		return dataSet3d;
+	}
+
+	protected Chart3DPanel createPie3dChartPanel(DetailedInfoProp diProp) {
+
+		final Chart3D chart = createPie3dChart(diProp);
+		final Chart3DPanel chartPanel = new Chart3DPanel(chart);
+		// chartPanel.setPreferredSize(new java.awt.Dimension(320, 180));
+		chartPanel.setMargin(0.15);
+
+		chartPanel.setBackground(Color.WHITE);
+
+		return chartPanel;
+	}
+
+	protected Chart3D createPie3dChart(DetailedInfoProp diProp) {
+
+		PieDataset3D<String> pieDataset = create3dDataset(diProp);
+		Chart3D chart = Chart3DFactory.createPieChart(diProp.getChartDataTitle(), "", pieDataset);
+
+		chart.setStyle(ChartStyles.createPastelStyle());
+
+		chart.setTitle(diProp.getChartDataTitle(), titleBorderFont, Color.BLACK);
+
+		ViewPoint3D vp = ViewPoint3D.createAboveViewPoint(35);
+		vp.panLeftRight(-Math.PI / 8);
+		chart.setViewPoint(vp);
+		chart.setTitleAnchor(Anchor2D.TOP_CENTER);
+		chart.setLegendAnchor(Anchor2D.BOTTOM_CENTER);
+
+		com.orsoncharts.plot.PiePlot3D plot = (com.orsoncharts.plot.PiePlot3D) chart.getPlot();
+		plot.setLegendLabelGenerator(new StandardPieLabelGenerator("%2$s %s"));
+		plot.setDepth(.5);
+
+		plot.setSectionLabelGenerator(new StandardPieLabelGenerator("%3$,.2f%%"));
+
+		plot.setToolTipGenerator(new StandardPieLabelGenerator("%s: %2$s (%3$,.2f%%)"));
+
+		setSectionColor(plot, diProp);
+
+		return chart;
+
+	}
+
 	protected ChartPanel createBubbleChartPanel(DetailedInfoProp diProp) {
 
 		JFreeChart chart = createBubbleChart(diProp);
@@ -495,6 +566,32 @@ public class DetailedInfoPanel extends JPanel {
 			plot.setSectionPaint(dataSet.getChartDataKey(), dataSet.getChartDataPaint());
 		}
 
+	}
+
+	protected void setSectionColor(com.orsoncharts.plot.PiePlot3D plot, DetailedInfoProp diProp) {
+
+		if (diProp.usingSectionColor()) {
+
+			StandardColorSource<String> colorSource = new StandardColorSource<String>();
+
+			for (DetailedInfoProp dataSet : diProp.getChartDataList()) {
+
+				colorSource.setColor((String) dataSet.getChartDataKey(), dataSet.getChartDataColor());
+			}
+			plot.setSectionColorSource(colorSource);
+		}
+
+	}
+
+	protected Color getRandomColor() {
+
+		Random random = new Random();
+		final float hue = random.nextFloat();
+		final float saturation = 0.5f;// 1.0 for brilliant, 0.0 for dull
+		final float luminance = 0.5f; // 1.0 for brighter, 0.0 for black
+		Color color = Color.getHSBColor(hue, saturation, luminance);
+
+		return color;
 	}
 
 	protected String createDisplay(String field, Object value) {

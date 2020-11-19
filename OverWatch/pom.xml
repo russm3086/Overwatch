@@ -43,6 +43,11 @@
 			<version>1.5.1</version>
 		</dependency>
 		<dependency>
+			<groupId>com.object-refinery</groupId>
+			<artifactId>orsoncharts</artifactId>
+			<version>1.7</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-configuration2</artifactId>
 			<version>2.5</version>

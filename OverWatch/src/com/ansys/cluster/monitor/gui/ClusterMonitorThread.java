@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.Cluster;
-import com.ansys.cluster.monitor.data.MyJobsMasterQueue;
 import com.ansys.cluster.monitor.data.factory.ClusterFactory;
 import com.ansys.cluster.monitor.net.Connector;
 import com.ansys.cluster.monitor.net.DataCollector;

@@ -151,7 +151,7 @@ public class Cluster extends AnsQueueAbstract {
 		 */
 
 		createPendingBarChartPanel(masterDiProp, "Pending Jobs",
-				"Total " + getHostMasterQueue().getPendingJobsSize() + " Job(s)",
+				"Total " + getJobMasterQueue().getPendingJobsCount() + " Job(s)",
 				SGE_DataConst.unitResCore.toLowerCase(), getHostMasterQueue().getQueues());
 
 		displayNodesPie(masterDiProp);
@@ -189,18 +189,18 @@ public class Cluster extends AnsQueueAbstract {
 		int total = availableComputeHost + unAvailableComputeHost + availableVisualHost + unAvailableVisualHost;
 
 		DetailedInfoProp jobDiProp = new DetailedInfoProp();
-		jobDiProp.setPanelName("Cluster Node(s)");
+		jobDiProp.setPanelName("Cluster Host(s)");
 		// Dark Green
-		jobDiProp.addChartData("Available Compute Host", availableComputeHost, new Color(0, 153, 0));
+		jobDiProp.addChartData("Available Compute", availableComputeHost, new Color(0, 153, 0));
 		// Dark Red
-		jobDiProp.addChartData("Unavailable Visual Host", unAvailableVisualHost, new Color(255, 51, 51));
+		jobDiProp.addChartData("Unavailable Visual", unAvailableVisualHost, new Color(255, 51, 51));
 		// Light Red
-		jobDiProp.addChartData("Unavailable Compute Host", unAvailableComputeHost, new Color(204, 0, 0));
+		jobDiProp.addChartData("Unavailable Compute", unAvailableComputeHost, new Color(204, 0, 0));
 		// light Green
-		jobDiProp.addChartData("Available Visual Host", availableVisualHost, new Color(0, 255, 51));
+		jobDiProp.addChartData("Available Visual", availableVisualHost, new Color(0, 255, 51));
 
-		jobDiProp.setChartDataTitle("Total: " + total + " nodes");
-		jobDiProp.setChartDataUnit("nodes");
+		jobDiProp.setChartDataTitle("Total: " + total + " host");
+		jobDiProp.setChartDataUnit("host");
 		jobDiProp.setDataTypePieChart();
 		masterDiProp.addDetailedInfoProp(jobDiProp);
 	}
@@ -267,5 +267,6 @@ public class Cluster extends AnsQueueAbstract {
 		sb.append(getHostMasterQueue().getCoreAvailable());
 		return sb.toString();
 	}
+
 
 }
