@@ -147,7 +147,9 @@ public class ClusterFactory {
 
 		logger.info("Creating Cluster object");
 		setStatusLabel("Creating Cluster object " + clusterName);
-		Cluster cluster = new Cluster(clusterName, hostMasterQueue, jobMasterQueue, myJobsMasterQueue, zoneId);
+
+		Cluster cluster = new Cluster(clusterName, hostMasterQueue, jobMasterQueue, myJobsMasterQueue, zoneId,
+				mainProps.getMedianTimeThrowOut());
 
 		logger.exiting(sourceClass, "createCluster", cluster);
 		return cluster;

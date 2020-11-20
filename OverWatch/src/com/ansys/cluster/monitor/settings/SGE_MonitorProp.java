@@ -119,8 +119,9 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 				+ "JB_override_tickets JB_ar JB_ja_task_concurrency JB_ja_task_concurrency_all "
 				+ "JB_binding JB_is_binary JB_no_shell JB_is_array JB_is_immediate "
 				+ "JB_mbind JB_preemption JB_supplementary_group_list JB_env_list");
-		
+
 		setUsernameOverride(" ");
+		setMedianTimeThrowOut(120);
 
 		// Connections
 		// Retries
@@ -371,6 +372,14 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 	public void setClusterZoneId(ZoneId zoneId) {
 		setProperty(SGE_MonitorPropConst.clusterPrefix + SGE_MonitorPropConst.timeZoneId, zoneId);
+	}
+
+	public double getMedianTimeThrowOut() {
+		return getDouble(SGE_MonitorPropConst.clusterMedianQueueThrowoutValue);
+	}
+
+	public void setMedianTimeThrowOut(double throwOutValue) {
+		setProperty(SGE_MonitorPropConst.clusterMedianQueueThrowoutValue, throwOutValue);
 	}
 
 	public int getClusterIndex() {
@@ -672,9 +681,9 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 	public void setUsernameOverride(String userName) {
 		setProperty(SGE_MonitorPropConst.clusterMyJobQueueUserOverride, userName);
 	}
+
 	public String getUsernameOverride() {
 		return getString(SGE_MonitorPropConst.clusterMyJobQueueUserOverride);
 	}
-	
-	
+
 }

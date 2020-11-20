@@ -33,13 +33,16 @@ public class Cluster extends AnsQueueAbstract {
 	private SortedMap<String, MasterQueue> masterQueue = new TreeMap<String, MasterQueue>(Collections.reverseOrder());
 
 	String name;
+	double[] medianTimeThrowOut;
 
 	public Cluster(String clusterName, HostMasterQueue hostMasterQueue, JobMasterQueue jobMasterQueue,
-			MyJobsMasterQueue myJobs, ZoneId zoneId) {
+			MyJobsMasterQueue myJobs, ZoneId zoneId, double...medianTimeThrowOut ) {
 		super();
 		logger.entering(sourceClass, "Constructor");
+		
+		this.medianTimeThrowOut = medianTimeThrowOut;
 
-		// setZoneId(zoneId);
+		//setZoneId(zoneId);
 
 		setName(clusterName);
 
@@ -153,7 +156,9 @@ public class Cluster extends AnsQueueAbstract {
 				"Total " + getJobMasterQueue().getPendingJobsCount() + " Job(s)",
 				SGE_DataConst.unitResCore.toLowerCase(), getHostMasterQueue().getQueues());
 
-		displayNodesPie(masterDiProp);
+		createWaitBarChartPanel(masterDiProp, "Wait Time", "Median Time Hrs.", "Hrs.", getHostMasterQueue().getQueues(), medianTimeThrowOut);
+
+		//displayNodesPie(masterDiProp);
 
 		displayErrorJobs(masterDiProp, getJobMasterQueue().findErrorJobs());
 		displayPendingJobs(masterDiProp, getJobMasterQueue().findPendingJobs());
@@ -161,7 +166,7 @@ public class Cluster extends AnsQueueAbstract {
 		displayUnavailableVisualHosts(masterDiProp, getHostMasterQueue().findUnavailableVisualHosts());
 		displayUnavailableComputeHosts(masterDiProp, getHostMasterQueue().findUnavailableComputeHosts());
 
-		dislayJobsBubble(masterDiProp);
+		dislayJobsPlot(masterDiProp);
 
 		return masterDiProp;
 	}
@@ -179,7 +184,7 @@ public class Cluster extends AnsQueueAbstract {
 		jobDiProp.setDataTypePieChart();
 		masterDiProp.addDetailedInfoProp(jobDiProp);
 	}
-
+/**
 	private void displayNodesPie(DetailedInfoProp masterDiProp) {
 		int availableComputeHost = getHostMasterQueue().findAvailableComputeHosts().size();
 		int unAvailableComputeHost = getHostMasterQueue().findUnavailableComputeHosts().size();
@@ -203,15 +208,17 @@ public class Cluster extends AnsQueueAbstract {
 		jobDiProp.setDataTypePieChart();
 		masterDiProp.addDetailedInfoProp(jobDiProp);
 	}
-
-	private void dislayJobsBubble(DetailedInfoProp masterDiProp) {
+*/
+	private void dislayJobsPlot(DetailedInfoProp masterDiProp) {
 
 		DetailedInfoProp jobDiProp = new DetailedInfoProp();
 		SortedMap<Integer, Job> mapActiveJob = getJobMasterQueue().findActiveJobs();
 		SortedMap<Integer, Job> mapIdleJob = getJobMasterQueue().findIdleJobs();
+		SortedMap<Integer, Job> mapPendingJob = getJobMasterQueue().findPendingJobs();
 
 		generateSeries(mapActiveJob, jobDiProp, "Active", new Color(0, 153, 0, 100));
 		generateSeries(mapIdleJob, jobDiProp, "Idle", new Color(0, 0, 255, 130));
+		generateSeries(mapPendingJob, jobDiProp, "Pending",  new Color(255, 255, 0));
 
 		jobDiProp.setDataTypeScatterPlotChart();
 		jobDiProp.get_xAxisLabel("Host Load");

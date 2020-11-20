@@ -64,7 +64,7 @@ public class TreeUtil {
 
 			TreePath treePath = enTsProp.nextElement();
 			TreePath foundPath = findTreePath(treePath, tree);
-			logger.info("Expanding branch " + foundPath);
+			logger.finer("Expanding branch " + foundPath);
 			tree.expandPath(foundPath);
 
 		}

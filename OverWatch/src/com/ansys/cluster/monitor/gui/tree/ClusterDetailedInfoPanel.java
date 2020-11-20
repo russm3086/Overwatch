@@ -48,7 +48,7 @@ public class ClusterDetailedInfoPanel extends DetailedInfoPanel {
 		tabbedPane.addTab("Cluster Tables", clusterTablesPanel);
 
 		JPanel clusterBubblePanel = new JPanel(new BorderLayout());
-		tabbedPane.addTab("Job Bubble", clusterBubblePanel);
+		tabbedPane.addTab("Job Plot", clusterBubblePanel);
 
 		JPanel graphPanel = new JPanel();
 		JPanel tablePanel = new JPanel(new GridLayout(0, 1));

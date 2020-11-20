@@ -2,6 +2,8 @@ package com.russ.util;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,13 +15,11 @@ public final class UnitConversion {
 	public static String decimalBigUnits = decimalUnits + "EZY";
 	public static String binaryBigUnits = binaryUnits + "EZY";
 
-	
 	public static double convertUnit(double value, String oldUnit, String newUnit, boolean si) {
-		
-		
+
 		return 0L;
 	}
-	
+
 	public static String humanReadableByteCount(long bytes, boolean decimal) {
 		int unit = decimal ? 1000 : 1024;
 		if (bytes < unit)
@@ -46,8 +46,8 @@ public final class UnitConversion {
 	}
 
 	public static long byteCountHumanReadable(String bytes, boolean decimal, char label) throws NumberFormatException {
-		
-		if(bytes == null)
+
+		if (bytes == null)
 			return 0;
 
 		double doubleValue = Double.valueOf(bytes).doubleValue();
@@ -74,7 +74,7 @@ public final class UnitConversion {
 	public static BigInteger byteCountHumanReadableBI(String bytes, boolean decimal, char label)
 			throws NumberFormatException {
 
-		if(bytes == null)
+		if (bytes == null)
 			return BigInteger.ZERO;
 
 		BigDecimal bgValue = new BigDecimal(bytes);
@@ -93,10 +93,38 @@ public final class UnitConversion {
 		return value;
 	}
 
-	
 	private static String removeNonDigits(String str) {
 		String result = str.replaceAll("[^\\d.]", "");
 		return result;
+	}
+
+	public static double median(List<Double> list) {
+
+		double[] array = list.stream().mapToDouble(i -> i).toArray();
+
+		return median(array);
+	}
+
+	public static double median(double[] values) {
+		double median = 0;
+
+		if (values.length > 0) {
+			// sort array
+			Arrays.sort(values);
+
+			// get count of scores
+			int totalElements = values.length;
+			// check if total number of scores is even
+			if (totalElements % 2 == 0) {
+				double sumOfMiddleElements = values[totalElements / 2] + values[totalElements / 2 - 1];
+				// calculate average of middle elements
+				median = (sumOfMiddleElements) / 2;
+			} else {
+				// get the middle element
+				median = values[values.length / 2];
+			}
+		}
+		return median;
 	}
 
 	private static String findUnits(String memory) {
