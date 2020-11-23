@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -18,6 +19,7 @@ import java.util.Map.Entry;
 import javax.swing.table.AbstractTableModel;
 
 import com.ansys.cluster.monitor.data.Job;
+import com.ansys.cluster.monitor.data.MasterQueue;
 import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.gui.table.FUN_HostTableModel;
 import com.ansys.cluster.monitor.gui.table.HostTableModel;
@@ -31,6 +33,7 @@ import com.ansys.cluster.monitor.gui.table.StateTableModel;
 import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoFactory;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
+import com.ansys.cluster.monitor.gui.tree.TreeBuilder;
 import com.ansys.cluster.monitor.main.SGE_DataConst;
 import com.russ.util.UnitConversion;
 
@@ -350,7 +353,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	}
 
 	protected void createWaitBarChartPanel(DetailedInfoProp masterDiProp, String panelName, String title, String unit,
-			SortedMap<String, AnsQueueAbstract> queueMaps, double... throwOutValue) {
+			MasterQueue queue, double... throwOutValue) {
 
 		DetailedInfoProp diProp = new DetailedInfoProp();
 		diProp.setPanelName(panelName);
@@ -358,6 +361,8 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		diProp.setChartDataUnit(unit);
 		diProp.setDataTypeBarChart();
 		diProp.addChartDataPaint(new Color(224, 213, 0));
+		
+		LinkedHashMap<String, AnsQueueAbstract> queueMaps = TreeBuilder.sortMasterQueue(queue);
 
 		for (Entry<String, AnsQueueAbstract> entry : queueMaps.entrySet()) {
 
@@ -399,7 +404,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	}
 
 	protected void createPendingBarChartPanel(DetailedInfoProp masterDiProp, String panelName, String title,
-			String unit, SortedMap<String, AnsQueueAbstract> queueMaps) {
+			String unit, MasterQueue queue) {
 
 		DetailedInfoProp diProp = new DetailedInfoProp();
 		diProp.setPanelName(panelName);
@@ -407,6 +412,8 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		diProp.setChartDataUnit(unit);
 		diProp.setDataTypeBarChart();
 		diProp.addChartDataPaint(new Color(224, 213, 0));
+		
+		LinkedHashMap<String, AnsQueueAbstract> queueMaps = TreeBuilder.sortMasterQueue(queue);
 
 		for (Entry<String, AnsQueueAbstract> entry : queueMaps.entrySet()) {
 

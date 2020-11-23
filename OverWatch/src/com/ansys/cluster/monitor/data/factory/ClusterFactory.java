@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javax.xml.transform.TransformerException;
@@ -31,9 +32,11 @@ import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.data.Quota;
 import com.ansys.cluster.monitor.gui.Console;
 import com.ansys.cluster.monitor.main.SGE_DataConst;
+import com.ansys.cluster.monitor.net.ConcurrentDataCollector;
+import com.ansys.cluster.monitor.net.Connector;
 import com.ansys.cluster.monitor.net.DataCollector;
 import com.ansys.cluster.monitor.net.Payload;
-import com.ansys.cluster.monitor.net.SGE_ConnectConst;
+import com.ansys.cluster.monitor.net.DataCollectorWorker.SrcType;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 
 /**
@@ -59,27 +62,15 @@ public class ClusterFactory {
 			Console.setStatusLabel(msg);
 	}
 
-	public static Cluster createCluster(DataCollector dc, String clusterName, int index, SGE_MonitorProp mainProps,
-			boolean consoleMode, String userName) throws ClassNotFoundException, IOException, JSONException,
-			URISyntaxException, JDOMException, InterruptedException, TransformerException {
-
-		// TODO props setting of serialized object
-		Cluster cluster = null;
-		if (mainProps.getClusterConnectionRequestContentType().equalsIgnoreCase(SGE_ConnectConst.clusterType)) {
-
-			Payload payload = dc.getCluster(index);
-			cluster = payload.getClusterObject();
-		} else {
-
-			cluster = createStringCluster(dc, clusterName, index, mainProps, consoleMode, userName);
-		}
-		return cluster;
-	}
-
-	public static Cluster createStringCluster(DataCollector dc, String clusterName, int index,
-			SGE_MonitorProp mainProps, boolean consoleMode, String userName) throws JSONException, IOException,
-			URISyntaxException, JDOMException, InterruptedException, TransformerException, ClassNotFoundException {
+	public static Cluster createCluster(SGE_MonitorProp mainProps, boolean consoleMode, String userName)
+			throws JSONException, IOException, URISyntaxException, JDOMException, InterruptedException,
+			TransformerException, ClassNotFoundException {
 		ClusterFactory.consoleMode = consoleMode;
+		Connector conn = new Connector(mainProps);
+		DataCollector dc = new DataCollector(mainProps, conn);
+		int index = mainProps.getClusterIndex();
+		String clusterName = mainProps.getClusterName(mainProps.getClusterIndex());
+
 		logger.entering(sourceClass, "createCluster");
 		logger.info("Getting environment data");
 
@@ -93,32 +84,22 @@ public class ClusterFactory {
 
 		logger.info("Current user: " + userName);
 
-		setStatusLabel("Getting host data");
-		Payload payLoadHost = dc.getHostsData(index);
-
-		logger.info("Getting job data");
-		setStatusLabel("Getting job data");
-		Payload payLoadJob = dc.getJobsData(index);
-
-		logger.info("Getting detailed job data");
-		setStatusLabel("Getting detailed job data");
-		Payload payLoadoDetailedJob = dc.getDetailedJobsData(index);
-
-		logger.info("Getting quota data");
-		setStatusLabel("Getting quota data");
-		Payload payLoadQuota = dc.getQuotaData(index);
+		ConcurrentDataCollector cdc = new ConcurrentDataCollector(dc, index, 4, 10, TimeUnit.SECONDS);
+		HashMap<SrcType, Payload> resultMap = cdc.collect();
 
 		logger.info("Creating quota objects");
 		setStatusLabel("Creating quota objects");
-		LinkedList<Quota> quotaList = QuotaFactory.createQuotaList(payLoadQuota, mainProps, userName);
+		LinkedList<Quota> quotaList = QuotaFactory.createQuotaList(resultMap.get(SrcType.QUOTA_DATA), mainProps,
+				userName);
 
 		logger.info("Creating job objects");
 		setStatusLabel("Creating job objects");
-		HashMap<Integer, Job> DetailedJobsmap = JobFactory.createJobsMap(payLoadJob, payLoadoDetailedJob, mainProps);
+		HashMap<Integer, Job> DetailedJobsmap = JobFactory.createJobsMap(resultMap.get(SrcType.JOB_DATA),
+				resultMap.get(SrcType.DETAILED_JOB_DATA), mainProps);
 
 		logger.info("Creating host objects");
 		setStatusLabel("Creating host objects");
-		HashMap<String, Host> hostMap = HostFactory.createHostMap(payLoadHost, mainProps);
+		HashMap<String, Host> hostMap = HostFactory.createHostMap(resultMap.get(SrcType.HOST_DATA), mainProps);
 
 		logger.info("Job and Host cross reference");
 		setStatusLabel("Job and Host cross referencing");

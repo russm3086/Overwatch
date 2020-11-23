@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -21,7 +22,7 @@ import javax.swing.plaf.FontUIResource;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
 import com.ansys.cluster.monitor.data.factory.Exporter;
-import com.ansys.cluster.monitor.gui.Console;
+import com.ansys.cluster.monitor.gui.ConsoleThread;
 import com.ansys.cluster.monitor.settings.MonitorArgsSettings;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 import com.russ.util.FileStructure;
@@ -98,7 +99,7 @@ public class Main {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				}
 
-				new Console(SGE_DataConst.app_name + " v. " + SGE_DataConst.app_version + " Beta", mainProps);
+				SwingUtilities.invokeLater(new ConsoleThread(mainProps));
 
 			} else {
 

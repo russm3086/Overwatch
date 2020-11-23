@@ -64,7 +64,6 @@ import com.russ.util.WrapLayout;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-import java.util.Random;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -660,17 +659,6 @@ public class DetailedInfoPanel extends JPanel {
 			plot.setSectionColorSource(colorSource);
 		}
 
-	}
-
-	protected Color getRandomColor() {
-
-		Random random = new Random();
-		final float hue = random.nextFloat();
-		final float saturation = 0.5f;// 1.0 for brilliant, 0.0 for dull
-		final float luminance = 0.5f; // 1.0 for brighter, 0.0 for black
-		Color color = Color.getHSBColor(hue, saturation, luminance);
-
-		return color;
 	}
 
 	protected String createDisplay(String field, Object value) {

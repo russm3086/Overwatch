@@ -31,8 +31,6 @@ import com.ansys.cluster.monitor.data.Host;
 import com.ansys.cluster.monitor.data.HostMasterQueue;
 import com.ansys.cluster.monitor.data.HostQueue;
 import com.ansys.cluster.monitor.data.Job;
-import com.ansys.cluster.monitor.net.Connector;
-import com.ansys.cluster.monitor.net.DataCollector;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 import com.russ.util.UnitConversion;
 
@@ -79,13 +77,8 @@ public class Exporter {
 			InterruptedException, TransformerException, ClassNotFoundException {
 		logger.entering(sourceClass, "getCluster");
 
-		Connector conn = new Connector(mainProps);
-		DataCollector dc = new DataCollector(mainProps, conn);
-		int index = mainProps.getClusterIndex();
-
 		logger.info("Creating cluster object");
-		Cluster cluster = ClusterFactory.createCluster(dc, mainProps.getClusterName(index), index, mainProps, false,
-				null);
+		Cluster cluster = ClusterFactory.createCluster(mainProps, false, null);
 
 		logger.exiting(sourceClass, "getCluster", cluster);
 		return cluster;

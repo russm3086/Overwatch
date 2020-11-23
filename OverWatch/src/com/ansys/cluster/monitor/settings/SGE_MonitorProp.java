@@ -159,6 +159,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setClusterConnectionDetailedJobsUrl(1, "http://cdcsimportal1.ansys.com:7878/alljobdetails");
 		setClusterConnectionSummaryJobsUrl(1, "http://cdcsimportal1.ansys.com:7878/alljobs");
 		setClusterConnectionHostUrl(1, "http://cdcsimportal1.ansys.com:7878/allnodes");
+		setClusterConnectionQuotaUrl(1, "http://cdcsimportal1.ansys.com:7878/allquota");
 
 		setClusterName(2, "Pune");
 		setClusterZoneIdStr(2, "Asia/Colombo");

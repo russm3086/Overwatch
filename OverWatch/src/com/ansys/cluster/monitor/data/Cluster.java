@@ -36,13 +36,13 @@ public class Cluster extends AnsQueueAbstract {
 	double[] medianTimeThrowOut;
 
 	public Cluster(String clusterName, HostMasterQueue hostMasterQueue, JobMasterQueue jobMasterQueue,
-			MyJobsMasterQueue myJobs, ZoneId zoneId, double...medianTimeThrowOut ) {
+			MyJobsMasterQueue myJobs, ZoneId zoneId, double... medianTimeThrowOut) {
 		super();
 		logger.entering(sourceClass, "Constructor");
-		
+
 		this.medianTimeThrowOut = medianTimeThrowOut;
 
-		//setZoneId(zoneId);
+		// setZoneId(zoneId);
 
 		setName(clusterName);
 
@@ -138,27 +138,12 @@ public class Cluster extends AnsQueueAbstract {
 
 		displayJobsPie(masterDiProp);
 
-		/**
-		 * long totalMemory = (long)
-		 * UnitConversion.round(getHostMasterQueue().getTotalMem(), 0);
-		 * 
-		 * long totalAvailMem = (long)
-		 * UnitConversion.round(getHostMasterQueue().getAvailableMem(), 0);
-		 * 
-		 * 
-		 * long totalUsedMem = totalMemory - totalAvailMem;
-		 * 
-		 * createAvailableChartPanel(masterDiProp, "Memory", "Total " + totalMemory + "
-		 * GB", "GB", totalAvailMem, totalUsedMem);
-		 */
-
 		createPendingBarChartPanel(masterDiProp, "Pending Jobs",
 				"Total " + getJobMasterQueue().getPendingJobsCount() + " Job(s)",
-				SGE_DataConst.unitResCore.toLowerCase(), getHostMasterQueue().getQueues());
+				SGE_DataConst.unitResCore.toLowerCase(), getHostMasterQueue());
 
-		createWaitBarChartPanel(masterDiProp, "Wait Time", "Median Time Hrs.", "Hrs.", getHostMasterQueue().getQueues(), medianTimeThrowOut);
-
-		//displayNodesPie(masterDiProp);
+		createWaitBarChartPanel(masterDiProp, "Wait Time", "Median Time Hrs.", "Hrs.", getHostMasterQueue(),
+				medianTimeThrowOut);
 
 		displayErrorJobs(masterDiProp, getJobMasterQueue().findErrorJobs());
 		displayPendingJobs(masterDiProp, getJobMasterQueue().findPendingJobs());
@@ -184,31 +169,32 @@ public class Cluster extends AnsQueueAbstract {
 		jobDiProp.setDataTypePieChart();
 		masterDiProp.addDetailedInfoProp(jobDiProp);
 	}
-/**
-	private void displayNodesPie(DetailedInfoProp masterDiProp) {
-		int availableComputeHost = getHostMasterQueue().findAvailableComputeHosts().size();
-		int unAvailableComputeHost = getHostMasterQueue().findUnavailableComputeHosts().size();
-		int availableVisualHost = getHostMasterQueue().findAvailableVisualHosts().size();
-		int unAvailableVisualHost = getHostMasterQueue().findUnavailableVisualHosts().size();
-		int total = availableComputeHost + unAvailableComputeHost + availableVisualHost + unAvailableVisualHost;
 
-		DetailedInfoProp jobDiProp = new DetailedInfoProp();
-		jobDiProp.setPanelName("Cluster Host(s)");
-		// Dark Green
-		jobDiProp.addChartData("Available Compute", availableComputeHost, new Color(0, 153, 0));
-		// Dark Red
-		jobDiProp.addChartData("Unavailable Visual", unAvailableVisualHost, new Color(255, 51, 51));
-		// Light Red
-		jobDiProp.addChartData("Unavailable Compute", unAvailableComputeHost, new Color(204, 0, 0));
-		// light Green
-		jobDiProp.addChartData("Available Visual", availableVisualHost, new Color(0, 255, 51));
-
-		jobDiProp.setChartDataTitle("Total: " + total + " host");
-		jobDiProp.setChartDataUnit("host");
-		jobDiProp.setDataTypePieChart();
-		masterDiProp.addDetailedInfoProp(jobDiProp);
-	}
-*/
+	/**
+	 * private void displayNodesPie(DetailedInfoProp masterDiProp) { int
+	 * availableComputeHost =
+	 * getHostMasterQueue().findAvailableComputeHosts().size(); int
+	 * unAvailableComputeHost =
+	 * getHostMasterQueue().findUnavailableComputeHosts().size(); int
+	 * availableVisualHost = getHostMasterQueue().findAvailableVisualHosts().size();
+	 * int unAvailableVisualHost =
+	 * getHostMasterQueue().findUnavailableVisualHosts().size(); int total =
+	 * availableComputeHost + unAvailableComputeHost + availableVisualHost +
+	 * unAvailableVisualHost;
+	 * 
+	 * DetailedInfoProp jobDiProp = new DetailedInfoProp();
+	 * jobDiProp.setPanelName("Cluster Host(s)"); // Dark Green
+	 * jobDiProp.addChartData("Available Compute", availableComputeHost, new
+	 * Color(0, 153, 0)); // Dark Red jobDiProp.addChartData("Unavailable Visual",
+	 * unAvailableVisualHost, new Color(255, 51, 51)); // Light Red
+	 * jobDiProp.addChartData("Unavailable Compute", unAvailableComputeHost, new
+	 * Color(204, 0, 0)); // light Green jobDiProp.addChartData("Available Visual",
+	 * availableVisualHost, new Color(0, 255, 51));
+	 * 
+	 * jobDiProp.setChartDataTitle("Total: " + total + " host");
+	 * jobDiProp.setChartDataUnit("host"); jobDiProp.setDataTypePieChart();
+	 * masterDiProp.addDetailedInfoProp(jobDiProp); }
+	 */
 	private void dislayJobsPlot(DetailedInfoProp masterDiProp) {
 
 		DetailedInfoProp jobDiProp = new DetailedInfoProp();
@@ -218,7 +204,7 @@ public class Cluster extends AnsQueueAbstract {
 
 		generateSeries(mapActiveJob, jobDiProp, "Active", new Color(0, 153, 0, 100));
 		generateSeries(mapIdleJob, jobDiProp, "Idle", new Color(0, 0, 255, 130));
-		generateSeries(mapPendingJob, jobDiProp, "Pending",  new Color(255, 255, 0));
+		generateSeries(mapPendingJob, jobDiProp, "Pending", new Color(255, 255, 0));
 
 		jobDiProp.setDataTypeScatterPlotChart();
 		jobDiProp.get_xAxisLabel("Host Load");

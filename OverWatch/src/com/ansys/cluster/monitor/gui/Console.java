@@ -21,9 +21,11 @@ import com.ansys.cluster.monitor.data.interfaces.ClusterNodeInterface;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.gui.tree.ClusterTreeCellRenderer;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoFactory;
-import com.ansys.cluster.monitor.gui.tree.TreeBuilderMonitorThread;
+import com.ansys.cluster.monitor.gui.tree.TreeBuilder;
 import com.ansys.cluster.monitor.main.Main;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
+import com.russ.util.concurrent.QueuableWorker;
+import com.russ.util.concurrent.WorkerManager;
 import com.russ.util.gui.DisplayTool;
 import com.russ.util.nio.ResourceLoader;
 
@@ -31,8 +33,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.EventObject;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.*;
 
@@ -53,7 +58,8 @@ public class Console extends JFrame {
 	protected SGE_MonitorProp mainProps;
 
 	private static JLabel statusLabel;
-	private ConcurrentLinkedQueue<Cluster> blockingQueue = new ConcurrentLinkedQueue<Cluster>();
+	WorkerManager connectionManager;
+	ExecutorService executor;
 
 	/**
 	 * The name of current class. To be used with the logging subsystem.
@@ -73,8 +79,11 @@ public class Console extends JFrame {
 	 * @throws JSONException
 	 * @throws InterruptedException
 	 */
-	public Console(String title, SGE_MonitorProp mainProps) throws JSONException, IOException, InterruptedException {
+	public Console(String title, SGE_MonitorProp mainProps) throws IOException, InterruptedException {
 		super(title);
+
+		executor = Executors.newFixedThreadPool(1);
+		connectionManager = new WorkerManager(3, executor);
 
 		this.mainProps = mainProps;
 		this.setDefaultCloseOperation(Console.EXIT_ON_CLOSE);
@@ -243,30 +252,58 @@ public class Console extends JFrame {
 		mainProps.setGuiDeviceId(this.getGraphicsConfiguration().getDevice().getIDstring());
 	}
 
-	protected void populateTree() {
-
-		logger.info("Connecting to cluster ");
-
-		try {
-
-			tree.setRootVisible(true);
-
-			ClusterMonitorThread clusterMonitor = new ClusterMonitorThread(mainProps, blockingQueue);
-			clusterMonitor.retrieveData();
-
-			TreeBuilderMonitorThread tbmt = new TreeBuilderMonitorThread(mainProps, blockingQueue, tree);
-
-			tbmt.buildTree();
-			tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-
-		} catch (JSONException e) {
-
-			throw new JSONException(e);
-
-		} finally {
-
+	private class RetrieveTree extends QueuableWorker<Void, Void> {
+		public RetrieveTree(WorkerManager manager) {
+			super(manager);
 		}
 
+		public Void doInBackground() {
+
+			try {
+
+				tree.setRootVisible(true);
+
+				logger.info("Connecting to cluster");
+				setStatusLabel("Connecting to cluster");
+				
+				ClusterDataCollector worker = new ClusterDataCollector(mainProps);
+				Cluster cluster = worker.retrieveClusterData();
+
+				logger.info("Building tree");
+				setStatusLabel("Populating GUI");
+				
+				TreeBuilder tbmt = new TreeBuilder(mainProps, tree, cluster);
+				tbmt.refreshTree();
+				
+				tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+				
+				
+				LocalDateTime currentDateTime = LocalDateTime.now();
+				DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+				String formattedDateTime = currentDateTime.format(formatter);
+				Console.setStatusLabel("Updated " + formattedDateTime);
+
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+
+			}
+			return null;
+		}
+
+		@Override
+		protected void completed() {
+			logger.info("Retrieved cluster data and refresh tree");
+		}
+
+	}
+
+	protected void populateTree() {
+		logger.finer("Calling for Tree refress");
+		connectionManager.queueExecution((new RetrieveTree(connectionManager)));
+		logger.fine("Setting ExecutorService to shutdown");
 	}
 
 	private void displayURL(ClusterNodeAbstract clusterNode) {
@@ -298,11 +335,11 @@ public class Console extends JFrame {
 	 */
 	private class Exit implements ActionListener {
 		public void actionPerformed(ActionEvent ae) {
-			System.exit(-1);
+			System.exit(0);
 		}
 	}
 
-	private class AutoRefresh extends AbstractAction implements ActionListener, Runnable {
+	private class AutoRefresh extends AbstractAction implements ActionListener {
 
 		/**
 		 * 
@@ -314,31 +351,11 @@ public class Console extends JFrame {
 		}
 
 		/**
-		 * Checks what room is selected and querys the database with the last search
-		 * criteria.
-		 */
-		public void run() {
-
-			try {
-
-				populateTree();
-
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-
-				logger.log(Level.FINER, "AutoRefresh Erorr", e);
-
-			}
-
-		}
-
-		/**
 		 * Enables the object to run in the <code>SwingUtilities.invokeLater</code>
 		 * method
 		 */
 		public void actionPerformed(ActionEvent ae) {
-			invokeLater(this);
-
+			populateTree();
 		}
 
 	}
@@ -380,25 +397,9 @@ public class Console extends JFrame {
 	/**
 	 * The ActionListener for the connectMenuItem
 	 */
-	private class ConnectCluster implements ActionListener, Runnable {
+	private class ConnectCluster implements ActionListener {
 		public ConnectCluster() {
 
-		}
-
-		/**
-		 * Loads the console parameter settings, instantiates a new database handler,
-		 * reloads the <code>tableData</code> object with all records, sets the frame
-		 * title, and starts the timer.
-		 */
-		public void run() {
-			try {
-
-				populateTree();
-
-			} catch (Exception e) {
-				logger.log(Level.SEVERE, "Error connecting to the database", e);
-
-			}
 		}
 
 		/**
@@ -406,7 +407,7 @@ public class Console extends JFrame {
 		 * method
 		 */
 		public void actionPerformed(ActionEvent ae) {
-			invokeLater(this);
+			populateTree();
 		}
 	}
 
@@ -478,6 +479,7 @@ public class Console extends JFrame {
 
 			setFrameSize();
 			setFrameLocation();
+			executor.shutdown();
 
 			try {
 				Main.saveSettings(mainProps);
