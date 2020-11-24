@@ -192,7 +192,7 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 			int[] data = { quota.getLimit() - quota.getUsage(), quota.getUsage(), quota.getLimit() };
 			
 			diProp.addSeries(queueName, data, quota.getResource(),
-					(quota.getLimit() - quota.getUsage()) + " Available");
+					(quota.getUsage()) + " Consumed");
 		}
 
 		diProp.setDataTypeProgressBarChart();

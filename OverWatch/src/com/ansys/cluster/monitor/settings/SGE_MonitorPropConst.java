@@ -82,6 +82,8 @@ public final class SGE_MonitorPropConst {
 
 	public static final String clusterMyJobQueueUserOverride = clusterMyJobQueuePrefix + "username.override";
 
+	public static final String clusterMyJobQueueUserAlias = clusterMyJobQueuePrefix + "username.alias";
+
 	public static final String clusterMedianQueuePrefix = clusterQueuePrefix + "median.";
 
 	public static final String clusterMedianQueueThrowoutValue = clusterMedianQueuePrefix + "waittime.throwout.value";

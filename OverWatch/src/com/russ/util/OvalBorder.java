@@ -3,12 +3,8 @@ package com.russ.util;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.Insets;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 public class OvalBorder implements Border {
@@ -68,24 +64,4 @@ public class OvalBorder implements Border {
 		g.drawArc(x, y + height - 2 * ovalHeight, 2 * ovalWidth, 2 * ovalHeight, -90, -90);
 	}
 
-	public static void main(String[] s) {
-		JFrame f = new JFrame("Oval Border");
-		f.setSize(100, 100);
-
-		JPanel p = new JPanel(new GridLayout(1, 0));
-		JLabel l = new JLabel("Oval Border");
-
-		// l.setHorizontalTextPosition(JLabel.RIGHT);
-
-		Border border = new OvalBorder(1, 1);
-		p.setBackground(Color.WHITE);
-
-		l.setBorder(border);
-
-		p.add(l);
-
-		f.getContentPane().add(p);
-		f.pack();
-		f.setVisible(true);
-	}
 }

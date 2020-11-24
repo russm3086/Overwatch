@@ -45,7 +45,6 @@ public class ClusterDataCollector {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.log(Level.SEVERE, "Problems retrieving cluster data", e);
-			Console.setAlertStatusLabel("Problems retrieving cluster data");
 
 		}
 

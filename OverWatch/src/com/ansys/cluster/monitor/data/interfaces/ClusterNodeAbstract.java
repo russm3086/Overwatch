@@ -536,8 +536,6 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		output.append("\nName: " + getName());
 		output.append("\nCluster Type: " + getClusterType());
 		output.append("\nStates: " + getStateNames());
-		output.append("\nExclusive: " + isExclusive());
-		output.append("\nAvailable: " + isNodeAvailable());
 		output.append("\nQueue: " + getQueueName());
 
 		return output.toString();

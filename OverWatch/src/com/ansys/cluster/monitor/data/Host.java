@@ -407,6 +407,7 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 		output.append("\nMemory Used: " + getMemUsedNumStr());
 		output.append("\nMemory Free: " + getMemFreeNumStr());
 		output.append("\nCore Machine: " + getM_Core());
+		output.append("\nAvailable: " + isNodeAvailable());
 		output.append("\nJob:\n" + getJobs());
 
 		return output.toString();

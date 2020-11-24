@@ -687,4 +687,12 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		return getString(SGE_MonitorPropConst.clusterMyJobQueueUserOverride);
 	}
 
+	public void setUsernameAlias(String userName) {
+		setProperty(SGE_MonitorPropConst.clusterMyJobQueueUserAlias, userName);
+	}
+
+	public String getUsernameAlias() {
+		return getString(SGE_MonitorPropConst.clusterMyJobQueueUserAlias);
+	}
+
 }

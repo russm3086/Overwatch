@@ -52,7 +52,6 @@ public class Console extends JFrame {
 	private static final long serialVersionUID = -985281784855593074L;
 	private Timer timer;
 	private JTree tree;
-	private ParamGUI gui;
 	private JEditorPane editorPane;
 	private JPanel statusBar;
 	protected SGE_MonitorProp mainProps;
@@ -110,11 +109,17 @@ public class Console extends JFrame {
 
 		// Settings MenuItem
 
-		JMenuItem settingsMenuItem = new JMenuItem("Cluster");
-		settingsMenuItem.addActionListener(new Settings());
+		JMenuItem settingsMenuItem = new JMenuItem("Cluster Settings");
+		settingsMenuItem.addActionListener(new ClusterConnectionSettings(settingsMenuItem.getText()));
 		settingsMenuItem.setMnemonic(KeyEvent.VK_C);
 		settingsMenuItem.setToolTipText("Allow cluster settings to be Change and Saved");
 		settingsMenu.add(settingsMenuItem);
+
+		JMenuItem fontMenuItem = new JMenuItem("Font Scale Settings");
+		fontMenuItem.addActionListener(new FontScalingSettings(fontMenuItem.getText()));
+		fontMenuItem.setMnemonic(KeyEvent.VK_F);
+		fontMenuItem.setToolTipText("Allow font scaling to be Change and Saved");
+		settingsMenu.add(fontMenuItem);
 
 		// Quit MenuItem
 		JMenuItem quitMenuItem = new JMenuItem("Quit");
@@ -130,6 +135,7 @@ public class Console extends JFrame {
 		settingsMenu.setMnemonic(KeyEvent.VK_S);
 		menuBar.add(settingsMenu);
 
+		createAdmin(menuBar);
 		this.setJMenuBar(menuBar);
 
 		JSplitPane splitPane = new JSplitPane();
@@ -209,6 +215,20 @@ public class Console extends JFrame {
 		SwingUtilities.invokeLater(run);
 	}
 
+	private void createAdmin(JMenuBar menuBar) {
+		menuBar.add(new JMenu(""));
+
+		JMenu adminMenu = new JMenu("Admin");
+		adminMenu.setMnemonic(KeyEvent.VK_A);
+
+		JMenuItem aliasMenuItem = new JMenuItem("Alias");
+		aliasMenuItem.setMnemonic(KeyEvent.VK_L);
+		aliasMenuItem.addActionListener(new AliasSettings(aliasMenuItem.getText()));
+		adminMenu.add(aliasMenuItem);
+		menuBar.add(adminMenu);
+
+	}
+
 	private void getFrameSize() {
 
 		DisplayTool displayTool = new DisplayTool();
@@ -265,28 +285,31 @@ public class Console extends JFrame {
 
 				logger.info("Connecting to cluster");
 				setStatusLabel("Connecting to cluster");
-				
+
 				ClusterDataCollector worker = new ClusterDataCollector(mainProps);
 				Cluster cluster = worker.retrieveClusterData();
 
-				logger.info("Building tree");
-				setStatusLabel("Populating GUI");
-				
-				TreeBuilder tbmt = new TreeBuilder(mainProps, tree, cluster);
-				tbmt.refreshTree();
-				
-				tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-				
-				
-				LocalDateTime currentDateTime = LocalDateTime.now();
-				DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-				String formattedDateTime = currentDateTime.format(formatter);
-				Console.setStatusLabel("Updated " + formattedDateTime);
+				if (cluster != null) {
+					logger.info("Building tree");
+					setStatusLabel("Populating GUI");
 
+					TreeBuilder tbmt = new TreeBuilder(mainProps, tree, cluster);
+					tbmt.refreshTree();
+
+					tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+
+					LocalDateTime currentDateTime = LocalDateTime.now();
+					DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+					String formattedDateTime = currentDateTime.format(formatter);
+					Console.setStatusLabel("Updated " + formattedDateTime);
+				} else {
+
+					Console.setAlertStatusLabel("Problems retrieving cluster data");
+
+				}
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Error getting data", e);
 			} finally {
 
 			}
@@ -445,21 +468,47 @@ public class Console extends JFrame {
 
 	}
 
-	private class Settings implements ActionListener, Runnable {
+	private class FontScalingSettings extends Settings {
+
+		public FontScalingSettings(String title) {
+			super(new FontScalingGui(Console.getFrames()[0], title, true, mainProps));
+		}
+	}
+
+	private class ClusterConnectionSettings extends Settings {
+
+		public ClusterConnectionSettings(String title) {
+			super(new ClusterConnectionGUI(Console.getFrames()[0], title, true, mainProps));
+		}
+	}
+
+	private class AliasSettings extends Settings {
+
+		public AliasSettings(String title) {
+			super(new AliasGUI(Console.getFrames()[0], title, true, mainProps));
+		}
+	}
+
+	private abstract class Settings implements ActionListener, Runnable {
+		protected JDialog dialog;
+
+		public Settings(JDialog dialog) {
+			this.dialog = dialog;
+		}
 
 		/**
 		 * Instanstiate a gui that allows the user to change settings.
 		 */
 		public void run() {
-			gui = new ParamGUI(Console.getFrames()[0], "Settings", true, mainProps);
+			// JDialog gui = new ParamGUI(Console.getFrames()[0], "Settings", true,
+			// mainProps);
 
 			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-			int x = (int) (dim.getWidth() - gui.getWidth()) / 2;
-			int y = (int) (dim.getHeight() - gui.getHeight()) / 2;
+			int x = (int) (dim.getWidth() - dialog.getWidth()) / 2;
+			int y = (int) (dim.getHeight() - dialog.getHeight()) / 2;
 
-			gui.setLocation(x, y);
-			gui.setVisible(true);
-			gui = null;
+			dialog.setLocation(x, y);
+			dialog.setVisible(true);
 
 		}
 
@@ -480,6 +529,7 @@ public class Console extends JFrame {
 			setFrameSize();
 			setFrameLocation();
 			executor.shutdown();
+			mainProps.setUsernameAlias("");
 
 			try {
 				Main.saveSettings(mainProps);

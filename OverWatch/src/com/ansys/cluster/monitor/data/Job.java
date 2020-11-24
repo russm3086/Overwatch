@@ -443,6 +443,7 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		output.append("\nStart Host: " + getStartHost());
 		output.append("\nJob Priority: " + getJobPriority());
 		output.append("\n" + getUnitRes() + ": " + getSlots());
+		output.append("\nExclusive: " + isExclusive());
 		output.append("\nJob Start Time: " + getJobStartTime());
 		output.append("\nJob Submission Time: " + getJobSubmissionTime());
 

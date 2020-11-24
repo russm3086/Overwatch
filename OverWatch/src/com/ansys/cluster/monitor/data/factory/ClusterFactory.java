@@ -81,6 +81,9 @@ public class ClusterFactory {
 
 		if (mainProps.getUsernameOverride() != null && (mainProps.getUsernameOverride().trim().length() != 0))
 			userName = mainProps.getUsernameOverride();
+		
+		if (mainProps.getUsernameAlias() != null && (mainProps.getUsernameAlias().trim().length() != 0))
+			userName = mainProps.getUsernameAlias();
 
 		logger.info("Current user: " + userName);
 

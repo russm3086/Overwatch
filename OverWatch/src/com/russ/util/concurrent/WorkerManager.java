@@ -4,7 +4,6 @@
 package com.russ.util.concurrent;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.logging.Logger;
 
@@ -46,7 +45,7 @@ public class WorkerManager {
 		SwingWorker<?, ?> worker = queue.poll();
 		if (worker != null) {
 			setExecuting(true);
-			logger.severe("WorkerManager: Starting the next worker... (" + queue.size() + " more queued)");
+			logger.fine("WorkerManager: Starting the next worker... (" + queue.size() + " more queued)");
 			executor.submit(worker);
 		}
 	}
