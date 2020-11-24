@@ -5,27 +5,24 @@
 */
 package com.ansys.cluster.monitor.main;
 
-import java.awt.Font;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.FontUIResource;
-
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
 import com.ansys.cluster.monitor.data.factory.Exporter;
+import com.ansys.cluster.monitor.gui.AdminMenuConfig;
 import com.ansys.cluster.monitor.gui.ConsoleThread;
 import com.ansys.cluster.monitor.settings.MonitorArgsSettings;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 import com.russ.util.FileStructure;
+import com.russ.util.gui.DisplayTool;
 import com.russ.util.settings.SystemSettings;
 
 /**
@@ -132,6 +129,12 @@ public class Main {
 						exporter.exportSerialOut();
 					}
 
+					if ((argsSetting.hasAdminPass())) {
+
+						String adminSettings = AdminMenuConfig.createKeyPassword(argsSetting.getAdminPass());
+						System.out.println(adminSettings);
+					}
+
 				} else {
 
 					String msg = argsSetting.getHelpMessage();
@@ -236,44 +239,8 @@ public class Main {
 	public static void fontScaling(double scaleAdj) throws ClassNotFoundException, InstantiationException,
 			IllegalAccessException, UnsupportedLookAndFeelException {
 
-		if (scaleAdj < -SGE_DataConst.app_font_max_scaling) {
-
-			scaleAdj = -SGE_DataConst.app_font_max_scaling;
-		} else if (scaleAdj > SGE_DataConst.app_font_max_scaling) {
-
-			scaleAdj = SGE_DataConst.app_font_max_scaling;
-		}
-
-		float adjustment = (float) (.001f * scaleAdj);
-		float scale = 1.f + adjustment;
-
-		logger.finer("The font scaling set to " + scale);
-
-		UIManager.LookAndFeelInfo looks[] = UIManager.getInstalledLookAndFeels();
-
-		for (UIManager.LookAndFeelInfo info : looks) {
-
-			UIManager.setLookAndFeel(info.getClassName());
-
-			UIDefaults defaults = UIManager.getDefaults();
-			Enumeration<?> newKeys = defaults.keys();
-
-			while (newKeys.hasMoreElements()) {
-				Object obj = newKeys.nextElement();
-				Object current = UIManager.get(obj);
-				if (current instanceof FontUIResource) {
-					FontUIResource resource = (FontUIResource) current;
-					defaults.put(obj, new FontUIResource(resource.deriveFont(resource.getSize2D() * scale)));
-					logger.finest(String.format("%50s : %s\n", obj, UIManager.get(obj)));
-
-				} else if (current instanceof Font) {
-					Font resource = (Font) current;
-					defaults.put(obj, resource.deriveFont(resource.getSize2D() * scale));
-					logger.finest(String.format("%50s : %s\n", obj, UIManager.get(obj)));
-				}
-			}
-		}
-
+		DisplayTool.fontScaling(scaleAdj, SGE_DataConst.app_font_max_scaling,
+				(-1 * SGE_DataConst.app_font_max_scaling));
 	}
 
 }

@@ -7,10 +7,11 @@ public final class SGE_DataConst {
 	}
 
 	public static String app_name = "OverWatch";
-	public static String app_version = "1.5.0.2";
+	public static String app_version = "1.5.0.3";
 	public static String app_version_regex = "(\\d+\\.)+(\\d)";
 	public static float app_font_max_scaling = 50;
 	public static String DefaultPropertiesPath = "/Ansys/OverWatch/etc/settings.properties";
+	public static String adminSuffx ="istGroot";
 
 	/**
 	 * The name attribute of the elements

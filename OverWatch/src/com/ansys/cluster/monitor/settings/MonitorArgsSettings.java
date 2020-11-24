@@ -29,12 +29,20 @@ public class MonitorArgsSettings extends ArgsSettings {
 	public boolean skipMainProgram() {
 		boolean result = false;
 
-		if (hasExports() || hasHelp()) {
+		if (hasExports() || hasHelp() || hasAdminPass()) {
 
 			result = true;
 		}
 
 		return result;
+	}
+
+	public boolean hasAdminPass() {
+		return exist(SGE_MonitorPropConst.args_prop_key_admin_pass);
+	}
+
+	public String getAdminPass() {
+		return getValue(SGE_MonitorPropConst.args_prop_key_admin_pass).get(0);
 	}
 
 	public boolean hasMode() {

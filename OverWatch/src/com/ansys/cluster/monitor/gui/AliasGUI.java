@@ -33,12 +33,12 @@ public class AliasGUI extends JDialog {
 	/**
 	 * The name of current class. To be used with the logging subsystem.
 	 */
-	private final String className = this.getClass().getName();
+	private final String sourceClass = this.getClass().getName();
 
 	/**
 	 * The Logger instance. All log messages from this class are handle here.
 	 */
-	private Logger logger = Logger.getLogger(className);
+	private Logger logger = Logger.getLogger(sourceClass);
 
 	/**
 	 * The layout manager for the dialog
@@ -73,19 +73,19 @@ public class AliasGUI extends JDialog {
 		this.setResizable(true);
 
 		make();
-		
-		//selectedField.setText(mainProps.getUsernameAlias());
+
+		// selectedField.setText(mainProps.getUsernameAlias());
 
 		// this.setSize(622, 350);
-		//this.setPreferredSize(new Dimension(265, 149));
-		this.setSize(300, 169);
+		this.setPreferredSize(new Dimension(300, 169));
+		// this.setSize(300, 169);
 
 	}
 
 	public void make() {
 		JLabel selectedLabel = new JLabel("Alias Username:");
 		selectedField = new JTextField(8);
-		
+
 		// Remote Buttons
 		JButton okButton = new JButton("OK");
 		JButton cancelButton = new JButton("Cancel");
@@ -94,7 +94,7 @@ public class AliasGUI extends JDialog {
 		okButton.setMnemonic(KeyEvent.VK_O);
 		cancelButton.setMnemonic(KeyEvent.VK_C);
 		clearButton.setMnemonic(KeyEvent.VK_L);
-		
+
 		okButton.setToolTipText("Saves the settings and closes the dialog");
 		cancelButton.setToolTipText("Closes the dialog without saving any" + " settings");
 		clearButton.setToolTipText("Clears the text field");
@@ -104,6 +104,7 @@ public class AliasGUI extends JDialog {
 
 		c.gridx = 0;
 		c.gridy = 1;
+		c.insets = new Insets(10, 10, 10, 10);
 		c.anchor = GridBagConstraints.EAST;
 		gridBag.setConstraints(selectedLabel, c);
 		this.getContentPane().add(selectedLabel);
@@ -115,7 +116,6 @@ public class AliasGUI extends JDialog {
 
 		c.gridy = 3;
 		c.gridx = 0;
-		c.insets = new Insets(0, 5, 0, 5);
 		c.anchor = GridBagConstraints.WEST;
 		gridBag.setConstraints(okButton, c);
 		this.getContentPane().add(okButton);
@@ -165,9 +165,14 @@ public class AliasGUI extends JDialog {
 	}
 
 	private void saveData() {
+		logger.entering(sourceClass, "saveData");
 
+		logger.finer("Setting user alias");
 		mainProps.setUsernameAlias(selectedField.getText());
+
+		logger.finer("Refreshing Tree");
 		console.populateTree();
+		logger.exiting(sourceClass, "saveData");
 	}
 
 }

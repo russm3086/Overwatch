@@ -3,6 +3,9 @@
 
 package com.ansys.cluster.monitor.gui;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -33,6 +36,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.EventObject;
@@ -216,16 +221,42 @@ public class Console extends JFrame {
 	}
 
 	private void createAdmin(JMenuBar menuBar) {
-		menuBar.add(new JMenu(""));
 
-		JMenu adminMenu = new JMenu("Admin");
-		adminMenu.setMnemonic(KeyEvent.VK_A);
+		String userName = getUsername(mainProps);
 
-		JMenuItem aliasMenuItem = new JMenuItem("Alias");
-		aliasMenuItem.setMnemonic(KeyEvent.VK_L);
-		aliasMenuItem.addActionListener(new AliasSettings(aliasMenuItem.getText()));
-		adminMenu.add(aliasMenuItem);
-		menuBar.add(adminMenu);
+		try {
+
+			boolean isAdmin = AdminMenuConfig.isAdmin(mainProps.getAdminKey(), mainProps.getAdminPassword(), userName);
+
+			if (isAdmin) {
+				menuBar.add(new JMenu(""));
+
+				JMenu adminMenu = new JMenu("Admin");
+				adminMenu.setMnemonic(KeyEvent.VK_A);
+
+				JMenuItem aliasMenuItem = new JMenuItem("Alias");
+				aliasMenuItem.setMnemonic(KeyEvent.VK_L);
+				aliasMenuItem.addActionListener(new AliasSettings(aliasMenuItem.getText()));
+				adminMenu.add(aliasMenuItem);
+				menuBar.add(adminMenu);
+
+				logger.info("Admin mode enabled");
+			}
+
+		} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException
+				| BadPaddingException | NumberFormatException e) {
+
+			logger.log(Level.SEVERE, "Error wiht verfing admin access", e);
+		}
+
+	}
+
+	private String getUsername(SGE_MonitorProp mainProps) {
+
+		String userName = System.getProperty("user.name");
+		if (mainProps.getUsernameOverride() != null && (mainProps.getUsernameOverride().trim().length() != 0))
+			userName = mainProps.getUsernameOverride();
+		return userName;
 
 	}
 
@@ -537,9 +568,6 @@ public class Console extends JFrame {
 				// TODO Auto-generated catch block
 				logger.log(Level.FINER, "Issue saving settings", ex);
 			}
-
 		}
-
 	}
-
 }

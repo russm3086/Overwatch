@@ -122,6 +122,12 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 		setUsernameOverride(" ");
 		setMedianTimeThrowOut(120);
+		
+		//Admin Settings
+		setAdminKey("");
+		setAdminPassword("");
+		layout.setComment(SGE_MonitorPropConst.adminKey,
+				"\nAdmin Settings");
 
 		// Connections
 		// Retries
@@ -693,6 +699,22 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 	public String getUsernameAlias() {
 		return getString(SGE_MonitorPropConst.clusterMyJobQueueUserAlias);
+	}
+
+	public void setAdminPassword(String password) {
+		setProperty(SGE_MonitorPropConst.adminPassword, password);
+	}
+
+	public String getAdminPassword() {
+		return getString(SGE_MonitorPropConst.adminPassword);
+	}
+
+	public void setAdminKey(String key) {
+		setProperty(SGE_MonitorPropConst.adminKey, key);
+	}
+
+	public String getAdminKey() {
+		return getString(SGE_MonitorPropConst.adminKey);
 	}
 
 }

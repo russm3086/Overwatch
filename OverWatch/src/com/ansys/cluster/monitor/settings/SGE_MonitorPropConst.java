@@ -70,6 +70,12 @@ public final class SGE_MonitorPropConst {
 
 	public static final String clusterPrefix = "com.ansys.cluster.monitor.cluster.";
 
+	public static final String adminPrefix = clusterPrefix + "admin.";
+
+	public static final String adminKey = adminPrefix + "key";
+
+	public static final String adminPassword = adminPrefix + "password";
+
 	public static final String clusterDataPrefix = clusterPrefix + "data.";
 
 	public static final String clusterQueuePrefix = clusterDataPrefix + "queue.";
@@ -161,6 +167,8 @@ public final class SGE_MonitorPropConst {
 	public static final String args_prop_key_export_serial_out = "exportSerialObjectOut";
 
 	public static final String args_prop_key_mode = "mode";
+
+	public static final String args_prop_key_admin_pass = "adminpasswordencrypt";
 
 	/**
 	 * The arguments properties help key
