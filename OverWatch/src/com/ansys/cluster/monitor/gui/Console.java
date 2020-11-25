@@ -246,7 +246,7 @@ public class Console extends JFrame {
 		} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException
 				| BadPaddingException | NumberFormatException e) {
 
-			logger.log(Level.SEVERE, "Error wiht verfing admin access", e);
+			logger.log(Level.SEVERE, "Error with verfing admin access", e);
 		}
 
 	}

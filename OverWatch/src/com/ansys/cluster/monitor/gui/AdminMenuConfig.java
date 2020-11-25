@@ -43,11 +43,15 @@ public class AdminMenuConfig {
 	public static boolean isAdmin(String key, String password, String userName) throws InvalidKeyException,
 			NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
 
-		String unencrypted = AESEncryption.decryptTextRev(password, key);
+		if (key != null && password != null && userName != null && !key.isEmpty() && !password.isEmpty()
+				&& !userName.isEmpty()) {
 
-		if (unencrypted.equalsIgnoreCase(userName + SGE_DataConst.adminSuffx))
-			return true;
+			String unencrypted = AESEncryption.decryptTextRev(password, key);
 
+			if (unencrypted.equalsIgnoreCase(userName + SGE_DataConst.adminSuffx))
+				return true;
+		}
+		
 		return false;
 	}
 

@@ -135,10 +135,10 @@ public class SystemSettings {
 		this.logProps = logProps;
 	}
 
-	public PropertiesConfiguration loadDefaultProps(SGE_MonitorProp defaultProps, String filePath)
+	public PropertiesConfiguration loadPropertiesFile(SGE_MonitorProp defaultProps, String filePath)
 			throws ConfigurationException {
 
-		SGE_MonitorProp props = loadDefaultProps(filePath, SGE_MonitorPropConst.ansysVersion);
+		SGE_MonitorProp props = loadPropertiesFile(filePath, SGE_MonitorPropConst.ansysVersion);
 
 		if (props == null) {
 			mainProps = defaultProps;
@@ -156,16 +156,16 @@ public class SystemSettings {
 	 * @return
 	 * @throws ConfigurationException
 	 */
-	public SGE_MonitorProp loadDefaultProps(String filePath, String version) throws ConfigurationException {
-		logger.entering(sourceClass, "loadDefaultProps");
+	public SGE_MonitorProp loadPropertiesFile(String filePath, String versionKey) throws ConfigurationException {
+		logger.entering(sourceClass, "loadPropertiesFile");
 
 		SGE_MonitorProp props = null;
 
 		try {
 
 			props = loadProps(filePath);
+			setVersion(props.getString(versionKey, "0"));
 			logger.fine("Loaded " + version + " version");
-			setVersion(props.getString(version, "0"));
 			mainPropertiesFileExist = true;
 
 		} catch (IOException | URISyntaxException e) {

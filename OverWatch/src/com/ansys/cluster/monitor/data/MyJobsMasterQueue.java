@@ -33,6 +33,11 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 	public MyJobsMasterQueue(LinkedList<Quota> quotaList, JobMasterQueue jobMasterQueue, String userName) {
 		super("My Jobs");
 
+		if(userName !=null && userName.trim().length()>0) {
+			
+			setName("My Jobs - " + userName);
+		}
+		
 		logger.entering(sourceClass, "MyJobsMasterQueue");
 
 		logger.finest("Reversing quota list order");
@@ -187,7 +192,7 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 			sb.append(" Resource: ");
 			sb.append(quota.getResource());
 			
-			logger.info(sb.toString());
+			logger.finer(sb.toString());
 
 			int[] data = { quota.getLimit() - quota.getUsage(), quota.getUsage(), quota.getLimit() };
 			

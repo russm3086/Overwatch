@@ -26,7 +26,6 @@ import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-
 import com.ansys.cluster.monitor.main.SGE_DataConst;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 import com.russ.util.OvalBorder;
@@ -78,6 +77,8 @@ public class FontScalingGui extends JDialog {
 		super(owner, title, modal);
 		this.mainProps = mainProps;
 		this.console = (Console) owner;
+
+		setTitle(title + "        (RESTART OF APPLICATION REQUIRED)");
 
 		// Sets layout manager
 		getContentPane().setLayout(gridBag);
@@ -252,13 +253,13 @@ public class FontScalingGui extends JDialog {
 
 			JTextField textField = (JTextField) ke.getSource();
 			String typed = textField.getText();
-			
+
 			if (!typed.matches("\\d+")) {
 				return;
 			}
-			
-            int value = Integer.parseInt(typed);
-            slider.setValue(value);
+
+			int value = Integer.parseInt(typed);
+			slider.setValue(value);
 
 		}
 

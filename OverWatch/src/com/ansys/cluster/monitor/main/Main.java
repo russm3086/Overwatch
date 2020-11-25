@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
 import com.ansys.cluster.monitor.data.factory.Exporter;
@@ -23,6 +24,7 @@ import com.ansys.cluster.monitor.settings.MonitorArgsSettings;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 import com.russ.util.FileStructure;
 import com.russ.util.gui.DisplayTool;
+import com.russ.util.settings.LoggingUtil;
 import com.russ.util.settings.SystemSettings;
 
 /**
@@ -54,7 +56,7 @@ public class Main {
 	public static void main(String[] args) throws IOException, URISyntaxException, ConfigurationException {
 
 		Logger logger = Logger.getLogger(sourceClass);
-		logger.setLevel(Level.FINE);
+		LoggingUtil.setLevel(Level.FINE);
 
 		SGE_MonitorProp mainProps = new SGE_MonitorProp();
 
@@ -177,7 +179,7 @@ public class Main {
 		logger.entering(sourceClass, "loadDefaultProps");
 
 		logger.fine("Loading system settings");
-		SGE_MonitorProp mainProps = (SGE_MonitorProp) systemSettings.loadDefaultProps(new SGE_MonitorProp(),
+		SGE_MonitorProp mainProps = (SGE_MonitorProp) systemSettings.loadPropertiesFile(new SGE_MonitorProp(),
 				propsFilePath);
 
 		if (!systemSettings.getMainPropertiesFileExist()) {
@@ -194,8 +196,14 @@ public class Main {
 
 			if (SystemSettings.GREATER_THAN.equalsIgnoreCase(comparsionResult)) {
 
-				logger.fine("Version: " + mainProps.getMonitorVersion() + " is not compatible, will upgrade.");
-				mainProps = new SGE_MonitorProp();
+				logger.fine("Version: " + mainProps.getMonitorVersion() + " is not compatible, will be upgrade.");
+				SGE_MonitorProp newMainProps = new SGE_MonitorProp();
+				String version = newMainProps.getMonitorVersion();
+				newMainProps.copy(mainProps);
+				newMainProps.setMonitorVersion(version);
+				newMainProps.setHeader(newMainProps.getHeader());
+				
+				mainProps = newMainProps;
 				systemSettings.savePropertyFile(mainProps, propsFilePath);
 			}
 		}

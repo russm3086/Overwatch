@@ -16,6 +16,7 @@ import org.apache.commons.configuration2.PropertiesConfigurationLayout;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
 import com.ansys.cluster.monitor.main.SGE_DataConst;
+import com.russ.util.settings.LoggingUtil;
 import com.russ.util.settings.SystemSettings;
 
 /**
@@ -37,13 +38,9 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 	 * 
 	 */
 	public SGE_MonitorProp() {
-		// TODO Auto-generated constructor stub
-
-		SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss z");
-		String strDate = formatter.format(new Date());
 
 		PropertiesConfigurationLayout layout = getLayout();
-		setHeader("OverWatch " + strDate);
+		setHeader(getHeader());
 
 		setMonitorVersion(SGE_DataConst.app_version);
 		layout.setComment(SGE_MonitorPropConst.ansysVersion, "Designates the version of the settings");
@@ -57,7 +54,8 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 		// Set the default logging level for the root logger
 		setLogDefaultLevel("INFO");
-		layout.setComment(SGE_MonitorPropConst.defaultLevel, "\nSet the default logging level for the root logger");
+		layout.setComment(SGE_MonitorPropConst.defaultLevel,
+				"\nSet the default logging level for the root logger" + "\nLevels: " + LoggingUtil.getLogLevels());
 
 		// default file output
 		String tmpFilePath = SystemSettings.getTempDir();
@@ -122,12 +120,11 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 		setUsernameOverride(" ");
 		setMedianTimeThrowOut(120);
-		
-		//Admin Settings
+
+		// Admin Settings
 		setAdminKey("");
 		setAdminPassword("");
-		layout.setComment(SGE_MonitorPropConst.adminKey,
-				"\nAdmin Settings");
+		layout.setComment(SGE_MonitorPropConst.adminKey, "\nAdmin Settings");
 
 		// Connections
 		// Retries
@@ -190,6 +187,15 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		layout.setComment(SGE_MonitorPropConst.jobIdleThreshold, "\nThe settings that determines when a job is idle");
 	}
 
+	public String getHeader() {
+		SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss z");
+		String strDate = formatter.format(new Date());
+		StringBuffer sb = new StringBuffer("OverWatch ");
+		sb.append(strDate);
+		
+		return sb.toString();
+	}
+	
 	public void setMonitorVersion(String version) {
 		setProperty(SGE_MonitorPropConst.ansysVersion, version);
 	}

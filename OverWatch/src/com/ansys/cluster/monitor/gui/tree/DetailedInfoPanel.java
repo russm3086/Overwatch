@@ -130,7 +130,7 @@ public class DetailedInfoPanel extends JPanel {
 		field.setBorder(null); // remove the border
 		field.setFont(new Font(Font.SERIF, Font.BOLD, 20));
 		field.setAlignmentX(Component.CENTER_ALIGNMENT);
-		field.setMaximumSize(new Dimension(300, 20));
+		field.setMaximumSize(new Dimension(350, 20));
 		field.setText(sb.toString());
 
 		add(field);
