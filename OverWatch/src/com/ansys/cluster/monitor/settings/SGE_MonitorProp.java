@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.Reader;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.configuration2.Configuration;
@@ -126,6 +128,13 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setAdminPassword("");
 		layout.setComment(SGE_MonitorPropConst.adminKey, "\nAdmin Settings");
 
+		// UpdateSettings
+		setDataRetentionRegex(0, "com.ansys.cluster.monitor.GUI.*");
+		setDataRetentionRegex(1, "com.ansys.cluster.monitor.cluster.data.queue.myjobs.username.*");
+		setDataRetentionRegex(2, "com.ansys.cluster.monitor.cluster.admin.*");
+		layout.setComment(SGE_MonitorPropConst.dataRetentionPrefix + 0 + SGE_MonitorPropConst.regexSuffix,
+				"\nUpdate Settings");
+
 		// Connections
 		// Retries
 		setClusterConnectionRetries(3);
@@ -192,10 +201,10 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		String strDate = formatter.format(new Date());
 		StringBuffer sb = new StringBuffer("OverWatch ");
 		sb.append(strDate);
-		
+
 		return sb.toString();
 	}
-	
+
 	public void setMonitorVersion(String version) {
 		setProperty(SGE_MonitorPropConst.ansysVersion, version);
 	}
@@ -721,6 +730,35 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 	public String getAdminKey() {
 		return getString(SGE_MonitorPropConst.adminKey);
+	}
+
+	public List<String> getDataRetentionRegexLst() {
+		List<String> result = new ArrayList<String>();
+		boolean boRun = true;
+		int i = 0;
+
+		while (boRun) {
+
+			String value = getDataRetentionRegex(i);
+			if (value != null && !value.isEmpty()) {
+				result.add(value);
+			} else {
+				boRun = false;
+			}
+
+			i++;
+		}
+		return result;
+	}
+
+	public void setDataRetentionRegex(int item, String key) {
+		setProperty(SGE_MonitorPropConst.dataRetentionPrefix + item + SGE_MonitorPropConst.regexSuffix, key);
+
+	}
+
+	public String getDataRetentionRegex(int item) {
+		return getString(SGE_MonitorPropConst.dataRetentionPrefix + item + SGE_MonitorPropConst.regexSuffix);
+
 	}
 
 }

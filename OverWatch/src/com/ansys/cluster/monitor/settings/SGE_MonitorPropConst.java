@@ -44,6 +44,14 @@ public final class SGE_MonitorPropConst {
 
 	public static final String sgeMonitor_dir_etc = "com.ansys.dir.etc";
 
+	public static final String rootPrefix = "com.ansys.cluster.monitor.";
+
+	public static final String updatePrefix = rootPrefix + "update.";
+
+	public static final String dataRetentionPrefix = updatePrefix + "data.retention.";
+
+	public static final String regexSuffix = "regex";
+
 	public static final String guiFrameWidth = "com.ansys.cluster.monitor.GUI.frame.width";
 
 	public static final String guiFrameHeight = "com.ansys.cluster.monitor.GUI.frame.height";

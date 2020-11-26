@@ -21,6 +21,7 @@ import com.ansys.cluster.monitor.data.factory.Exporter;
 import com.ansys.cluster.monitor.gui.AdminMenuConfig;
 import com.ansys.cluster.monitor.gui.ConsoleThread;
 import com.ansys.cluster.monitor.settings.MonitorArgsSettings;
+import com.ansys.cluster.monitor.settings.PropUtil.Compare;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 import com.russ.util.FileStructure;
 import com.russ.util.gui.DisplayTool;
@@ -191,19 +192,13 @@ public class Main {
 		} else {
 
 			logger.fine("Checking version");
-			String comparsionResult = systemSettings.compareVersions(minimalVersion, mainProps.getMonitorVersion(),
+			Compare comparsionResult = systemSettings.compareVersions(minimalVersion, mainProps.getMonitorVersion(),
 					token);
 
-			if (SystemSettings.GREATER_THAN.equalsIgnoreCase(comparsionResult)) {
+			if (Compare.GREATER_THAN == comparsionResult) {
 
 				logger.fine("Version: " + mainProps.getMonitorVersion() + " is not compatible, will be upgrade.");
-				SGE_MonitorProp newMainProps = new SGE_MonitorProp();
-				String version = newMainProps.getMonitorVersion();
-				newMainProps.copy(mainProps);
-				newMainProps.setMonitorVersion(version);
-				newMainProps.setHeader(newMainProps.getHeader());
-				
-				mainProps = newMainProps;
+				mainProps = systemSettings.mergeProps(new SGE_MonitorProp(), mainProps);
 				systemSettings.savePropertyFile(mainProps, propsFilePath);
 			}
 		}

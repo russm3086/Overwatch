@@ -15,6 +15,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -24,6 +25,8 @@ import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.PropertiesConfigurationLayout;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
+import com.ansys.cluster.monitor.settings.PropUtil;
+import com.ansys.cluster.monitor.settings.PropUtil.Compare;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 import com.ansys.cluster.monitor.settings.SGE_MonitorPropConst;
 import com.russ.util.nio.ResourceLoader;
@@ -44,10 +47,7 @@ public class SystemSettings {
 	private String logPropsFilePath = null;
 	private boolean mainPropertiesFileExist = false;
 	private String version = "0";
-
-	public final static String GREATER_THAN = "GREATER_THAN";
-	public final static String LESS_THAN = "LESS_THAN";
-	public final static String EQUALS = "EQUALS";
+	private PropUtil propUtil = new PropUtil();
 
 	public boolean getMainPropertiesFileExist() {
 		return mainPropertiesFileExist;
@@ -113,6 +113,20 @@ public class SystemSettings {
 	public void setMainProp(SGE_MonitorProp mainProps) {
 
 		this.mainProps = mainProps;
+	}
+
+	public Compare compareVersions(String minimalVersion, String currentVersion, String token) {
+
+		return propUtil.compareVersions(minimalVersion, currentVersion, token);
+	}
+
+	public SGE_MonitorProp mergeProps(SGE_MonitorProp newProps, SGE_MonitorProp oldProps) {
+
+		List<String> listRegex = newProps.getDataRetentionRegexLst();
+		PropUtil pUtil = new PropUtil();
+		SGE_MonitorProp props = pUtil.mergeProps(newProps, oldProps, listRegex);
+
+		return props;
 	}
 
 	/**
@@ -381,99 +395,6 @@ public class SystemSettings {
 
 		return inStream;
 
-	}
-
-	/**
-	 * 
-	 * @param firstVersion
-	 * @param secondVersion
-	 * @param token
-	 * @return
-	 */
-	public String compareVersions(String firstVersion, String secondVersion, String token) {
-		logger.entering(sourceClass, "compareVersions");
-
-		firstVersion = nullChecker(firstVersion, "0");
-
-		secondVersion = nullChecker(secondVersion, "0");
-
-		int intFirstVersion = getVersionInt(firstVersion, token);
-
-		int intSecondVerion = getVersionInt(secondVersion, token);
-
-		int intFirstVersionSize = (firstVersion.split(token)).length;
-
-		int intSecondVersionSize = (secondVersion.split(token)).length;
-
-		int sizeDifference = Math.abs(intFirstVersionSize - intSecondVersionSize);
-
-		int multiple = (int) Math.pow(10, sizeDifference);
-
-		if (intFirstVersionSize < intSecondVersionSize) {
-
-			intFirstVersion = intFirstVersion * multiple;
-		} else {
-
-			intSecondVerion = intSecondVerion * multiple;
-		}
-
-		String result = "";
-
-		if (intFirstVersion > intSecondVerion) {
-
-			result = GREATER_THAN;
-		}
-		if (intSecondVerion > intFirstVersion) {
-
-			result = LESS_THAN;
-		}
-		if (intSecondVerion == intFirstVersion) {
-
-			result = EQUALS;
-		}
-
-		logger.exiting(sourceClass, "compareVersions", result);
-		return result;
-	}
-
-	/**
-	 * 
-	 * @param value
-	 * @param defaultValue
-	 * @return
-	 */
-
-	public String nullChecker(String value, String defaultValue) {
-
-		if (value == null || value.equals("")) {
-			value = defaultValue;
-		}
-
-		return value;
-	}
-
-	/**
-	 * 
-	 * @param version
-	 * @param token
-	 * @return
-	 */
-	public int getVersionInt(String version, String token) {
-
-		if (version == null || version.equals("")) {
-			version = new String("0");
-		}
-
-		String[] versionSplit = version.split(token);
-
-		int sum = 0;
-		int e = 0;
-		for (int i = versionSplit.length - 1; i >= 0; i--) {
-
-			sum += Integer.valueOf(versionSplit[i]) * Math.pow(10, e);
-			e += 1;
-		}
-		return sum;
 	}
 
 	/**
