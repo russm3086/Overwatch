@@ -104,7 +104,7 @@ public class SystemSettings {
 		logger.entering(sourceClass, "loadDefaultProps");
 
 		logger.fine("Loading system settings");
-		mainProps = (SGE_MonitorProp) loadPropertiesFile(propsFilePath);
+		SGE_MonitorProp readProps = (SGE_MonitorProp) loadPropertiesFile(propsFilePath);
 
 		if (!getMainPropertiesFileExist()) {
 
@@ -113,12 +113,12 @@ public class SystemSettings {
 		} else {
 
 			logger.fine("Checking version");
-			Compare comparsionResult = compareVersions(minimalVersion, mainProps.getMonitorVersion(), token);
+			Compare comparsionResult = compareVersions(minimalVersion, readProps.getMonitorVersion(), token);
 
 			if (Compare.GREATER_THAN == comparsionResult) {
 
-				logger.fine("Version: " + mainProps.getMonitorVersion() + " is not compatible, will be upgrade.");
-				mainProps = mergeProps(mainProps);
+				logger.fine("Version: " + readProps.getMonitorVersion() + " is not compatible, will be upgrade.");
+				mainProps = mergeProps(readProps);
 			}
 		}
 
@@ -207,12 +207,7 @@ public class SystemSettings {
 	public PropertiesConfiguration loadPropertiesFile(String filePath) throws ConfigurationException {
 
 		SGE_MonitorProp props = loadPropertiesFile(filePath, SGE_MonitorPropConst.ansysVersion);
-
-		if (props != null) {
-			mainProps = props;
-		}
-
-		return mainProps;
+		return props;
 	}
 
 	/**
@@ -259,11 +254,11 @@ public class SystemSettings {
 	public SGE_MonitorProp loadProps(String filePath) throws IOException, URISyntaxException, ConfigurationException {
 		logger.entering(sourceClass, "loadProps");
 
-		mainProps = loadPropertyfile(filePath);
+		SGE_MonitorProp props = loadPropertyfile(filePath);
 
-		logger.exiting(sourceClass, "loadProps", mainProps);
+		logger.exiting(sourceClass, "loadProps");
 
-		return mainProps;
+		return props;
 	}
 
 	/**
