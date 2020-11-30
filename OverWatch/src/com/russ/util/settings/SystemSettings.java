@@ -109,7 +109,7 @@ public class SystemSettings {
 		if (!getMainPropertiesFileExist()) {
 
 			logger.fine("Cannot load settings, using default settings.");
-			logger.fine("Saving default settings to " + propsFilePath);
+			savePropertyFile(mainProps, propsFilePath);
 		} else {
 
 			logger.fine("Checking version");
@@ -119,10 +119,14 @@ public class SystemSettings {
 
 				logger.fine("Version: " + readProps.getMonitorVersion() + " is not compatible, will be upgrade.");
 				mainProps = mergeProps(readProps);
+				savePropertyFile(mainProps, propsFilePath);
+
+			} else {
+
+				mainProps = readProps;
 			}
 		}
 
-		savePropertyFile(mainProps, propsFilePath);
 		logger.exiting(sourceClass, "loadDefaultProps");
 
 		return mainProps;
@@ -286,8 +290,7 @@ public class SystemSettings {
 		return props;
 	}
 
-	public void savePropertyFile(String filePath)
-			throws IOException, URISyntaxException, ConfigurationException {
+	public void savePropertyFile(String filePath) throws IOException, URISyntaxException, ConfigurationException {
 		logger.entering(sourceClass, "savePropertyFile");
 		if (getMainProps() != null) {
 
@@ -312,6 +315,7 @@ public class SystemSettings {
 	public void savePropertyFile(SGE_MonitorProp props, String filePath)
 			throws IOException, ConfigurationException, URISyntaxException {
 		logger.entering(sourceClass, "savePropertyFile");
+		logger.fine("Saving default settings to " + filePath);
 
 		BufferedWriter writer = retrieveFileWriter(filePath);
 		PropertiesConfigurationLayout layout = props.getLayout();
