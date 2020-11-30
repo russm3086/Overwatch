@@ -11,5 +11,7 @@ public interface JobMessageInterface extends Serializable{
 	int getMessageNumber();
 
 	String getMessage();
+	
+	void setMessage(String msg);
 
 }

@@ -61,7 +61,6 @@ public class DetailedInfoProp extends AbstractProp {
 	 * 
 	 */
 	public DetailedInfoProp() {
-		// TODO Auto-generated constructor stub
 		setDataType(const_DataTypeString);
 		setPlotOrientation(PlotOrientation.VERTICAL);
 		setSectionColorTrue();
@@ -72,7 +71,6 @@ public class DetailedInfoProp extends AbstractProp {
 	 */
 	public DetailedInfoProp(Properties defaults) {
 		super(defaults);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void get_xAxisLabel(String label) {

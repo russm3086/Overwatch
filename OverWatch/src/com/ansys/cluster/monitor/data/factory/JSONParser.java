@@ -36,7 +36,6 @@ public class JSONParser extends ParserAbstract {
 	 */
 	public JSONParser(Payload payloadHosts, SGE_MonitorProp mainProps) {
 		super(payloadHosts, mainProps);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -46,7 +45,6 @@ public class JSONParser extends ParserAbstract {
 	 */
 	public JSONParser(Payload payloadJobs, Payload payLoadDetailedJobs, SGE_MonitorProp mainProps) {
 		super(payloadJobs, payLoadDetailedJobs, mainProps);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

@@ -34,7 +34,6 @@ import com.russ.util.UnitConversion;
  */
 public class Job extends ClusterNodeAbstract implements JobInterface {
 
-	// TODO session information
 	/**
 	 * 
 	 */

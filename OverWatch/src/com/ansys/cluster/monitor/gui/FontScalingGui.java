@@ -94,6 +94,8 @@ public class FontScalingGui extends JDialog {
 		// this.setSize(622, 350);
 		this.setSize(530, 298);
 
+		// this.setLocation(xLocation, yLocation);
+
 	}
 
 	public void make() {

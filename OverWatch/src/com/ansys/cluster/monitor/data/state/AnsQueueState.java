@@ -21,11 +21,9 @@ public class AnsQueueState extends StateAbstract {
 
 	protected AnsQueueState(StateAbstract state) {
 		super(state);
-		// TODO Auto-generated constructor stub
 	}
 
 	public AnsQueueState(String name, int value, String description, Color color) {
-		// TODO Auto-generated constructor stub
 		super(name, value, description, color);
 
 	}

@@ -47,7 +47,18 @@ public class SystemSettings {
 	private String logPropsFilePath = null;
 	private boolean mainPropertiesFileExist = false;
 	private String version = "0";
+	private String versionToken;
 	private PropUtil propUtil = new PropUtil();
+
+	public SystemSettings() {
+	}
+
+	public SystemSettings(SGE_MonitorProp mainProps, String versionToken) {
+
+		this.mainProps = mainProps;
+		this.versionToken = versionToken;
+
+	}
 
 	public boolean getMainPropertiesFileExist() {
 		return mainPropertiesFileExist;
@@ -70,7 +81,51 @@ public class SystemSettings {
 		return System.getProperty("java.io.tmpdir");
 	}
 
-	public SystemSettings() {
+	public SGE_MonitorProp loadSettings(String propsFilePath, String minimalVersion, String propComments) {
+		try {
+
+			mainProps = loadDefaultProps(propsFilePath, minimalVersion, propComments, versionToken);
+
+			logger.info("**Loading log manager**");
+
+			loadManager(propsFilePath);
+
+		} catch (IOException | URISyntaxException | ConfigurationException e) {
+
+			logger.log(Level.INFO, "Could not load properties file " + propsFilePath, e);
+
+		}
+
+		return mainProps;
+	}
+
+	public SGE_MonitorProp loadDefaultProps(String propsFilePath, String minimalVersion, String propComments,
+			String token) throws IOException, URISyntaxException, ConfigurationException {
+		logger.entering(sourceClass, "loadDefaultProps");
+
+		logger.fine("Loading system settings");
+		mainProps = (SGE_MonitorProp) loadPropertiesFile(propsFilePath);
+
+		if (!getMainPropertiesFileExist()) {
+
+			logger.fine("Cannot load settings, using default settings.");
+			logger.fine("Saving default settings to " + propsFilePath);
+		} else {
+
+			logger.fine("Checking version");
+			Compare comparsionResult = compareVersions(minimalVersion, mainProps.getMonitorVersion(), token);
+
+			if (Compare.GREATER_THAN == comparsionResult) {
+
+				logger.fine("Version: " + mainProps.getMonitorVersion() + " is not compatible, will be upgrade.");
+				mainProps = mergeProps(mainProps);
+			}
+		}
+
+		savePropertyFile(mainProps, propsFilePath);
+		logger.exiting(sourceClass, "loadDefaultProps");
+
+		return mainProps;
 	}
 
 	/**
@@ -120,11 +175,11 @@ public class SystemSettings {
 		return propUtil.compareVersions(minimalVersion, currentVersion, token);
 	}
 
-	public SGE_MonitorProp mergeProps(SGE_MonitorProp newProps, SGE_MonitorProp oldProps) {
+	public SGE_MonitorProp mergeProps(SGE_MonitorProp oldProps) {
 
-		List<String> listRegex = newProps.getDataRetentionRegexLst();
+		List<String> listRegex = mainProps.getDataRetentionRegexLst();
 		PropUtil pUtil = new PropUtil();
-		SGE_MonitorProp props = pUtil.mergeProps(newProps, oldProps, listRegex);
+		SGE_MonitorProp props = pUtil.mergeProps(mainProps, oldProps, listRegex);
 
 		return props;
 	}
@@ -149,14 +204,11 @@ public class SystemSettings {
 		this.logProps = logProps;
 	}
 
-	public PropertiesConfiguration loadPropertiesFile(SGE_MonitorProp defaultProps, String filePath)
-			throws ConfigurationException {
+	public PropertiesConfiguration loadPropertiesFile(String filePath) throws ConfigurationException {
 
 		SGE_MonitorProp props = loadPropertiesFile(filePath, SGE_MonitorPropConst.ansysVersion);
 
-		if (props == null) {
-			mainProps = defaultProps;
-		} else {
+		if (props != null) {
 			mainProps = props;
 		}
 
@@ -239,7 +291,7 @@ public class SystemSettings {
 		return props;
 	}
 
-	public void savePropertyFile(String filePath, String comments)
+	public void savePropertyFile(String filePath)
 			throws IOException, URISyntaxException, ConfigurationException {
 		logger.entering(sourceClass, "savePropertyFile");
 		if (getMainProps() != null) {

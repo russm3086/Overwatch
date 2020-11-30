@@ -32,7 +32,6 @@ public class DataCollector {
 	 * 
 	 */
 	public DataCollector(SGE_MonitorProp mainProps, Connector connector) {
-		// TODO Auto-generated constructor stub
 		logger.entering(sourceClass, "Constructor", connector);
 		setConnector(connector);
 		setMainProps(mainProps);

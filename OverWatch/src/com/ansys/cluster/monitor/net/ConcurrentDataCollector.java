@@ -117,7 +117,6 @@ public class ConcurrentDataCollector {
 			}
 
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			logger.log(Level.SEVERE, "Error Stopping threadpool", e);
 		}
 

@@ -6,6 +6,7 @@ package com.ansys.cluster.monitor.gui.tree;
 import java.awt.Color;
 import java.awt.Dimension;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -88,6 +89,7 @@ public class ProgressBar extends JPanel {
 
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setPreferredSize(getPrgPrefferedSize());
+		progressBar.setBorder(BorderFactory.createRaisedBevelBorder());
 
 		progressBar.setBackground(getBarBackGround());
 		progressBar.setForeground(getBarForeGround());

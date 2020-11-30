@@ -394,9 +394,8 @@ public class ClusterConnectionGUI extends JDialog {
 		mainProps.setGuiTimerDelay((int) refreshSpin.getValue());
 
 		try {
-			Main.saveSettings(mainProps);
+			Main.saveSettings();
 		} catch (IOException | URISyntaxException | ConfigurationException e) {
-			// TODO Auto-generated catch block
 			logger.log(Level.WARNING, "Cannot save settings", e);
 		}
 

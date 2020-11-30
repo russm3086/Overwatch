@@ -21,7 +21,6 @@ import com.ansys.cluster.monitor.data.factory.Exporter;
 import com.ansys.cluster.monitor.gui.AdminMenuConfig;
 import com.ansys.cluster.monitor.gui.ConsoleThread;
 import com.ansys.cluster.monitor.settings.MonitorArgsSettings;
-import com.ansys.cluster.monitor.settings.PropUtil.Compare;
 import com.ansys.cluster.monitor.settings.SGE_MonitorProp;
 import com.russ.util.FileStructure;
 import com.russ.util.gui.DisplayTool;
@@ -44,8 +43,6 @@ public class Main {
 	 * 
 	 */
 	public Main() {
-		// TODO Create mechanism to check properties file version
-		// TODO Create mechanism to update existing Properties file
 	}
 
 	/**
@@ -55,19 +52,14 @@ public class Main {
 	 * @throws URISyntaxException
 	 */
 	public static void main(String[] args) throws IOException, URISyntaxException, ConfigurationException {
-
-		Logger logger = Logger.getLogger(sourceClass);
 		LoggingUtil.setLevel(Level.FINE);
 
-		SGE_MonitorProp mainProps = new SGE_MonitorProp();
+		String token = "\\.";
+		systemSettings = new SystemSettings(new SGE_MonitorProp(), token);
 
 		propComments = SGE_DataConst.app_name + " v. " + SGE_DataConst.app_version;
 
 		propsFilePath = SystemSettings.getUserHome() + "/" + SGE_DataConst.DefaultPropertiesPath;
-
-		String token = "\\.";
-
-		// propsFilePath = "res/etc/settings.orig.properties";
 
 		try {
 			logger.info("****Started****");
@@ -75,7 +67,8 @@ public class Main {
 
 			MonitorArgsSettings argsSetting = new MonitorArgsSettings(args);
 
-			mainProps = getSystemSettings(mainProps, token);
+			SGE_MonitorProp mainProps = systemSettings.loadSettings(propsFilePath, SGE_DataConst.app_version,
+					propComments);
 
 			if (!argsSetting.skipMainProgram()) {
 
@@ -153,72 +146,9 @@ public class Main {
 		}
 	}
 
-	public static SGE_MonitorProp getSystemSettings(SGE_MonitorProp mainProps, String token)
-			throws URISyntaxException, ConfigurationException {
-
-		try {
-
-			systemSettings = new SystemSettings();
-			mainProps = loadDefaultProps(propsFilePath, SGE_DataConst.app_version, propComments, token, systemSettings);
-
-			logger.info("**Loading log manager**");
-
-			systemSettings.loadManager(propsFilePath);
-
-		} catch (IOException e) {
-
-			logger.log(Level.INFO, "Could not load properties file " + propsFilePath, e);
-
-		}
-
-		return mainProps;
-	}
-
-	public static SGE_MonitorProp loadDefaultProps(String propsFilePath, String minimalVersion, String propComments,
-			String token, SystemSettings systemSettings)
-			throws IOException, URISyntaxException, ConfigurationException {
-		logger.entering(sourceClass, "loadDefaultProps");
-
-		logger.fine("Loading system settings");
-		SGE_MonitorProp mainProps = (SGE_MonitorProp) systemSettings.loadPropertiesFile(new SGE_MonitorProp(),
-				propsFilePath);
-
-		if (!systemSettings.getMainPropertiesFileExist()) {
-
-			logger.fine("Cannot load settings, using default settings.");
-			logger.fine("Saving default settings to " + propsFilePath);
-			systemSettings.savePropertyFile(mainProps, propsFilePath);
-
-		} else {
-
-			logger.fine("Checking version");
-			Compare comparsionResult = systemSettings.compareVersions(minimalVersion, mainProps.getMonitorVersion(),
-					token);
-
-			if (Compare.GREATER_THAN == comparsionResult) {
-
-				logger.fine("Version: " + mainProps.getMonitorVersion() + " is not compatible, will be upgrade.");
-				mainProps = systemSettings.mergeProps(new SGE_MonitorProp(), mainProps);
-				systemSettings.savePropertyFile(mainProps, propsFilePath);
-			}
-		}
-
-		logger.exiting(sourceClass, "loadDefaultProps");
-
-		return mainProps;
-	}
-
 	public static void saveSettings() throws IOException, URISyntaxException, ConfigurationException {
 
-		systemSettings.savePropertyFile(propsFilePath, propComments);
-
-	}
-
-	public static void saveSettings(SGE_MonitorProp mainProps)
-			throws IOException, URISyntaxException, ConfigurationException {
-
-		systemSettings.savePropertyFile(mainProps, propsFilePath);
-
+		systemSettings.savePropertyFile(propsFilePath);
 	}
 
 	/**

@@ -584,7 +584,6 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 	 */
 	@Override
 	public ZonedDateTime getJobSubmissionTime() {
-		// TODO Use Instant
 		return getDateProperty(SGE_DataConst.json_job_submission_time);
 	}
 

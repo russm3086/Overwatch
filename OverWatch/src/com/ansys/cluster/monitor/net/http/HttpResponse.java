@@ -147,7 +147,6 @@ public class HttpResponse {
 
 			in = new ObjectInputStream(bis);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Cluster cluster = (Cluster) in.readObject();

@@ -115,13 +115,14 @@ public class Console extends JFrame {
 		// Settings MenuItem
 
 		JMenuItem settingsMenuItem = new JMenuItem("Cluster Settings");
-		settingsMenuItem.addActionListener(new ClusterConnectionSettings(settingsMenuItem.getText()));
+		settingsMenuItem
+				.addActionListener(new ClusterConnectionSettings(settingsMenuItem.getText(), this.getX(), this.getY()));
 		settingsMenuItem.setMnemonic(KeyEvent.VK_C);
 		settingsMenuItem.setToolTipText("Allow cluster settings to be Change and Saved");
 		settingsMenu.add(settingsMenuItem);
 
 		JMenuItem fontMenuItem = new JMenuItem("Font Scale Settings");
-		fontMenuItem.addActionListener(new FontScalingSettings(fontMenuItem.getText()));
+		fontMenuItem.addActionListener(new FontScalingSettings(fontMenuItem.getText(), this.getX(), this.getY()));
 		fontMenuItem.setMnemonic(KeyEvent.VK_F);
 		fontMenuItem.setToolTipText("Allow font scaling to be Change and Saved");
 		settingsMenu.add(fontMenuItem);
@@ -163,7 +164,7 @@ public class Console extends JFrame {
 		JScrollPane treeView = new JScrollPane(tree);
 
 		treeView.setMinimumSize(new Dimension(325, 200));
-		treeView.setPreferredSize(new Dimension(350, 200));
+		treeView.setPreferredSize(new Dimension(350, 250));
 		splitPane.setTopComponent(treeView);
 
 		scrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -236,7 +237,7 @@ public class Console extends JFrame {
 
 				JMenuItem aliasMenuItem = new JMenuItem("Alias");
 				aliasMenuItem.setMnemonic(KeyEvent.VK_L);
-				aliasMenuItem.addActionListener(new AliasSettings(aliasMenuItem.getText()));
+				aliasMenuItem.addActionListener(new AliasSettings(aliasMenuItem.getText(), this.getX(), this.getY()));
 				adminMenu.add(aliasMenuItem);
 				menuBar.add(adminMenu);
 
@@ -287,7 +288,7 @@ public class Console extends JFrame {
 			}
 
 			this.setSize(width, height);
-
+			logger.finer("Setting Dialog location to " + x + " " + y);
 			this.setLocation(x, y);
 		}
 	}
@@ -326,8 +327,6 @@ public class Console extends JFrame {
 
 					TreeBuilder tbmt = new TreeBuilder(mainProps, tree, cluster);
 					tbmt.refreshTree();
-
-					tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
 					LocalDateTime currentDateTime = LocalDateTime.now();
 					DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
@@ -382,6 +381,10 @@ public class Console extends JFrame {
 		iMap.put(keyStroke, keyAction);
 		aMap.put(keyAction, new AutoRefresh());
 
+		keyStroke = KeyStroke.getKeyStroke("control R");
+		iMap.put(keyStroke, keyAction);
+		aMap.put(keyAction, new AutoRefresh());
+
 	}
 
 	/**
@@ -401,7 +404,6 @@ public class Console extends JFrame {
 		private static final long serialVersionUID = 2469989292110815749L;
 
 		public AutoRefresh() {
-			// TODO Auto-generated constructor stub
 		}
 
 		/**
@@ -419,9 +421,6 @@ public class Console extends JFrame {
 
 		@Override
 		public void run() {
-
-			// TODO Auto-generated method stub
-
 			TreePath treePath = ((TreeSelectionEvent) eo).getNewLeadSelectionPath();
 
 			if (treePath == null)
@@ -440,7 +439,6 @@ public class Console extends JFrame {
 
 		@Override
 		public void valueChanged(TreeSelectionEvent e) {
-			// TODO Auto-generated method stub
 			eo = e;
 			invokeLater(this);
 
@@ -501,21 +499,21 @@ public class Console extends JFrame {
 
 	private class FontScalingSettings extends Settings {
 
-		public FontScalingSettings(String title) {
+		public FontScalingSettings(String title, int x, int y) {
 			super(new FontScalingGui(Console.getFrames()[0], title, true, mainProps));
 		}
 	}
 
 	private class ClusterConnectionSettings extends Settings {
 
-		public ClusterConnectionSettings(String title) {
+		public ClusterConnectionSettings(String title, int x, int y) {
 			super(new ClusterConnectionGUI(Console.getFrames()[0], title, true, mainProps));
 		}
 	}
 
 	private class AliasSettings extends Settings {
 
-		public AliasSettings(String title) {
+		public AliasSettings(String title, int x, int y) {
 			super(new AliasGUI(Console.getFrames()[0], title, true, mainProps));
 		}
 	}
@@ -531,13 +529,13 @@ public class Console extends JFrame {
 		 * Instanstiate a gui that allows the user to change settings.
 		 */
 		public void run() {
-			// JDialog gui = new ParamGUI(Console.getFrames()[0], "Settings", true,
-			// mainProps);
 
-			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-			int x = (int) (dim.getWidth() - dialog.getWidth()) / 2;
-			int y = (int) (dim.getHeight() - dialog.getHeight()) / 2;
+			Rectangle bound = Console.getFrames()[0].getBounds();
 
+			int x = (int) (bound.getX() + (bound.getWidth() - dialog.getWidth()) / 2);
+			int y = (int) (bound.getY() + (bound.getHeight() - dialog.getHeight()) / 2);
+
+			logger.finer("Setting Dialog location to " + x + " " + y);
 			dialog.setLocation(x, y);
 			dialog.setVisible(true);
 
@@ -550,6 +548,7 @@ public class Console extends JFrame {
 		public void actionPerformed(ActionEvent ae) {
 			invokeLater(this);
 		}
+
 	}
 
 	private class SaveSettings extends WindowAdapter {
@@ -560,12 +559,11 @@ public class Console extends JFrame {
 			setFrameSize();
 			setFrameLocation();
 			executor.shutdown();
-			mainProps.setUsernameAlias("");
+			mainProps.removeProperties();
 
 			try {
-				Main.saveSettings(mainProps);
+				Main.saveSettings();
 			} catch (IOException | URISyntaxException | ConfigurationException ex) {
-				// TODO Auto-generated catch block
 				logger.log(Level.FINER, "Issue saving settings", ex);
 			}
 		}

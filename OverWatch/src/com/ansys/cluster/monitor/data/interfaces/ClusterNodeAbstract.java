@@ -70,7 +70,6 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	 * 
 	 */
 	public ClusterNodeAbstract(NodeProp nodeProp) {
-		// TODO Auto-generated constructor stub
 		this.nodeProp = nodeProp;
 
 	}
@@ -86,7 +85,6 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	}
 
 	public NodeProp getNodeProp() {
-		// TODO Auto-generated method stub
 		return nodeProp;
 	}
 
@@ -119,7 +117,6 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 	}
 
 	protected void addState(TreeMap<Integer, StateAbstract> state, StateAbstract defaultState) {
-		// TODO Auto-generated method stub
 		for (Entry<Integer, StateAbstract> entry : state.entrySet()) {
 
 			addState(entry.getValue(), defaultState);

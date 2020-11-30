@@ -7,6 +7,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
@@ -143,8 +144,13 @@ public class DetailedInfoPanel extends JPanel {
 		panel.setMinimumSize(new Dimension(600, 100));
 		panel.setLayout(new WrapLayout(FlowLayout.LEADING));
 
-		LineBorder roundedLineBorder = new LineBorder(Color.blue, 1, true);
-		TitledBorder title = BorderFactory.createTitledBorder(roundedLineBorder, strTitle);
+		Border beveled = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.BLUE, Color.white, Color.BLUE,
+				Color.BLACK);
+		// LineBorder roundedLineBorder = new LineBorder(Color.blue, 1, true);
+		// TitledBorder title = BorderFactory.createTitledBorder(roundedLineBorder,
+		// strTitle);
+		TitledBorder title = BorderFactory.createTitledBorder(beveled, strTitle, TitledBorder.LEADING,
+				TitledBorder.DEFAULT_POSITION);
 		panel.setBorder(title);
 		panel.setBackground(Color.WHITE);
 		return panel;

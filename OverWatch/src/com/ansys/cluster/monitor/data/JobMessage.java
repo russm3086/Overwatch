@@ -23,19 +23,22 @@ public class JobMessage implements JobMessageInterface {
 		this.prop = prop;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.ansys.cluster.monitor.data.JobMessageInterface#getJobList()
 	 */
 	@Override
 	public LinkedHashSet<?> getJobList() {
-		
+
 		LinkedHashSet<?> list = (LinkedHashSet<?>) prop.getLinkedHashSet("MES_job_number_list");
-		
+
 		return list;
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.ansys.cluster.monitor.data.JobMessageInterface#getMessageNumber()
 	 */
 	@Override
@@ -44,7 +47,9 @@ public class JobMessage implements JobMessageInterface {
 		return prop.getIntProperty("MES_message_number");
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.ansys.cluster.monitor.data.JobMessageInterface#getMessage()
 	 */
 	@Override
@@ -53,13 +58,24 @@ public class JobMessage implements JobMessageInterface {
 		StringBuffer sb = new StringBuffer();
 
 		sb.append(prop.get("MES_message"));
-		
+
 		return sb.toString();
 	}
 
 	public String toString() {
-		
+
 		return getMessage();
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ansys.cluster.monitor.data.JobMessageInterface#setMessage()
+	 */
+	@Override
+	public void setMessage(String msg) {
+		prop.put("MES_message", msg);
+
+	}
+
 }

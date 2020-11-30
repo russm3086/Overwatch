@@ -53,8 +53,6 @@ public class Connector {
 	 * 
 	 */
 	public Connector(SGE_MonitorProp mainProps) {
-		// TODO Auto-generated constructor stub
-
 		this.mainProps = mainProps;
 
 	}

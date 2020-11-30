@@ -9,6 +9,8 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -339,11 +341,48 @@ public class XMLParser extends ParserAbstract {
 			for (Element elem : listElem) {
 
 				JobMessage jobMsg = createJobMessage(elem);
-				listJobMsg.add(jobMsg);
+
+				if (jobMessageFilter(jobMsg)) {
+					jobMessageQuotaTranslator(jobMsg);
+					listJobMsg.add(jobMsg);
+				}
 			}
 		}
 		logger.exiting(sourceClass, "createJobMessages", listJobMsg);
 		return listJobMsg;
+	}
+
+	private void jobMessageQuotaTranslator(JobMessage jobMsg) {
+		// TODO Create Props entry
+		Pattern pattern = Pattern
+				.compile("cannot run because it exceeds limit \\\"(.*)///.*///.*\\\" in rule \\\"(.*)_.*_.*\\\"");
+		Matcher matcher = pattern.matcher(jobMsg.getMessage());
+
+		while (matcher.find()) {
+
+			jobMsg.setMessage("User: " + matcher.group(1) + " has exceeded quota: " + matcher.group(2));
+		}
+	}
+
+	private boolean jobMessageFilter(JobMessage jobMsg) {
+		// TODO Create Props entry
+		boolean result = true;
+		List<String> lstRegex = new ArrayList<String>();
+		lstRegex.add("cannot run in queue .* because it is not contained in its hard queue list \\(-q\\)");
+		lstRegex.add(
+				"\\(-l exclusive=true\\) cannot run in queue .* because exclusive resource \\(exclusive\\) is already in use");
+		lstRegex.add("\\(-l exclusive=true\\) cannot run in queue .* because it offers only qc:exclusive=false");
+
+		for (String regex : lstRegex) {
+
+			if (jobMsg.getMessage().matches(regex)) {
+
+				result = false;
+				break;
+			}
+		}
+
+		return result;
 	}
 
 	private JobMessage createJobMessage(Element messageElm) {

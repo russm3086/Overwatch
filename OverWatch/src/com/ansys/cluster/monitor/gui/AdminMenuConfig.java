@@ -24,7 +24,6 @@ public class AdminMenuConfig {
 	 * 
 	 */
 	private AdminMenuConfig() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public static String createKeyPassword(String userName) throws NoSuchAlgorithmException, InvalidKeyException,

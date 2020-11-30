@@ -50,8 +50,6 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 	 * 
 	 */
 	public ClusterTreeCellRenderer() {
-		// TODO Auto-generated constructor stub
-
 	}
 
 	/*
@@ -64,7 +62,6 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 	@Override
 	public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded,
 			boolean leaf, int row, boolean hasFocus) {
-		// TODO Auto-generated method stub
 
 		this.selected = selected;
 		JLabel label = new JLabel();
@@ -238,38 +235,30 @@ public class ClusterTreeCellRenderer extends DefaultTreeCellRenderer implements 
 		if (state.between(JobState.Restarted, JobState.RunningState)) {
 
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_GreenLight_Small_Path)));
-			// setToolTipState(label, state.getName(), node.getToolTip());
 		}
 
 		if (state.between(JobState.Deletion, JobState.SuspendedThreshold)) {
 
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_YellowLight_Small_Path)));
-			// label.setToolTipText("<html>"+ state.getDescription() + "<BR>" +
-			// node.getToolTip()+"</html>");
-
 		}
 
 		if (state.equals(JobState.Zombie)) {
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Zombie_Small_Path)));
-			// label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
 		}
 
 		if (state.equals(JobState.Idle)) {
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_BlueLight_Small_Path)));
-			// label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
 		}
 
 		if (state.between(JobState.SuspendedThreshold, JobState.Unknown)) {
 
 			label.setIcon(new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Skull_and_Bones_Small_Path)));
-			// label.setToolTipText(state.getDescription() + "\n\t" + node.getToolTip());
 		}
 
 		setToolTipState(label, state.getName(), node.getToolTip());
 		label.setText(node.getNodeProp().getJobOwner() + " - " + node.getNodeProp().getJobNumber());
 
 		return label;
-
 	}
 
 	private void setToolTipState(JLabel label, String state, String toolTip) {

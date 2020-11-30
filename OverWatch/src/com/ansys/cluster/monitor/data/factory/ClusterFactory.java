@@ -53,7 +53,6 @@ public class ClusterFactory {
 	 * 
 	 */
 	private ClusterFactory() {
-		// TODO Auto-generated constructor stub
 
 	}
 
@@ -87,6 +86,7 @@ public class ClusterFactory {
 
 		logger.info("Current user: " + userName);
 
+		// TODO Create Props entry
 		ConcurrentDataCollector cdc = new ConcurrentDataCollector(dc, index, 4, 10, TimeUnit.SECONDS);
 		HashMap<SrcType, Payload> resultMap = cdc.collect();
 

@@ -43,7 +43,6 @@ public class ClusterDataCollector {
 			logger.info("New Cluster Object created " + clusterName);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			logger.log(Level.SEVERE, "Problems retrieving cluster data", e);
 
 		}

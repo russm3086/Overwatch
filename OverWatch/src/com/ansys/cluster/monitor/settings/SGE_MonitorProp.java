@@ -104,9 +104,8 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		// Data
 		setClusterQueueOmissions("dcv e09n48");
 		setClusterQueueVisualRegex(".*vnc.*|.*dcv.*");
-		layout.setBlancLinesBefore(SGE_MonitorPropConst.clusterQueueOmissions, 2);
 		layout.setComment(SGE_MonitorPropConst.clusterQueueOmissions,
-				"Data Filteration\nSpecifies data manipulation settings.");
+				"\nData Filteration\nSpecifies data manipulation settings.");
 		setClusterDataJobList(
 				"JAT_scaled_usage_list JB_env_list " + "JB_submission_command_line JAT_granted_resources_list "
 						+ "JB_job_args JAT_granted_destin_identifier_list");
@@ -144,8 +143,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setClusterConnectionRetriesDelayTimeUnit("Seconds");
 
 		setClusterConnectionRequestReadBuffer(131072);
-		layout.setBlancLinesBefore(SGE_MonitorPropConst.connectionReadBuffer, 2);
-		layout.setComment(SGE_MonitorPropConst.connectionReadBuffer, "connection settings");
+		layout.setComment(SGE_MonitorPropConst.connectionReadBuffer, "\nconnection settings");
 
 		setClusterConnectionRequestTimeOut(5000);
 		setClusterConnectionRequestReadTimeOut(5000);
@@ -181,10 +179,8 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setClusterConnectionQuotaUrl(2, "http://punsimportal2.ansys.com:7878/allquota");
 
 		setClusterConnectionShellCmd(0, "/bin/sh");
-		layout.setBlancLinesBefore(
-				SGE_MonitorPropConst.clusterPrefix + 0 + SGE_MonitorPropConst.connectionShellCmdSuffix, 2);
 		layout.setComment(SGE_MonitorPropConst.clusterPrefix + 0 + SGE_MonitorPropConst.connectionShellCmdSuffix,
-				"Cluster commandline settings");
+				"\nCluster commandline settings");
 
 		setClusterConnectionShellArgsCmd(0, "-c");
 		setClusterConnectionHostCmd(0, "qhost -q -xml");
@@ -715,6 +711,10 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 	public String getUsernameAlias() {
 		return getString(SGE_MonitorPropConst.clusterMyJobQueueUserAlias);
 	}
+	
+	public void clearUsernameAlias() {
+		clearPropertyDirect(SGE_MonitorPropConst.clusterMyJobQueueUserAlias);
+	}
 
 	public void setAdminPassword(String password) {
 		setProperty(SGE_MonitorPropConst.adminPassword, password);
@@ -761,4 +761,9 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 	}
 
+	public void removeProperties() {
+		
+		clearUsernameAlias();
+	}
+	
 }

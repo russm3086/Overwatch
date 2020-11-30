@@ -50,7 +50,7 @@ public final class SGE_MonitorPropConst {
 
 	public static final String dataRetentionPrefix = updatePrefix + "data.retention.";
 
-	public static final String regexSuffix = "regex";
+	public static final String regexSuffix = ".regex";
 
 	public static final String guiFrameWidth = "com.ansys.cluster.monitor.GUI.frame.width";
 

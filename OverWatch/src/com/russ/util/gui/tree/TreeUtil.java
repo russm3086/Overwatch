@@ -45,7 +45,6 @@ public class TreeUtil {
 		TreeStateProps tsProps = new TreeStateProps();
 		try {
 			tsProps.setSelectedPaths(tree.getSelectionPaths());
-
 			TreePath root = new TreePath(tree.getModel().getRoot());
 			Enumeration<TreePath> expandedState = tree.getExpandedDescendants(root);
 			tsProps.setExpandedState(expandedState);

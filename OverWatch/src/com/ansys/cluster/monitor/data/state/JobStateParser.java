@@ -20,7 +20,7 @@ public class JobStateParser implements StateParserInterface {
 	 * 
 	 */
 	public JobStateParser() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/* (non-Javadoc)

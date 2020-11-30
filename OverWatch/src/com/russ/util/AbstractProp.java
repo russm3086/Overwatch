@@ -34,7 +34,6 @@ public abstract class AbstractProp extends Properties {
 	 * 
 	 */
 	public AbstractProp() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -42,7 +41,6 @@ public abstract class AbstractProp extends Properties {
 	 */
 	public AbstractProp(Properties defaults) {
 		super(defaults);
-		// TODO Auto-generated constructor stub
 	}
 
 	public synchronized Object setIntProperty(String key, int value) {

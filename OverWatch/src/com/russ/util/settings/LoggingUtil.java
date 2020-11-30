@@ -45,7 +45,6 @@ public class LoggingUtil {
 			result = levels.stream().map(String::valueOf).collect(Collectors.joining(", "));
 
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

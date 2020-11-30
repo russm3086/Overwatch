@@ -63,7 +63,6 @@ public class Exporter {
 	 * 
 	 */
 	public Exporter(SGE_MonitorProp mainProps, String strFile) {
-		// TODO Auto-generated constructor stub
 		this.mainProps = mainProps;
 		this.strFile = strFile;
 	}

@@ -233,7 +233,6 @@ public class HostQueue extends AnsQueueAbstract {
 		return getAllmaps();
 	}
 
-	// TODO SHould be part of an interface
 	@Override
 	public int size() {
 		return getAllmaps().size();

@@ -16,7 +16,7 @@ public abstract class ArgsSettings extends AbstractArguments {
 	 */
 	public ArgsSettings(String[] args) {
 		super(args);
-		// TODO Auto-generated constructor stub
+
 	}
 
 	/*
@@ -26,7 +26,6 @@ public abstract class ArgsSettings extends AbstractArguments {
 	 */
 	@Override
 	public boolean skipMainProgram() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -37,7 +36,6 @@ public abstract class ArgsSettings extends AbstractArguments {
 	 */
 	@Override
 	public boolean hasPropFiles() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -48,13 +46,11 @@ public abstract class ArgsSettings extends AbstractArguments {
 	 */
 	@Override
 	protected String getHelpMessage() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getPropFiles() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

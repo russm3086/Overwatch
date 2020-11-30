@@ -28,7 +28,6 @@ public class ClusterDetailedInfoPanel extends DetailedInfoPanel {
 	 */
 	public ClusterDetailedInfoPanel(DetailedInfoProp masterDiProp, JTree tree) {
 		super(masterDiProp, tree);
-		// TODO Auto-generated constructor stub
 
 	}
 

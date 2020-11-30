@@ -56,6 +56,7 @@ public class PropUtil {
 
 		origProp.copy(newProps);
 		origProp.setHeader(newProps.getHeader());
+		newProps.copy(origProp);
 		return origProp;
 
 	}

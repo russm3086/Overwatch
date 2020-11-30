@@ -22,7 +22,6 @@ public class DetailedInfoFactory {
 	 * 
 	 */
 	private DetailedInfoFactory() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public static JPanel createDetailedInfoPanel(ClusterNodeAbstract node, JTree tree) {

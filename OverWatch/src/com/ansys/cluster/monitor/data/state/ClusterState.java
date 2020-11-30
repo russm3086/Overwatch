@@ -27,7 +27,6 @@ public class ClusterState extends StateAbstract {
 	 */
 	public ClusterState(String name, int value, String description, Color color) {
 		super(name, value, description, color);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -35,7 +34,6 @@ public class ClusterState extends StateAbstract {
 	 */
 	public ClusterState(StateAbstract state) {
 		super(state);
-		// TODO Auto-generated constructor stub
 	}
 
 	public static final ClusterState Normal = new ClusterState("Normal State", 5900, NormalStateDesc, Color.GREEN);
