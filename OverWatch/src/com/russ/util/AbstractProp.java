@@ -48,6 +48,11 @@ public abstract class AbstractProp extends Properties {
 		return obj;
 	}
 
+	public synchronized int getInt(String key) {
+		
+		return (int) getLog(key);
+	}
+	
 	public synchronized int getIntProperty(String key) {
 		int value = 0;
 		try {
@@ -158,6 +163,11 @@ public abstract class AbstractProp extends Properties {
 
 	}
 
+	public synchronized ZonedDateTime getZonedDateTimeProperty(String key) {
+		return (ZonedDateTime) getLog(key);
+	}
+	
+	
 	public synchronized ZonedDateTime getDateProperty(String key) {
 
 		ZonedDateTime dateTime = null;

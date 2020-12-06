@@ -68,7 +68,7 @@ public class Exporter {
 	}
 
 	public Exporter(SGE_MonitorProp mainProps) {
-		// TODO Auto-generated constructor stub
+		
 		this.mainProps = mainProps;
 	}
 

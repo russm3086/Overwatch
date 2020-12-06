@@ -150,7 +150,7 @@ public class JSONParser extends ParserAbstract {
 
 	@Override
 	public HashMap<Integer, Job> createJobsMap() {
-		// TODO Auto-generated method stub
+		
 
 		logger.fine("Creating summary job objects");
 		HashMap<Integer, Job> mapSumJobs = createSummaryJobs(payloadJobs.getJsoObject());

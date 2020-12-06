@@ -42,7 +42,7 @@ public class StateTableModel extends AbstractClusterNodeTableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
+		
 
 		StateAbstract stateAbstract = (StateAbstract) valueList.get(rowIndex);
 		Object returnValue = null;

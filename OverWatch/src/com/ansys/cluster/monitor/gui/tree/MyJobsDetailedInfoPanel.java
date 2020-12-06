@@ -31,7 +31,7 @@ public class MyJobsDetailedInfoPanel extends DetailedInfoPanel {
 	 */
 	public MyJobsDetailedInfoPanel(DetailedInfoProp masterDiProp, JTree tree) {
 		super(masterDiProp, tree);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	protected void createDetailInfoPage(DetailedInfoProp masterDiProp) {

@@ -31,7 +31,7 @@ public class ConsoleThread implements Runnable {
 	public void run() {
 
 		try {
-			new Console(SGE_DataConst.app_name + " v. " + SGE_DataConst.app_version + " Beta", mainProps);
+			new Console(SGE_DataConst.app_name + " v. " + SGE_DataConst.app_version + " Alpha", mainProps);
 		} catch (IOException | InterruptedException e) {
 			logger.log(Level.SEVERE, "Error", e);
 		}

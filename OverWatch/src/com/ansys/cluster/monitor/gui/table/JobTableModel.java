@@ -18,17 +18,17 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 		 * 
 		 */
 	private static final long serialVersionUID = 2331629876169607226L;
-	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "Num. of Exec. Host", "State",
-			"Duration", "Load", "Efficiency" };
-	protected static final int COLUMN_NAME = 0;
-	protected static final int COLUMN_ID = 1;
-	protected static final int COLUMN_OWNER = 2;
-	protected static final int COLUMN_CORES = 3;
-	protected static final int COLUMN_EXEC_HOSTS = 4;
-	protected static final int COLUMN_STATE = 5;
-	protected static final int COLUMN_DURATION = 6;
-	protected static final int COLUMN_LOAD = 7;
-	protected static final int COLUMN_EFFICIENCY = 8;
+	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "Num. of Exec. Host", "Duration",
+			"Load", "Efficiency", "TTL" };
+	public static final int COLUMN_NAME = 0;
+	public static final int COLUMN_ID = 1;
+	public static final int COLUMN_OWNER = 2;
+	public static final int COLUMN_CORES = 3;
+	public static final int COLUMN_EXEC_HOSTS = 4;
+	public static final int COLUMN_DURATION = 5;
+	public static final int COLUMN_LOAD = 6;
+	public static final int COLUMN_EFFICIENCY = 7;
+	public static final int COLUMN_TTL = 8;
 
 	/**
 	 * 
@@ -53,8 +53,8 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 		switch (column) {
 		case COLUMN_NAME:
 		case COLUMN_OWNER:
-		case COLUMN_STATE:
 		case COLUMN_DURATION:
+		case COLUMN_TTL:
 			return String.class;
 		case COLUMN_LOAD:
 		case COLUMN_EFFICIENCY:
@@ -70,7 +70,6 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
 
 		Job job = (Job) valueList.get(rowIndex);
 		Object returnValue = new String("?");
@@ -91,9 +90,6 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 		case COLUMN_EXEC_HOSTS:
 			returnValue = Integer.valueOf((job.getNumExecHosts()));
 			break;
-		case COLUMN_STATE:
-			returnValue = job.getState();
-			break;
 		case COLUMN_DURATION:
 			returnValue = durationOutput(job.getDuration());
 			break;
@@ -102,6 +98,9 @@ public class JobTableModel extends AbstractClusterNodeTableModel {
 			break;
 		case COLUMN_EFFICIENCY:
 			returnValue = UnitConversion.round(job.getEfficiency(), 1);
+			break;
+		case COLUMN_TTL:
+			returnValue = ttl(job.getJobSoftStopTime());
 			break;
 		default:
 			throw new IllegalArgumentException("Invalid column index");

@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -255,6 +256,11 @@ public class TimeUtil {
 		return formattedDate;
 	}
 
+	public static String formatDuration(long elapseTime, TimeUnit tu, String format) {
+		long millisecond = TimeUnit.MILLISECONDS.convert(elapseTime, tu);
+		return DurationFormatUtils.formatDuration(Math.abs(millisecond), format);
+	}
+	
 	public static String formatDuration(long elapseTime, String format) {
 		return DurationFormatUtils.formatDuration(Math.abs(elapseTime), format);
 	}

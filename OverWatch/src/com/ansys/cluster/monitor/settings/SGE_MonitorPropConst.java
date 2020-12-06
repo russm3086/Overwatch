@@ -13,7 +13,7 @@ public final class SGE_MonitorPropConst {
 	 * 
 	 */
 	public SGE_MonitorPropConst() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public static final String logHandler = "handlers";
@@ -118,6 +118,14 @@ public final class SGE_MonitorPropConst {
 
 	public static final String connectionRequestMethod = clusterConnectionRequestPrefix + ".method";
 
+	public static final String connectionRequestCdcPrefix = clusterConnectionRequestPrefix + ".cdc";
+
+	public static final String connectionRequestCdcPoolSize = connectionRequestCdcPrefix + ".poolsize";
+
+	public static final String connectionRequestCdcTimeout = connectionRequestCdcPrefix + ".timeout";
+
+	public static final String connectionRequestCdcTimeoutTimeUnit = connectionRequestCdcPrefix + ".timeout.timeunit";
+
 	public static final String connectionConnectTimeout = clusterConnectionRequestPrefix + ".connect.timeout";
 
 	public static final String connectionReadTimeout = clusterConnectionRequestPrefix + ".read.timeout";
@@ -136,7 +144,9 @@ public final class SGE_MonitorPropConst {
 
 	public static final String nameSuffix = ".name";
 
-	public static final String timeZoneId = "timezoneid";
+	public static final String timeZoneIdSuffix = ".timezoneid";
+
+	public static final String timeZoneId = ".timezoneid";
 
 	public static final String connectionClusterUrlSuffix = ".connection.cluster.URL";
 
@@ -150,6 +160,12 @@ public final class SGE_MonitorPropConst {
 
 	public static final String connectionDetailedJobsUrlSuffix = ".connection.detailedJobs.URL";
 
+	public static final String connectionFullDetailedJobsUrlSuffix = ".connection.fullDetailedJobs.URL";
+
+	public static final String connectionQueueUrlSuffix = ".connection.queue.URL";
+
+	public static final String connectionUseFullDetailedJobsSuffix = ".useFullDetailedJobs";
+
 	public static final String connectionShellCmdSuffix = ".connection.shell.CMD";
 
 	public static final String connectionShellArgsCmdSuffix = ".connection.shell.args.CMD";
@@ -161,6 +177,10 @@ public final class SGE_MonitorPropConst {
 	public static final String connectionSummaryJobsCmdSuffix = ".connection.summaryJobs.CMD";
 
 	public static final String connectionDetailedJobsCmdSuffix = ".connection.detailedJobs.CMD";
+
+	public static final String connectionFullDetailedJobsCmdSuffix = ".connection.fullDetailedJobs.CMD";
+
+	public static final String connectionQueueCmdSuffix = ".connection.queue.CMD";
 
 	public static final String jobIdleThreshold = "com.ansys.monitor.job.idle.threshold";
 

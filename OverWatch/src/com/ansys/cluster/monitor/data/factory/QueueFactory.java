@@ -5,8 +5,13 @@
 */
 package com.ansys.cluster.monitor.data.factory;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.ansys.cluster.monitor.data.Host;
 import com.ansys.cluster.monitor.data.HostMasterQueue;
@@ -17,6 +22,7 @@ import com.ansys.cluster.monitor.data.JobsQueue;
 import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.data.interfaces.ClusterNodeAbstract;
 import com.ansys.cluster.monitor.main.SGE_DataConst;
+import com.ansys.cluster.monitor.net.Payload;
 
 /**
  * 
@@ -32,7 +38,7 @@ public class QueueFactory {
 	 * 
 	 */
 	private QueueFactory() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	private static void getQueue(ClusterNodeAbstract node) {
@@ -112,7 +118,9 @@ public class QueueFactory {
 
 	}
 
-	public static JobMasterQueue createJobMasterQueue(HashMap<Integer, Job> map, String regex) {
+	public static JobMasterQueue createJobMasterQueue(HashMap<Integer, Job> map, String regex,
+			HashMap<String, NodeProp> queueDataPropMap) {
+
 		JobMasterQueue masterQueue = new JobMasterQueue(SGE_DataConst.mqEntryJobs);
 
 		map.forEach((id, job) -> {
@@ -133,7 +141,7 @@ public class QueueFactory {
 
 				} else {
 
-					JobsQueue queue = new JobsQueue(job);
+					JobsQueue queue = new JobsQueue(job, queueDataPropMap.get(queueName));
 
 					logger.finer("Created queue " + queue + " added node " + job);
 					masterQueue.addQueue(queue);
@@ -150,7 +158,8 @@ public class QueueFactory {
 		return masterQueue;
 	}
 
-	public static HostMasterQueue createHostMasterQueue(HashMap<String, Host> map, String regex) {
+	public static HostMasterQueue createHostMasterQueue(HashMap<String, Host> map, String regex,
+			HashMap<String, NodeProp> queueDataPropMap) {
 		HostMasterQueue masterQueue = new HostMasterQueue(SGE_DataConst.mqEntryQueues);
 
 		map.forEach((id, node) -> {
@@ -171,7 +180,7 @@ public class QueueFactory {
 
 				} else {
 
-					HostQueue queue = new HostQueue(node);
+					HostQueue queue = new HostQueue(node, queueDataPropMap.get(queueName));
 
 					logger.finer("Created queue " + queue + " added node " + node);
 					masterQueue.addQueue(queue);
@@ -192,6 +201,103 @@ public class QueueFactory {
 		if (regex != null && (node.getQueueName().matches(regex))) {
 			node.setVisualNode(true);
 		}
+	}
+
+	public static HashMap<String, NodeProp> createQueueDataMap(Payload payload) throws IOException {
+
+		QueueFactory qf = new QueueFactory();
+
+		return qf.queuesData(payload.getStringObject());
+	}
+
+	public HashMap<String, NodeProp> queuesData(String data) throws IOException {
+
+		BufferedReader bufReader = new BufferedReader((new StringReader(data)));
+		return queues(bufReader);
+	}
+
+	public HashMap<String, NodeProp> queues(BufferedReader bufReader) throws IOException {
+		HashMap<String, NodeProp> mapNodeProp = new HashMap<String, NodeProp>();
+		String line = null;
+
+		while ((line = bufReader.readLine()) != null) {
+
+			if (line.matches("^qname.*")) {
+
+				NodeProp nodeProp = queueData(bufReader, line);
+				queueDataNormalized(nodeProp);
+				mapNodeProp.put((String) nodeProp.get("qname"), nodeProp);
+
+				logger.finer("processing line " + line);
+			}
+		}
+
+		return mapNodeProp;
+	}
+
+	public void queueDataNormalized(NodeProp nodeProp) {
+		String s_rt = (String) nodeProp.get("s_rt");
+		String h_rt = (String) nodeProp.get("h_rt");
+
+		nodeProp.setHardTimeLimit(convertTimeLimit(h_rt));
+		nodeProp.setSoftTimeLimit(convertTimeLimit(s_rt));
+		
+		
+		
+	}
+
+	public int convertTimeLimit(String value) {
+		int result = 0;
+		Pattern pattern = Pattern.compile("(\\d+):\\d+:\\d+");
+		Matcher matcher = pattern.matcher(value);
+
+		if (matcher.find()) {
+
+			result = Integer.parseInt(matcher.group(1));
+		}
+
+		return result;
+	}
+
+	public NodeProp queueData(BufferedReader bufReader, String line) throws IOException {
+		NodeProp prop = new NodeProp();
+
+		do {
+			String patternString = "(\\w+)\\s+(.*)";
+
+			Pattern pattern = Pattern.compile(patternString);
+			Matcher matcher = pattern.matcher(line);
+
+			while (matcher.find()) {
+
+				String key = matcher.group(1).trim();
+				String value = matcher.group(2).trim();
+				if (value.endsWith("\\")) {
+					value = multiLined(bufReader, line, value);
+				}
+
+				logger.fine("Key: " + key + " Value: " + value);
+				prop.put(key, value);
+
+			}
+
+		} while ((line = bufReader.readLine()) != null && !line.isEmpty());
+		return prop;
+	}
+
+	public String multiLined(BufferedReader bufReader, String line, String start) throws IOException {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append(start.replace("\\", "").trim());
+
+		while ((line = bufReader.readLine()) != null) {
+			sb.append(line.replace("\\", "").trim());
+
+			if (!line.endsWith("\\"))
+				break;
+		}
+
+		return sb.toString();
 	}
 
 }

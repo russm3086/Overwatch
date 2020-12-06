@@ -25,7 +25,7 @@ public class HttpConnection {
 	 * 
 	 */
 	public HttpConnection(SGE_MonitorProp mainProps) {
-		// TODO Auto-generated constructor stub
+		
 		setMainProps(mainProps);
 	}
 

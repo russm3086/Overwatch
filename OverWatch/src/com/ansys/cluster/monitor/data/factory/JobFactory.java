@@ -27,7 +27,18 @@ public class JobFactory {
 	 * 
 	 */
 	private JobFactory() {
-		// TODO Auto-generated constructor stub
+
+	}
+
+	public static HashMap<Integer, Job> createJobsMap(Payload payloadJobs, Payload payloadDetailedJobs,
+			Payload payloadFullDetailedJobs, SGE_MonitorProp mainProps) {
+
+		if (payloadDetailedJobs == null) {
+
+			payloadDetailedJobs = payloadFullDetailedJobs;
+		}
+
+		return createJobsMap(payloadJobs, payloadDetailedJobs, mainProps);
 	}
 
 	public static HashMap<Integer, Job> createJobsMap(Payload payloadJobs, Payload payloadDetailedJobs,

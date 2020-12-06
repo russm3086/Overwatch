@@ -29,17 +29,20 @@ public class ConcurrentDataCollector {
 	private int poolSize;
 	private int timeOut;
 	private TimeUnit tu;
+	private boolean useFullDetailedJobs;
 
 	/**
 	 * 
 	 */
-	public ConcurrentDataCollector(DataCollector dc, int index, int poolSize, int timeOut, TimeUnit tu) {
+	public ConcurrentDataCollector(DataCollector dc, int index, int poolSize, int timeOut, TimeUnit tu,
+			boolean useFullDetailedJobs) {
 
 		setDc(dc);
 		setIndex(index);
 		setPoolSize(poolSize);
 		setTimeOut(timeOut);
 		setTu(tu);
+		setUseFullDetailedJobs(useFullDetailedJobs);
 	}
 
 	public HashMap<SrcType, Payload> collect() {
@@ -50,8 +53,16 @@ public class ConcurrentDataCollector {
 
 		tasks.add(new DataCollectorWorker(dc, SrcType.HOST_DATA, index));
 		tasks.add(new DataCollectorWorker(dc, SrcType.JOB_DATA, index));
-		tasks.add(new DataCollectorWorker(dc, SrcType.DETAILED_JOB_DATA, index));
+
+		if (isUseFullDetailedJobs()) {
+
+			tasks.add(new DataCollectorWorker(dc, SrcType.FULL_DETAILED_JOB_DATA, index));
+		} else {
+
+			tasks.add(new DataCollectorWorker(dc, SrcType.DETAILED_JOB_DATA, index));
+		}
 		tasks.add(new DataCollectorWorker(dc, SrcType.QUOTA_DATA, index));
+		tasks.add(new DataCollectorWorker(dc, SrcType.QUEUE_DATA, index));
 
 		logger.fine("Creating threadpool size: " + getPoolSize());
 		ExecutorService service = Executors.newFixedThreadPool(getPoolSize());
@@ -100,7 +111,7 @@ public class ConcurrentDataCollector {
 		service.shutdown();
 
 		try {
-			
+
 			Thread.sleep(500);
 
 			if (!service.isShutdown()) {
@@ -194,6 +205,20 @@ public class ConcurrentDataCollector {
 
 	private void setStatusLabel(String msg) {
 		ClusterFactory.setStatusLabel(msg);
+	}
+
+	/**
+	 * @return the useFullDetailedJobs
+	 */
+	public boolean isUseFullDetailedJobs() {
+		return useFullDetailedJobs;
+	}
+
+	/**
+	 * @param useFullDetailedJobs the useFullDetailedJobs to set
+	 */
+	public void setUseFullDetailedJobs(boolean useFullDetailedJobs) {
+		this.useFullDetailedJobs = useFullDetailedJobs;
 	}
 
 }

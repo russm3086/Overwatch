@@ -9,6 +9,10 @@ import com.ansys.cluster.monitor.data.JobMessage;
 
 public interface JobPropInterface extends Serializable {
 
+	int getHardTimeLimit();
+
+	int getSoftTimeLimit();
+
 	String getJobStateTranslated();
 
 	int getJobNumber();
@@ -64,5 +68,13 @@ public interface JobPropInterface extends Serializable {
 	public ZoneId getZoneID();
 
 	public void setZoneID(ZoneId zoneId);
+
+	ZonedDateTime getJobHardStopTime();
+
+	ZonedDateTime getJobSoftStopTime();
+
+	void setJobHardStopTime(ZonedDateTime jobHardStopTime);
+
+	void setJobSoftStopTime(ZonedDateTime jobSoftStopTime);
 
 }

@@ -276,7 +276,11 @@ public class Connector {
 		if (contentType.toUpperCase().contains(SGE_ConnectConst.overwatchType)) {
 			output = SGE_ConnectConst.clusterType;
 		}
-
+		
+		if (contentType.toUpperCase().contains(SGE_ConnectConst.plainText)) {
+			output = SGE_ConnectConst.plainText;
+		}
+		
 		logger.exiting(sourceClass, "contentType", output);
 		return output;
 	}
@@ -302,6 +306,10 @@ public class Connector {
 
 		case SGE_ConnectConst.clusterType:
 			payload = new Payload((Cluster) source);
+			break;
+
+		case SGE_ConnectConst.plainText:
+			payload = new Payload((String) source);
 			break;
 
 		}

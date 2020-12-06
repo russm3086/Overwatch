@@ -16,7 +16,7 @@ public final class SGE_ConnectConst {
 	 * 
 	 */
 	public SGE_ConnectConst() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public static final String xmlType = "XML";
@@ -24,6 +24,7 @@ public final class SGE_ConnectConst {
 	public static final String clusterType = "CLUSTER";
 	public static final String overwatchType = "OVERWATCH";
 	public static final String unknownType = "UNKNOWN";
+	public static final String plainText = "TEXT/PLAIN";
 	public static final String emptyType = "EMPTY";
 
 }

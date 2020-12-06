@@ -3,6 +3,7 @@
  */
 package com.ansys.cluster.monitor.data;
 
+import java.time.ZonedDateTime;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -28,7 +29,7 @@ public class JobsQueue extends AnsQueueAbstract {
 
 	public JobsQueue(String name) {
 		super(name, SGE_DataConst.clusterTypeJob);
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public JobsQueue(Job job) {
@@ -36,8 +37,35 @@ public class JobsQueue extends AnsQueueAbstract {
 		addJob(job);
 	}
 
+	public JobsQueue(Job job, NodeProp nodeProp) {
+		super(job, nodeProp);
+		addJob(job);
+	}
+
 	public void addJob(Job job) {
 		logger.entering(sourceClass, "addJob", job);
+
+		if (job.getJobStartTime() != null && (job.getJobHardStopTime() == null) && (job.getJobSoftStopTime() == null)) {
+
+			if (nodeProp.getSoftTimeLimit() != 0) {
+
+				logger.finer("Setting job: " + job.getJobNumber() + " setting soft time limit to "
+						+ nodeProp.getSoftTimeLimit());
+				ZonedDateTime softStopTime = job.getJobStartTime().plusHours(nodeProp.getSoftTimeLimit());
+				job.setJobSoftStopTime(softStopTime);
+
+			}
+
+			if (nodeProp.getHardTimeLimit() != 0) {
+
+				logger.finer("Setting job: " + job.getJobNumber() + " setting hard time limit to "
+						+ nodeProp.getHardTimeLimit());
+				ZonedDateTime hardStopTime = job.getJobStartTime().plusHours(nodeProp.getHardTimeLimit());
+				job.setJobHardStopTime(hardStopTime);
+
+			}
+
+		}
 
 		if (job.isVisualNode()) {
 
@@ -124,7 +152,7 @@ public class JobsQueue extends AnsQueueAbstract {
 
 	@Override
 	public String getToolTip() {
-		// TODO Auto-generated method stub
+
 		StringBuilder sb = new StringBuilder("<html>");
 
 		sb.append("Active Job(s): ");

@@ -60,7 +60,7 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 			addActiveSessionJobsCount(queue.getActiveSessionJobsSize());
 			addPendingSessionJobsCount(queue.getPendingSessionJobsSize());
 			addIdleSessionJobsCount(queue.getIdleSessionJobsSize());
-			
+
 		} else {
 
 			addErrorJobsCount(queue.getErrorJobsSize());
@@ -114,8 +114,22 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 	public DetailedInfoProp getDetailedInfoProp() {
 
 		DetailedInfoProp masterDiProp = new DetailedInfoProp();
+
+		getDetailedInfoPropTitle(masterDiProp);
+		getDetailedInfoPropSummary(masterDiProp);
+		getDetailedInfoPropJobs(masterDiProp);
+		getDetailedInfoPropSessions(masterDiProp);
+
+		return masterDiProp;
+	}
+
+	public void getDetailedInfoPropTitle(DetailedInfoProp masterDiProp) {
+
 		masterDiProp.setTitleMetric("Queue Name: ");
 		masterDiProp.setTitleValue(getName());
+	}
+
+	public void getDetailedInfoPropSummary(DetailedInfoProp masterDiProp) {
 
 		DetailedInfoProp jobSumDiProp = new DetailedInfoProp();
 		jobSumDiProp.setPanelName("Job Summary");
@@ -127,18 +141,21 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 		jobSumDiProp.addMetric("Pending Session: ", getPendingSessionJobsCount());
 		jobSumDiProp.addMetric("Error Session: ", getErrorSessionJobsCount());
 		masterDiProp.addDetailedInfoProp(jobSumDiProp);
+	}
 
-		displayDetailActiveJobs(masterDiProp, findActiveJobs());
+	public void getDetailedInfoPropJobs(DetailedInfoProp masterDiProp) {
+		displayActiveJobs(masterDiProp, findActiveJobs());
 		displayPendingJobs(masterDiProp, findPendingJobs());
 		displayErrorJobs(masterDiProp, findErrorJobs());
-		displayDetailIdleJobs(masterDiProp, findIdleJobs());
+		displayIdleJobs(masterDiProp, findIdleJobs());
+	}
+
+	public void getDetailedInfoPropSessions(DetailedInfoProp masterDiProp) {
 
 		displayActiveSessionJobs(masterDiProp, findActiveSessionJobs());
 		displayPendingSessionJobs(masterDiProp, findPendingSessionJobs());
 		displayIdleSessionJobs(masterDiProp, findIdleSessionJobs());
 		displayErrorSessionJobs(masterDiProp, findErrorSessionJobs());
-
-		return masterDiProp;
 	}
 
 	public SortedMap<Integer, Job> findActiveJobs() {
@@ -217,17 +234,16 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 		int core = 0;
 		SortedMap<Integer, Job> mapIdleJobs = findIdleJobs();
 		SortedMap<Integer, Job> mapIdleSession = findIdleSessionJobs();
-		
+
 		mapIdleJobs.putAll(mapIdleSession);
-		
+
 		for (Entry<Integer, Job> entry : mapIdleJobs.entrySet()) {
-			
+
 			core += entry.getValue().getSlots();
 		}
 		return core;
 	}
-	
-	
+
 	/**
 	 * @return the errorJobsCount
 	 */
@@ -370,8 +386,7 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 		setIdleSessionJobsCount(getIdleSessionJobsCount() + getIdleSessionJobsCount());
 
 	}
-	
-	
+
 	/**
 	 * @param pendingSessionJobsCount the pendingSessionJobsCount to set
 	 */
@@ -383,19 +398,19 @@ public class JobMasterQueue extends JobsQueue implements MasterQueue {
 		setPendingSessionJobsCount(getPendingSessionJobsCount() + getPendingSessionJobsCount());
 
 	}
-	
+
 	public String getToolTip() {
-		// TODO Auto-generated method stub
+
 		StringBuilder sb = new StringBuilder(" Active Job(s): ");
 		sb.append(getActiveJobsCount());
 		sb.append(" Active Session(s): ");
 		sb.append(getActiveSessionJobsCount());
-		if(getPendingJobsCount()>0) {
+		if (getPendingJobsCount() > 0) {
 			sb.append(" Pending Job(s): ");
 			sb.append(getPendingJobsCount());
 		}
-		
-		if(getPendingSessionJobsCount()>0) {
+
+		if (getPendingSessionJobsCount() > 0) {
 			sb.append(" Pending Session(s): ");
 			sb.append(getPendingSessionJobsCount());
 		}

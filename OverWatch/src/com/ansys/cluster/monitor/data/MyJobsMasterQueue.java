@@ -31,13 +31,13 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 	private LinkedList<Quota> listQuota = null;
 
 	public MyJobsMasterQueue(LinkedList<Quota> quotaList, JobMasterQueue jobMasterQueue, String userName) {
-		super("My Jobs");
+		super(SGE_DataConst.clusterMyJobs);
 
-		if(userName !=null && userName.trim().length()>0) {
-			
+		if (userName != null && userName.trim().length() > 0) {
+
 			setName("My Jobs - " + userName);
 		}
-		
+
 		logger.entering(sourceClass, "MyJobsMasterQueue");
 
 		logger.finest("Reversing quota list order");
@@ -119,7 +119,6 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 
 	@Override
 	public String getToolTip() {
-		// TODO Auto-generated method stub
 
 		String tip = super.getToolTip();
 		Quota quota = getOverallQuota();
@@ -135,7 +134,19 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 
 	public DetailedInfoProp getDetailedInfoProp() {
 
-		DetailedInfoProp masterDiProp = super.getDetailedInfoProp();
+		DetailedInfoProp masterDiProp = new DetailedInfoProp();
+		super.getDetailedInfoPropTitle(masterDiProp);
+		super.getDetailedInfoPropSummary(masterDiProp);
+
+		displayMyDetailJobs(masterDiProp, findActiveJobs(), "Active Jobs");
+		displayMyDetailJobs(masterDiProp, findPendingJobs(), "Pending Jobs");
+		displayMyDetailJobs(masterDiProp, findErrorJobs(), "Error Jobs");
+		displayMyDetailJobs(masterDiProp, findIdleJobs(), "Idle Jobs");
+
+		displayMyVisualJobs(masterDiProp, findActiveSessionJobs(), "Active Sessions");
+		displayMyVisualJobs(masterDiProp, findPendingSessionJobs(), "Pending Sessions");
+		displayMyVisualJobs(masterDiProp, findIdleSessionJobs(), "Idle Sessions");
+		displayMyVisualJobs(masterDiProp, findErrorSessionJobs(), "Error Sessions");
 
 		displayJobsPie(masterDiProp);
 		createQuotaBarChartPanel(masterDiProp);
@@ -182,7 +193,7 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 			String queueName = quota.getQuotaName().substring(0, quota.getQuotaName().indexOf("_"));
 			queueName.toLowerCase();
 			queueName = queueName.substring(0, 1).toUpperCase() + queueName.substring(1);
-			
+
 			StringBuffer sb = new StringBuffer("Name: ");
 			sb.append(quota.getQuotaName());
 			sb.append(" Limit: ");
@@ -191,13 +202,12 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 			sb.append(quota.getUsage());
 			sb.append(" Resource: ");
 			sb.append(quota.getResource());
-			
+
 			logger.finer(sb.toString());
 
 			int[] data = { quota.getLimit() - quota.getUsage(), quota.getUsage(), quota.getLimit() };
-			
-			diProp.addSeries(queueName, data, quota.getResource(),
-					(quota.getUsage()) + " Consumed");
+
+			diProp.addSeries(queueName, data, quota.getResource(), (quota.getUsage()) + " Consumed");
 		}
 
 		diProp.setDataTypeProgressBarChart();

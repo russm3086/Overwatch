@@ -23,12 +23,13 @@ import com.ansys.cluster.monitor.data.MasterQueue;
 import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.gui.table.FUN_HostTableModel;
 import com.ansys.cluster.monitor.gui.table.HostTableModel;
-import com.ansys.cluster.monitor.gui.table.JobDetailTableModel;
 import com.ansys.cluster.monitor.gui.table.JobHostTableModel;
 import com.ansys.cluster.monitor.gui.table.JobPendingTableModel;
 import com.ansys.cluster.monitor.gui.table.JobTableModel;
 import com.ansys.cluster.monitor.gui.table.JobVisualTableModel;
 import com.ansys.cluster.monitor.gui.table.MessageTableModel;
+import com.ansys.cluster.monitor.gui.table.MyJobDetailTableModel;
+import com.ansys.cluster.monitor.gui.table.MyJobVisualTableModel;
 import com.ansys.cluster.monitor.gui.table.StateTableModel;
 import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoFactory;
@@ -265,6 +266,13 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		nodeProp.setZoneID(zoneId);
 	}
 
+	/**
+	 * @param nodeProp the nodeProp to set
+	 */
+	protected void setNodeProp(NodeProp nodeProp) {
+		this.nodeProp = nodeProp;
+	}
+
 	public String toString() {
 		return getName();
 	}
@@ -358,7 +366,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		diProp.setChartDataUnit(unit);
 		diProp.setDataTypeBarChart();
 		diProp.addChartDataPaint(new Color(224, 213, 0));
-		
+
 		LinkedHashMap<String, AnsQueueAbstract> queueMaps = TreeBuilder.sortMasterQueue(queue);
 
 		for (Entry<String, AnsQueueAbstract> entry : queueMaps.entrySet()) {
@@ -409,7 +417,7 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		diProp.setChartDataUnit(unit);
 		diProp.setDataTypeBarChart();
 		diProp.addChartDataPaint(new Color(224, 213, 0));
-		
+
 		LinkedHashMap<String, AnsQueueAbstract> queueMaps = TreeBuilder.sortMasterQueue(queue);
 
 		for (Entry<String, AnsQueueAbstract> entry : queueMaps.entrySet()) {
@@ -466,10 +474,6 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 			JobTableModel jobTableModel = new JobTableModel(list);
 			return jobTableModel;
 
-		case TableBuilder.table_Job_Detail:
-			JobDetailTableModel jobDetailTableModel = new JobDetailTableModel(list);
-			return jobDetailTableModel;
-
 		case TableBuilder.table_Job_Pending:
 			JobPendingTableModel jobPendingTableModel = new JobPendingTableModel(list);
 			return jobPendingTableModel;
@@ -493,6 +497,14 @@ public abstract class ClusterNodeAbstract implements ClusterNodeInterface {
 		case TableBuilder.table_JOB_MSG:
 			MessageTableModel msgTableModel = new MessageTableModel(list);
 			return msgTableModel;
+
+		case TableBuilder.table_My_Job_Detail:
+			MyJobDetailTableModel myJobDetailTableModel = new MyJobDetailTableModel(list);
+			return myJobDetailTableModel;
+
+		case TableBuilder.table_My_Job_Visual:
+			MyJobVisualTableModel myJobVisualTableModel = new MyJobVisualTableModel(list);
+			return myJobVisualTableModel;
 
 		default:
 			return null;

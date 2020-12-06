@@ -259,7 +259,7 @@ public class HostMasterQueue extends HostQueue implements MasterQueue {
 		DetailedInfoProp masterDiProp = new DetailedInfoProp();
 		masterDiProp.setTitleMetric("Queue Name: ");
 		masterDiProp.setTitleValue(getName());
-
+		
 		DetailedInfoProp coreDiProp = new DetailedInfoProp();
 		coreDiProp.setPanelName(getUnitRes());
 		coreDiProp.addMetric("Available: ", getCoreAvailable());

@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import com.ansys.cluster.monitor.data.interfaces.AnsQueueAbstract;
@@ -17,6 +18,7 @@ import com.ansys.cluster.monitor.data.state.HostState;
 import com.ansys.cluster.monitor.data.state.JobState;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
 import com.ansys.cluster.monitor.main.SGE_DataConst;
+import com.russ.util.TimeUtil;
 
 /**
  * @author rmartine
@@ -33,13 +35,17 @@ public class HostQueue extends AnsQueueAbstract {
 
 	public HostQueue(String name) {
 		super(name, SGE_DataConst.clusterTypeHost);
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public HostQueue(Host host) {
 		super(host);
 		addHost(host);
-		// TODO Auto-generated constructor stub
+	}
+
+	public HostQueue(Host host, NodeProp nodeProp) {
+		super(host, nodeProp);
+		addHost(host);
 	}
 
 	public void addHost(Host host) {
@@ -219,6 +225,18 @@ public class HostQueue extends AnsQueueAbstract {
 		nodeDiProp.addMetric("Total Available Host: ", available);
 		// mainDiProp.addDetailedInfoProp(nodeDiProp);
 
+		DetailedInfoProp queueDiProp = new DetailedInfoProp();
+		queueDiProp.setPanelName("Settings");
+		String hardTime = TimeUtil.formatDuration(nodeProp.getHardTimeLimit(), TimeUnit.HOURS, durationFormat);
+		String softTime = TimeUtil.formatDuration(nodeProp.getSoftTimeLimit(), TimeUnit.HOURS, durationFormat);
+		queueDiProp.addMetric("Hard Time Limit: ", hardTime);
+		queueDiProp.addMetric("Soft Time Limit: ", softTime);
+		queueDiProp.addMetric("Load Threshold: ", nodeProp.getLoadThresholds());
+		queueDiProp.addMetric("Shell: ", nodeProp.getShell());
+		queueDiProp.addMetric("Qtype: ", nodeProp.getQtype());
+		queueDiProp.addMetric("PE List: ", nodeProp.getPeList());
+		mainDiProp.addDetailedInfoProp(queueDiProp);
+
 		displayPendingJobs(mainDiProp);
 		displayActiveJobs(mainDiProp);
 		displayIdleJobs(mainDiProp);
@@ -240,17 +258,16 @@ public class HostQueue extends AnsQueueAbstract {
 
 	@Override
 	public boolean containsKey(String key) {
-		// TODO Auto-generated method stub
+
 		return getAllmaps().containsKey(key);
 	}
 
 	public Host get(String host) {
-		// TODO Auto-generated method stub
+
 		return getAllmaps().get(host);
 	}
 
 	public SortedMap<Object, ClusterNodeAbstract> getNodes() {
-		// TODO Auto-generated method stub
 
 		SortedMap<Object, ClusterNodeAbstract> map = new TreeMap<Object, ClusterNodeAbstract>();
 		map.putAll(getAllmaps());
@@ -285,14 +302,13 @@ public class HostQueue extends AnsQueueAbstract {
 
 			sb.append("F.U.N. Core(s): ");
 			sb.append(getCoreFUN());
-			
+
 			sb.append("<BR>Pending Jobs:");
 			sb.append(getPendingJobsSize());
 		}
-		
+
 		sb.append("</html>");
 		return sb.toString();
 	}
-
 
 }

@@ -27,7 +27,6 @@ import java.util.logging.*;
  * application settings
  */
 public class ClusterConnectionGUI extends JDialog {
-
 	/**
 	 * 
 	 */
@@ -81,23 +80,38 @@ public class ClusterConnectionGUI extends JDialog {
 	private JTextField jobsDetailUrlTxt;
 
 	/**
+	 * The textbox the URL for the full job detail data
+	 */
+	private JTextField jobsFullDetailUrlTxt;
+
+	/**
+	 * The textbox the URL for the queue summary data
+	 */
+	private JTextField queueUrlTxt;
+
+	/**
+	 * The checkbox to enable the use of the full detailed job URL
+	 */
+	private JCheckBox jobFullDetailUseChkBox;
+
+	/**
 	 * The spinner that contains the value in which the database is refreshed
 	 */
 	private JSpinner refreshSpin;
 
 	private Console console;
 
-	
 	/**
 	 * The textbox that contains the name of the quota url feed
 	 */
 	private JTextField quotaUrlTxt;
 
-	
 	/**
 	 * Creates a modal or non-modal dialog with the specified title and the
 	 * specified owner frame.
 	 */
+
+	private int index;
 
 	public ClusterConnectionGUI(Frame owner, String title, boolean modal, SGE_MonitorProp mainProps) {
 		super(owner, title, modal);
@@ -116,7 +130,7 @@ public class ClusterConnectionGUI extends JDialog {
 
 		make();
 
-		//this.setSize(420, 350);
+		// this.setSize(420, 350);
 		this.setSize(600, 338);
 
 	}
@@ -133,6 +147,12 @@ public class ClusterConnectionGUI extends JDialog {
 		comboConn = new JComboBox<String>(comboModel);
 		comboConn.setToolTipText("Select the type of db connection");
 		connLabel.setLabelFor(comboConn);
+
+		JLabel jobsUseFullDetailUrlLbl = new JLabel("Use Job Full Detail data: ");
+		jobsUseFullDetailUrlLbl.setDisplayedMnemonic('U');
+		jobFullDetailUseChkBox = new JCheckBox();
+		jobsUseFullDetailUrlLbl.setLabelFor(jobFullDetailUseChkBox);
+		jobFullDetailUseChkBox.setToolTipText("To use URL for the full detail jobs data.");
 
 		JLabel refreshLabel = new JLabel("Refresh Rate (1 min. min): ");
 		refreshLabel.setDisplayedMnemonic('R');
@@ -159,6 +179,19 @@ public class ClusterConnectionGUI extends JDialog {
 		c.anchor = GridBagConstraints.WEST;
 		gridBag.setConstraints(comboConn, c);
 		this.getContentPane().add(comboConn);
+
+		// check box
+		c.gridy = 1;
+		c.gridx = 1;
+		c.ipadx = 0;
+		c.anchor = GridBagConstraints.EAST;
+		gridBag.setConstraints(jobsUseFullDetailUrlLbl, c);
+		this.getContentPane().add(jobsUseFullDetailUrlLbl);
+
+		c.gridx = 2;
+		c.anchor = GridBagConstraints.WEST;
+		gridBag.setConstraints(jobFullDetailUseChkBox, c);
+		this.getContentPane().add(jobFullDetailUseChkBox);
 
 		c.gridy = 2;
 		c.gridx = 0;
@@ -215,18 +248,32 @@ public class ClusterConnectionGUI extends JDialog {
 		jobsDetailUrlLbl.setLabelFor(jobsDetailUrlTxt);
 		jobsDetailUrlTxt.setToolTipText("The URL for the detail jobs data.");
 
-		JLabel quotaUrlLbl = new JLabel("Qutoa URL: ");
-		quotaUrlLbl.setDisplayedMnemonic('Q');
+		JLabel jobsFullDetailUrlLbl = new JLabel("Jobs Full Detail URL: ");
+		jobsFullDetailUrlLbl.setDisplayedMnemonic('F');
+		jobsFullDetailUrlTxt = new JTextField(25);
+		jobsFullDetailUrlTxt.setEditable(false);
+		jobsFullDetailUrlLbl.setLabelFor(jobsFullDetailUrlTxt);
+		jobsFullDetailUrlTxt.setToolTipText("The URL for the full detail jobs data.");
+
+		JLabel queueUrlLbl = new JLabel("Queue URL: ");
+		queueUrlLbl.setDisplayedMnemonic('Q');
+		queueUrlTxt = new JTextField(25);
+		queueUrlTxt.setEditable(false);
+		queueUrlLbl.setLabelFor(queueUrlTxt);
+		queueUrlTxt.setToolTipText("The URL for the queue data.");
+
+		JLabel quotaUrlLbl = new JLabel("Quota URL: ");
+		quotaUrlLbl.setDisplayedMnemonic('o');
 		quotaUrlTxt = new JTextField(25);
 		quotaUrlTxt.setEditable(false);
 		quotaUrlLbl.setLabelFor(quotaUrlTxt);
 		quotaUrlTxt.setToolTipText("The URL for the quota data.");
-		
-		//c.gridx = 0;
-		//c.gridy = 6;
-		//c.anchor = GridBagConstraints.WEST;
 
-		//Host Url settings
+		// c.gridx = 0;
+		// c.gridy = 6;
+		// c.anchor = GridBagConstraints.WEST;
+
+		// Host Url settings
 		c.gridy = 7;
 		c.gridx = 0;
 		c.anchor = GridBagConstraints.EAST;
@@ -239,7 +286,7 @@ public class ClusterConnectionGUI extends JDialog {
 		gridBag.setConstraints(hostUrlTxt, c);
 		this.getContentPane().add(hostUrlTxt);
 
-		//Jobs Url settings
+		// Jobs Url settings
 		c.gridy = 8;
 		gridBag.setConstraints(jobsUrlTxt, c);
 		this.getContentPane().add(jobsUrlTxt);
@@ -250,7 +297,7 @@ public class ClusterConnectionGUI extends JDialog {
 		gridBag.setConstraints(jobsUrlLbl, c);
 		this.getContentPane().add(jobsUrlLbl);
 
-		//JobsDetail Url settings
+		// JobsDetail Url settings
 		c.gridx = 0;
 		c.gridy = 9;
 		gridBag.setConstraints(jobsDetailUrlLbl, c);
@@ -262,9 +309,37 @@ public class ClusterConnectionGUI extends JDialog {
 		gridBag.setConstraints(jobsDetailUrlTxt, c);
 		this.getContentPane().add(jobsDetailUrlTxt);
 
-		//Quota Url settings
+		// JobsFullDetail Url settings
 		c.gridx = 0;
 		c.gridy = 10;
+		c.anchor = GridBagConstraints.EAST;
+		c.gridwidth = 1;
+		gridBag.setConstraints(jobsFullDetailUrlLbl, c);
+		this.getContentPane().add(jobsFullDetailUrlLbl);
+
+		c.gridx = 1;
+		c.gridwidth = 2;
+		c.anchor = GridBagConstraints.WEST;
+		gridBag.setConstraints(jobsFullDetailUrlTxt, c);
+		this.getContentPane().add(jobsFullDetailUrlTxt);
+
+		// Queue Url settings
+		c.gridx = 0;
+		c.gridy = 11;
+		c.anchor = GridBagConstraints.EAST;
+		c.gridwidth = 1;
+		gridBag.setConstraints(queueUrlLbl, c);
+		this.getContentPane().add(queueUrlLbl);
+
+		c.gridx = 1;
+		c.gridwidth = 2;
+		c.anchor = GridBagConstraints.WEST;
+		gridBag.setConstraints(queueUrlTxt, c);
+		this.getContentPane().add(queueUrlTxt);
+
+		// Quota Url settings
+		c.gridx = 0;
+		c.gridy = 12;
 		c.gridwidth = 1;
 		c.anchor = GridBagConstraints.EAST;
 		gridBag.setConstraints(quotaUrlLbl, c);
@@ -291,7 +366,7 @@ public class ClusterConnectionGUI extends JDialog {
 
 		c.gridwidth = 1;
 		c.gridx = 0;
-		c.gridy = 11;
+		c.gridy = 13;
 		c.ipady = 11;
 		c.insets = new Insets(10, 0, 0, 0);
 		c.anchor = GridBagConstraints.CENTER;
@@ -311,7 +386,7 @@ public class ClusterConnectionGUI extends JDialog {
 		comboConn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 
-				int index = comboConn.getSelectedIndex();
+				index = comboConn.getSelectedIndex();
 				hostUrlTxt.setText(mainProps.getClusterConnectionHostUrl(index));
 				jobsUrlTxt.setCaretPosition(0);
 
@@ -320,7 +395,15 @@ public class ClusterConnectionGUI extends JDialog {
 
 				jobsDetailUrlTxt.setText(mainProps.getClusterConnectionDetailedJobsUrl(index));
 				jobsDetailUrlTxt.setCaretPosition(0);
+
+				jobsFullDetailUrlTxt.setText(mainProps.getClusterConnectionFullDetailedJobsUrl(index));
+				jobsFullDetailUrlTxt.setCaretPosition(0);
 				
+				queueUrlTxt.setText(mainProps.getClusterConnectionQueueUrl(index));
+				queueUrlTxt.setCaretPosition(0);
+
+				jobFullDetailUseChkBox.setSelected(mainProps.getClusterUseFullDetailedJobs(index));
+
 				quotaUrlTxt.setText(mainProps.getClusterConnectionQuotaUrl(index));
 				quotaUrlTxt.setCaretPosition(0);
 			}
@@ -380,6 +463,7 @@ public class ClusterConnectionGUI extends JDialog {
 
 		comboConn.setSelectedIndex(mainProps.getClusterIndex());
 		refreshSpin.setValue(mainProps.getGuiTimerDelay());
+		jobFullDetailUseChkBox.setSelected(mainProps.getClusterUseFullDetailedJobs(index));
 
 	}
 
@@ -392,6 +476,7 @@ public class ClusterConnectionGUI extends JDialog {
 
 		mainProps.setClusterIndex(comboConn.getSelectedIndex());
 		mainProps.setGuiTimerDelay((int) refreshSpin.getValue());
+		mainProps.setClusterUseFullDetailedJobs(index, jobFullDetailUseChkBox.isSelected());
 
 		try {
 			Main.saveSettings();

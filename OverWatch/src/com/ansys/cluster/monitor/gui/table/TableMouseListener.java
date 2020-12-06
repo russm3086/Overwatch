@@ -32,7 +32,7 @@ public class TableMouseListener implements MouseListener {
 	}
 
 	public TableMouseListener(JTable table, int indexSrchColumn, JTree tree) {
-		// TODO Auto-generated constructor stub
+		
 		setTable(table);
 		setIndexSrchColumn(indexSrchColumn);
 		setTree(tree);
@@ -40,7 +40,7 @@ public class TableMouseListener implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 		if (e.getClickCount() == 2) {
 			int row = table.rowAtPoint(e.getPoint());
 			//int column = table.columnAtPoint(e.getPoint());
@@ -56,25 +56,25 @@ public class TableMouseListener implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 

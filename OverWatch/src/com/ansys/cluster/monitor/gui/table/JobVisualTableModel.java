@@ -17,8 +17,8 @@ public class JobVisualTableModel extends AbstractClusterNodeTableModel {
 		 * 
 		 */
 	private static final long serialVersionUID = 2331629876169607226L;
-	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "State", "Duration",
-			"Host" };
+	protected static String[] jobColumnNames = { "Name", "Job ID", "Owner", "Cores", "State", "Duration", "Host",
+			"TTL" };
 	private static final int COLUMN_NAME = 0;
 	private static final int COLUMN_ID = 1;
 	private static final int COLUMN_OWNER = 2;
@@ -26,6 +26,7 @@ public class JobVisualTableModel extends AbstractClusterNodeTableModel {
 	private static final int COLUMN_STATE = 4;
 	private static final int COLUMN_DURATION = 5;
 	private static final int COLUMN_HOST = 6;
+	private static final int COLUMN_TTL = 7;
 
 	/**
 	 * 
@@ -53,6 +54,7 @@ public class JobVisualTableModel extends AbstractClusterNodeTableModel {
 		case COLUMN_STATE:
 		case COLUMN_HOST:
 		case COLUMN_DURATION:
+		case COLUMN_TTL:
 			return String.class;
 		case COLUMN_ID:
 		case COLUMN_CORES:
@@ -64,7 +66,6 @@ public class JobVisualTableModel extends AbstractClusterNodeTableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
 
 		Job job = (Job) valueList.get(rowIndex);
 		Object returnValue = new String("?");
@@ -91,6 +92,10 @@ public class JobVisualTableModel extends AbstractClusterNodeTableModel {
 		case COLUMN_HOST:
 			returnValue = job.getStartHost();
 			break;
+		case COLUMN_TTL:
+			returnValue = ttl(job.getJobSoftStopTime());
+			break;
+
 		default:
 			throw new IllegalArgumentException("Invalid column index");
 		}

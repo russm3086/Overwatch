@@ -17,7 +17,7 @@ public class MonitorArgsSettings extends ArgsSettings {
 	public MonitorArgsSettings(String[] args) {
 		super(args);
 		process();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**

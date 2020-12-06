@@ -31,29 +31,39 @@ public interface JobInterface {
 	String getTargetQueue();
 
 	String getStartHost();
-	
+
 	public void setStartHost(String host);
 
 	double getJobPriority();
 
 	/**
 	 * Start time (64bit GMT unix time stamp in milliseconds).
+	 * 
 	 * @return
 	 */
 	ZonedDateTime getJobStartTime();
 
 	/**
 	 * Submission time (64bit GMT unix time stamp in milliseconds).
+	 * 
 	 * @return
 	 */
 	ZonedDateTime getJobSubmissionTime();
+
+	ZonedDateTime getJobHardStopTime();
+
+	ZonedDateTime getJobSoftStopTime();
+
+	void setJobHardStopTime(ZonedDateTime jobHardStopTime);
+
+	void setJobSoftStopTime(ZonedDateTime jobSoftStopTime);
 
 	String getIdentifier();
 
 	String getJobState();
 
 	NodeProp getJB_hard_queue_list();
-	
+
 	public int getNumExecHosts();
 
 }

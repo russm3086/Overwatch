@@ -37,7 +37,7 @@ public class TreeUtil2 {
 	 * 
 	 */
 	public TreeUtil2() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public TreeStateProps saveTreeState(JTree tree) {

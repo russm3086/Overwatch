@@ -4,10 +4,15 @@
 package com.ansys.cluster.monitor.gui.table;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
+import com.ansys.cluster.monitor.main.SGE_DataConst;
 import com.russ.util.TimeUtil;
 
 /**
@@ -47,7 +52,7 @@ public abstract class AbstractClusterNodeTableModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
+
 		return valueList.size();
 	}
 
@@ -61,6 +66,11 @@ public abstract class AbstractClusterNodeTableModel extends AbstractTableModel {
 
 	public void setValueList(ArrayList<?> valueList) {
 		this.valueList = valueList;
+	}
+
+	public void setColumnNamesAndCount(String[] columnNames) {
+		setColumnNames(columnNames);
+		setColumnCount(columnNames.length);
 	}
 
 	/**
@@ -92,4 +102,20 @@ public abstract class AbstractClusterNodeTableModel extends AbstractTableModel {
 		return TimeUtil.formatDuration(duration.toMillis(), durationFormat);
 	}
 
+	protected String formatZonedDateTime(ZonedDateTime zonedDateTime) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(SGE_DataConst.stopTimeFormat);
+		return zonedDateTime.format(formatter);
+	}
+
+	protected String ttl(ZonedDateTime zonedDateTime) {
+		ZonedDateTime finishTime = ZonedDateTime.of(LocalDateTime.now(), ZoneId.systemDefault());
+		ZonedDateTime startTime = zonedDateTime;
+		if (startTime != null && finishTime != null) {
+
+			Duration duration = Duration.between(startTime, finishTime);
+			return durationOutput(duration);
+		}
+
+		return "NaN";
+	}
 }

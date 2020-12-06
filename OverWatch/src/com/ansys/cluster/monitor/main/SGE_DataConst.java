@@ -3,15 +3,16 @@ package com.ansys.cluster.monitor.main;
 public final class SGE_DataConst {
 
 	private SGE_DataConst() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public static String app_name = "OverWatch";
-	public static String app_version = "1.5.0.8";
+	public static String app_version = "1.5.0.9";
 	public static String app_version_regex = "(\\d+\\.)+(\\d)";
 	public static float app_font_max_scaling = 50;
 	public static String DefaultPropertiesPath = "/Ansys/OverWatch/etc/settings.properties";
 	public static String adminSuffx = "istGroot";
+	public static String stopTimeFormat = "yyyy-MM-dd - HH:mm Z";
 
 	/**
 	 * The name attribute of the elements
@@ -130,6 +131,17 @@ public final class SGE_DataConst {
 	/**
 	 * NodeProp - Property Keys
 	 */
+	
+	public final static String job_hard_stop_time = "job_hard_stop_time";
+
+	public final static String job_soft_stop_time = "job_soft_stop_time";
+
+	public final static String loadThresholds = "load_thresholds";
+	
+	public final static String peList = "pe_list";
+	
+	public final static String shell = "shell";
+	
 	public final static String arch = json_arch;
 
 	public final static String hostname = json_host_name;
@@ -200,6 +212,9 @@ public final class SGE_DataConst {
 
 	public static final String zoneId = "zoneid";
 
+	public static final String hardTimeLimit = "hardTimeLimit";
+
+	public static final String softTimeLimit = "softTimeLimit";
 	/**
 	 * 
 	 */
@@ -243,6 +258,7 @@ public final class SGE_DataConst {
 	public final static String clusterTypeJob = "JOB";
 	public final static String clusterTypeQuota = "QUOTA";
 	public final static String clusterTypeMix = "MIX";
+	public final static String clusterMyJobs = "My Jobs";
 
 	public final static String connTypeHttp = "HTTP";
 	public final static String connTypeFile = "FILE";

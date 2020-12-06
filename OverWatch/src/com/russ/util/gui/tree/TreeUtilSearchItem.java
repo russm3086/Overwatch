@@ -26,7 +26,7 @@ public class TreeUtilSearchItem {
 	 *                operations on a character sequence by interpreting a Pattern
 	 */
 	public TreeUtilSearchItem(ClusterNodeAbstract node, TreePath path, Matcher matcher) {
-		// TODO Auto-generated constructor stub
+		
 		setNode(node);
 		setPath(path);
 		setMatcher(matcher);

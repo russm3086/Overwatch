@@ -64,7 +64,7 @@ public class JobPendingTableModel extends AbstractClusterNodeTableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
+		
 
 		Job job = (Job) valueList.get(rowIndex);
 		Object returnValue = new String("?");

@@ -11,6 +11,7 @@ import java.util.TreeMap;
 
 import com.ansys.cluster.monitor.data.Host;
 import com.ansys.cluster.monitor.data.Job;
+import com.ansys.cluster.monitor.data.NodeProp;
 import com.ansys.cluster.monitor.data.state.AnsQueueState;
 import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.tree.DetailedInfoProp;
@@ -102,6 +103,11 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 
 	public AnsQueueAbstract() {
 
+	}
+
+	public AnsQueueAbstract(ClusterNodeAbstract node, NodeProp nodeProp) {
+		this(node);
+		setNodeProp(nodeProp);
 	}
 
 	private void setup() {
@@ -419,16 +425,12 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 		tableDisplay(mainDiProp, map, "Active Jobs", TableBuilder.table_Job);
 	}
 
-	public void displayDetailActiveJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
-		displayDetailJobs(mainDiProp, map, "Active Jobs");
+	public void displayMyDetailJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map, String title) {
+		tableDisplay(mainDiProp, map, title, TableBuilder.table_My_Job_Detail);
 	}
 
-	public void displayDetailIdleJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map) {
-		displayDetailJobs(mainDiProp, map, "Idle Jobs");
-	}
-
-	public void displayDetailJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map, String title) {
-		tableDisplay(mainDiProp, map, title, TableBuilder.table_Job_Detail);
+	public void displayMyVisualJobs(DetailedInfoProp mainDiProp, SortedMap<Integer, Job> map, String title) {
+		tableDisplay(mainDiProp, map, title, TableBuilder.table_My_Job_Visual);
 	}
 
 	public void displayErrorJobs(DetailedInfoProp mainDiProp) {
@@ -973,18 +975,18 @@ public abstract class AnsQueueAbstract extends ClusterNodeAbstract implements An
 
 	@Override
 	public boolean containsKey(String node) {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
 	@Override
 	public SortedMap<Object, ClusterNodeAbstract> getNodes() {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public DetailedInfoProp getDetailedInfoProp() {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 

@@ -54,7 +54,7 @@ public class DataCollector {
 	private Payload connectors(String strUrl) throws JSONException, IOException, URISyntaxException, JDOMException,
 			InterruptedException, TransformerException, ClassNotFoundException {
 		logger.finer("Connecting to " + strUrl);
-		
+
 		return connector.getPayload(strUrl);
 	}
 
@@ -94,6 +94,24 @@ public class DataCollector {
 			return connectors(mainProps.getClusterConnectionDetailedJobsCmd(item));
 		}
 		return connectors(mainProps.getClusterConnectionDetailedJobsUrl(item));
+	}
+
+	public Payload getFullDetailedJobsData(int item) throws JSONException, IOException, URISyntaxException,
+			JDOMException, InterruptedException, TransformerException, ClassNotFoundException {
+		if (mainProps.getClusterConnectionRequestMethod().equalsIgnoreCase(SGE_DataConst.connTypeCMD)) {
+
+			return connectors(mainProps.getClusterConnectionFullDetailedJobsCmd(item));
+		}
+		return connectors(mainProps.getClusterConnectionFullDetailedJobsUrl(item));
+	}
+
+	public Payload getQueueData(int item) throws JSONException, IOException, URISyntaxException, JDOMException,
+			InterruptedException, TransformerException, ClassNotFoundException {
+		if (mainProps.getClusterConnectionRequestMethod().equalsIgnoreCase(SGE_DataConst.connTypeCMD)) {
+
+			return connectors(mainProps.getClusterConnectionQueueCmd(item));
+		}
+		return connectors(mainProps.getClusterConnectionQueueUrl(item));
 	}
 
 	public Payload getCluster(int item) throws JSONException, ClassNotFoundException, IOException, URISyntaxException,

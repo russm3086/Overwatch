@@ -52,12 +52,11 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 	 * 
 	 */
 	public Job(NodeProp nodeProp) {
-		// TODO Auto-generated constructor stub
+
 		super(nodeProp);
 		setName(nodeProp.getJobName());
 		addState(JobState.parseCode(nodeProp.getJobState()), JobState.Queued);
 		setClusterType(SGE_DataConst.clusterTypeJob);
-
 	}
 
 	private boolean checkExclusivity(NodeProp nodeProp) {
@@ -103,37 +102,38 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		allowedList.add("VA_variable");
 		allowedList.add("VA_value");
 
-		return printNodePropList(nodePropList, allowedList, false, 1000);
+		return printNodePropList(nodePropList, allowedList);
 	}
 
-	private String printNodePropList(ArrayList<NodeProp> nodePropList, ArrayList<String> allowedList,
-			boolean showFields, int intLength) {
+	private String printNodePropList(ArrayList<NodeProp> nodePropList, ArrayList<String> allowedList) {
 
 		StringBuilder sb = new StringBuilder();
 		for (NodeProp prop : nodePropList) {
-
 			for (Entry<Object, Object> e : prop.entrySet()) {
 
 				String key = (String) e.getKey();
 				String value = (String) e.getValue();
 
 				if (allowedList.contains(key)) {
-					if (showFields) {
-						sb.append(key);
-						sb.append(": ");
 
+					if (key.equalsIgnoreCase("ST_name")) {
+
+						sb.append(value);
+						sb.append(" ");
 					}
-					sb.append(value);
-					sb.append(" ");
+
+					if (key.equalsIgnoreCase("VA_variable")) {
+
+						sb.append(value);
+						sb.append(": ");
+					} else if (key.equalsIgnoreCase("VA_value")) {
+
+						sb.append(value);
+						sb.append("\n");
+					}
 				}
 			}
 		}
-
-		if (intLength != -1 && sb.length() > intLength) {
-			sb = new StringBuilder(sb.substring(0, Math.min(sb.length(), intLength)));
-			sb.append(" ...");
-		}
-
 		return sb.toString();
 	}
 
@@ -587,6 +587,26 @@ public class Job extends ClusterNodeAbstract implements JobInterface {
 		sb.append(getSlots());
 		sb.append("</html>");
 		return sb.toString();
+	}
+
+	@Override
+	public ZonedDateTime getJobHardStopTime() {
+		return nodeProp.getJobHardStopTime();
+	}
+
+	@Override
+	public void setJobHardStopTime(ZonedDateTime jobHardStopTime) {
+		nodeProp.setJobHardStopTime(jobHardStopTime);
+	}
+
+	@Override
+	public ZonedDateTime getJobSoftStopTime() {
+		return nodeProp.getJobSoftStopTime();
+	}
+
+	@Override
+	public void setJobSoftStopTime(ZonedDateTime jobSoftStopTime) {
+		nodeProp.setJobSoftStopTime(jobSoftStopTime);
 	}
 
 }

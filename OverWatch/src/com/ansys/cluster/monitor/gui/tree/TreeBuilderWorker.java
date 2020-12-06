@@ -43,7 +43,7 @@ public class TreeBuilderWorker {
 	private Logger logger = Logger.getLogger(sourceClass);
 
 	public TreeBuilderWorker(JTree jTree) {
-		// TODO Auto-generated constructor stub
+		
 		setjTree(jTree);
 
 	}

@@ -42,7 +42,7 @@ public class HostState extends StateAbstract {
 	 */
 	public HostState(String name, int value, String description, Color color) {
 		super(name, value, description, color);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public static TreeMap<Integer, StateAbstract> parseCode(String code) {

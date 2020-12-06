@@ -26,7 +26,7 @@ public class LoggingUtil {
 	 * 
 	 */
 	private LoggingUtil() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public static void setLevel(Level targetLevel) {

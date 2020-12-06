@@ -23,7 +23,7 @@ public class MessageTableModel extends AbstractClusterNodeTableModel {
 
 	public MessageTableModel(ArrayList<?> list) {
 		super(list, mesColumnNames);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
@@ -32,7 +32,7 @@ public class MessageTableModel extends AbstractClusterNodeTableModel {
 	 */
 	public MessageTableModel(ArrayList<?> list, String[] columnNames) {
 		super(list, columnNames);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class MessageTableModel extends AbstractClusterNodeTableModel {
 	 */
 	public MessageTableModel(ArrayList<?> list, String[] columnNames, int column) {
 		super(list, columnNames, column);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class MessageTableModel extends AbstractClusterNodeTableModel {
 
 	@Override
 	public Class<?> getColumnClass(int column) {
-		// TODO Auto-generated method stub
+		
 		switch (column) {
 		case COLUMN_NUMBER:
 			return Integer.class;

@@ -630,61 +630,61 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 
 	@Override
 	public void setHostQueueName(String queueName) {
-		// TODO Auto-generated method stub
+
 		putLog(SGE_DataConst.json_queue, queueName);
 	}
 
 	@Override
 	public String getHostQueueName() {
-		// TODO Auto-generated method stub
+
 		return getLogProperty(SGE_DataConst.json_queue);
 	}
 
 	@Override
 	public String getJobQueueName() {
-		// TODO Auto-generated method stub
+
 		return getLogProperty(SGE_DataConst.json_job_queue_name);
 	}
 
 	@Override
 	public void setJobQueueName(String queue) {
-		// TODO Auto-generated method stub
+
 		putLog(SGE_DataConst.json_job_queue_name, queue);
 	}
 
 	@Override
 	public void setQueueName(String queueName) {
-		// TODO Auto-generated method stub
+
 		setHostQueueName(queueName);
 	}
 
 	@Override
 	public String getQueueName() {
-		// TODO Auto-generated method stub
+
 		return getHostQueueName();
 	}
 
 	@Override
 	public boolean isMyJob() {
-		// TODO Auto-generated method stub
+
 		return getBoolProperty(SGE_DataConst.job_MyJob);
 	}
 
 	@Override
 	public void setMyJobTrue() {
-		// TODO Auto-generated method stub
+
 		setBoolProperty(SGE_DataConst.job_MyJob, true);
 	}
 
 	@Override
 	public void setMyJobFalse() {
-		// TODO Auto-generated method stub
+
 		setBoolProperty(SGE_DataConst.job_MyJob, false);
 	}
 
 	@Override
 	public void addJobMessage(JobMessage msg) {
-		// TODO Auto-generated method stub
+
 		ArrayList<JobMessage> jobMsg = getJobMessages();
 		if (jobMsg != null) {
 
@@ -699,67 +699,122 @@ public class NodeProp extends AbstractProp implements JobPropInterface, HostProp
 
 	@Override
 	public void setJobMessages(ArrayList<JobMessage> list) {
-		// TODO Auto-generated method stub
+
 		setArrayList(SGE_DataConst.job_Messages, list);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<JobMessage> getJobMessages() {
-		// TODO Auto-generated method stub
+
 		return (ArrayList<JobMessage>) getArrayList(SGE_DataConst.job_Messages);
 	}
 
 	@Override
 	public double getJobIdleThreshold() {
-		// TODO Auto-generated method stub
+
 		return getDoubleProperty(SGE_DataConst.job_IdleThreshold);
 	}
 
 	@Override
 	public void setJobIdleThreshold(double value) {
-		// TODO Auto-generated method stub
+
 		setDoubleProperty(SGE_DataConst.job_IdleThreshold, value);
 	}
 
 	@Override
 	public String getTargetQueue() {
-		// TODO Auto-generated method stub
+
 		return getLogProperty(SGE_DataConst.queueTarget);
 	}
 
 	@Override
 	public void setTargetQueue(String queue) {
-		// TODO Auto-generated method stub
+
 		putLog(SGE_DataConst.queueTarget, queue);
 	}
 
 	@Override
 	public ZoneId getZoneID() {
-		// TODO Auto-generated method stub
+
 		ZoneId zoneid = ZoneId.of(getLogProperty(SGE_DataConst.zoneId));
 		return zoneid;
 	}
 
 	@Override
 	public void setZoneID(ZoneId zoneId) {
-		// TODO Auto-generated method stub
+
 		putLog(SGE_DataConst.zoneId, zoneId.getId());
 	}
 
 	public String getQIM_Msg() {
 
 		String result = null;
-		NodeProp jbJaNP = (NodeProp)getLog("JB_ja_tasks");
-		
-		if(jbJaNP!=null) {
+		NodeProp jbJaNP = (NodeProp) getLog("JB_ja_tasks");
+
+		if (jbJaNP != null) {
 			NodeProp jatMsgNP = (NodeProp) jbJaNP.getLog("JAT_message_list");
 
-			if(jatMsgNP!= null) {
+			if (jatMsgNP != null) {
 				result = jatMsgNP.getLogProperty("QIM_message");
-				}
+			}
 		}
-		
+
 		return result;
 	}
+
+	public String getPeList() {
+		return getProperty("pe_list");
+	}
+
+	public String getQtype() {
+		return getProperty("qtype");
+	}
+
+	@Override
+	public int getHardTimeLimit() {
+		return getInt(SGE_DataConst.hardTimeLimit);
+	}
+
+	public void setHardTimeLimit(int value) {
+		putLog(SGE_DataConst.hardTimeLimit, value);
+	}
+
+	@Override
+	public int getSoftTimeLimit() {
+		return getInt(SGE_DataConst.softTimeLimit);
+	}
+
+	public void setSoftTimeLimit(int value) {
+		putLog(SGE_DataConst.softTimeLimit, value);
+	}
+
+	public String getLoadThresholds() {
+		return getProperty(SGE_DataConst.loadThresholds);
+	}
+
+	public String getShell() {
+		return getProperty(SGE_DataConst.shell);
+	}
+
+	@Override
+	public ZonedDateTime getJobHardStopTime() {
+		return getZonedDateTimeProperty(SGE_DataConst.job_hard_stop_time);
+	}
+
+	@Override
+	public ZonedDateTime getJobSoftStopTime() {
+		return getZonedDateTimeProperty(SGE_DataConst.job_soft_stop_time);
+	}
+
+	@Override
+	public void setJobHardStopTime(ZonedDateTime jobHardStopTime) {
+		putLog(SGE_DataConst.job_hard_stop_time, jobHardStopTime);
+	}
+
+	@Override
+	public void setJobSoftStopTime(ZonedDateTime jobSoftStopTime) {
+		putLog(SGE_DataConst.job_soft_stop_time, jobSoftStopTime);
+	}
+
 }

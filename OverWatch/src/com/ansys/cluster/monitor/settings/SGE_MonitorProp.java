@@ -117,7 +117,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 				+ "JB_verify_suitable_queues JB_soft_wallclock_gmt JB_hard_wallclock_gmt "
 				+ "JB_override_tickets JB_ar JB_ja_task_concurrency JB_ja_task_concurrency_all "
 				+ "JB_binding JB_is_binary JB_no_shell JB_is_array JB_is_immediate "
-				+ "JB_mbind JB_preemption JB_supplementary_group_list JB_env_list");
+				+ "JB_mbind JB_preemption JB_supplementary_group_list");
 
 		setUsernameOverride(" ");
 		setMedianTimeThrowOut(120);
@@ -147,6 +147,10 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 		setClusterConnectionRequestTimeOut(5000);
 		setClusterConnectionRequestReadTimeOut(5000);
+		setClusterConnectionRequestCdcPoolSize(6);
+		setClusterConnectionRequestCdcTimeOut(30);
+		setClusterConnectionRequestCdcTimeOutTimeUnit(TimeUnit.SECONDS);
+
 		setClusterConnectionRequestMethod("HTTP");
 		layout.setComment(SGE_MonitorPropConst.connectionRequestMethod, "\nConnection request method=HTTP, FILE, CMD");
 		setClusterConnectionRequestContentType("application/xml");
@@ -159,10 +163,13 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 		setClusterName(0, "Otterfing");
 		setClusterZoneIdStr(0, "Europe/Berlin");
+		setClusterUseFullDetailedJobs(0, false);
+		setClusterConnectionFullDetailedJobsUrl(0, "http://ottsingularityl.ansys.com:7878/alljobsdebug");
 		setClusterConnectionDetailedJobsUrl(0, "http://ottsingularityl.ansys.com:7878/alljobdetails");
 		setClusterConnectionSummaryJobsUrl(0, "http://ottsingularityl.ansys.com:7878/alljobs");
 		setClusterConnectionHostUrl(0, "http://ottsingularityl.ansys.com:7878/allnodes");
 		setClusterConnectionQuotaUrl(0, "http://ottsingularityl.ansys.com:7878/allquota");
+		setClusterConnectionQueueUrl(0, "http://ottsingularityl.ansys.com:7878/conf/all");
 
 		setClusterName(1, "CDC");
 		setClusterZoneIdStr(1, "America/New_York");
@@ -217,6 +224,33 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setProperty(SGE_MonitorPropConst.connectionRequestMethod, requestMethod);
 	}
 
+	public TimeUnit getClusterConnectionRequestCdcTimeOutTimeUnit() {
+
+		String str = getString(SGE_MonitorPropConst.connectionRequestCdcTimeoutTimeUnit);
+		str = str.toUpperCase().trim();
+		return TimeUnit.valueOf(str);
+	}
+
+	public void setClusterConnectionRequestCdcTimeOutTimeUnit(TimeUnit timeUnit) {
+		setProperty(SGE_MonitorPropConst.connectionRequestCdcTimeoutTimeUnit, timeUnit);
+	}
+
+	public int getClusterConnectionRequestCdcTimeOut() {
+		return getInt(SGE_MonitorPropConst.connectionRequestCdcTimeout);
+	}
+
+	public void setClusterConnectionRequestCdcTimeOut(int timeOut) {
+		setProperty(SGE_MonitorPropConst.connectionRequestCdcTimeout, timeOut);
+	}
+
+	public int getClusterConnectionRequestCdcPoolSize() {
+		return getInt(SGE_MonitorPropConst.connectionRequestCdcPoolSize);
+	}
+
+	public void setClusterConnectionRequestCdcPoolSize(int poolSize) {
+		setProperty(SGE_MonitorPropConst.connectionRequestCdcPoolSize, poolSize);
+	}
+
 	public int getClusterConnectionRequestTimeOut() {
 		return getInt(SGE_MonitorPropConst.connectionConnectTimeout);
 	}
@@ -266,6 +300,37 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 	public void setClusterConnectionDetailedJobsUrl(int item, String detailedJobsUrl) {
 		setProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionDetailedJobsUrlSuffix,
 				detailedJobsUrl);
+	}
+
+	public String getClusterConnectionFullDetailedJobsUrl(int item) {
+		return getString(
+				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionFullDetailedJobsUrlSuffix);
+	}
+
+	public void setClusterConnectionFullDetailedJobsUrl(int item, String fullDetailedJobsUrl) {
+		setProperty(
+				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionFullDetailedJobsUrlSuffix,
+				fullDetailedJobsUrl);
+	}
+
+	public String getClusterConnectionQueueUrl(int item) {
+		return getString(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionQueueUrlSuffix);
+	}
+
+	public void setClusterConnectionQueueUrl(int item, String queueUrl) {
+		setProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionQueueUrlSuffix,
+				queueUrl);
+	}
+
+	public void setClusterUseFullDetailedJobs(int item, boolean value) {
+		setProperty(
+				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionUseFullDetailedJobsSuffix,
+				value);
+	}
+
+	public boolean getClusterUseFullDetailedJobs(int item) {
+		return getBoolean(
+				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionUseFullDetailedJobsSuffix);
 	}
 
 	public String getClusterConnectionSummaryJobsUrl(int item) {
@@ -344,9 +409,29 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionDetailedJobsCmdSuffix);
 	}
 
-	public void setClusterConnectionDetailedJobsCmd(int item, String detailedJobsCmd) {
+	public void setClusterConnectionDetailedJobsCmd(int item, String detailJobsCmd) {
 		setProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionDetailedJobsCmdSuffix,
-				detailedJobsCmd);
+				detailJobsCmd);
+	}
+
+	public void setClusterConnectionQueueCmd(int item, String queueCmd) {
+		setProperty(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionQueueCmdSuffix,
+				queueCmd);
+	}
+
+	public String getClusterConnectionQueueCmd(int item) {
+		return getString(SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionQueueCmdSuffix);
+	}
+
+	public void setClusterConnectionFullDetailedJobsCmd(int item, String fullDetailedJobsCmd) {
+		setProperty(
+				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionFullDetailedJobsCmdSuffix,
+				fullDetailedJobsCmd);
+	}
+
+	public String getClusterConnectionFullDetailedJobsCmd(int item) {
+		return getString(
+				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionFullDetailedJobsCmdSuffix);
 	}
 
 	public String getClusterType(int item) {
@@ -383,13 +468,13 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 	}
 
 	public ZoneId getClusterZoneId() {
-		String id = getString(SGE_MonitorPropConst.clusterPrefix + SGE_MonitorPropConst.timeZoneId, "GMT0");
+		String id = getString(SGE_MonitorPropConst.clusterPrefix + SGE_MonitorPropConst.timeZoneIdSuffix, "GMT0");
 		ZoneId zoneId = ZoneId.of(id);
 		return zoneId;
 	}
 
 	public void setClusterZoneId(ZoneId zoneId) {
-		setProperty(SGE_MonitorPropConst.clusterPrefix + SGE_MonitorPropConst.timeZoneId, zoneId);
+		setProperty(SGE_MonitorPropConst.clusterPrefix + SGE_MonitorPropConst.timeZoneIdSuffix, zoneId);
 	}
 
 	public double getMedianTimeThrowOut() {
@@ -711,7 +796,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 	public String getUsernameAlias() {
 		return getString(SGE_MonitorPropConst.clusterMyJobQueueUserAlias);
 	}
-	
+
 	public void clearUsernameAlias() {
 		clearPropertyDirect(SGE_MonitorPropConst.clusterMyJobQueueUserAlias);
 	}
@@ -762,8 +847,8 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 	}
 
 	public void removeProperties() {
-		
+
 		clearUsernameAlias();
 	}
-	
+
 }

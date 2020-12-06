@@ -9,7 +9,6 @@ import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
@@ -42,6 +41,7 @@ import org.jfree.data.xy.XYZDataset;
 
 import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.table.TableMouseListener;
+import com.ansys.cluster.monitor.gui.table.TableBuilder.TableModelType;
 import com.orsoncharts.Chart3D;
 import com.orsoncharts.Chart3DFactory;
 import com.orsoncharts.Chart3DPanel;
@@ -78,7 +78,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 
 public class DetailedInfoPanel extends JPanel {
-
+	// TODO Create a color const standard
 	protected DetailedInfoProp masterDiProp;
 	protected JTree tree;
 	protected Font titleBorderFont;
@@ -254,15 +254,18 @@ public class DetailedInfoPanel extends JPanel {
 
 		JScrollPane areaScrollPane = new JScrollPane(textArea);
 		areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		areaScrollPane.setPreferredSize(new Dimension(250, 250));
+		areaScrollPane.setPreferredSize(new Dimension(200, 250));
 
 		return areaScrollPane;
 	}
 
-	protected JScrollPane createTable(String tableModleName, Object tableModel) {
+	protected JScrollPane createTable(String tableModelType, Object tableModel) {
+		return createTable(TableModelType.valueOf(tableModelType), tableModel);
+	}
 
+	protected JScrollPane createTable(TableModelType tableModelType, Object tableModel) {
 		AbstractTableModel abstractTableModel = (AbstractTableModel) tableModel;
-		JTable table = TableBuilder.buildTable(tableModleName, abstractTableModel);
+		JTable table = TableBuilder.buildTable(tableModelType, abstractTableModel);
 
 		int column = table.getRowSorter().getSortKeys().get(0).getColumn();
 		table.addMouseListener(new TableMouseListener(table, column, tree));

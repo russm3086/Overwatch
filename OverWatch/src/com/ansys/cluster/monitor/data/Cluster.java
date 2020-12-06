@@ -247,7 +247,7 @@ public class Cluster extends AnsQueueAbstract {
 
 	@Override
 	public String getToolTip() {
-		// TODO Auto-generated method stub
+		
 		StringBuilder sb = new StringBuilder();
 		sb.append("Cluster: ");
 		sb.append(getName());

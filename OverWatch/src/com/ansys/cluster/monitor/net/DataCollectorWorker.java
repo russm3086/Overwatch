@@ -15,7 +15,7 @@ import com.ansys.cluster.monitor.data.factory.ClusterFactory;
 public class DataCollectorWorker implements Callable<DataCollectorWorker> {
 
 	public enum SrcType {
-		HOST_DATA, JOB_DATA, DETAILED_JOB_DATA, QUOTA_DATA
+		HOST_DATA, JOB_DATA, DETAILED_JOB_DATA, QUOTA_DATA, FULL_DETAILED_JOB_DATA, QUEUE_DATA
 	}
 
 	private DataCollector dc;
@@ -68,6 +68,20 @@ public class DataCollectorWorker implements Callable<DataCollectorWorker> {
 			logger.info(prefix + "Getting quota data");
 			setStatusLabel("Getting quota data");
 			setPayLoad(dc.getQuotaData(index));
+			break;
+
+		case FULL_DETAILED_JOB_DATA:
+
+			logger.info(prefix + "Getting Full Detailed Jobs data");
+			setStatusLabel("Getting Full Detailed Jobs data");
+			setPayLoad(dc.getFullDetailedJobsData(index));
+			break;
+
+		case QUEUE_DATA:
+
+			logger.info(prefix + "Getting queue data");
+			setStatusLabel("Getting queue data");
+			setPayLoad(dc.getQueueData(index));
 			break;
 
 		default:

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map.Entry;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javax.xml.transform.TransformerException;
@@ -80,14 +79,16 @@ public class ClusterFactory {
 
 		if (mainProps.getUsernameOverride() != null && (mainProps.getUsernameOverride().trim().length() != 0))
 			userName = mainProps.getUsernameOverride();
-		
+
 		if (mainProps.getUsernameAlias() != null && (mainProps.getUsernameAlias().trim().length() != 0))
 			userName = mainProps.getUsernameAlias();
 
 		logger.info("Current user: " + userName);
 
-		// TODO Create Props entry
-		ConcurrentDataCollector cdc = new ConcurrentDataCollector(dc, index, 4, 10, TimeUnit.SECONDS);
+		ConcurrentDataCollector cdc = new ConcurrentDataCollector(dc, index,
+				mainProps.getClusterConnectionRequestCdcPoolSize(), mainProps.getClusterConnectionRequestCdcTimeOut(),
+				mainProps.getClusterConnectionRequestCdcTimeOutTimeUnit(),
+				mainProps.getClusterUseFullDetailedJobs(index));
 		HashMap<SrcType, Payload> resultMap = cdc.collect();
 
 		logger.info("Creating quota objects");
@@ -98,11 +99,15 @@ public class ClusterFactory {
 		logger.info("Creating job objects");
 		setStatusLabel("Creating job objects");
 		HashMap<Integer, Job> DetailedJobsmap = JobFactory.createJobsMap(resultMap.get(SrcType.JOB_DATA),
-				resultMap.get(SrcType.DETAILED_JOB_DATA), mainProps);
+				resultMap.get(SrcType.DETAILED_JOB_DATA), resultMap.get(SrcType.FULL_DETAILED_JOB_DATA), mainProps);
 
 		logger.info("Creating host objects");
 		setStatusLabel("Creating host objects");
 		HashMap<String, Host> hostMap = HostFactory.createHostMap(resultMap.get(SrcType.HOST_DATA), mainProps);
+
+		logger.info("Creating queue data objects");
+		setStatusLabel("Creating queue data objects");
+		HashMap<String, NodeProp> queueDataPropMap = QueueFactory.createQueueDataMap(resultMap.get(SrcType.QUEUE_DATA));
 
 		logger.info("Job and Host cross reference");
 		setStatusLabel("Job and Host cross referencing");
@@ -115,12 +120,12 @@ public class ClusterFactory {
 		logger.info("Creating Job Queues");
 		setStatusLabel("Creating Job Queues");
 		JobMasterQueue jobMasterQueue = QueueFactory.createJobMasterQueue(DetailedJobsmap,
-				mainProps.getClusterQueueVisualRegex());
+				mainProps.getClusterQueueVisualRegex(), queueDataPropMap);
 
 		logger.info("Creating Host Queues");
 		setStatusLabel("Creating Host Queues");
 		HostMasterQueue hostMasterQueue = QueueFactory.createHostMasterQueue(hostMap,
-				mainProps.getClusterQueueVisualRegex());
+				mainProps.getClusterQueueVisualRegex(), queueDataPropMap);
 
 		logger.info("Creating MyJob Queues");
 		setStatusLabel("Creating MyJob Queues");

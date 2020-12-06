@@ -32,7 +32,7 @@ public class TreeStateProps extends AbstractProp {
 	 * 
 	 */
 	public TreeStateProps() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class TreeStateProps extends AbstractProp {
 	 */
 	public TreeStateProps(Properties defaults) {
 		super(defaults);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public void setSelectedPaths(TreePath[] treePaths) {

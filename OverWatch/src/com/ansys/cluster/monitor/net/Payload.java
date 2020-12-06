@@ -24,6 +24,7 @@ public class Payload implements Serializable {
 	private Cluster clusterObject;
 	private String payloadType;
 	private String srcType;
+	private String stringObject;
 
 	/**
 	 * 
@@ -51,6 +52,11 @@ public class Payload implements Serializable {
 		setPayloadType(SGE_ConnectConst.emptyType);
 	}
 
+	public Payload(String source) {
+		setStringObject(source);
+		setPayloadType(SGE_ConnectConst.plainText);
+	}
+
 	/**
 	 * @return the jsoObject
 	 */
@@ -63,6 +69,20 @@ public class Payload implements Serializable {
 	 */
 	public void setJsoObject(JSONObject jsoObject) {
 		this.jsoObject = jsoObject;
+	}
+
+	/**
+	 * @return the stringObject
+	 */
+	public String getStringObject() {
+		return stringObject;
+	}
+
+	/**
+	 * @param stringObject the stringObject to set
+	 */
+	public void setStringObject(String stringObject) {
+		this.stringObject = stringObject;
 	}
 
 	/**

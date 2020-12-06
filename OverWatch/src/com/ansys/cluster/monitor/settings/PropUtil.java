@@ -26,7 +26,7 @@ public class PropUtil {
 	 * 
 	 */
 	public PropUtil() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public SGE_MonitorProp mergeProps(SGE_MonitorProp newProps, SGE_MonitorProp origProp, List<String> lstRegex) {

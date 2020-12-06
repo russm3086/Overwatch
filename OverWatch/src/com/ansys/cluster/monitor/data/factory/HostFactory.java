@@ -26,7 +26,7 @@ public class HostFactory {
 	 * 
 	 */
 	private HostFactory() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public static HashMap<String, Host> createHostMap(Payload payload, SGE_MonitorProp mainProps) {

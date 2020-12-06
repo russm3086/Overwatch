@@ -13,7 +13,7 @@ public final class GUI_Const {
 	 * 
 	 */
 	private GUI_Const() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public static final String Icon_Ansys = "icons/ansys-workstations.png";

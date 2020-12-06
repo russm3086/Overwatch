@@ -39,7 +39,7 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 	 * 
 	 */
 	public Host(NodeProp nodeProp) {
-		// TODO Auto-generated constructor stub
+		
 		super(nodeProp);
 		setName(nodeProp.getHostname());
 		addState(HostState.Normal);
@@ -454,7 +454,7 @@ public class Host extends ClusterNodeAbstract implements HostInterface {
 
 	@Override
 	public String getToolTip() {
-		// TODO Auto-generated method stub
+		
 		StringBuilder sb = new StringBuilder();
 		sb.append(" Available " + getUnitRes() + ": ");
 		sb.append(" ");

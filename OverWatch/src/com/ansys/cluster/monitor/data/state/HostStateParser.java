@@ -21,7 +21,7 @@ public class HostStateParser implements StateParserInterface {
 	 * 
 	 */
 	public HostStateParser() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/*
@@ -33,7 +33,7 @@ public class HostStateParser implements StateParserInterface {
 	 */
 	@Override
 	public StateAbstract parseCode(char code) {
-		// TODO Auto-generated method stub
+		
 
 		switch (code) {
 

@@ -3,8 +3,11 @@
  */
 package com.russ.test;
 
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.russ.util.TimeUtil;
 import com.russ.util.settings.LoggingUtil;
 
 /**
@@ -19,17 +22,23 @@ public class Test {
 	 * 
 	 */
 	public Test() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	/**
 	 * @param args
 	 * @throws IllegalAccessException
+	 * @throws IOException
 	 */
-	public static void main(String[] args) throws IllegalAccessException {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) throws IllegalAccessException, IOException {
 		LoggingUtil.setLevel(Level.FINER);
 		logger.fine("Test");
+
+
+		String hardTime = TimeUtil.formatDuration(24, TimeUnit.HOURS, "dd 'Day(s)' HH'h' mm'm'");
+		
+		
+		System.out.println(hardTime);
 
 	}
 
