@@ -119,12 +119,12 @@ public class MyJobsDetailedInfoPanel extends DetailedInfoPanel {
 		DetailedInfoProp diProp = list.get(list.size() - 1);
 
 		JPanel progressBar = createPanel(diProp);
-		progressBar.setPreferredSize(new Dimension(250, 250));
+		progressBar.setPreferredSize(new Dimension(300, 300));
 
 		graphPanel.add(progressBar);
 
 		JPanel quotaPanel = createPanel(list.get(list.size() - 2));
-		quotaPanel.setPreferredSize(new Dimension(400, 250));
+		quotaPanel.setPreferredSize(new Dimension(500, 250));
 		graphPanel.add(quotaPanel);
 
 		graphPanel.setPreferredSize(new Dimension(700, 300));

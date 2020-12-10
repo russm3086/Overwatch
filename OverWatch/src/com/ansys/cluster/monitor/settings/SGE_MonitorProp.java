@@ -148,7 +148,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 		setClusterConnectionRequestTimeOut(5000);
 		setClusterConnectionRequestReadTimeOut(5000);
 		setClusterConnectionRequestCdcPoolSize(6);
-		setClusterConnectionRequestCdcTimeOut(30);
+		setClusterConnectionRequestCdcTimeOut(45);
 		setClusterConnectionRequestCdcTimeOutTimeUnit(TimeUnit.SECONDS);
 
 		setClusterConnectionRequestMethod("HTTP");
@@ -173,17 +173,23 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 		setClusterName(1, "CDC");
 		setClusterZoneIdStr(1, "America/New_York");
+		setClusterUseFullDetailedJobs(1, false);
+		setClusterConnectionFullDetailedJobsUrl(1, "http://cdcsimportal1.ansys.com:7878/alljobsdebug");
 		setClusterConnectionDetailedJobsUrl(1, "http://cdcsimportal1.ansys.com:7878/alljobdetails");
 		setClusterConnectionSummaryJobsUrl(1, "http://cdcsimportal1.ansys.com:7878/alljobs");
 		setClusterConnectionHostUrl(1, "http://cdcsimportal1.ansys.com:7878/allnodes");
 		setClusterConnectionQuotaUrl(1, "http://cdcsimportal1.ansys.com:7878/allquota");
+		setClusterConnectionQueueUrl(1, "http://cdcsimportal1.ansys.com:7878/conf/all");
 
 		setClusterName(2, "Pune");
 		setClusterZoneIdStr(2, "Asia/Colombo");
+		setClusterUseFullDetailedJobs(2, false);
+		setClusterConnectionFullDetailedJobsUrl(2, "http://punsimportal2.ansys.com:7878/alljobsdebug");
 		setClusterConnectionDetailedJobsUrl(2, "http://punsimportal2.ansys.com:7878/alljobdetails");
 		setClusterConnectionSummaryJobsUrl(2, "http://punsimportal2.ansys.com:7878/alljobs");
 		setClusterConnectionHostUrl(2, "http://punsimportal2.ansys.com:7878/allnodes");
 		setClusterConnectionQuotaUrl(2, "http://punsimportal2.ansys.com:7878/allquota");
+		setClusterConnectionQueueUrl(2, "http://punsimportal2.ansys.com:7878/conf/all");
 
 		setClusterConnectionShellCmd(0, "/bin/sh");
 		layout.setComment(SGE_MonitorPropConst.clusterPrefix + 0 + SGE_MonitorPropConst.connectionShellCmdSuffix,
@@ -330,7 +336,7 @@ public class SGE_MonitorProp extends PropertiesConfiguration {
 
 	public boolean getClusterUseFullDetailedJobs(int item) {
 		return getBoolean(
-				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionUseFullDetailedJobsSuffix);
+				SGE_MonitorPropConst.clusterPrefix + item + SGE_MonitorPropConst.connectionUseFullDetailedJobsSuffix, false);
 	}
 
 	public String getClusterConnectionSummaryJobsUrl(int item) {

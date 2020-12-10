@@ -93,7 +93,6 @@ public class Main {
 				}
 
 				SwingUtilities.invokeLater(new ConsoleThread(mainProps));
-
 			} else {
 
 				if (!argsSetting.hasHelp()) {
@@ -166,7 +165,6 @@ public class Main {
 		if (Level.WARNING.equals(level)) {
 			JOptionPane.showMessageDialog(null, errMsg, Level.WARNING.getLocalizedName(), JOptionPane.ERROR_MESSAGE);
 		}
-
 	}
 
 	public static void fontScaling(double scaleAdj) throws ClassNotFoundException, InstantiationException,
@@ -175,5 +173,4 @@ public class Main {
 		DisplayTool.fontScaling(scaleAdj, SGE_DataConst.app_font_max_scaling,
 				(-1 * SGE_DataConst.app_font_max_scaling));
 	}
-
 }

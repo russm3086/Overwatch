@@ -24,18 +24,15 @@ public class ConsoleThread implements Runnable {
 	 */
 	public ConsoleThread(SGE_MonitorProp mainProps) {
 		this.mainProps = mainProps;
-
 	}
 
 	@Override
 	public void run() {
 
 		try {
-			new Console(SGE_DataConst.app_name + " v. " + SGE_DataConst.app_version + " Alpha", mainProps);
+			new Console(SGE_DataConst.app_name + " v. " + SGE_DataConst.app_version + " Beta", mainProps);
 		} catch (IOException | InterruptedException e) {
 			logger.log(Level.SEVERE, "Error", e);
 		}
-
 	}
-
 }

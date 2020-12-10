@@ -40,6 +40,7 @@ public final class GUI_Const {
 	public static final String Icon_BlueLight_Medium_Path = "icons/Button-Blue-Sleeping-icon48p.png";
 	public static final String Icon_BlueLight_Large_Path = "icons/Button-Blue-Sleeping-icon64p.png";
 	public static final String Icon_Radiation_Small_Path = "icons/Radiation-icon16p.png";
+	public static final String Icon_Search_Dog = "icons/search-dog-22214-icon.png";
 	
 
 }

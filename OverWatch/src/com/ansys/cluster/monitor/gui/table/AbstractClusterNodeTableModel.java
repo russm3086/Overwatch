@@ -108,11 +108,11 @@ public abstract class AbstractClusterNodeTableModel extends AbstractTableModel {
 	}
 
 	protected String ttl(ZonedDateTime zonedDateTime) {
-		ZonedDateTime finishTime = ZonedDateTime.of(LocalDateTime.now(), ZoneId.systemDefault());
-		ZonedDateTime startTime = zonedDateTime;
-		if (startTime != null && finishTime != null) {
+		ZonedDateTime currentTime = ZonedDateTime.of(LocalDateTime.now(), ZoneId.systemDefault());
+		ZonedDateTime finishTime = zonedDateTime;
+		if (currentTime != null && finishTime != null) {
 
-			Duration duration = Duration.between(startTime, finishTime);
+			Duration duration = Duration.between(currentTime, finishTime);
 			return durationOutput(duration);
 		}
 

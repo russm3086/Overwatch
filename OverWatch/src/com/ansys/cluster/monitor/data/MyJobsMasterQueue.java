@@ -84,14 +84,11 @@ public class MyJobsMasterQueue extends JobMasterQueue {
 						logger.finer("Created queue " + myQueue + " added node " + job);
 						addQueue(myQueue);
 					}
-
 				}
 			}
 		}
 
 		logger.exiting(sourceClass, "loadJobQueue");
-
-		// return myJobQueue;
 	}
 
 	public boolean myJobs(Job job, String userName) {

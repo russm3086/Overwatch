@@ -44,27 +44,27 @@ public class JobsQueue extends AnsQueueAbstract {
 
 	public void addJob(Job job) {
 		logger.entering(sourceClass, "addJob", job);
-
+		int timeLimit = Integer.MAX_VALUE;
+		
 		if (job.getJobStartTime() != null && (job.getJobHardStopTime() == null) && (job.getJobSoftStopTime() == null)) {
 
 			if (nodeProp.getSoftTimeLimit() != 0) {
+				timeLimit = nodeProp.getSoftTimeLimit();
+			}
 
 				logger.finer("Setting job: " + job.getJobNumber() + " setting soft time limit to "
-						+ nodeProp.getSoftTimeLimit());
-				ZonedDateTime softStopTime = job.getJobStartTime().plusHours(nodeProp.getSoftTimeLimit());
+						+timeLimit);
+				ZonedDateTime softStopTime = job.getJobStartTime().plusHours(timeLimit);
 				job.setJobSoftStopTime(softStopTime);
 
-			}
-
 			if (nodeProp.getHardTimeLimit() != 0) {
+				timeLimit = nodeProp.getHardTimeLimit();
+			}
 
 				logger.finer("Setting job: " + job.getJobNumber() + " setting hard time limit to "
-						+ nodeProp.getHardTimeLimit());
-				ZonedDateTime hardStopTime = job.getJobStartTime().plusHours(nodeProp.getHardTimeLimit());
+						+ timeLimit);
+				ZonedDateTime hardStopTime = job.getJobStartTime().plusHours(timeLimit);
 				job.setJobHardStopTime(hardStopTime);
-
-			}
-
 		}
 
 		if (job.isVisualNode()) {

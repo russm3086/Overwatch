@@ -1,6 +1,7 @@
 package com.ansys.cluster.monitor.gui.tree;
 
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -11,6 +12,9 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -39,6 +43,7 @@ import org.jfree.data.general.PieDataset;
 import org.jfree.data.xy.DefaultXYZDataset;
 import org.jfree.data.xy.XYZDataset;
 
+import com.ansys.cluster.monitor.gui.GUI_Const;
 import com.ansys.cluster.monitor.gui.table.TableBuilder;
 import com.ansys.cluster.monitor.gui.table.TableMouseListener;
 import com.ansys.cluster.monitor.gui.table.TableBuilder.TableModelType;
@@ -61,10 +66,13 @@ import com.orsoncharts.style.ChartStyles;
 import com.orsoncharts.util.Anchor2D;
 import com.russ.util.OvalBorder;
 import com.russ.util.WrapLayout;
+import com.russ.util.nio.ResourceLoader;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -73,15 +81,26 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.DecimalFormat;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class DetailedInfoPanel extends JPanel {
 	// TODO Create a color const standard
 	protected DetailedInfoProp masterDiProp;
 	protected JTree tree;
 	protected Font titleBorderFont;
+	private final String sourceClass = this.getClass().getName();
+	private final Logger logger = Logger.getLogger(sourceClass);
+
 	/**
 	 * 
 	 */
@@ -251,6 +270,8 @@ public class DetailedInfoPanel extends JPanel {
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		textArea.setEditable(false);
+
+		createPopupMenu(textArea, new MenuListener(textArea));
 
 		JScrollPane areaScrollPane = new JScrollPane(textArea);
 		areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -506,7 +527,7 @@ public class DetailedInfoPanel extends JPanel {
 
 		chart.setTitle(diProp.getChartDataTitle(), titleBorderFont, Color.BLACK);
 
-		ViewPoint3D vp = ViewPoint3D.createAboveViewPoint(35);
+		ViewPoint3D vp = ViewPoint3D.createAboveViewPoint(40);
 		vp.panLeftRight(-Math.PI / 8);
 		chart.setViewPoint(vp);
 		chart.setTitleAnchor(Anchor2D.TOP_CENTER);
@@ -607,7 +628,7 @@ public class DetailedInfoPanel extends JPanel {
 		panel.setBackground(Color.WHITE);
 		panel.setBorder(BorderFactory.createLineBorder(Color.black));
 
-		panel.setPreferredSize(new Dimension(320, 180));
+		panel.setPreferredSize(new Dimension(300, 300));
 
 		ArrayList<DetailedInfoProp> list = diProp.getDetailedInfoPropList();
 
@@ -677,4 +698,88 @@ public class DetailedInfoPanel extends JPanel {
 		return sb.toString();
 	}
 
+	public void createPopupMenu(Component comp, ActionListener l) {
+		JMenuItem menuItem;
+
+		// Create the popup menu.
+		JPopupMenu popup = new JPopupMenu();
+		menuItem = new JMenuItem("Search");
+		menuItem.addActionListener(l);
+		popup.add(menuItem);
+
+		// Add listener to the text area so the popup menu can come up.
+		MouseListener popupListener = new PopupListener(popup);
+		comp.addMouseListener(popupListener);
+	}
+
+	class MenuListener implements ActionListener {
+		JTextArea area;
+
+		public MenuListener(JTextArea area) {
+			this.area = area;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			ImageIcon icon = new ImageIcon(ResourceLoader.load(GUI_Const.Icon_Search_Dog));
+			String search = (String) JOptionPane.showInputDialog(area, "Fetch Lycos", "Search for text",
+					JOptionPane.PLAIN_MESSAGE, icon, null, null);
+			Highlighter highlighter = area.getHighlighter();
+			highlighter.removeAllHighlights();
+
+			if (search != null) {
+				search = search.toLowerCase();
+				Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.yellow);
+
+				String text = area.getText().toLowerCase();
+				int offset = 0;
+				int length = search.length();
+				int found = 0;
+				int firstFound = 0;
+				try {
+
+					offset = text.indexOf(search, offset + 1);
+					while (offset != -1) {
+						logger.finer("Found item offset: " + offset);
+						found += 1;
+						if (found < 2) {
+							firstFound = offset;
+						}
+						highlighter.addHighlight(offset, offset + length, painter);
+						offset = text.indexOf(search, offset + 1);
+					}
+
+					JOptionPane.showMessageDialog(area, "Items found: " + found);
+					if (found > 0)
+						area.moveCaretPosition(firstFound);
+
+				} catch (BadLocationException ex) {
+					logger.log(Level.WARNING, "Error Searching", ex);
+				}
+			}
+		}
+	}
+
+	class PopupListener extends MouseAdapter {
+		JPopupMenu popup;
+
+		PopupListener(JPopupMenu popupMenu) {
+			popup = popupMenu;
+		}
+
+		public void mousePressed(MouseEvent e) {
+			maybeShowPopup(e);
+		}
+
+		public void mouseReleased(MouseEvent e) {
+			maybeShowPopup(e);
+		}
+
+		private void maybeShowPopup(MouseEvent e) {
+			if (e.isPopupTrigger()) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		}
+	}
 }

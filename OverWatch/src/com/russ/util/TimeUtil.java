@@ -158,16 +158,14 @@ public class TimeUtil {
 
 	}
 
-	
 	public static ZonedDateTime getZonedDateTime(String strDate, String zoneId) {
-		return getZonedDateTime( strDate, ZoneId.of(zoneId));
+		return getZonedDateTime(strDate, ZoneId.of(zoneId));
 	}
-	
+
 	public static ZonedDateTime getZonedDateTime(String strDate) {
 		return getZonedDateTime(strDate, ZoneOffset.UTC);
 	}
 
-	
 	public static ZonedDateTime getZonedDateTime(String strDate, ZoneId zoneId) {
 		LocalDateTime localDateTime = getLocalDateTime(strDate);
 		ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, zoneId);
@@ -260,9 +258,15 @@ public class TimeUtil {
 		long millisecond = TimeUnit.MILLISECONDS.convert(elapseTime, tu);
 		return DurationFormatUtils.formatDuration(Math.abs(millisecond), format);
 	}
-	
+
 	public static String formatDuration(long elapseTime, String format) {
-		return DurationFormatUtils.formatDuration(Math.abs(elapseTime), format);
+		StringBuffer buffer = new StringBuffer(DurationFormatUtils.formatDuration(Math.abs(elapseTime), format));
+
+		if (elapseTime < 0) {
+			buffer = new StringBuffer("-").append(buffer);
+		}
+
+		return buffer.toString();
 	}
 
 	public static ChronoUnit findChronoUnit(String timeUnits) {

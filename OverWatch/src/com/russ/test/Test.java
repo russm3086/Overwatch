@@ -34,13 +34,27 @@ public class Test {
 		LoggingUtil.setLevel(Level.FINER);
 		logger.fine("Test");
 
+		String app_version = "1.5.2.10";
 
-		String hardTime = TimeUtil.formatDuration(24, TimeUnit.HOURS, "dd 'Day(s)' HH'h' mm'm'");
-		
-		
-		System.out.println(hardTime);
+		String[] versionArray = app_version.split("\\.");
+
+		int len = versionArray.length;
+
+		int version = 0;
+		int arrayPos = 0;
+
+		for (int i = len; i > 0; i--) {
+
+			double mutltiple = Math.pow(10, i);
+			double dblVersion = Double.parseDouble(versionArray[arrayPos]);
+			arrayPos += 1;
+
+			version += (dblVersion * mutltiple);
+
+		}
+
+		System.out.println(version);
 
 	}
-
 
 }

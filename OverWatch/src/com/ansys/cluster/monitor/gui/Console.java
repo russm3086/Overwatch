@@ -355,6 +355,7 @@ public class Console extends JFrame {
 
 	protected void populateTree() {
 		logger.finer("Calling for Tree refress");
+		timer.restart();
 		connectionManager.queueExecution((new RetrieveTree(connectionManager)));
 		logger.fine("Setting ExecutorService to shutdown");
 	}
